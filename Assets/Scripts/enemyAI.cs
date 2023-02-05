@@ -43,4 +43,9 @@ public class enemyAI : MonoBehaviour
         yield return new WaitForSeconds(0.15f);
         model.material.color = Color.white;
     }
+    void facePlayer()
+    {
+        Quaternion rotate = Quaternion.LookRotation(playerDirection);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * playerFaceSpeed);
+    }
 }
