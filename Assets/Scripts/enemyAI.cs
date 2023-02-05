@@ -48,4 +48,13 @@ public class enemyAI : MonoBehaviour
         Quaternion rotate = Quaternion.LookRotation(playerDirection);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * playerFaceSpeed);
     }
+    IEnumerator shoot()
+    {
+        isShooting = true;
+        GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
+        bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
+    }
 }
