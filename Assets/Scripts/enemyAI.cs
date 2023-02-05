@@ -37,6 +37,7 @@ public class enemyAI : MonoBehaviour
     {
 
     }
+
     IEnumerator flashDamage()
     {
         model.material.color = Color.red;
@@ -56,5 +57,19 @@ public class enemyAI : MonoBehaviour
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInRange = true;
+        }
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInRange = false;
+        }
     }
 }
