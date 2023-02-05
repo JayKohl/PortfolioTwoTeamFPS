@@ -57,6 +57,7 @@ public class enemyAI : MonoBehaviour
         StartCoroutine(flashDamage());
         if (hitPoints <= 0)
         {
+            gameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
         }
     }
