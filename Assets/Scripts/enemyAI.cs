@@ -35,6 +35,12 @@ public class enemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+    IEnumerator flashDamage()
+    {
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(0.15f);
+        model.material.color = Color.white;
     }
 }
