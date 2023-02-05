@@ -35,7 +35,20 @@ public class enemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerDirection = gameManager.instance.player.transform.position - transform.position;
 
+        if (isPlayerInRange)
+        {
+            agent.SetDestination(gameManager.instance.player.transform.position);
+            if (agent.remainingDistance < agent.stoppingDistance)
+            {
+                facePlayer();
+            }
+            if (!isShooting)
+            {
+                StartCoroutine(shoot());
+            }
+        }
     }
 
     public void takeDamage(int dmg)
