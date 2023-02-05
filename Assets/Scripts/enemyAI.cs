@@ -38,6 +38,15 @@ public class enemyAI : MonoBehaviour
 
     }
 
+    public void takeDamage(int dmg)
+    {
+        hitPoints -= dmg;
+        StartCoroutine(flashDamage());
+        if (hitPoints <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
     IEnumerator flashDamage()
     {
         model.material.color = Color.red;
