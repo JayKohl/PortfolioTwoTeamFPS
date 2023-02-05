@@ -15,6 +15,8 @@ public class gameManager : MonoBehaviour
     public GameObject loseMenu;
     public GameObject playerDamageFlashScreen;
 
+    public int enemiesRemaining;
+
     public bool isPaused;
 
     // Start is called before the first frame update
@@ -53,6 +55,16 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         activeMenu.SetActive(false);
         activeMenu = null;
+    }
+    public void updateGameGoal(int amount)
+    {
+        enemiesRemaining += amount;
+        if (enemiesRemaining <= 0)
+        {
+            pause();
+            activeMenu = winMenu;
+            activeMenu.SetActive(true);
+        }
     }
     public void playerDead()
     {
