@@ -29,13 +29,26 @@ public class enemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager.instance.updateGameGoal(1);
     }
 
     // Update is called once per frame
     void Update()
     {
+        playerDirection = gameManager.instance.player.transform.position - transform.position;
 
+        if (isPlayerInRange)
+        {
+            agent.SetDestination(gameManager.instance.player.transform.position);
+            if (agent.remainingDistance < agent.stoppingDistance)
+            {
+                facePlayer();
+            }
+            if (!isShooting)
+            {
+                StartCoroutine(shoot());
+            }
+        }
     }
 
     public void takeDamage(int dmg)
@@ -44,6 +57,7 @@ public class enemyAI : MonoBehaviour
         StartCoroutine(flashDamage());
         if (hitPoints <= 0)
         {
+            gameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
         }
     }
