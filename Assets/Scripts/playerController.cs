@@ -81,4 +81,21 @@ public class playerController : MonoBehaviour
         isShooting = false;
     }
 
+    public void takeDamage(int dmg)
+    {
+        HP -= dmg;
+        updatePlayerHPBar();
+        StartCoroutine(flashDamage());
+
+        if (HP <= 0)
+            gameManager.instance.playerDead();
+    }
+
+    IEnumerator flashDamage()
+    {
+        gameManager.instance.playerDamageFlashSceen.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gameManager.instance.playerDamageFlashSceen.SetActive(false);
+    }
+
 }
