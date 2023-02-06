@@ -98,4 +98,14 @@ public class playerController : MonoBehaviour
         gameManager.instance.playerDamageFlashSceen.SetActive(false);
     }
 
+    public void giveHP(int amount)
+    {
+        HP += amount;
+    }
+
+    public void updatePlayerHPBar()
+    {
+        gameManager.instance.playerHPBar.fillAmount = (float)HP / (float)HPOrig;
+    }
+
 }
