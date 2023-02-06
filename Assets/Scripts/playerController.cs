@@ -41,4 +41,26 @@ public class playerController : MonoBehaviour
             StartCoroutine(shoot());
     }
 
+    void movement()
+    {
+        if (controller.isGrounded && playerVelocity.y < 0)
+        {
+            playerVelocity.y = 0;
+            jumpsCurrent = 0;
+        }
+        move = (transform.right * Input.GetAxis("Horizontal") +
+               (transform.forward * Input.GetAxis("Vertical")));
+
+        controller.Move(move * Time.deltaTime * playerSpeed);
+
+        if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes)
+        {
+            jumpsCurrent++;
+            playerVelocity.y = jumpSpeed;
+        }
+
+        playerVelocity.y -= gravity * Time.deltaTime;
+        controller.Move(playerVelocity * Time.deltaTime);
+    }
+
 }
