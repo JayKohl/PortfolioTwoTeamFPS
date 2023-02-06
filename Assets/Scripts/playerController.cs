@@ -105,7 +105,7 @@ public class playerController : MonoBehaviour
 
     public void updatePlayerHPBar()
     {
-        gameManager.instance.playerHPBar.fillAmount = (float)HP / (float)HPOrig;
+        gameManager.instance.playerHPBar.fillAmount = (float)HP / (float)HPOriginal;
     }
 
 }
