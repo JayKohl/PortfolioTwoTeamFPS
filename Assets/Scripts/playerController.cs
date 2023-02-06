@@ -93,9 +93,9 @@ public class playerController : MonoBehaviour
 
     IEnumerator flashDamage()
     {
-        gameManager.instance.playerDamageFlashSceen.SetActive(true);
+        gameManager.instance.playerDamageFlashScreen.SetActive(true);
         yield return new WaitForSeconds(0.1f);
-        gameManager.instance.playerDamageFlashSceen.SetActive(false);
+        gameManager.instance.playerDamageFlashScreen.SetActive(false);
     }
 
     public void giveHP(int amount)
