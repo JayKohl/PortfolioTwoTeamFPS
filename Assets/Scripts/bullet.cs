@@ -13,4 +13,12 @@ public class bullet : MonoBehaviour
     {
         Destroy(gameObject, maxTravelTime);
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            // when code for take damage is added to the player script add logic here.
+        }
+        Destroy(gameObject);
+    }
 }
