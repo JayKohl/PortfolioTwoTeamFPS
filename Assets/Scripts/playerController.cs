@@ -63,4 +63,22 @@ public class playerController : MonoBehaviour
         controller.Move(playerVelocity * Time.deltaTime);
     }
 
+    IEnumerator shoot()
+    {
+        isShooting = true;
+
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
+        {
+            Debug.Log(hit.collider.name);
+            if (hit.collider.GetComponent<IDamage>() != null)
+            {
+                hit.collider.GetComponent<IDamage>().takeDamage(shootDamage);
+            }
+        }
+
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
+    }
+
 }
