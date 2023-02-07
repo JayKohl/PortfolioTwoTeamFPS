@@ -13,8 +13,10 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] NavMeshAgent agent;
 
     [Header("----- Enemy Stats -----")]
+    [SerializeField] Transform headPos;
     [SerializeField] int hitPoints;
     [SerializeField] int playerFaceSpeed;
+    [SerializeField] int viewAngle;
 
     [Header("----- Gun -----")]
     [SerializeField] Transform shootPosition;
@@ -25,6 +27,7 @@ public class enemyAI : MonoBehaviour, IDamage
     Vector3 playerDirection;
     bool isPlayerInRange;
     bool isShooting;
+    float angleToPlayer;
 
     // Start is called before the first frame update
     void Start()
