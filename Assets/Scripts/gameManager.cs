@@ -14,6 +14,7 @@ public class gameManager : MonoBehaviour
     public GameObject winMenu;
     public GameObject loseMenu;
     public GameObject playerDamageFlashScreen;
+    public Image playerHPBar;
 
     public int enemiesRemaining;
 
