@@ -4,7 +4,7 @@ using UnityEngine;
 // getting access to the nav mesh.
 using UnityEngine.AI;
 
-public class enemyAI : MonoBehaviour
+public class enemyAI : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
     // For flashing the material red "visual feedback"
