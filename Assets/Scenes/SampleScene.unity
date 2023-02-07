@@ -852,7 +852,7 @@ MonoBehaviour:
   winMenu: {fileID: 0}
   loseMenu: {fileID: 0}
   playerDamageFlashScreen: {fileID: 375681041}
-  playerHPBar: {fileID: 480304423}
+  playerHPBar: {fileID: 710123260}
   enemiesRemaining: 0
   isPaused: 0
 --- !u!1 &375681041
@@ -1734,6 +1734,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1220497486}
+  - component: {fileID: 1220497489}
   - component: {fileID: 1220497488}
   - component: {fileID: 1220497487}
   m_Layer: 0
@@ -1809,6 +1810,23 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1220497489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220497485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f53d27de7868149af535eb755c92f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invertX: 0
+  sensHor: 300
+  sensVer: 300
+  VerMin: -75
+  VerMax: 75
 --- !u!1 &1510279961
 GameObject:
   m_ObjectHideFlags: 0
@@ -2611,6 +2629,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 970683046867755555}
+  - component: {fileID: 6600205307856959579}
+  - component: {fileID: 6600205307856959578}
   - component: {fileID: 6600205307856959577}
   m_Layer: 0
   m_Name: Sci_Fi_Character_08_01
@@ -4711,6 +4731,46 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!143 &6600205307856959578
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446806040721995929}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6600205307856959579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446806040721995929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6b48d2e4fe656545834d3f50a350084, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 6600205307856959578}
+  HP: 5
+  playerSpeed: 3
+  jumpTimes: 2
+  jumpSpeed: 18
+  gravity: 26
+  shootRate: 0
+  shootDist: 0
+  shootDamage: 0
+  cube: {fileID: 0}
 --- !u!1 &6637159936338641122
 GameObject:
   m_ObjectHideFlags: 0
