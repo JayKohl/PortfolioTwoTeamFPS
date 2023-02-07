@@ -229,8 +229,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -652.5343, y: 247}
-  m_SizeDelta: {x: 469.3544, y: 60}
+  m_AnchoredPosition: {x: 649, y: 152}
+  m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &80855176
 MonoBehaviour:
@@ -254,11 +254,11 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.9575472, b: 0.9575472, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
+    m_ColorMultiplier: 1.25
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
@@ -308,7 +308,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 23885a98cfb9f244a9d2c61940ccbaac, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5f26d12a62c28d04aab41bb5d810abf6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -453,7 +453,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &183653125
 RectTransform:
   m_ObjectHideFlags: 0
@@ -692,8 +692,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -526.4209, y: -53}
-  m_SizeDelta: {x: 721.5814, y: 60}
+  m_AnchoredPosition: {x: 649, y: -223}
+  m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &231902908
 MonoBehaviour:
@@ -771,7 +771,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 23885a98cfb9f244a9d2c61940ccbaac, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5f26d12a62c28d04aab41bb5d810abf6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1135,6 +1135,7 @@ MonoBehaviour:
   loseMenu: {fileID: 1586754270}
   playerDamageFlashScreen: {fileID: 375681041}
   playerHPBar: {fileID: 710123260}
+  enemiesRemainingText: {fileID: 0}
   enemiesRemaining: 2
   isPaused: 0
 --- !u!1 &284366431
@@ -1296,7 +1297,7 @@ GameObject:
   - component: {fileID: 375681044}
   - component: {fileID: 375681043}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Damage Flash Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1830,7 +1831,7 @@ GameObject:
   - component: {fileID: 728356190}
   - component: {fileID: 728356189}
   m_Layer: 5
-  m_Name: You Win
+  m_Name: Win Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3188,7 +3189,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 674, y: 487}
+  m_AnchoredPosition: {x: 107, y: 490}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1337214583
@@ -3326,8 +3327,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -623.2119, y: 147}
-  m_SizeDelta: {x: 527.9993, y: 60}
+  m_AnchoredPosition: {x: 649, y: 27}
+  m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1510279963
 MonoBehaviour:
@@ -3405,7 +3406,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 23885a98cfb9f244a9d2c61940ccbaac, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5f26d12a62c28d04aab41bb5d810abf6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3658,7 +3659,7 @@ GameObject:
   - component: {fileID: 1586754273}
   - component: {fileID: 1586754272}
   m_Layer: 5
-  m_Name: 'You Lose '
+  m_Name: 'Loose Menu '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3760,7 +3761,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -660.0581, y: 367}
+  m_AnchoredPosition: {x: 676.9419, y: 301}
   m_SizeDelta: {x: 105.9985, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1599943448
@@ -3934,7 +3935,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -765, y: 379}
+  m_AnchoredPosition: {x: 572, y: 313}
   m_SizeDelta: {x: 202.0026, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1773577414
@@ -4343,8 +4344,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -564.5156, y: 47}
-  m_SizeDelta: {x: 645.3918, y: 60}
+  m_AnchoredPosition: {x: 649, y: -98}
+  m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2075270870
 MonoBehaviour:
@@ -4410,7 +4411,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 23885a98cfb9f244a9d2c61940ccbaac, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5f26d12a62c28d04aab41bb5d810abf6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
