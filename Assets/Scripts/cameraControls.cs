@@ -6,8 +6,8 @@ public class cameraControls : MonoBehaviour
 {
     [SerializeField] bool invertX;
 
-    [SerializeField] int HorA;
-    [SerializeField] int VerA;
+    [SerializeField] int sensHor;
+    [SerializeField] int sensVer;
     [SerializeField] int VerMin;
     [SerializeField] int VerMax;
 
