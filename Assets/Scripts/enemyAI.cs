@@ -38,11 +38,9 @@ public class enemyAI : MonoBehaviour, IDamage
     // Update is called once per frame
     void Update()
     {
-        playerDirection = gameManager.instance.player.transform.position - transform.position;
 
-        if (isPlayerInRange)
+        if (isPlayerInRange && canSeePlayer())
         {
-            agent.SetDestination(gameManager.instance.player.transform.position);
             if (agent.remainingDistance < agent.stoppingDistance)
             {
                 facePlayer();
@@ -52,6 +50,26 @@ public class enemyAI : MonoBehaviour, IDamage
                 StartCoroutine(shoot());
             }
         }
+    }
+
+    bool canSeePlayer()
+    {
+        playerDirection = gameManager.instance.player.transform.position - transform.position;
+        angleToPlayer = Vector3.Angle(playerDirection, transform.forward);
+
+        Debug.Log(angleToPlayer);
+        Debug.DrawRay(headPos.position, playerDirection);
+
+        RaycastHit hit;
+        if (Physics.Raycast(headPos.position, playerDirection, out hit))
+        {
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
+            {
+                agent.SetDestination(gameManager.instance.player.transform.position);
+                return true;
+            }
+        }
+        return false;
     }
 
     public void takeDamage(int dmg)
