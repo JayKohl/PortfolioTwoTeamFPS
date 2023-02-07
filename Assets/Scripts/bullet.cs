@@ -17,7 +17,7 @@ public class bullet : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // when code for take damage is added to the player script add logic here.
+            gameManager.instance.playerScript.takeDamage(bulletDamage);
         }
         Destroy(gameObject);
     }
