@@ -23,4 +23,9 @@ public class buttonFunctions : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void start()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
 }
