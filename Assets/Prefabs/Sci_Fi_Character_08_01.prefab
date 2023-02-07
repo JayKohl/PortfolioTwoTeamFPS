@@ -176,8 +176,8 @@ GameObject:
   m_Component:
   - component: {fileID: 868414252815463532}
   - component: {fileID: 6551918312896228884}
-  - component: {fileID: 6551918312896228885}
   - component: {fileID: 6551918312896228886}
+  - component: {fileID: 1037604126}
   m_Layer: 0
   m_Name: Sci_Fi_Character_08_01
   m_TagString: Player
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6b48d2e4fe656545834d3f50a350084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 6551918312896228885}
+  controller: {fileID: 1037604126}
   HP: 5
   playerSpeed: 3
   jumpTimes: 2
@@ -237,24 +237,6 @@ MonoBehaviour:
   shootDist: 0
   shootDamage: 0
   cube: {fileID: 0}
---- !u!143 &6551918312896228885
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 524364267517112022}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &6551918312896228886
 Animator:
   serializedVersion: 5
@@ -275,6 +257,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!143 &1037604126
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524364267517112022}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &627578221868138179
 GameObject:
   m_ObjectHideFlags: 0
