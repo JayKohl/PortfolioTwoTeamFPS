@@ -2,21 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class gameManager : MonoBehaviour
 {
     public static gameManager instance;
 
+    [Header("Player")]
     public GameObject player;
     public playerController playerScript;
 
+    [Header("UI")]
     public GameObject activeMenu;
     public GameObject pauseMenu;
     public GameObject winMenu;
     public GameObject loseMenu;
     public GameObject playerDamageFlashScreen;
     public Image playerHPBar;
+    [SerializeField] TextMeshProUGUI enemiesRemainingText;
 
+    [Header("Goals")]
     public int enemiesRemaining;
 
     public bool isPaused;
@@ -61,6 +66,8 @@ public class gameManager : MonoBehaviour
     public void updateGameGoal(int amount)
     {
         enemiesRemaining += amount;
+        enemiesRemainingText.text = enemiesRemaining.ToString("F0");
+
         if (enemiesRemaining <= 0)
         {
             pause();
