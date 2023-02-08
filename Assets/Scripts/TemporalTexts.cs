@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class TemporalTexts : MonoBehaviour
-{
-
-    
-    [SerializeField] GameObject textHolder;
-   
+public class temporalTexts : MonoBehaviour
+{    
+    [SerializeField] GameObject textHolder;   
 
     bool playerIn;
     // Start is called before the first frame update
     void Start()
     {
-        textHolder.SetActive(false);
-        
+        gameManager.instance.updateGameGoal(1);
+        textHolder.SetActive(false);        
     }
 
     // Update is called once per frame
@@ -25,8 +22,9 @@ public class TemporalTexts : MonoBehaviour
        
         if(playerIn)
         {
+            gameManager.instance.updateGameGoal(-1);
             StartCoroutine(ShowText());
-            Destroy(gameObject, 10);
+            Destroy(gameObject);
         }
     }
 

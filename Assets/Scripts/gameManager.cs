@@ -19,10 +19,10 @@ public class gameManager : MonoBehaviour
     public GameObject loseMenu;
     public GameObject playerDamageFlashScreen;
     public Image playerHPBar;
-    [SerializeField] TextMeshProUGUI enemiesRemainingText;
+    [SerializeField] TextMeshProUGUI fuelCellsRemainingText;
 
     [Header("Goals")]
-    public int enemiesRemaining;
+    public int fuelCellsRemaining;
 
     public bool isPaused;
 
@@ -65,10 +65,10 @@ public class gameManager : MonoBehaviour
     }
     public void updateGameGoal(int amount)
     {
-        enemiesRemaining += amount;
-        enemiesRemainingText.text = enemiesRemaining.ToString("F0");
+        fuelCellsRemaining += amount;
+        fuelCellsRemainingText.text = fuelCellsRemaining.ToString("F0");
 
-        if (enemiesRemaining <= 0)
+        if (fuelCellsRemaining <= 0)
         {
             pause();
             activeMenu = winMenu;
