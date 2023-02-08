@@ -18,11 +18,13 @@ public class playerController : MonoBehaviour
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] int shootDamage;
+
     // Deactivated temp
     // [SerializeField] int bulletSpeed;
     [SerializeField] Transform shootPositionPlayer;
     // Deactivated temp
     // [SerializeField] GameObject bullet;
+    [SerializeField] GameObject gunFlash;
 
     int jumpsCurrent;
     Vector3 move;
@@ -79,6 +81,7 @@ public class playerController : MonoBehaviour
             // Deactivated temp
             // GameObject bulletClone = Instantiate(bullet, shootPositionPlayer.position, bullet.transform.rotation);
             // bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+            StartCoroutine(gunShootFlash());
 
             if (hit.collider.GetComponent<IDamage>() != null)
             {
@@ -100,6 +103,12 @@ public class playerController : MonoBehaviour
             gameManager.instance.playerDead();
     }
 
+    IEnumerator gunShootFlash()
+    {
+        GameObject flash = Instantiate(gunFlash, shootPositionPlayer.position, gunFlash.transform.rotation);
+        yield return new WaitForSeconds(0.1f);
+        Destroy(flash);
+    }
     IEnumerator flashDamage()
     {
         gameManager.instance.playerDamageFlashScreen.SetActive(true);
