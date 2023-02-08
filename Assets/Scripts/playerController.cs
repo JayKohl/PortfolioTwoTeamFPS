@@ -18,9 +18,9 @@ public class playerController : MonoBehaviour
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] int shootDamage;
-    [SerializeField] int bulletSpeed;
-    [SerializeField] Transform shootPositionPlayer;
-    [SerializeField] GameObject bullet;
+    //[SerializeField] int bulletSpeed;
+    //[SerializeField] Transform shootPositionPlayer;
+    //[SerializeField] GameObject bullet;
 
     int jumpsCurrent;
     Vector3 move;
