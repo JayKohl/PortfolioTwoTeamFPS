@@ -1,0 +1,117 @@
+﻿-------------
+DOCUMENTATION - https://www.dotteam.xyz/pdf/Heavy_Station_Kit_2021.pdf
+------------- 
+
+HEAVY STATION KIT 
+
+--------------------
+B  A  S  E   2.60  A
+--------------------
+
+- Re-Submitted using LTS version, Unity 2019.4;
+- Updated FPC and other Scripts;
+- Updated Visuals, including Lighting and Post-Processing;
+- Updated Sounds. All sounds are brand new;
+- Replaced Sky;
+- Fixed some Textures and Meshes;
+- Reorganized Content to meet Asset Store Specifications.
+
+--------------------
+B  A  S  E   2.50  A
+--------------------
+
+Supporting Unity 2019.3.0+ with the additional package, which has:
+
+- Dependancy on "Standard Assets Characters Package" removed via deprecating the old/adding the new FPC (Class FPC);
+- Scripts updated with fixes and support for newer Unity versions;
+- All asset classes placed in common namespace DotTeam.HSK.
+
+The other package supporting 5.6.7 to 2019.2.21 is still available for download.
+
+--------------------
+B  A  S  E   2.50  A
+--------------------
+
+MODELING
+The new look for many objects. Flat surfaces got less tris. Round ones like the railings got more. To widen the possibilities new objects were added.
+
+MAPPING
+To reduce the drawcalls, most models were packet into themes. Each theme is a single Material.
+Some UVs has a bit of free space. This is reserved for future updates, so adding new objects will not require additional material.
+
+TEXTURING
+All the materials now has Metallic, Height and Occlusion maps, in addition to Albedo, Normal, and if it fits, Emission.
+
+SCRIPTING
+Corrected and amplified previous, and for widing the possibilities of the Kit made the New ones – all to work properly with the Unity 5.6.7 or higher.
+
+Includes Base v2.21, PLUS:
+- Added LODs
+- Added 'ForDev' Textures (ID, Height, Curv.)
+– Animated Door Mode Console
+– Animated Door Power Console
+- Added new Prefabs
+– Additional Equipment
+
+-----------------
+B  A  S  E   2.21
+-----------------
+
+– Exterior Prefabs
+– Pentagonal and Hexagonal Rooms
+– Transparent Roofs
+– Animated materials for Displays
+– One-sided Floors and Ceilings
+
+-----------------
+B  A  S  E   2.10
+-----------------
+
+- Added Crouching option and Flash light control to Dot FPC (which is First Person Controller)
+- Scripts and selected Prefabs were updated and unified with other Heavy Station Kit assets
+- Crags, Rocks and some other prefabs were enchanced
+
+-----------------
+B  A  S  E   2.00
+-----------------
+
+- Exterior Prefabs
+- Pentagonal and Hexagonal Rooms
+- Transparent Roofs
+- One-sided Floors and Ceilings
+- Equipment
+- Animated Materials for Displays
+- Universal Doors Control
+- Detail Albedo Map
+
+-----------------
+B  A  S  E   1.30
+-----------------
+
+- Overall -50% tris from colliders. Colliders were redone for all prefabs, with box colliders and low poly mesh.
+- Light leaks were fixed, by modifying light source.
+- Added Top-Down support with 5 new prefabs (for Walls, Partitions2 and Arches, new Outwall element).
+- Top-Down Demo Scene.
+- New Metal Material for all Prefabs.
+- Three new prefabs were added, Solid Floor, Wall lights On, Wall lights Off.
+
+-----------------
+B  A  S  E   1.20
+-----------------
+
+- Added lighting to prefabs: Walls, Channels, Stairs, Equipment, Top Bottom.
+- Optimized colliders for: Arms, Arches, Stairs, Support, Equipment, Partitions2, Props.
+- Done 10 pages Booklet of Prefabs, which shows in artistic way quantity and materials of all prefabs.
+
+-----------------
+B  A  S  E   1.10
+-----------------
+
+- Improved Textures and Materials
+- Unity3D 5.x GI Supported
+- Unity3D WebGL Compatible
+
+
+
+https://dotteam.xyz
+info@dotteam.xyz
