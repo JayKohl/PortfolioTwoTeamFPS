@@ -230,13 +230,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 1037604126}
   HP: 5
-  playerSpeed: 3
+  playerSpeed: 20
   jumpTimes: 2
   jumpSpeed: 18
   gravity: 26
   shootRate: 0.2
   shootDist: 55
   shootDamage: 1
+  bulletSpeed: 0
+  shootPositionPlayer: {fileID: 0}
+  bullet: {fileID: 0}
 --- !u!95 &6551918312896228886
 Animator:
   serializedVersion: 5
