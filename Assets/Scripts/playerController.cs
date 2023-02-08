@@ -18,7 +18,8 @@ public class playerController : MonoBehaviour
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] int shootDamage;
-    [SerializeField] GameObject cube;
+    [SerializeField] Transform shootPositionPlayer;
+    [SerializeField] GameObject bullet;
 
     int jumpsCurrent;
     Vector3 move;
@@ -71,6 +72,9 @@ public class playerController : MonoBehaviour
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
         {
             Debug.Log(hit.collider.name);
+           // GameObject bulletClone = Instantiate(bullet, shootPositionPlayer.position, bullet.transform.rotation);
+           // bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * shootRate;
+
             if (hit.collider.GetComponent<IDamage>() != null)
             {
                 hit.collider.GetComponent<IDamage>().takeDamage(shootDamage);
