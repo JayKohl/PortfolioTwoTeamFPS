@@ -39,8 +39,9 @@ public class spawner : MonoBehaviour
     IEnumerator spawn()
     {
         isSpawning = true;
-        int pos = Random.Range(0, spawnPos.Length);
-        Instantiate(enemy, spawnPos[pos].position, spawnPos[pos].rotation);
+        //int pos = Random.Range(0, spawnPos.Length);
+        //Instantiate(enemy, spawnPos[pos].position, spawnPos[pos].rotation);
+        Instantiate(enemy, spawnPos[Random.Range(0, spawnPos.Length)].position, enemy.transform.rotation);
         enemiesSpawned++;
         yield return new WaitForSeconds(timer);
         isSpawning = false;
