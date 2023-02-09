@@ -33,7 +33,10 @@ public class enemyAI : MonoBehaviour, IDamage
     // Start is called before the first frame update
     void Start()
     {
-
+        if (gameObject.CompareTag("EnemyBoss"))
+        {
+            gameManager.instance.updateGameGoal(+1);
+        }
     }
 
     // Update is called once per frame
@@ -83,6 +86,7 @@ public class enemyAI : MonoBehaviour, IDamage
             if (gameObject.CompareTag("EnemyBoss"))
             {
                 GameObject fuel = Instantiate(fuelCap, gameObject.transform.position, fuelCap.transform.rotation);
+                gameManager.instance.updateGameGoal(-1);
             }
             Destroy(gameObject);
         }
