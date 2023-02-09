@@ -86,7 +86,6 @@ public class enemyAI : MonoBehaviour, IDamage
             if (gameObject.CompareTag("EnemyBoss"))
             {
                 GameObject fuel = Instantiate(fuelCap, gameObject.transform.position, fuelCap.transform.rotation);
-                gameManager.instance.updateGameGoal(-1);
             }
             Destroy(gameObject);
         }
