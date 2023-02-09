@@ -13,6 +13,7 @@ public class playerController : MonoBehaviour
     [Range(1, 3)] [SerializeField] int jumpTimes;
     [Range(10, 25)] [SerializeField] int jumpSpeed;
     [Range(15, 45)] [SerializeField] int gravity;
+    [SerializeField] int runSpeed;
 
     [Header("----- Gun Stats -----")]
     [SerializeField] float shootRate;
@@ -30,13 +31,16 @@ public class playerController : MonoBehaviour
     Vector3 move;
     Vector3 playerVelocity;
     bool isShooting;
+    bool isRunning;
     int HPOriginal;
+    int speedOriginal;
 
     // Start is called before the first frame update
     void Start()
     {
         HPOriginal = HP;
         updatePlayerHPBar();
+        speedOriginal = playerSpeed;
     }
 
     // Update is called once per frame
@@ -64,7 +68,16 @@ public class playerController : MonoBehaviour
             jumpsCurrent++;
             playerVelocity.y = jumpSpeed;
         }
-
+        if(Input.GetButton("Run") && !isRunning)
+        {
+            isRunning = true;
+            playerSpeed = runSpeed;
+        }
+        if(isRunning && Input.GetButtonUp("Run"))
+        {
+            isRunning = false;
+            playerSpeed = speedOriginal;
+        }
         playerVelocity.y -= gravity * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
     }
@@ -72,7 +85,7 @@ public class playerController : MonoBehaviour
     IEnumerator shoot()
     {
         isShooting = true;
-
+        StartCoroutine(gunShootFlash());
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
         {
@@ -81,7 +94,7 @@ public class playerController : MonoBehaviour
             // Deactivated temp
             // GameObject bulletClone = Instantiate(bullet, shootPositionPlayer.position, bullet.transform.rotation);
             // bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
-            StartCoroutine(gunShootFlash());
+            
 
             if (hit.collider.GetComponent<IDamage>() != null)
             {
