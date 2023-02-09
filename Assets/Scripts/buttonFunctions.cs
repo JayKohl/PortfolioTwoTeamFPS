@@ -26,6 +26,6 @@ public class buttonFunctions : MonoBehaviour
 
     public void start()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("CrawlScene");
     }
 }
