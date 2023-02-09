@@ -11,6 +11,7 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Renderer model;
     // This is to attach the enemy to the nav mesh. 
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] GameObject fuelCap;
 
     [Header("----- Enemy Stats -----")]
     [SerializeField] Transform headPos;
@@ -77,7 +78,12 @@ public class enemyAI : MonoBehaviour, IDamage
         hitPoints -= dmg;
         StartCoroutine(flashDamage());
         if (hitPoints <= 0)
-        {            
+        {
+            // this checks to see if the enemy killed is a boss. if true it drops a object.
+            if (gameObject.CompareTag("EnemyBoss"))
+            {
+                GameObject fuel = Instantiate(fuelCap, gameObject.transform.position, fuelCap.transform.rotation);
+            }
             Destroy(gameObject);
         }
     }
