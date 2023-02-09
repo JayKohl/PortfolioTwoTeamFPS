@@ -85,7 +85,7 @@ public class playerController : MonoBehaviour
     IEnumerator shoot()
     {
         isShooting = true;
-        
+        StartCoroutine(gunShootFlash());
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
         {
@@ -94,7 +94,7 @@ public class playerController : MonoBehaviour
             // Deactivated temp
             // GameObject bulletClone = Instantiate(bullet, shootPositionPlayer.position, bullet.transform.rotation);
             // bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
-            StartCoroutine(gunShootFlash());
+            
 
             if (hit.collider.GetComponent<IDamage>() != null)
             {
