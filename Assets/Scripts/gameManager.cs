@@ -20,6 +20,9 @@ public class gameManager : MonoBehaviour
     public GameObject playerDamageFlashScreen;
     public Image playerHPBar;
     [SerializeField] TextMeshProUGUI fuelCellsRemainingText;
+    //added variable down. Angel Garcia   :p
+    public GameObject textActivator;
+    public TextMeshProUGUI temporalText;
 
     [Header("Goals")]
     public int fuelCellsRemaining;

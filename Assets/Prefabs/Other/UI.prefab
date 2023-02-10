@@ -103,7 +103,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1629, y: 343.41602}
+  m_AnchoredPosition: {x: 1629, y: 331.1}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &703469517
@@ -3875,7 +3875,7 @@ GameObject:
   - component: {fileID: 5286265100838072761}
   m_Layer: 0
   m_Name: Game Manager
-  m_TagString: Untagged
+  m_TagString: TextHolder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3916,6 +3916,8 @@ MonoBehaviour:
   playerDamageFlashScreen: {fileID: 5286265100871272918}
   playerHPBar: {fileID: 5286265100130182971}
   fuelCellsRemainingText: {fileID: 5286265100761330363}
+  textActivator: {fileID: 1033890306}
+  temporalText: {fileID: 703469516}
   fuelCellsRemaining: 0
   isPaused: 0
 --- !u!1 &5286265100871272918
