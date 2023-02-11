@@ -12,7 +12,7 @@ public class enemyBossAI : enemyAI
     [SerializeField] Transform shootPositionFour;
     [SerializeField] GameObject fuelCap;
     int enemyBossCount;
-
+    bool hasMelee;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,12 +33,16 @@ public class enemyBossAI : enemyAI
         {
             if (!canSeePlayer() && agent.remainingDistance < 0.1f)
             {
-                roam();
+                agent.destination = gameManager.instance.player.transform.position;
             }
         }
         else if (agent.remainingDistance < 0.1f && agent.destination != gameManager.instance.player.transform.position)
         {
             roam();
+        }
+        if (gameObject.transform.position.magnitude < stoppingDistOrig)
+        {
+            Destroy(gameObject);
         }
     }
     public override void takeDamage(int dmg)
@@ -48,11 +52,7 @@ public class enemyBossAI : enemyAI
         StartCoroutine(flashDamage());
         if (hitPoints <= 0)
         {
-            if (gameObject.CompareTag("EnemyBoss"))
-            {
-                GameObject fuel = Instantiate(fuelCap, gameObject.transform.position, fuelCap.transform.rotation);
-                //gameManager.instance.updateGameGoal(-1);
-            }
+            GameObject fuel = Instantiate(fuelCap, gameObject.transform.position, fuelCap.transform.rotation);
             Destroy(gameObject);
         }
     }
@@ -75,4 +75,5 @@ public class enemyBossAI : enemyAI
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
+
 }

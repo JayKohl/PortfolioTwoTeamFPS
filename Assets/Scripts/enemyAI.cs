@@ -86,7 +86,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         }
         agent.SetPath(path);
     }
-    public bool canSeePlayer()
+    public virtual bool canSeePlayer()
     {
         playerDirection = gameManager.instance.player.transform.position - headPos.position;
         playerDirection.y += 1;
