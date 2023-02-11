@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class temporalTexts : MonoBehaviour
+public class temporaryTexts : MonoBehaviour
 {
     bool playerIn;
     // Start is called before the first frame update
@@ -15,8 +15,8 @@ public class temporalTexts : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-        if(playerIn)
+
+        if (playerIn)
         {
             gameManager.instance.updateGameGoal(-1);
             Destroy(gameObject);
