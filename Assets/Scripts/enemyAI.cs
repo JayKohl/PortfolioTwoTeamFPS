@@ -43,6 +43,7 @@ public class enemyAI : MonoBehaviour, IDamage
         {
             gameManager.instance.updateGameGoal(+1);
         }
+
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
 
@@ -135,6 +136,7 @@ public class enemyAI : MonoBehaviour, IDamage
     }
     void facePlayer()
     {
+        playerDirection.y = 0;
         Quaternion rotate = Quaternion.LookRotation(playerDirection);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * playerFaceSpeed);
     }
