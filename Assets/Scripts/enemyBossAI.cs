@@ -7,12 +7,17 @@ using UnityEngine;
 
 public class enemyBossAI : enemyAI
 {
+    [SerializeField] Transform shootPositionTwo;
+    [SerializeField] Transform shootPositionThree;
+    [SerializeField] Transform shootPositionFour;
     [SerializeField] GameObject fuelCap;
+    int enemyBossCount;
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager.instance.updateGameGoal(+1);
+        enemyBossCount += 1;
 
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
@@ -50,5 +55,24 @@ public class enemyBossAI : enemyAI
             }
             Destroy(gameObject);
         }
+    }
+    public override IEnumerator shoot()
+    {
+        isShooting = true;
+
+        GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
+        bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+        GameObject bulletCloneTwo = Instantiate(bullet, shootPositionTwo.position, bullet.transform.rotation);
+        bulletCloneTwo.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+        GameObject bulletCloneThree = Instantiate(bullet, shootPositionThree.position, bullet.transform.rotation);
+        bulletCloneThree.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+        GameObject bulletCloneFour = Instantiate(bullet, shootPositionFour.position, bullet.transform.rotation);
+        bulletCloneFour.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
     }
 }

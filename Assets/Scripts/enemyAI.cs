@@ -16,22 +16,22 @@ public abstract class enemyAI : MonoBehaviour, IDamage
 
     [Header("----- Enemy Stats -----")]
     [SerializeField] float playerYOffset;
-    [SerializeField] Transform headPos;
+    [SerializeField] public Transform headPos;
     public int hitPoints;
-    [SerializeField] int playerFaceSpeed;
+    [SerializeField] public int playerFaceSpeed;
     [SerializeField] int viewAngle;
     [SerializeField] int waitTime;
     [SerializeField] int roamDist;
 
     [Header("----- Gun -----")]
-    [SerializeField] Transform shootPosition;
-    [SerializeField] GameObject bullet;
-    [SerializeField] int bulletSpeed;
-    [SerializeField] float shootRate;
+    [SerializeField] public Transform shootPosition;
+    [SerializeField] public GameObject bullet;
+    [SerializeField] public int bulletSpeed;
+    [SerializeField] public float shootRate;
 
     Vector3 playerDirection;
     public bool isPlayerInRange;
-    bool isShooting;
+    public bool isShooting;
     float angleToPlayer;
 
     public Vector3 startingPos;
@@ -146,7 +146,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         Quaternion rotate = Quaternion.LookRotation(playerDirection);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * playerFaceSpeed);
     }
-    IEnumerator shoot()
+    public virtual IEnumerator shoot()
     {
         isShooting = true;
         GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
