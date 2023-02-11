@@ -4,18 +4,20 @@ using UnityEngine;
 // getting access to the nav mesh.
 using UnityEngine.AI;
 
-public class enemyAI : MonoBehaviour, IDamage
+// I added this class to be abstract for use with childeren.
+public abstract class enemyAI : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
     // For flashing the material red "visual feedback"
     [SerializeField] Renderer model;
     // This is to attach the enemy to the nav mesh. 
-    [SerializeField] NavMeshAgent agent;
-    [SerializeField] GameObject fuelCap;
+    public NavMeshAgent agent;
+    //[SerializeField] GameObject fuelCap;
 
     [Header("----- Enemy Stats -----")]
+    [SerializeField] float playerYOffset;
     [SerializeField] Transform headPos;
-    [SerializeField] int hitPoints;
+    public int hitPoints;
     [SerializeField] int playerFaceSpeed;
     [SerializeField] int viewAngle;
     [SerializeField] int waitTime;
@@ -28,46 +30,46 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] float shootRate;
 
     Vector3 playerDirection;
-    bool isPlayerInRange;
+    public bool isPlayerInRange;
     bool isShooting;
     float angleToPlayer;
 
-    Vector3 startingPos;
+    public Vector3 startingPos;
     bool destinationChosen;
-    float stoppingDistOrig;
+    public float stoppingDistOrig;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        if (gameObject.CompareTag("EnemyBoss"))
-        {
-            gameManager.instance.updateGameGoal(+1);
-        }
+    //void Start()
+    //{
+    //    if (gameObject.CompareTag("EnemyBoss"))
+    //    {
+    //        gameManager.instance.updateGameGoal(+1);
+    //    }
 
-        startingPos = transform.position;
-        stoppingDistOrig = agent.stoppingDistance;
+    //    startingPos = transform.position;
+    //    stoppingDistOrig = agent.stoppingDistance;
 
-        roam();
-    }
+    //    roam();
+    //}
 
-    // Update is called once per frame
-    void Update()
-    {
+    //// Update is called once per frame
+    //void Update()
+    //{
 
-        if (isPlayerInRange)
-        {
-            if (!canSeePlayer() && agent.remainingDistance < 0.1f)
-            {
-                roam();
-            }
-        }
-        else if (agent.remainingDistance < 0.1f && agent.destination != gameManager.instance.player.transform.position)
-        {
-            roam();
-        }
-    }
+    //    if (isPlayerInRange)
+    //    {
+    //        if (!canSeePlayer() && agent.remainingDistance < 0.1f)
+    //        {
+    //            roam();
+    //        }
+    //    }
+    //    else if (agent.remainingDistance < 0.1f && agent.destination != gameManager.instance.player.transform.position)
+    //    {
+    //        roam();
+    //    }
+    //}
 
-    void roam()
+    public void roam()
     {
         agent.stoppingDistance = 0;
 
@@ -84,14 +86,16 @@ public class enemyAI : MonoBehaviour, IDamage
         }
         agent.SetPath(path);
     }
-    bool canSeePlayer()
+    public bool canSeePlayer()
     {
-        //playerDirection = gameManager.instance.player.transform.position - headPos.position;
-        playerDirection = gameManager.instance.player.transform.position - transform.position;
+        playerDirection = gameManager.instance.player.transform.position - headPos.position;
+        playerDirection.y += 1;
+        playerYOffset = playerDirection.y;
+        //playerDirection = gameManager.instance.player.transform.position - transform.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
-        Debug.Log(angleToPlayer);
-        Debug.DrawRay(headPos.position, playerDirection);
+        //Debug.Log(angleToPlayer);
+        //Debug.DrawRay(headPos.position, playerDirection);
 
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
@@ -115,28 +119,28 @@ public class enemyAI : MonoBehaviour, IDamage
         return false;
     }
 
-    public void takeDamage(int dmg)
+    public virtual void takeDamage(int dmg)
     {
         hitPoints -= dmg;
         StartCoroutine(flashDamage());
         if (hitPoints <= 0)
         {
             // this checks to see if the enemy killed is a boss. if true it drops a object.
-            if (gameObject.CompareTag("EnemyBoss"))
-            {
-                GameObject fuel = Instantiate(fuelCap, gameObject.transform.position, fuelCap.transform.rotation);
-                gameManager.instance.updateGameGoal(-1);
-            }
+            //if (gameObject.CompareTag("EnemyBoss"))
+            //{
+            //    //GameObject fuel = Instantiate(fuelCap, gameObject.transform.position, fuelCap.transform.rotation);
+            //    //gameManager.instance.updateGameGoal(-1);
+            //}
             Destroy(gameObject);
         }
     }
-    IEnumerator flashDamage()
+    public IEnumerator flashDamage()
     {
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.15f);
         model.material.color = Color.white;
     }
-    void facePlayer()
+    public void facePlayer()
     {
         playerDirection.y = 0;
         Quaternion rotate = Quaternion.LookRotation(playerDirection);
