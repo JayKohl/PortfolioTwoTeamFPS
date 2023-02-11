@@ -33,7 +33,7 @@ public class enemyAI : MonoBehaviour, IDamage
     float angleToPlayer;
 
     Vector3 startingPos;
-    bool detinationChosen;
+    bool destinationChosen;
     float stoppingDistOrig;
 
     // Start is called before the first frame update
@@ -70,6 +70,7 @@ public class enemyAI : MonoBehaviour, IDamage
     void roam()
     {
         agent.stoppingDistance = 0;
+
         Vector3 randDir = Random.insideUnitSphere * roamDist;
         randDir += startingPos;
 
@@ -85,7 +86,7 @@ public class enemyAI : MonoBehaviour, IDamage
     }
     bool canSeePlayer()
     {
-        playerDirection = gameManager.instance.player.transform.position - headPos.position;
+        playerDirection = gameManager.instance.player.transform.position - transform.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
         Debug.Log(angleToPlayer);
