@@ -18,6 +18,8 @@ public class enemyAI : MonoBehaviour, IDamage
     [SerializeField] int hitPoints;
     [SerializeField] int playerFaceSpeed;
     [SerializeField] int viewAngle;
+    [SerializeField] int waitTime;
+    [SerializeField] int roamDist;
 
     [Header("----- Gun -----")]
     [SerializeField] Transform shootPosition;
@@ -30,6 +32,10 @@ public class enemyAI : MonoBehaviour, IDamage
     bool isShooting;
     float angleToPlayer;
 
+    Vector3 startingPos;
+    bool detinationChosen;
+    float stoppingDistOrig;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,29 +43,49 @@ public class enemyAI : MonoBehaviour, IDamage
         {
             gameManager.instance.updateGameGoal(+1);
         }
+        startingPos = transform.position;
+        stoppingDistOrig = agent.stoppingDistance;
+
+        roam();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (isPlayerInRange && canSeePlayer())
+        if (isPlayerInRange)
         {
-            if (agent.remainingDistance < agent.stoppingDistance)
+            if (!canSeePlayer() && agent.remainingDistance < 0.1f)
             {
-                facePlayer();
+                roam();
             }
-            if (!isShooting)
-            {
-                StartCoroutine(shoot());
-            }
+        }
+        else if (agent.remainingDistance < 0.1f && agent.destination != gameManager.instance.player.transform.position)
+        {
+            roam();
         }
     }
 
+    void roam()
+    {
+        agent.stoppingDistance = 0;
+        Vector3 randDir = Random.insideUnitSphere * roamDist;
+        randDir += startingPos;
+
+        NavMeshHit hit;
+        NavMesh.SamplePosition(randDir, out hit, 1, 1);
+        NavMeshPath path = new NavMeshPath();
+
+        if (hit.position != null)
+        {
+            agent.CalculatePath(hit.position, path);
+        }
+        agent.SetPath(path);
+    }
     bool canSeePlayer()
     {
-        playerDirection = gameManager.instance.player.transform.position - transform.position;
-        angleToPlayer = Vector3.Angle(playerDirection, transform.forward);
+        playerDirection = gameManager.instance.player.transform.position - headPos.position;
+        angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
         Debug.Log(angleToPlayer);
         Debug.DrawRay(headPos.position, playerDirection);
@@ -69,10 +95,20 @@ public class enemyAI : MonoBehaviour, IDamage
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
+                agent.stoppingDistance = stoppingDistOrig;
                 agent.SetDestination(gameManager.instance.player.transform.position);
+                if (agent.remainingDistance < agent.stoppingDistance)
+                {
+                    facePlayer();
+                }
+                if (!isShooting)
+                {
+                    StartCoroutine(shoot());
+                }
                 return true;
             }
         }
+        agent.stoppingDistance = 0;
         return false;
     }
 
@@ -123,6 +159,7 @@ public class enemyAI : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = false;
+            agent.stoppingDistance = 0;
         }
     }
 }
