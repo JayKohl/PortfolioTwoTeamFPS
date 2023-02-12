@@ -40,10 +40,6 @@ public class enemyBossAI : enemyAI
         {
             roam();
         }
-        if (gameObject.transform.position.magnitude < stoppingDistOrig)
-        {
-            Destroy(gameObject);
-        }
     }
     public override void takeDamage(int dmg)
     {
@@ -71,6 +67,12 @@ public class enemyBossAI : enemyAI
 
         GameObject bulletCloneFour = Instantiate(bullet, shootPositionFour.position, bullet.transform.rotation);
         bulletCloneFour.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+        float distanceForMelee = Vector3.Distance(gameManager.instance.player.transform.position, transform.position);
+        if (distanceForMelee < 3)
+        {
+            gameManager.instance.playerScript.takeDamage(1);
+        }
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
