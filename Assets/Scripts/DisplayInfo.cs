@@ -11,7 +11,7 @@ public class DisplayInfo : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            gameManager.instance.temporalText.text = thisText.text;
+            gameManager.instance.temporaryText.text = thisText.text;
             gameManager.instance.textActivator.SetActive(true);
  
         }
