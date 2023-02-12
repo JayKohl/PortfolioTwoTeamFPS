@@ -8,7 +8,7 @@ public class playerController : MonoBehaviour
     [SerializeField] CharacterController controller;
 
     [Header("----- Player Stats -----")]
-    [Range(5, 10)] [SerializeField] int HP;
+    [Range(5, 10)] [SerializeField] public int HP;
     [Range(1, 50)] [SerializeField] int playerSpeed;
     [Range(1, 3)] [SerializeField] int jumpTimes;
     [Range(10, 25)] [SerializeField] int jumpSpeed;
@@ -34,13 +34,13 @@ public class playerController : MonoBehaviour
     Vector3 playerVelocity;
     bool isShooting;
     bool isRunning;
-    int HPOriginal;
-    int speedOriginal;
+    public int hpOriginal;
+    public int speedOriginal;
 
     // Start is called before the first frame update
     void Start()
     {
-        HPOriginal = HP;
+        hpOriginal = HP;
         updatePlayerHPBar();
         speedOriginal = playerSpeed;
     }
@@ -134,12 +134,14 @@ public class playerController : MonoBehaviour
     public void giveHP(int amount)
     {
         HP += amount;
+        if (HP > hpOriginal)
+            HP = hpOriginal;
         updatePlayerHPBar();
     }
 
     public void updatePlayerHPBar()
     {
-        gameManager.instance.playerHPBar.fillAmount = (float)HP / (float)HPOriginal;
+        gameManager.instance.playerHPBar.fillAmount = (float)HP / (float)hpOriginal;
     }
     public void weaponPickup(weaponStats gunstat)
     {
