@@ -15,11 +15,11 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     //[SerializeField] GameObject fuelCap;
 
     [Header("----- Enemy Stats -----")]
-    [SerializeField] float playerYOffset;
+    [SerializeField] public float playerYOffset;
     [SerializeField] public Transform headPos;
     public int hitPoints;
     [SerializeField] public int playerFaceSpeed;
-    [SerializeField] int viewAngle;
+    [SerializeField] public int viewAngle;
     [SerializeField] int waitTime;
     [SerializeField] int roamDist;
 
@@ -29,10 +29,10 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [SerializeField] public int bulletSpeed;
     [SerializeField] public float shootRate;
 
-    Vector3 playerDirection;
+    public Vector3 playerDirection;
     public bool isPlayerInRange;
     public bool isShooting;
-    float angleToPlayer;
+    public float angleToPlayer;
 
     public Vector3 startingPos;
     bool destinationChosen;
