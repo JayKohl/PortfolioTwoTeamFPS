@@ -15,7 +15,7 @@ public class playerController : MonoBehaviour
     [Range(15, 45)] [SerializeField] int gravity;
     [SerializeField] int runSpeed;
 
-    [Header("----- Gun Stats -----")]
+    [Header("----- Weapon Stats -----")]
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
     [SerializeField] GameObject weaponModel;
     [SerializeField] float shootRate;
@@ -143,15 +143,15 @@ public class playerController : MonoBehaviour
     {
         gameManager.instance.playerHPBar.fillAmount = (float)HP / (float)hpOriginal;
     }
-    public void weaponPickup(weaponStats gunstat)
+    public void weaponPickup(weaponStats weaponStat)
     {
-        weaponList.Add(gunstat);
+        weaponList.Add(weaponStat);
 
-        shootRate = gunstat.shootRate;
-        shootDist = gunstat.shootDist;
-        shootDamage = gunstat.shootDamage;
+        shootRate = weaponStat.shootRate;
+        shootDist = weaponStat.shootDist;
+        shootDamage = weaponStat.shootDamage;
 
-        weaponModel.GetComponent<MeshFilter>().sharedMesh = gunstat.weaponModel.GetComponent<MeshFilter>().sharedMesh;
-        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = gunstat.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
+        weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponStat.weaponModel.GetComponent<MeshFilter>().sharedMesh;
+        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponStat.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
 }

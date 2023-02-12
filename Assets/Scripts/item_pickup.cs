@@ -19,14 +19,14 @@ public class item_pickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (isHealth && gameManager.instance.playerScript.HP < gameManager.instance.playerScript.hpOriginal)
-            {
-                gameManager.instance.playerScript.giveHP(hpAmount);
-                Destroy(gameObject);
-            }
-            else if(isWeapon)
+            if (isWeapon)
             {
                 gameManager.instance.playerScript.weaponPickup(weapon);
+                Destroy(gameObject);
+            }
+            else if (isHealth && gameManager.instance.playerScript.HP < gameManager.instance.playerScript.hpOriginal)
+            {
+                gameManager.instance.playerScript.giveHP(hpAmount);
                 Destroy(gameObject);
             }            
         }
