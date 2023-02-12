@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class enemyTurretAI : enemyAI
 {
+    // Make sure the NavMesh stopping distance is the same as the sphere collider trigger radius.
     void Start()
     {
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
     }
 
-    // Update is called once per frame
+    //// Update is called once per frame
     void Update()
     {
-       
-
+        if (isPlayerInRange)
+        {
+            canSeePlayer();
+        }
+        //if (canSeePlayer() && isPlayerInRange)
+        //{
+        //    //facePlayer();
+        //}
     }
 
     public override bool canSeePlayer()
@@ -25,8 +32,8 @@ public class enemyTurretAI : enemyAI
         //playerDirection = gameManager.instance.player.transform.position - transform.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
-        //Debug.Log(angleToPlayer);
-        //Debug.DrawRay(headPos.position, playerDirection);
+        Debug.Log(angleToPlayer);
+        Debug.DrawRay(headPos.position, playerDirection);
 
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
@@ -34,7 +41,7 @@ public class enemyTurretAI : enemyAI
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
-                agent.SetDestination(gameManager.instance.player.transform.position);
+                //agent.SetDestination(gameManager.instance.player.transform.position);
                 if (agent.remainingDistance < agent.stoppingDistance)
                 {
                     facePlayer();
@@ -46,7 +53,7 @@ public class enemyTurretAI : enemyAI
                 return true;
             }
         }
-        agent.stoppingDistance = 0;
+        //agent.stoppingDistance = 0;
         return false;
     }
 }
