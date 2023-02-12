@@ -16,6 +16,8 @@ public class playerController : MonoBehaviour
     [SerializeField] int runSpeed;
 
     [Header("----- Gun Stats -----")]
+    [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
+    [SerializeField] GameObject weaponModel;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] int shootDamage;
@@ -25,7 +27,7 @@ public class playerController : MonoBehaviour
     [SerializeField] Transform shootPositionPlayer;
     // Deactivated temp
     // [SerializeField] GameObject bullet;
-    [SerializeField] GameObject gunFlash;
+    [SerializeField] GameObject gunFlash;    
 
     int jumpsCurrent;
     Vector3 move;
@@ -132,11 +134,22 @@ public class playerController : MonoBehaviour
     public void giveHP(int amount)
     {
         HP += amount;
+        updatePlayerHPBar();
     }
 
     public void updatePlayerHPBar()
     {
         gameManager.instance.playerHPBar.fillAmount = (float)HP / (float)HPOriginal;
     }
+    public void weaponPickup(weaponStats gunstat)
+    {
+        weaponList.Add(gunstat);
 
+        shootRate = gunstat.shootRate;
+        shootDist = gunstat.shootDist;
+        shootDamage = gunstat.shootDamage;
+
+        weaponModel.GetComponent<MeshFilter>().sharedMesh = gunstat.weaponModel.GetComponent<MeshFilter>().sharedMesh;
+        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = gunstat.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
+    }
 }
