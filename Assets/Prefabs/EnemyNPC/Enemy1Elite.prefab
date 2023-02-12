@@ -67,7 +67,10 @@ MonoBehaviour:
   bullet: {fileID: 8475010341257784611, guid: 9372fc5d1cf62584cb4129c921ae5bcd, type: 3}
   bulletSpeed: 25
   shootRate: 0.25
+  playerDirection: {x: 0, y: 0, z: 0}
   isPlayerInRange: 0
+  isShooting: 0
+  angleToPlayer: 0
   startingPos: {x: 0, y: 0, z: 0}
   stoppingDistOrig: 0
 --- !u!195 &2260537822649317680
@@ -278,7 +281,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4c31b3c3b4857d7468a88fd805c64d36, type: 2}
+  - {fileID: 2100000, guid: d57b11a047a228a459e782f5bc7ee432, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
