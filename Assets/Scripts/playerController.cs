@@ -8,14 +8,16 @@ public class playerController : MonoBehaviour
     [SerializeField] CharacterController controller;
 
     [Header("----- Player Stats -----")]
-    [Range(5, 10)] [SerializeField] int HP;
+    [Range(5, 10)] [SerializeField] public int HP;
     [Range(1, 50)] [SerializeField] int playerSpeed;
     [Range(1, 3)] [SerializeField] int jumpTimes;
     [Range(10, 25)] [SerializeField] int jumpSpeed;
     [Range(15, 45)] [SerializeField] int gravity;
     [SerializeField] int runSpeed;
 
-    [Header("----- Gun Stats -----")]
+    [Header("----- Weapon Stats -----")]
+    [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
+    [SerializeField] GameObject weaponModel;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] int shootDamage;
@@ -25,20 +27,20 @@ public class playerController : MonoBehaviour
     [SerializeField] Transform shootPositionPlayer;
     // Deactivated temp
     // [SerializeField] GameObject bullet;
-    [SerializeField] GameObject gunFlash;
+    [SerializeField] GameObject gunFlash;    
 
     int jumpsCurrent;
     Vector3 move;
     Vector3 playerVelocity;
     bool isShooting;
     bool isRunning;
-    int HPOriginal;
-    int speedOriginal;
+    public int hpOriginal;
+    public int speedOriginal;
 
     // Start is called before the first frame update
     void Start()
     {
-        HPOriginal = HP;
+        hpOriginal = HP;
         updatePlayerHPBar();
         speedOriginal = playerSpeed;
     }
@@ -132,11 +134,24 @@ public class playerController : MonoBehaviour
     public void giveHP(int amount)
     {
         HP += amount;
+        if (HP > hpOriginal)
+            HP = hpOriginal;
+        updatePlayerHPBar();
     }
 
     public void updatePlayerHPBar()
     {
-        gameManager.instance.playerHPBar.fillAmount = (float)HP / (float)HPOriginal;
+        gameManager.instance.playerHPBar.fillAmount = (float)HP / (float)hpOriginal;
     }
+    public void weaponPickup(weaponStats weaponStat)
+    {
+        weaponList.Add(weaponStat);
 
+        shootRate = weaponStat.shootRate;
+        shootDist = weaponStat.shootDist;
+        shootDamage = weaponStat.shootDamage;
+
+        weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponStat.weaponModel.GetComponent<MeshFilter>().sharedMesh;
+        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponStat.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
+    }
 }
