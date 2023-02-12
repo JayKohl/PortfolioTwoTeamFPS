@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class enemyTurretAI : enemyAI
 {
+    [SerializeField] Transform shootPositionTwo;
+    [SerializeField] Transform shootPositionThree;
+    [SerializeField] Transform shootPositionFour;
     // Make sure the NavMesh stopping distance is the same as the sphere collider trigger radius.
     void Start()
     {
@@ -18,10 +21,6 @@ public class enemyTurretAI : enemyAI
         {
             canSeePlayer();
         }
-        //if (canSeePlayer() && isPlayerInRange)
-        //{
-        //    //facePlayer();
-        //}
     }
 
     public override bool canSeePlayer()
@@ -29,7 +28,6 @@ public class enemyTurretAI : enemyAI
         playerDirection = gameManager.instance.player.transform.position - headPos.position;
         playerDirection.y += 1;
         playerYOffset = playerDirection.y;
-        //playerDirection = gameManager.instance.player.transform.position - transform.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
         Debug.Log(angleToPlayer);
@@ -41,7 +39,6 @@ public class enemyTurretAI : enemyAI
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
-                //agent.SetDestination(gameManager.instance.player.transform.position);
                 if (agent.remainingDistance < agent.stoppingDistance)
                 {
                     facePlayer();
@@ -53,7 +50,28 @@ public class enemyTurretAI : enemyAI
                 return true;
             }
         }
-        //agent.stoppingDistance = 0;
         return false;
+    }
+    public override IEnumerator shoot()
+    {
+        isShooting = true;
+
+        GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
+        bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+        if (shootPositionTwo != null)
+        {
+            GameObject bulletCloneTwo = Instantiate(bullet, shootPositionTwo.position, bullet.transform.rotation);
+            bulletCloneTwo.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+            GameObject bulletCloneThree = Instantiate(bullet, shootPositionThree.position, bullet.transform.rotation);
+            bulletCloneThree.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+            GameObject bulletCloneFour = Instantiate(bullet, shootPositionFour.position, bullet.transform.rotation);
+            bulletCloneFour.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+        }
+
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
     }
 }
