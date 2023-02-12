@@ -10,7 +10,7 @@ public class item_pickup : MonoBehaviour
     [SerializeField] bool isWeapon;
 
     [Header("Health Pack")]
-    [SerializeField] int hpAmount = 5;    
+    [SerializeField] int hpAmount;    
 
     [Header("Weapon Stats")]
     [SerializeField] weaponStats weapon;
