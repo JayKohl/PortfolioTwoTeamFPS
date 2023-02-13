@@ -150,7 +150,7 @@ public class playerController : MonoBehaviour
         shootRate = weaponStat.shootRate;
         shootDist = weaponStat.shootDist;
         shootDamage = weaponStat.shootDamage;
-
+        
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponStat.weaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponStat.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
