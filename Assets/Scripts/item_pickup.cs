@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class item_pickup : MonoBehaviour
 {
+    float time = 1;
+
     [Header("Item Type")]
     [SerializeField] bool isHealth;
     [SerializeField] bool isWeapon;
@@ -15,6 +17,19 @@ public class item_pickup : MonoBehaviour
     [Header("Weapon Stats")]
     [SerializeField] weaponStats weapon;
 
+    void Update()
+    {
+        StartCoroutine(bounce());
+    }
+    IEnumerator bounce()
+    {
+        if (!gameManager.instance.isPaused)
+        {
+            transform.Translate(0, 0.002f, 0, Space.World);
+            yield return new WaitForSeconds(time);
+            transform.Translate(0, -0.002f, 0, Space.World);
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
