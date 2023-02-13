@@ -15,12 +15,18 @@ public class enemyShredder : enemyAI
     void Update()
     {
         agent.destination = gameManager.instance.player.transform.position;
+        if (isPlayerInRange)
+        {
+            canSeePlayer();
+            //StartCoroutine(shoot());
+        }
     }
     public override IEnumerator shoot()
     {
         isShooting = true;
 
-        float distanceForMelee = Vector3.Distance(gameManager.instance.player.transform.position, transform.position);
+        float distanceForMelee = Vector3.Magnitude(gameManager.instance.player.transform.position - transform.position);
+        //float distanceForMelee = Vector3.Distance(gameManager.instance.player.transform.position, transform.position);
         if (distanceForMelee < 2)
         {
             gameManager.instance.playerScript.takeDamage(1);

@@ -162,7 +162,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
             isPlayerInRange = true;
         }
     }
-    public void OnTriggerExit(Collider other)
+    public virtual void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
