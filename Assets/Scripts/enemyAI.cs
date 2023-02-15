@@ -13,6 +13,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     // This is to attach the enemy to the nav mesh. 
     public NavMeshAgent agent;
     //[SerializeField] GameObject fuelCap;
+    [SerializeField] public Animator anim;
 
     [Header("----- Enemy Stats -----")]
     [SerializeField] public float playerYOffset;
@@ -20,6 +21,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     public int hitPoints;
     [SerializeField] public int playerFaceSpeed;
     [SerializeField] public int viewAngle;
+    [SerializeField] public int shootAngle;
     [SerializeField] int waitTime;
     [SerializeField] int roamDist;
 
@@ -69,23 +71,40 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     //    }
     //}
 
-    public void roam()
+    IEnumerator roam()
     {
-        agent.stoppingDistance = 0;
-
-        Vector3 randDir = Random.insideUnitSphere * roamDist;
-        randDir += startingPos;
-
-        NavMeshHit hit;
-        NavMesh.SamplePosition(randDir, out hit, 1, 1);
-        NavMeshPath path = new NavMeshPath();
-
-        if (hit.position != null)
+        if (!destinationChosen && agent.remainingDistance < 0.1f)
         {
-            agent.CalculatePath(hit.position, path);
+            destinationChosen = true;
+            agent.stoppingDistance = 0;
+            yield return new WaitForSeconds(waitTime);
+            destinationChosen = false;
+
+            Vector3 randDir = Random.insideUnitSphere * roamDist;
+            randDir += startingPos;
+
+            NavMeshHit hit;
+            NavMesh.SamplePosition(randDir, out hit, roamDist, NavMesh.AllAreas);
+            agent.SetDestination(hit.position);
         }
-        agent.SetPath(path);
     }
+    //public void roam()
+    //{
+    //    agent.stoppingDistance = 0;
+
+    //    Vector3 randDir = Random.insideUnitSphere * roamDist;
+    //    randDir += startingPos;
+
+    //    NavMeshHit hit;
+    //    NavMesh.SamplePosition(randDir, out hit, 1, 1);
+    //    NavMeshPath path = new NavMeshPath();
+
+    //    if (hit.position != null)
+    //    {
+    //        agent.CalculatePath(hit.position, path);
+    //    }
+    //    agent.SetPath(path);
+    //}
     public virtual bool canSeePlayer()
     {
         playerDirection = gameManager.instance.player.transform.position - headPos.position;
