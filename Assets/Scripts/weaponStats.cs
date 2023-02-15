@@ -11,4 +11,5 @@ public class weaponStats : ScriptableObject
     public int shootDamage;
     public GameObject weaponModel;
     public AudioClip weaponAudio;
+    public Sprite weaponIcon;
 }
