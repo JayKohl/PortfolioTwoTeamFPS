@@ -44,6 +44,7 @@ public class bossEvent : MonoBehaviour
     {
         if (!bossKill)
         {
+            gameManager.instance.playerScript.controller.enabled = false;
             StartCoroutine(toggleDoorLock());
             setLazerColor.material.color = Color.white;
             setLazerColorTwo.material.color = Color.white;

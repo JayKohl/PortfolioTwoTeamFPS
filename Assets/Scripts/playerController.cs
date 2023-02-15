@@ -5,7 +5,7 @@ using UnityEngine;
 public class playerController : MonoBehaviour
 {
     [Header("----- Components -----")]
-    [SerializeField] CharacterController controller;
+    [SerializeField] public CharacterController controller;
 
     [Header("----- Player Stats -----")]
     [Range(5, 10)] [SerializeField] public int HP;
