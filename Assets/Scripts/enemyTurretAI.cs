@@ -25,7 +25,7 @@ public class enemyTurretAI : enemyAI
 
     public override bool canSeePlayer()
     {
-        playerDirection = gameManager.instance.player.transform.position - headPos.position;
+        playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
         playerDirection.y += 1;
         playerYOffset = playerDirection.y;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
@@ -43,7 +43,7 @@ public class enemyTurretAI : enemyAI
                 {
                     facePlayer();
                 }
-                if (!isShooting)
+                if (!isShooting && angleToPlayer <= shootAngle)
                 {
                     StartCoroutine(shoot());
                 }
@@ -57,18 +57,18 @@ public class enemyTurretAI : enemyAI
         isShooting = true;
 
         GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-        bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+        bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
 
         if (shootPositionTwo != null)
         {
             GameObject bulletCloneTwo = Instantiate(bullet, shootPositionTwo.position, bullet.transform.rotation);
-            bulletCloneTwo.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+            bulletCloneTwo.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
 
             GameObject bulletCloneThree = Instantiate(bullet, shootPositionThree.position, bullet.transform.rotation);
-            bulletCloneThree.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+            bulletCloneThree.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
 
             GameObject bulletCloneFour = Instantiate(bullet, shootPositionFour.position, bullet.transform.rotation);
-            bulletCloneFour.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+            bulletCloneFour.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
         }
 
         yield return new WaitForSeconds(shootRate);

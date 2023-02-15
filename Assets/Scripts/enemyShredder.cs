@@ -14,6 +14,8 @@ public class enemyShredder : enemyAI
     // Update is called once per frame
     void Update()
     {
+        anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
+
         agent.destination = gameManager.instance.player.transform.position;
         if (isPlayerInRange)
         {
