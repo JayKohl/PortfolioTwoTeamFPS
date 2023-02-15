@@ -1805,19 +1805,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 4967930202911290908}
   agent: {fileID: 4967930202914470667}
+  anim: {fileID: 0}
   playerYOffset: 0
   headPos: {fileID: 5159502152780436579}
   hitPoints: 10
   playerFaceSpeed: 50
   viewAngle: 180
+  shootAngle: 90
   waitTime: 0
   roamDist: 8
   shootPosition: {fileID: 5159502153294120248}
   bullet: {fileID: 8475010341257784611, guid: 9372fc5d1cf62584cb4129c921ae5bcd, type: 3}
   bulletSpeed: 25
   shootRate: 0.25
+  playerDirection: {x: 0, y: 0, z: 0}
   isPlayerInRange: 0
   isShooting: 0
+  angleToPlayer: 0
   startingPos: {x: 0, y: 0, z: 0}
   stoppingDistOrig: 0
   shootPositionTwo: {fileID: 1880089180122484225}

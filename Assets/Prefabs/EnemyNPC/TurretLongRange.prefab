@@ -137,11 +137,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 9092918899659782779}
   agent: {fileID: 9092918899523927406}
+  anim: {fileID: 0}
   playerYOffset: 0
   headPos: {fileID: 9092918901153043856}
   hitPoints: 6
   playerFaceSpeed: 60
   viewAngle: 90
+  shootAngle: 90
   waitTime: 0
   roamDist: 0
   shootPosition: {fileID: 9092918901071155810}
@@ -154,6 +156,9 @@ MonoBehaviour:
   angleToPlayer: 0
   startingPos: {x: 0, y: 0, z: 0}
   stoppingDistOrig: 0
+  shootPositionTwo: {fileID: 0}
+  shootPositionThree: {fileID: 0}
+  shootPositionFour: {fileID: 0}
 --- !u!195 &9092918899523927406
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -71,7 +71,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     //    }
     //}
 
-    IEnumerator roam()
+    public IEnumerator roam()
     {
         if (!destinationChosen && agent.remainingDistance < 0.1f)
         {
@@ -108,8 +108,8 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     public virtual bool canSeePlayer()
     {
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
-        playerDirection.y += 1;
-        playerYOffset = playerDirection.y;
+       // playerDirection.y += 1;
+        //playerYOffset = playerDirection.y;
         //playerDirection = gameManager.instance.player.transform.position - transform.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
