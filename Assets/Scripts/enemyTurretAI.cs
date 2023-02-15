@@ -22,12 +22,9 @@ public class enemyTurretAI : enemyAI
             canSeePlayer();
         }
     }
-
     public override bool canSeePlayer()
     {
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
-        //playerDirection.y += 1;
-        //playerYOffset = playerDirection.y;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
         Debug.Log(angleToPlayer);
@@ -39,7 +36,7 @@ public class enemyTurretAI : enemyAI
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
-                if (agent.remainingDistance < agent.stoppingDistance)
+                if (isPlayerInRange)
                 {
                     facePlayer();
                 }
@@ -50,7 +47,14 @@ public class enemyTurretAI : enemyAI
                 return true;
             }
         }
+        agent.stoppingDistance = 0;
         return false;
+    }
+
+    public override void facePlayer()
+    {
+        Quaternion rotate = Quaternion.LookRotation(playerDirection);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * playerFaceSpeed);
     }
     public override IEnumerator shoot()
     {
