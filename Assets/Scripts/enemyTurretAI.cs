@@ -26,8 +26,8 @@ public class enemyTurretAI : enemyAI
     public override bool canSeePlayer()
     {
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
-        playerDirection.y += 1;
-        playerYOffset = playerDirection.y;
+        //playerDirection.y += 1;
+        //playerYOffset = playerDirection.y;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
         Debug.Log(angleToPlayer);
@@ -73,5 +73,14 @@ public class enemyTurretAI : enemyAI
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
+    }
+    public override void takeDamage(int dmg)
+    {
+        hitPoints -= dmg;
+        StartCoroutine(flashDamage());
+        if (hitPoints <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
