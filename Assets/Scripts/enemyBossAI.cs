@@ -30,12 +30,12 @@ public class enemyBossAI : enemyAI
 
         if (isPlayerInRange)
         {
-            if (!canSeePlayer() && agent.remainingDistance < 0.1f)
+            if (!canSeePlayer())
             {
                 agent.destination = gameManager.instance.player.transform.position;
             }
         }
-        else if (agent.remainingDistance < 0.1f && agent.destination != gameManager.instance.player.transform.position)
+        else if (agent.destination != gameManager.instance.player.transform.position)
         {
             StartCoroutine(roam());
         }
