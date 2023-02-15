@@ -141,6 +141,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     public virtual void takeDamage(int dmg)
     {
         hitPoints -= dmg;
+        agent.SetDestination(gameManager.instance.player.transform.position);
         StartCoroutine(flashDamage());
         if (hitPoints <= 0)
         {
@@ -169,7 +170,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     {
         isShooting = true;
         GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-        bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+        bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
