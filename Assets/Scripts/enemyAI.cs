@@ -107,7 +107,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     //}
     public virtual bool canSeePlayer()
     {
-        playerDirection = gameManager.instance.player.transform.position - headPos.position;
+        playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
         playerDirection.y += 1;
         playerYOffset = playerDirection.y;
         //playerDirection = gameManager.instance.player.transform.position - transform.position;
@@ -127,7 +127,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
                 {
                     facePlayer();
                 }
-                if (!isShooting)
+                if (!isShooting && angleToPlayer <= shootAngle)
                 {
                     StartCoroutine(shoot());
                 }
