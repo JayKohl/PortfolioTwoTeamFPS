@@ -61,18 +61,21 @@ public class enemyTurretAI : enemyAI
         isShooting = true;
 
         GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-        bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
-
+        Vector3 shootingVector = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
+        bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
         if (shootPositionTwo != null)
         {
             GameObject bulletCloneTwo = Instantiate(bullet, shootPositionTwo.position, bullet.transform.rotation);
-            bulletCloneTwo.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
+            Vector3 shootingVectorTwo = (gameManager.instance.player.transform.position - shootPositionTwo.position).normalized;
+            bulletCloneTwo.GetComponent<Rigidbody>().velocity = shootingVectorTwo * bulletSpeed;
 
             GameObject bulletCloneThree = Instantiate(bullet, shootPositionThree.position, bullet.transform.rotation);
-            bulletCloneThree.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
+            Vector3 shootingVectorThree = (gameManager.instance.player.transform.position - shootPositionThree.position).normalized;
+            bulletCloneThree.GetComponent<Rigidbody>().velocity = shootingVectorThree * bulletSpeed;
 
             GameObject bulletCloneFour = Instantiate(bullet, shootPositionFour.position, bullet.transform.rotation);
-            bulletCloneFour.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
+            Vector3 shootingVectorFour = (gameManager.instance.player.transform.position - shootPositionFour.position).normalized;
+            bulletCloneFour.GetComponent<Rigidbody>().velocity = shootingVectorFour * bulletSpeed;
         }
 
         yield return new WaitForSeconds(shootRate);
