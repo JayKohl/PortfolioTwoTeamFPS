@@ -160,7 +160,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(0.15f);
         model.material.color = Color.white;
     }
-    public void facePlayer()
+    public virtual void facePlayer()
     {
         playerDirection.y = 0;
         Quaternion rotate = Quaternion.LookRotation(playerDirection);
