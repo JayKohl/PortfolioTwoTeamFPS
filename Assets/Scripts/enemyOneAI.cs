@@ -9,23 +9,22 @@ public class enemyOneAI : enemyAI
     {
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
-
-        roam();
     }
 
     // Update is called once per frame
     void Update()
     {
+        anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
         if (isPlayerInRange)
         {
-            if (!canSeePlayer() && agent.remainingDistance < 0.1f)
+            if (!canSeePlayer())
             {
-                roam();
+                StartCoroutine(roam());
             }
         }
-        else if (agent.remainingDistance < 0.1f && agent.destination != gameManager.instance.player.transform.position)
+        else if (agent.destination != gameManager.instance.player.transform.position)
         {
-            roam();
+            StartCoroutine(roam());
         }
         
     }

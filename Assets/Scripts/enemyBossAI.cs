@@ -21,13 +21,12 @@ public class enemyBossAI : enemyAI
 
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
-
-        roam();
     }
 
     // Update is called once per frame
     void Update()
     {
+        anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
 
         if (isPlayerInRange)
         {
@@ -38,13 +37,14 @@ public class enemyBossAI : enemyAI
         }
         else if (agent.remainingDistance < 0.1f && agent.destination != gameManager.instance.player.transform.position)
         {
-            roam();
+            StartCoroutine(roam());
         }
     }
     public override void takeDamage(int dmg)
     {
 
         hitPoints -= dmg;
+        agent.SetDestination(gameManager.instance.player.transform.position);
         StartCoroutine(flashDamage());
         if (hitPoints <= 0)
         {
@@ -57,16 +57,16 @@ public class enemyBossAI : enemyAI
         isShooting = true;
 
         GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-        bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+        bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
 
         GameObject bulletCloneTwo = Instantiate(bullet, shootPositionTwo.position, bullet.transform.rotation);
-        bulletCloneTwo.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+        bulletCloneTwo.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
 
         GameObject bulletCloneThree = Instantiate(bullet, shootPositionThree.position, bullet.transform.rotation);
-        bulletCloneThree.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+        bulletCloneThree.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
 
         GameObject bulletCloneFour = Instantiate(bullet, shootPositionFour.position, bullet.transform.rotation);
-        bulletCloneFour.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+        bulletCloneFour.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
 
         float distanceForMelee = Vector3.Distance(gameManager.instance.player.transform.position, transform.position);
         if (distanceForMelee < 3)
