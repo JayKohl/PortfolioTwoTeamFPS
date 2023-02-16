@@ -19,6 +19,7 @@ public class enemyBossAI : enemyAI
     [SerializeField] GameObject fuelCap;
     int enemyBossCount;
     bool hasMelee;
+    bool isMissileShoot;
     // Start is called before the first frame update
     void Start()
     {
@@ -89,17 +90,53 @@ public class enemyBossAI : enemyAI
             gameManager.instance.playerScript.takeDamage(1);
         }
 
-        // using this check to see if the enemy is far enough from the player to shoot missiles.
-        if (distanceForMelee > 20)
-        {
-            GameObject missileClone = Instantiate(missile, shootPositionMissile.position, missile.transform.rotation);
-            Vector3 shootingVectorMissile = (gameManager.instance.player.transform.position - shootPositionMissile.position).normalized;
-            missileClone.GetComponent<Rigidbody>().velocity = shootingVectorMissile * missileSpeed;
-
-        }
-
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
+    }
+    IEnumerator missileShoot()
+    {
+        isMissileShoot = true;
+        GameObject missileClone = Instantiate(missile, shootPositionMissile.position, missile.transform.rotation);
+        Vector3 shootingVectorMissile = (gameManager.instance.player.transform.position - shootPositionMissile.position).normalized;
+        missileClone.GetComponent<Rigidbody>().velocity = shootingVectorMissile * missileSpeed;
+        yield return new WaitForSeconds(missileShootRate);
+        isMissileShoot = false;
+    }
+    public override bool canSeePlayer()
+    {
+        playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
+        // playerDirection.y += 1;
+        //playerYOffset = playerDirection.y;
+        //playerDirection = gameManager.instance.player.transform.position - transform.position;
+        angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
+
+        Debug.Log(angleToPlayer);
+        Debug.DrawRay(headPos.position, playerDirection);
+
+        RaycastHit hit;
+        if (Physics.Raycast(headPos.position, playerDirection, out hit))
+        {
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
+            {
+                agent.stoppingDistance = stoppingDistOrig;
+                agent.SetDestination(gameManager.instance.player.transform.position);
+                if (agent.remainingDistance < agent.stoppingDistance)
+                {
+                    facePlayer();
+                }
+                if (!isShooting && angleToPlayer <= shootAngle)
+                {
+                    StartCoroutine(shoot());
+                }
+                if (!isMissileShoot)
+                {
+                    StartCoroutine(missileShoot());
+                }
+                return true;
+            }
+        }
+        agent.stoppingDistance = 0;
+        return false;
     }
 
 }
