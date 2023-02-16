@@ -96,9 +96,24 @@ public class enemyBossAI : enemyAI
     IEnumerator missileShoot()
     {
         isMissileShoot = true;
+
         GameObject missileClone = Instantiate(missile, shootPositionMissile.position, missile.transform.rotation);
-        Vector3 shootingVectorMissile = (gameManager.instance.player.transform.position - shootPositionMissile.position).normalized;
-        missileClone.GetComponent<Rigidbody>().velocity = shootingVectorMissile * missileSpeed;
+        float shootingVectorMissile = gameManager.instance.player.transform.position.z - shootPositionMissile.position.z;
+
+        float missileMidWay = shootingVectorMissile / 2;
+        // setting the peak of the missile durring its travel
+        Vector3 missileTopPos = new Vector3(gameManager.instance.transform.position.x, shootPositionMissile.transform.position.y, missileMidWay);
+        Vector3 directionVecToTop = (missileTopPos - shootPositionMissile.position).normalized;
+        if (missileClone.transform.position != missileTopPos)
+        {
+            missileClone.GetComponent<Rigidbody>().velocity = directionVecToTop * missileSpeed;
+        }
+        else
+        {
+            Vector3 missileDrop = (gameManager.instance.player.transform.position - missileTopPos);
+            missileClone.GetComponent<Rigidbody>().velocity = missileDrop * missileSpeed;
+        }
+
         yield return new WaitForSeconds(missileShootRate);
         isMissileShoot = false;
     }
