@@ -57,6 +57,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     //// Update is called once per frame
     //void Update()
     //{
+    //    anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
 
     //    if (isPlayerInRange)
     //    {
