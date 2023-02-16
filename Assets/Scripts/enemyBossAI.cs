@@ -10,6 +10,12 @@ public class enemyBossAI : enemyAI
     [SerializeField] Transform shootPositionTwo;
     [SerializeField] Transform shootPositionThree;
     [SerializeField] Transform shootPositionFour;
+
+    [SerializeField] Transform shootPositionMissile;
+    [SerializeField] public GameObject missile;
+    [SerializeField] public int missileSpeed;
+    [SerializeField] public float missileShootRate;
+
     [SerializeField] GameObject fuelCap;
     int enemyBossCount;
     bool hasMelee;
@@ -81,6 +87,15 @@ public class enemyBossAI : enemyAI
         if (distanceForMelee < 3)
         {
             gameManager.instance.playerScript.takeDamage(1);
+        }
+
+        // using this check to see if the enemy is far enough from the player to shoot missiles.
+        if (distanceForMelee > 20)
+        {
+            GameObject missileClone = Instantiate(missile, shootPositionMissile.position, missile.transform.rotation);
+            Vector3 shootingVectorMissile = (gameManager.instance.player.transform.position - shootPositionMissile.position).normalized;
+            missileClone.GetComponent<Rigidbody>().velocity = shootingVectorMissile * missileSpeed;
+
         }
 
         yield return new WaitForSeconds(shootRate);
