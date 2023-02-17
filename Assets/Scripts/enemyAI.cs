@@ -58,23 +58,6 @@ public abstract class enemyAI : MonoBehaviour, IDamage
             }
         }
     }
-    //public void roam()
-    //{
-    //    agent.stoppingDistance = 0;
-
-    //    Vector3 randDir = Random.insideUnitSphere * roamDist;
-    //    randDir += startingPos;
-
-    //    NavMeshHit hit;
-    //    NavMesh.SamplePosition(randDir, out hit, 1, 1);
-    //    NavMeshPath path = new NavMeshPath();
-
-    //    if (hit.position != null)
-    //    {
-    //        agent.CalculatePath(hit.position, path);
-    //    }
-    //    agent.SetPath(path);
-    //}
     public virtual bool canSeePlayer()
     {
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
@@ -92,6 +75,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
+                agent.speed = speedChase;
                 agent.SetDestination(gameManager.instance.player.transform.position);
                 if (agent.remainingDistance < agent.stoppingDistance)
                 {
