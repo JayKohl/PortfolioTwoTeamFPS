@@ -9,38 +9,38 @@ public abstract class enemyAI : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
-    public NavMeshAgent agent;
-    [SerializeField] public Animator anim;
+    protected NavMeshAgent agent;
+    [SerializeField] protected Animator anim;
 
     [Header("----- Enemy Stats -----")]
-    [SerializeField] public float playerYOffset;
-    [SerializeField] public Transform headPos;
-    [SerializeField] public int hitPoints;
-    [SerializeField] public int playerFaceSpeed;
+    [SerializeField] protected float playerYOffset;
+    [SerializeField] protected Transform headPos;
+    [SerializeField] protected int hitPoints;
+    [SerializeField] protected int playerFaceSpeed;
     [SerializeField] int speedChase;
-    [SerializeField] public int viewAngle;
-    [SerializeField] public int shootAngle;
+    [SerializeField] protected int viewAngle;
+    [SerializeField] protected int shootAngle;
     [SerializeField] int waitTime;
     [SerializeField] int roamDist;
 
     [Header("----- Gun -----")]
-    [SerializeField] public Transform shootPosition;
-    [SerializeField] public GameObject bullet;
-    [SerializeField] public int bulletSpeed;
-    [SerializeField] public float shootRate;
+    [SerializeField] protected Transform shootPosition;
+    [SerializeField] protected GameObject bullet;
+    [SerializeField] protected int bulletSpeed;
+    [SerializeField] protected float shootRate;
 
-    [SerializeField] public Collider meleeCollider;
+    [SerializeField] protected Collider meleeCollider;
 
-    public Vector3 playerDirection;
+    protected Vector3 playerDirection;
     public bool isPlayerInRange;
-    public bool isShooting;
-    public float angleToPlayer;
+    protected bool isShooting;
+    protected float angleToPlayer;
     float speedOrig;
-    public Vector3 startingPos;
+    protected Vector3 startingPos;
     bool destinationChosen;
-    public float stoppingDistOrig;
+    protected float stoppingDistOrig;
 
-    public IEnumerator roam()
+    protected IEnumerator roam()
     {
         if (!destinationChosen && agent.remainingDistance < 0.1f)
         {
@@ -60,7 +60,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
             }
         }
     }
-    public virtual bool canSeePlayer()
+    protected virtual bool canSeePlayer()
     {
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
         // playerDirection.y += 1;
@@ -112,19 +112,19 @@ public abstract class enemyAI : MonoBehaviour, IDamage
             StartCoroutine(flashDamage());
         }
     }
-    public IEnumerator flashDamage()
+    protected IEnumerator flashDamage()
     {
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.15f);
         model.material.color = Color.white;
     }
-    public virtual void facePlayer()
+    protected virtual void facePlayer()
     {
         playerDirection.y = 0;
         Quaternion rotate = Quaternion.LookRotation(playerDirection);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * playerFaceSpeed);
     }
-    public virtual IEnumerator shoot()
+    protected virtual IEnumerator shoot()
     {
         isShooting = true;
         anim.SetTrigger("Shoot");

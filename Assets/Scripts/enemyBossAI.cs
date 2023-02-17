@@ -12,9 +12,9 @@ public class enemyBossAI : enemyAI
     [SerializeField] Transform shootPositionFour;
 
     [SerializeField] Transform shootPositionMissile;
-    [SerializeField] public GameObject missile;
-    [SerializeField] public int missileSpeed;
-    [SerializeField] public float missileShootRate;
+    [SerializeField] GameObject missile;
+    [SerializeField] int missileSpeed;
+    [SerializeField] float missileShootRate;
 
     [SerializeField] GameObject fuelCap;
     int enemyBossCount;
@@ -59,7 +59,7 @@ public class enemyBossAI : enemyAI
             Destroy(gameObject);
         }
     }
-    public override IEnumerator shoot()
+    protected override IEnumerator shoot()
     {
         isShooting = true;
 
@@ -117,7 +117,7 @@ public class enemyBossAI : enemyAI
         yield return new WaitForSeconds(missileShootRate);
         isMissileShoot = false;
     }
-    public override bool canSeePlayer()
+    protected override bool canSeePlayer()
     {
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
         // playerDirection.y += 1;
