@@ -56,12 +56,20 @@ public class enemyBossAI : enemyAI
     {
 
         hitPoints -= dmg;
-        agent.SetDestination(gameManager.instance.player.transform.position);
-        StartCoroutine(flashDamage());
         if (hitPoints <= 0)
         {
+            GetComponent<Collider>().enabled = false;
             GameObject fuel = Instantiate(fuelCap, gameObject.transform.position, fuelCap.transform.rotation);
-            Destroy(gameObject);
+            anim.SetBool("Dead", true);
+            agent.enabled = false;
+            // Destroy(gameObject);
+        }
+        else
+        {
+            anim.SetTrigger("Damage");
+            meleeColliderOff();
+            agent.SetDestination(gameManager.instance.player.transform.position);
+            StartCoroutine(flashDamage());
         }
     }
     protected override IEnumerator shoot()
