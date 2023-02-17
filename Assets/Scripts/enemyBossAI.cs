@@ -131,6 +131,7 @@ public class enemyBossAI : enemyAI
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
+                agent.speed = speedChase;
                 agent.SetDestination(gameManager.instance.player.transform.position);
                 if (agent.remainingDistance < agent.stoppingDistance)
                 {

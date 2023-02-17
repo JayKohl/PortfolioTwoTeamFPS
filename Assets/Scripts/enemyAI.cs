@@ -17,7 +17,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [SerializeField] protected Transform headPos;
     [SerializeField] protected int hitPoints;
     [SerializeField] protected int playerFaceSpeed;
-    [SerializeField] int speedChase;
+    [SerializeField] protected int speedChase;
     [SerializeField] protected int viewAngle;
     [SerializeField] protected int shootAngle;
     [SerializeField] int waitTime;
