@@ -284,6 +284,7 @@ MonoBehaviour:
   headPos: {fileID: 3181655038206869945}
   hitPoints: 5
   playerFaceSpeed: 50
+  speedChase: 0
   viewAngle: 90
   shootAngle: 90
   waitTime: 0
@@ -292,12 +293,9 @@ MonoBehaviour:
   bullet: {fileID: 8475010341257784611, guid: 9372fc5d1cf62584cb4129c921ae5bcd, type: 3}
   bulletSpeed: 25
   shootRate: 0.25
-  playerDirection: {x: 0, y: 0, z: 0}
+  meleeCollider: {fileID: 0}
+  meleeRate: 0
   isPlayerInRange: 0
-  isShooting: 0
-  angleToPlayer: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  stoppingDistOrig: 0
 --- !u!195 &3181655038206869910
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -330,7 +328,7 @@ Animator:
   m_GameObject: {fileID: 3181655038206450799}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9df7021e1cc3dda4181323979d90c1ea, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 479ce923233bb024aace518e566fe6c8, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1

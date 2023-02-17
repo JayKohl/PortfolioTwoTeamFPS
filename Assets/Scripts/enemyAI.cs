@@ -9,7 +9,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
-    protected NavMeshAgent agent;
+    public NavMeshAgent agent;
     [SerializeField] protected Animator anim;
 
     [Header("----- Enemy Stats -----")]
