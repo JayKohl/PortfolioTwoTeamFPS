@@ -12,6 +12,7 @@ public class enemyTurretAI : enemyAI
     {
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
+        speedOrig = agent.speed;
     }
 
     //// Update is called once per frame
