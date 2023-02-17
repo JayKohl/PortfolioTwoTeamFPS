@@ -125,11 +125,14 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     public virtual IEnumerator shoot()
     {
         isShooting = true;
-        GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-        bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
-
+        anim.SetTrigger("Shoot");
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
+    }
+    public void createBullet()
+    {
+        GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
+        bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
     }
     public void OnTriggerEnter(Collider other)
     {
