@@ -15,6 +15,7 @@ public class enemyBossAI : enemyAI
     [SerializeField] GameObject missile;
     [SerializeField] int missileSpeed;
     [SerializeField] float missileShootRate;
+    [SerializeField] float missileYVelocity;
 
     [SerializeField] GameObject fuelCap;
     int enemyBossCount;
@@ -75,15 +76,17 @@ public class enemyBossAI : enemyAI
     protected override IEnumerator shoot()
     {
         isShooting = true;
+        anim.SetTrigger("Shoot");
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
+    }
 
+    public override void createBullet()
+    {
         //GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
         //Vector3 shootingVector = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
         //bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
-
-
-        GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-        Vector3 shootingVector = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
-        bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
+        base.createBullet();
 
         GameObject bulletCloneTwo = Instantiate(bullet, shootPositionTwo.position, bullet.transform.rotation);
         Vector3 shootingVectorTwo = (gameManager.instance.player.transform.position - shootPositionTwo.position).normalized;
@@ -96,39 +99,20 @@ public class enemyBossAI : enemyAI
         GameObject bulletCloneFour = Instantiate(bullet, shootPositionFour.position, bullet.transform.rotation);
         Vector3 shootingVectorFour = (gameManager.instance.player.transform.position - shootPositionFour.position).normalized;
         bulletCloneFour.GetComponent<Rigidbody>().velocity = shootingVectorFour * bulletSpeed;
-
-        float distanceForMelee = Vector3.Distance(gameManager.instance.player.transform.position, transform.position);
-        if (distanceForMelee < 3)
-        {
-            gameManager.instance.playerScript.takeDamage(1);
-        }
-
-        yield return new WaitForSeconds(shootRate);
-        isShooting = false;
     }
+
     IEnumerator missileShoot()
     {
         isMissileShoot = true;
-
-        GameObject missileClone = Instantiate(missile, shootPositionMissile.position, missile.transform.rotation);
-        float shootingVectorMissile = gameManager.instance.player.transform.position.z - shootPositionMissile.position.z;
-
-        float missileMidWay = shootingVectorMissile / 2;
-        // setting the peak of the missile durring its travel
-        Vector3 missileTopPos = new Vector3(gameManager.instance.transform.position.x, shootPositionMissile.transform.position.y, missileMidWay);
-        Vector3 directionVecToTop = (missileTopPos - shootPositionMissile.position).normalized;
-        if (missileClone.transform.position != missileTopPos)
-        {
-            missileClone.GetComponent<Rigidbody>().velocity = directionVecToTop * missileSpeed;
-        }
-        else
-        {
-            Vector3 missileDrop = (gameManager.instance.player.transform.position - missileTopPos);
-            missileClone.GetComponent<Rigidbody>().velocity = missileDrop * missileSpeed;
-        }
-
+        anim.SetTrigger("ShootMissile");
         yield return new WaitForSeconds(missileShootRate);
         isMissileShoot = false;
+    }
+    public void createMissile()
+    {
+        GameObject missileClone = Instantiate(missile, shootPositionMissile.position, missile.transform.rotation);
+        Vector3 missileVector = (gameManager.instance.player.transform.position - shootPositionMissile.position).normalized;
+        missileClone.GetComponent<Rigidbody>().velocity = (missileVector + new Vector3(0, missileYVelocity, 0)) * missileSpeed;
     }
     protected override bool canSeePlayer()
     {
