@@ -24,18 +24,37 @@ public class enemyShredder : enemyAI
             //StartCoroutine(shoot());
         }
     }
-    protected override IEnumerator shoot()
+    protected override bool canSeePlayer()
     {
-        isShooting = true;
+        playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
+        // playerDirection.y += 1;
+        //playerYOffset = playerDirection.y;
+        //playerDirection = gameManager.instance.player.transform.position - transform.position;
+        angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
-        float distanceForMelee = Vector3.Magnitude(gameManager.instance.player.transform.position - transform.position);
-        //float distanceForMelee = Vector3.Distance(gameManager.instance.player.transform.position, transform.position);
-        if (distanceForMelee < 2)
+        Debug.Log(angleToPlayer);
+        Debug.DrawRay(headPos.position, playerDirection);
+
+        RaycastHit hit;
+        if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
-            gameManager.instance.playerScript.takeDamage(1);
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
+            {
+                agent.stoppingDistance = stoppingDistOrig;
+                agent.speed = speedChase;
+                agent.SetDestination(gameManager.instance.player.transform.position);
+                if (agent.remainingDistance < agent.stoppingDistance)
+                {
+                    facePlayer();
+                }
+                if (!isShooting && angleToPlayer <= shootAngle)
+                {
+                    StartCoroutine(melee());
+                }
+                return true;
+            }
         }
-
-        yield return new WaitForSeconds(shootRate);
-        isShooting = false;
+        agent.stoppingDistance = 0;
+        return false;
     }
 }
