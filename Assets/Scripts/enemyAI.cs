@@ -29,6 +29,8 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [SerializeField] public int bulletSpeed;
     [SerializeField] public float shootRate;
 
+    [SerializeField] public Collider meleeCollider;
+
     public Vector3 playerDirection;
     public bool isPlayerInRange;
     public bool isShooting;
@@ -133,6 +135,14 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     {
         GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
         bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
+    }
+    public void meleeColliderOn()
+    {
+        meleeCollider.enabled = true;
+    }
+    public void meleeColliderOff()
+    {
+        meleeCollider.enabled = false;
     }
     public void OnTriggerEnter(Collider other)
     {
