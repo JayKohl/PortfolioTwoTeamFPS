@@ -8,108 +8,62 @@ using UnityEngine.AI;
 public abstract class enemyAI : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
-    // For flashing the material red "visual feedback"
     [SerializeField] Renderer model;
-    // This is to attach the enemy to the nav mesh. 
-    public NavMeshAgent agent;
-    //[SerializeField] GameObject fuelCap;
-    [SerializeField] public Animator anim;
+    protected NavMeshAgent agent;
+    [SerializeField] protected Animator anim;
 
     [Header("----- Enemy Stats -----")]
-    [SerializeField] public float playerYOffset;
-    [SerializeField] public Transform headPos;
-    public int hitPoints;
-    [SerializeField] public int playerFaceSpeed;
-    [SerializeField] public int viewAngle;
-    [SerializeField] public int shootAngle;
+    [SerializeField] protected float playerYOffset;
+    [SerializeField] protected Transform headPos;
+    [SerializeField] protected int hitPoints;
+    [SerializeField] protected int playerFaceSpeed;
+    [SerializeField] int speedChase;
+    [SerializeField] protected int viewAngle;
+    [SerializeField] protected int shootAngle;
     [SerializeField] int waitTime;
     [SerializeField] int roamDist;
 
     [Header("----- Gun -----")]
-    [SerializeField] public Transform shootPosition;
-    [SerializeField] public GameObject bullet;
-    [SerializeField] public int bulletSpeed;
-    [SerializeField] public float shootRate;
+    [SerializeField] protected Transform shootPosition;
+    [SerializeField] protected GameObject bullet;
+    [SerializeField] protected int bulletSpeed;
+    [SerializeField] protected float shootRate;
 
-    public Vector3 playerDirection;
+    [SerializeField] protected Collider meleeCollider;
+
+    protected Vector3 playerDirection;
     public bool isPlayerInRange;
-    public bool isShooting;
-    public float angleToPlayer;
-
-    public Vector3 startingPos;
+    protected bool isShooting;
+    protected float angleToPlayer;
+    protected float speedOrig;
+    protected Vector3 startingPos;
     bool destinationChosen;
-    public float stoppingDistOrig;
+    protected float stoppingDistOrig;
 
-    // Start is called before the first frame update
-    //void Start()
-    //{
-    //    if (gameObject.CompareTag("EnemyBoss"))
-    //    {
-    //        gameManager.instance.updateGameGoal(+1);
-    //    }
-
-    //    startingPos = transform.position;
-    //    stoppingDistOrig = agent.stoppingDistance;
-
-    //    roam();
-    //}
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //    anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
-
-    //    if (isPlayerInRange)
-    //    {
-    //        if (!canSeePlayer() && agent.remainingDistance < 0.1f)
-    //        {
-    //            roam();
-    //        }
-    //    }
-    //    else if (agent.remainingDistance < 0.1f && agent.destination != gameManager.instance.player.transform.position)
-    //    {
-    //        roam();
-    //    }
-    //}
-
-    public IEnumerator roam()
+    protected IEnumerator roam()
     {
         if (!destinationChosen && agent.remainingDistance < 0.1f)
         {
             destinationChosen = true;
             agent.stoppingDistance = 0;
+            agent.speed = speedOrig;
             yield return new WaitForSeconds(waitTime);
             destinationChosen = false;
 
-            Vector3 randDir = Random.insideUnitSphere * roamDist;
-            randDir += startingPos;
-
-            NavMeshHit hit;
-            NavMesh.SamplePosition(randDir, out hit, roamDist, NavMesh.AllAreas);
-            agent.SetDestination(hit.position);
+            if (agent.isActiveAndEnabled)
+            {
+                Vector3 randDir = Random.insideUnitSphere * roamDist;
+                randDir += startingPos;
+                NavMeshHit hit;
+                NavMesh.SamplePosition(randDir, out hit, roamDist, NavMesh.AllAreas);
+                agent.SetDestination(hit.position);
+            }
         }
     }
-    //public void roam()
-    //{
-    //    agent.stoppingDistance = 0;
-
-    //    Vector3 randDir = Random.insideUnitSphere * roamDist;
-    //    randDir += startingPos;
-
-    //    NavMeshHit hit;
-    //    NavMesh.SamplePosition(randDir, out hit, 1, 1);
-    //    NavMeshPath path = new NavMeshPath();
-
-    //    if (hit.position != null)
-    //    {
-    //        agent.CalculatePath(hit.position, path);
-    //    }
-    //    agent.SetPath(path);
-    //}
-    public virtual bool canSeePlayer()
+    protected virtual bool canSeePlayer()
     {
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
-       // playerDirection.y += 1;
+        // playerDirection.y += 1;
         //playerYOffset = playerDirection.y;
         //playerDirection = gameManager.instance.player.transform.position - transform.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
@@ -123,6 +77,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
+                agent.speed = speedChase;
                 agent.SetDestination(gameManager.instance.player.transform.position);
                 if (agent.remainingDistance < agent.stoppingDistance)
                 {
@@ -142,39 +97,60 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     public virtual void takeDamage(int dmg)
     {
         hitPoints -= dmg;
-        agent.SetDestination(gameManager.instance.player.transform.position);
-        StartCoroutine(flashDamage());
         if (hitPoints <= 0)
         {
-            // this checks to see if the enemy killed is a boss. if true it drops a object.
-            //if (gameObject.CompareTag("EnemyBoss"))
-            //{
-            //    //GameObject fuel = Instantiate(fuelCap, gameObject.transform.position, fuelCap.transform.rotation);
-            //    //gameManager.instance.updateGameGoal(-1);
-            //}
-            Destroy(gameObject);
+            GetComponent<Collider>().enabled = false;
+            anim.SetBool("Dead", true);
+            agent.enabled = false;
+            //Destroy(gameObject); Create a IEnumerator for destroyObject
+        }
+        else
+        {
+            anim.SetTrigger("Damage");
+            // melee add a function for turning off the weapon collider.
+            agent.SetDestination(gameManager.instance.player.transform.position);
+            StartCoroutine(flashDamage());
         }
     }
-    public IEnumerator flashDamage()
+    protected IEnumerator flashDamage()
     {
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.15f);
         model.material.color = Color.white;
     }
-    public virtual void facePlayer()
+    protected virtual void facePlayer()
     {
         playerDirection.y = 0;
         Quaternion rotate = Quaternion.LookRotation(playerDirection);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * playerFaceSpeed);
     }
-    public virtual IEnumerator shoot()
+    protected virtual IEnumerator shoot()
     {
         isShooting = true;
-        GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-        bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
-
+        anim.SetTrigger("Shoot");
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
+    }
+    public virtual void createBullet()
+    {
+        GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
+        bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
+    }
+    public void meleeColliderOn()
+    {
+        meleeCollider.enabled = true;
+    }
+    public void meleeColliderOff()
+    {
+        meleeCollider.enabled = false;
+    }
+    public void agentStop()
+    {
+        agent.enabled = false;
+    }
+    public void agentStart()
+    {
+        agent.enabled = true;
     }
     public void OnTriggerEnter(Collider other)
     {

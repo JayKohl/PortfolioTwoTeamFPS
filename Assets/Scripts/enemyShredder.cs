@@ -23,7 +23,7 @@ public class enemyShredder : enemyAI
             //StartCoroutine(shoot());
         }
     }
-    public override IEnumerator shoot()
+    protected override IEnumerator shoot()
     {
         isShooting = true;
 

@@ -22,7 +22,7 @@ public class enemyTurretAI : enemyAI
             canSeePlayer();
         }
     }
-    public override bool canSeePlayer()
+    protected override bool canSeePlayer()
     {
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
@@ -51,12 +51,12 @@ public class enemyTurretAI : enemyAI
         return false;
     }
 
-    public override void facePlayer()
+    protected override void facePlayer()
     {
         Quaternion rotate = Quaternion.LookRotation(playerDirection);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * playerFaceSpeed);
     }
-    public override IEnumerator shoot()
+    protected override IEnumerator shoot()
     {
         isShooting = true;
 
