@@ -28,23 +28,28 @@ public class enemyBossAI : enemyAI
 
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
+
+        speedOrig = agent.speed;
     }
 
     // Update is called once per frame
     void Update()
     {
         //anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
-
-        if (isPlayerInRange)
+        if (agent.isActiveAndEnabled)
         {
-            if (!canSeePlayer())
+            anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
+            if (isPlayerInRange)
             {
-                agent.destination = gameManager.instance.player.transform.position;
+                if (!canSeePlayer())
+                {
+                    agent.destination = gameManager.instance.player.transform.position;
+                }
             }
-        }
-        else if (agent.destination != gameManager.instance.player.transform.position)
-        {
-            StartCoroutine(roam());
+            else if (agent.destination != gameManager.instance.player.transform.position)
+            {
+                StartCoroutine(roam());
+            }
         }
     }
     public override void takeDamage(int dmg)
