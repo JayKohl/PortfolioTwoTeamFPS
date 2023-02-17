@@ -261,7 +261,6 @@ Transform:
   - {fileID: 3181655038206869899}
   - {fileID: 3181655038206869909}
   - {fileID: 3181655038206869911}
-  - {fileID: 7634330653219175098}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 181, z: 0}
@@ -279,12 +278,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 3181655038220046553}
   agent: {fileID: 3181655038206869910}
-  anim: {fileID: 0}
+  anim: {fileID: 3181655038215974427}
   playerYOffset: 0
   headPos: {fileID: 3181655038206869945}
   hitPoints: 5
   playerFaceSpeed: 50
-  speedChase: 0
+  speedChase: 7
   viewAngle: 90
   shootAngle: 90
   waitTime: 0
@@ -331,7 +330,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 479ce923233bb024aace518e566fe6c8, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1037,6 +1036,7 @@ Transform:
   - {fileID: 3181655038206869997}
   - {fileID: 3181655038206869999}
   - {fileID: 3181655038206870005}
+  - {fileID: 7634330653219175098}
   m_Father: {fileID: 3181655038206869985}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2230,11 +2230,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7634330653219175097}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.3, z: 0.75}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.29292443, y: 0.9068087, z: -0.23683283, w: -0.18921842}
+  m_LocalPosition: {x: -13.3, y: -3.2, z: -7.3}
+  m_LocalScale: {x: 39.370056, y: 39.37005, z: 39.370075}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3181655038206869903}
+  m_Father: {fileID: 3181655038206869987}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
