@@ -144,6 +144,14 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     {
         meleeCollider.enabled = false;
     }
+    public void agentStop()
+    {
+        agent.enabled = false;
+    }
+    public void agentStart()
+    {
+        agent.enabled = true;
+    }
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
