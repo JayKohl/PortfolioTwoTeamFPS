@@ -29,11 +29,14 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [SerializeField] protected int bulletSpeed;
     [SerializeField] protected float shootRate;
 
+    [Header("----- Melee -----")]
     [SerializeField] protected Collider meleeCollider;
+    [SerializeField] protected float meleeRate;
 
     protected Vector3 playerDirection;
     public bool isPlayerInRange;
     protected bool isShooting;
+    protected bool isMelee;
     protected float angleToPlayer;
     protected float speedOrig;
     protected Vector3 startingPos;
@@ -123,6 +126,13 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         playerDirection.y = 0;
         Quaternion rotate = Quaternion.LookRotation(playerDirection);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * playerFaceSpeed);
+    }
+    protected virtual IEnumerator melee()
+    {
+        isMelee = true;
+        anim.SetTrigger("Melee");
+        yield return new WaitForSeconds(meleeRate);
+        isMelee = false;
     }
     protected virtual IEnumerator shoot()
     {
