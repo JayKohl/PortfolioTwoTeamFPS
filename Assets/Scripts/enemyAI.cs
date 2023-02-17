@@ -8,18 +8,16 @@ using UnityEngine.AI;
 public abstract class enemyAI : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
-    // For flashing the material red "visual feedback"
     [SerializeField] Renderer model;
-    // This is to attach the enemy to the nav mesh. 
     public NavMeshAgent agent;
-    //[SerializeField] GameObject fuelCap;
     [SerializeField] public Animator anim;
 
     [Header("----- Enemy Stats -----")]
     [SerializeField] public float playerYOffset;
     [SerializeField] public Transform headPos;
-    public int hitPoints;
+    [SerializeField] public int hitPoints;
     [SerializeField] public int playerFaceSpeed;
+    [SerializeField] int speedChase;
     [SerializeField] public int viewAngle;
     [SerializeField] public int shootAngle;
     [SerializeField] int waitTime;
@@ -35,42 +33,10 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     public bool isPlayerInRange;
     public bool isShooting;
     public float angleToPlayer;
-
+    float speedOrig;
     public Vector3 startingPos;
     bool destinationChosen;
     public float stoppingDistOrig;
-
-    // Start is called before the first frame update
-    //void Start()
-    //{
-    //    if (gameObject.CompareTag("EnemyBoss"))
-    //    {
-    //        gameManager.instance.updateGameGoal(+1);
-    //    }
-
-    //    startingPos = transform.position;
-    //    stoppingDistOrig = agent.stoppingDistance;
-
-    //    roam();
-    //}
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //    anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
-
-    //    if (isPlayerInRange)
-    //    {
-    //        if (!canSeePlayer() && agent.remainingDistance < 0.1f)
-    //        {
-    //            roam();
-    //        }
-    //    }
-    //    else if (agent.remainingDistance < 0.1f && agent.destination != gameManager.instance.player.transform.position)
-    //    {
-    //        roam();
-    //    }
-    //}
 
     public IEnumerator roam()
     {
