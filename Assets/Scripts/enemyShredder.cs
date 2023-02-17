@@ -9,6 +9,7 @@ public class enemyShredder : enemyAI
     {
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
+        speedOrig = agent.speed;
     }
 
     // Update is called once per frame
