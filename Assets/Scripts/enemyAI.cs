@@ -95,17 +95,19 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     public virtual void takeDamage(int dmg)
     {
         hitPoints -= dmg;
-        agent.SetDestination(gameManager.instance.player.transform.position);
-        StartCoroutine(flashDamage());
         if (hitPoints <= 0)
         {
-            // this checks to see if the enemy killed is a boss. if true it drops a object.
-            //if (gameObject.CompareTag("EnemyBoss"))
-            //{
-            //    //GameObject fuel = Instantiate(fuelCap, gameObject.transform.position, fuelCap.transform.rotation);
-            //    //gameManager.instance.updateGameGoal(-1);
-            //}
-            Destroy(gameObject);
+            GetComponent<Collider>().enabled = false;
+            anim.SetBool("Dead", true);
+            agent.enabled = false;
+            //Destroy(gameObject); Create a IEnumerator for destroyObject
+        }
+        else
+        {
+            anim.SetTrigger("Damage");
+            // melee add a function for turning off the weapon collider.
+            agent.SetDestination(gameManager.instance.player.transform.position);
+            StartCoroutine(flashDamage());
         }
     }
     public IEnumerator flashDamage()
