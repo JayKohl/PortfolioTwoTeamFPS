@@ -44,15 +44,18 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         {
             destinationChosen = true;
             agent.stoppingDistance = 0;
+            agent.speed = speedOrig;
             yield return new WaitForSeconds(waitTime);
             destinationChosen = false;
 
-            Vector3 randDir = Random.insideUnitSphere * roamDist;
-            randDir += startingPos;
-
-            NavMeshHit hit;
-            NavMesh.SamplePosition(randDir, out hit, roamDist, NavMesh.AllAreas);
-            agent.SetDestination(hit.position);
+            if (agent.isActiveAndEnabled)
+            {
+                Vector3 randDir = Random.insideUnitSphere * roamDist;
+                randDir += startingPos;
+                NavMeshHit hit;
+                NavMesh.SamplePosition(randDir, out hit, roamDist, NavMesh.AllAreas);
+                agent.SetDestination(hit.position);
+            }
         }
     }
     //public void roam()
@@ -75,7 +78,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     public virtual bool canSeePlayer()
     {
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
-       // playerDirection.y += 1;
+        // playerDirection.y += 1;
         //playerYOffset = playerDirection.y;
         //playerDirection = gameManager.instance.player.transform.position - transform.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
