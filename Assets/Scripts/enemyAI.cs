@@ -35,7 +35,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     public bool isPlayerInRange;
     protected bool isShooting;
     protected float angleToPlayer;
-    float speedOrig;
+    protected float speedOrig;
     protected Vector3 startingPos;
     bool destinationChosen;
     protected float stoppingDistOrig;
