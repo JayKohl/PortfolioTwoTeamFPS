@@ -131,7 +131,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
-    public void createBullet()
+    public virtual void createBullet()
     {
         GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
         bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
