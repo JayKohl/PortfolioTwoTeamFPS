@@ -54,7 +54,7 @@ public class enemyBossAI : enemyAI
     // Update is called once per frame
     void Update()
     {
-        if (agent.isActiveAndEnabled)
+        if (agent.isActiveAndEnabled && isInCoolDown == false)
         {
             anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
             if (isPlayerInRange)
@@ -162,26 +162,31 @@ public class enemyBossAI : enemyAI
         {
             if (isHealOne && hitPoints <= (hitPointsOrig - (hitPointsOrig * .6)))
             {
-                isInCoolDown = true;
                 isHealOne = false;
-                agent.stoppingDistance = distanceToBoss;
-                // call cool down method
+                agent.stoppingDistance = distanceToBoss + 5;
                 StartCoroutine(coolDownEvent());
-                agent.stoppingDistance = stoppingDistOrig;
-                isInCoolDown = false;
                 return true;
             }
             else if (isHealTwo && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
             {
                 isHealTwo = false;
+                agent.stoppingDistance = distanceToBoss + 5;
+                StartCoroutine(coolDownEvent());
+                return true;
             }
             else if (isHealThree && hitPoints <= (hitPointsOrig - (hitPointsOrig * .8)))
             {
                 isHealThree = false;
+                agent.stoppingDistance = distanceToBoss + 5;
+                StartCoroutine(coolDownEvent());
+                return true;
             }
             else if (isHealFour && hitPoints <= (hitPointsOrig - (hitPointsOrig * .9)))
             {
                 isHealFour = false;
+                agent.stoppingDistance = distanceToBoss + 5;
+                StartCoroutine(coolDownEvent());
+                return true;
             }
             else if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
@@ -219,6 +224,8 @@ public class enemyBossAI : enemyAI
     }
     public IEnumerator coolDownEvent()
     {
+        isInCoolDown = true;
+
         int saveStartHealth = hitPoints;
         shield.SetActive(true);
         anim.SetTrigger("CoolDown");
@@ -232,6 +239,9 @@ public class enemyBossAI : enemyAI
             hitPoints = saveStartHealth;
         }
         shield.SetActive(false);
+
+        agent.stoppingDistance = stoppingDistOrig;
+        isInCoolDown = false;
     }
     //protected IEnumerator shootTwo()
     //{

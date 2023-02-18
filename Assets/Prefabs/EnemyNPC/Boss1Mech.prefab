@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 696849872}
   - component: {fileID: 696849871}
   m_Layer: 9
-  m_Name: Sphere
+  m_Name: shieldCoolDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &696849870
 Transform:
   m_ObjectHideFlags: 0
@@ -1296,7 +1296,7 @@ MonoBehaviour:
   anim: {fileID: 4872947410891552380}
   playerYOffset: 0
   headPos: {fileID: 9149088866178157363}
-  hitPoints: 20
+  hitPoints: 100
   playerFaceSpeed: 50
   speedChase: 8
   viewAngle: 180
@@ -1319,6 +1319,7 @@ MonoBehaviour:
   missileShootRate: 1.5
   missileYVelocity: 0.75
   missileRange: 12
+  shield: {fileID: 696849869}
   fuelCap: {fileID: 2750060092662801339, guid: 025c722e7ad19244ab6ed6c5e7f732cf, type: 3}
 --- !u!95 &4872947410891552380
 Animator:
