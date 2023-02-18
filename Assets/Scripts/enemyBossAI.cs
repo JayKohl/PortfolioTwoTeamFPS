@@ -36,7 +36,6 @@ public class enemyBossAI : enemyAI
     // Update is called once per frame
     void Update()
     {
-        //anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
         if (agent.isActiveAndEnabled)
         {
             anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
@@ -86,7 +85,6 @@ public class enemyBossAI : enemyAI
         GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
         Vector3 shootingVector = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
         bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
-       // base.createBullet();
 
         GameObject bulletCloneTwo = Instantiate(bullet, shootPositionTwo.position, bullet.transform.rotation);
         Vector3 shootingVectorTwo = (gameManager.instance.player.transform.position - shootPositionTwo.position).normalized;
@@ -104,7 +102,7 @@ public class enemyBossAI : enemyAI
     IEnumerator missileShoot()
     {
         isMissileShoot = true;
-        anim.SetTrigger("ShootMissile");
+        // anim.SetTrigger("ShootMissile");
         yield return new WaitForSeconds(missileShootRate);
         isMissileShoot = false;
     }
@@ -141,10 +139,11 @@ public class enemyBossAI : enemyAI
                 {
                     StartCoroutine(shoot());
                 }
-                //if (!isMissileShoot)
-                //{
-                //    StartCoroutine(missileShoot());
-                //}
+                float distanceToBoss = gameManager.instance.player.transform.position.magnitude - agent.transform.position.magnitude;
+                if (!isMissileShoot && distanceToBoss > 10)
+                {
+                    StartCoroutine(missileShoot());
+                }
                 return true;
             }
         }
