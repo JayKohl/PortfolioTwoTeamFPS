@@ -18,6 +18,8 @@ public class enemyBossAI : enemyAI
     [SerializeField] float missileYVelocity;
     [SerializeField] float missileRange;
 
+    [SerializeField] GameObject shield;
+
     [SerializeField] GameObject fuelCap;
     int enemyBossCount;
     // bool hasMelee;
@@ -161,7 +163,9 @@ public class enemyBossAI : enemyAI
                 isHealOne = false;
                 agent.stoppingDistance = distanceToBoss;
                 // call cool down method
+                StartCoroutine(coolDownEvent());
                 agent.stoppingDistance = stoppingDistOrig;
+                return true;
             }
             else if (isHealTwo && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
             {
@@ -212,9 +216,9 @@ public class enemyBossAI : enemyAI
     public IEnumerator coolDownEvent()
     {
         int saveStartHealth = hitPoints;
-
-        anim.SetTrigger("CoolDown");
-        yield return new WaitForSeconds(1);
+        shield.SetActive(true);
+        //anim.SetTrigger("CoolDown");
+        yield return new WaitForSeconds(5);
         if (saveStartHealth == hitPoints)
         {
             hitPoints += 10;
@@ -223,6 +227,7 @@ public class enemyBossAI : enemyAI
         {
             hitPoints = saveStartHealth;
         }
+        shield.SetActive(false);
     }
     //protected IEnumerator shootTwo()
     //{
