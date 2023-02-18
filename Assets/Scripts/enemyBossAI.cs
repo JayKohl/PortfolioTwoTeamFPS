@@ -24,6 +24,10 @@ public class enemyBossAI : enemyAI
     bool isMissileShoot;
     bool isShootingTwo;
     int hitPointsOrig;
+    bool isHealOne;
+    bool isHealTwo;
+    bool isHealThree;
+    bool isHealFour;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +38,11 @@ public class enemyBossAI : enemyAI
         hitPointsOrig = hitPoints;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
+
+        isHealOne = true;
+        isHealTwo = true;
+        isHealThree = true;
+        isHealFour = true;
 
         speedOrig = agent.speed;
     }
@@ -131,6 +140,10 @@ public class enemyBossAI : enemyAI
     }
     protected override bool canSeePlayer()
     {
+        Vector3 two = agent.transform.position;
+        Vector3 one = gameManager.instance.player.transform.position;
+        float distanceToBoss = Mathf.Sqrt(Mathf.Pow((two.x - one.x), 2) + Mathf.Pow((two.y - one.y), 2) + Mathf.Pow((two.z - one.z), 2));
+
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
         // playerDirection.y += 1;
         //playerYOffset = playerDirection.y;
@@ -143,7 +156,26 @@ public class enemyBossAI : enemyAI
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
-            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
+            if (isHealOne && hitPoints <= (hitPointsOrig - (hitPointsOrig * .6)))
+            {
+                isHealOne = false;
+                agent.stoppingDistance = distanceToBoss;
+                // call cool down method
+                agent.stoppingDistance = stoppingDistOrig;
+            }
+            else if (isHealTwo && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
+            {
+                isHealTwo = false;
+            }
+            else if (isHealThree && hitPoints <= (hitPointsOrig - (hitPointsOrig * .8)))
+            {
+                isHealThree = false;
+            }
+            else if (isHealFour && hitPoints <= (hitPointsOrig - (hitPointsOrig * .9)))
+            {
+                isHealFour = false;
+            }
+            else if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
                 agent.speed = speedChase;
@@ -163,9 +195,9 @@ public class enemyBossAI : enemyAI
 
                 if (hitPoints <= (hitPointsOrig / 2))
                 {
-                    Vector3 two = agent.transform.position;
-                    Vector3 one = gameManager.instance.player.transform.position;
-                    float distanceToBoss = Mathf.Sqrt(Mathf.Pow((two.x - one.x), 2) + Mathf.Pow((two.y - one.y), 2) + Mathf.Pow((two.z - one.z), 2));
+                    //Vector3 two = agent.transform.position;
+                    //Vector3 one = gameManager.instance.player.transform.position;
+                    //float distanceToBoss = Mathf.Sqrt(Mathf.Pow((two.x - one.x), 2) + Mathf.Pow((two.y - one.y), 2) + Mathf.Pow((two.z - one.z), 2));
                     if (!isMissileShoot && distanceToBoss >= missileRange)
                     {
                         StartCoroutine(missileShoot());
@@ -177,5 +209,28 @@ public class enemyBossAI : enemyAI
         agent.stoppingDistance = 0;
         return false;
     }
+    public IEnumerator coolDownEvent()
+    {
+        int saveStartHealth = hitPoints;
+
+        anim.SetTrigger("CoolDown");
+        yield return new WaitForSeconds(1);
+        if (saveStartHealth == hitPoints)
+        {
+            hitPoints += 10;
+        }
+        else
+        {
+            hitPoints = saveStartHealth;
+        }
+    }
+    //protected IEnumerator shootTwo()
+    //{
+    //    isShootingTwo = true;
+    //    // anim.SetTrigger("ShootTwo");
+    //    anim.SetTrigger("ShootTwo");
+    //    yield return new WaitForSeconds(shootRate);
+    //    isShootingTwo = false;
+    //}
 
 }
