@@ -85,4 +85,10 @@ public class gameManager : MonoBehaviour
         activeMenu = loseMenu;
         activeMenu.SetActive(true);
     }
+    public IEnumerator checkPointDisplay()
+    {
+        //checkPointPopUp.SetActive(true);
+        yield return new WaitForSeconds(2);
+        //checkPointPopUp.SetActive(false);
+    }
 }
