@@ -8,8 +8,8 @@ public class checkPoint : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            //StartCoroutine(gameManager.instance.checkPointDisplay());
-            gameManager.instance.playerSpawnPosition.transform.position = gameManager.instance.player.transform.position;
+            StartCoroutine(gameManager.instance.checkPointDisplay());
+            gameManager.instance.playerSpawnPosition.transform.position = transform.position;
         }
     }
 }
