@@ -19,7 +19,7 @@ public class enemyBossAI : enemyAI
 
     [SerializeField] GameObject fuelCap;
     int enemyBossCount;
-    bool hasMelee;
+    // bool hasMelee;
     bool isMissileShoot;
     // Start is called before the first frame update
     void Start()
@@ -68,7 +68,7 @@ public class enemyBossAI : enemyAI
         else
         {
             anim.SetTrigger("Damage");
-            meleeColliderOff();
+            // meleeColliderOff();
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());
         }
@@ -141,10 +141,10 @@ public class enemyBossAI : enemyAI
                 {
                     StartCoroutine(shoot());
                 }
-                if (!isMissileShoot)
-                {
-                    StartCoroutine(missileShoot());
-                }
+                //if (!isMissileShoot)
+                //{
+                //    StartCoroutine(missileShoot());
+                //}
                 return true;
             }
         }
