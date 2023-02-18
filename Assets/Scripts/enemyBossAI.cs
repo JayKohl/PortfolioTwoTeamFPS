@@ -155,7 +155,7 @@ public class enemyBossAI : enemyAI
                 if (!isShooting && angleToPlayer <= shootAngle)
                 {
                     StartCoroutine(shoot());
-                    if (!isShootingTwo && hitPoints <= (hitPointsOrig * .2))
+                    if (!isShootingTwo && hitPoints <= (hitPointsOrig - (hitPointsOrig * .2)))
                     {
                         StartCoroutine(shootTwo());
                     }
