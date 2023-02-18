@@ -42,7 +42,6 @@ public class playerController : MonoBehaviour
     void Start()
     {
         hpOriginal = HP;
-        updatePlayerHPBar();
         speedOriginal = playerSpeed;
         playerRespawn();
     }
@@ -52,6 +51,7 @@ public class playerController : MonoBehaviour
     {
         movement();
         selectGun();
+
         if (!isShooting && Input.GetButton("Shoot"))
             StartCoroutine(shoot());
     }
