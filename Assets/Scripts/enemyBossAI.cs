@@ -22,6 +22,7 @@ public class enemyBossAI : enemyAI
     int enemyBossCount;
     // bool hasMelee;
     bool isMissileShoot;
+    bool isShootingTwo;
     int hitPointsOrig;
 
     // Start is called before the first frame update
@@ -85,11 +86,11 @@ public class enemyBossAI : enemyAI
     }
     protected IEnumerator shootTwo()
     {
-        isShooting = true;
+        isShootingTwo = true;
         // anim.SetTrigger("ShootTwo");
         CreateBulletTwo();
         yield return new WaitForSeconds(shootRate);
-        isShooting = false;
+        isShootingTwo = false;
     }
 
     public override void createBullet()
@@ -154,7 +155,7 @@ public class enemyBossAI : enemyAI
                 if (!isShooting && angleToPlayer <= shootAngle)
                 {
                     StartCoroutine(shoot());
-                    if (hitPoints <= (hitPointsOrig * .2))
+                    if (!isShootingTwo && hitPoints <= (hitPointsOrig * .2))
                     {
                         StartCoroutine(shootTwo());
                     }
