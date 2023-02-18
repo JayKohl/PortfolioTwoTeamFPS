@@ -1194,12 +1194,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 4872947410887264444}
-  anim: {fileID: 0}
+  agent: {fileID: 4872947410891552383}
+  anim: {fileID: 4872947410891552380}
   playerYOffset: 0
   headPos: {fileID: 9149088866178157363}
   hitPoints: 20
   playerFaceSpeed: 50
-  speedChase: 0
+  speedChase: 6
   viewAngle: 180
   shootAngle: 90
   waitTime: 0
@@ -1217,8 +1218,9 @@ MonoBehaviour:
   shootPositionMissile: {fileID: 1970186759}
   missile: {fileID: 5121451946341453906, guid: 5289c3b7f27e615408d4c3f6c17ba668, type: 3}
   missileSpeed: 15
-  missileShootRate: 5
+  missileShootRate: 0.25
   missileYVelocity: 0
+  missileRange: 0
   fuelCap: {fileID: 2750060092662801339, guid: 025c722e7ad19244ab6ed6c5e7f732cf, type: 3}
 --- !u!95 &4872947410891552380
 Animator:
@@ -1230,7 +1232,7 @@ Animator:
   m_GameObject: {fileID: 4872947410898830802}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 21c3535930a06554d8a367f4a7ca9dbb, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

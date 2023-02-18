@@ -16,7 +16,7 @@ public class enemyBossAI : enemyAI
     [SerializeField] int missileSpeed;
     [SerializeField] float missileShootRate;
     [SerializeField] float missileYVelocity;
-    [SerializeField] int missileRange;
+    [SerializeField] float missileRange;
 
     [SerializeField] GameObject fuelCap;
     int enemyBossCount;
@@ -141,8 +141,8 @@ public class enemyBossAI : enemyAI
                 {
                     StartCoroutine(shoot());
                 }
-                float distanceToBoss = gameManager.instance.player.transform.position.z - agent.transform.position.z;
-                if (!isMissileShoot && distanceToBoss <= missileRange)
+                float distanceToBoss = agent.transform.position.z - gameManager.instance.player.transform.position.z;
+                if (!isMissileShoot && distanceToBoss >= missileRange)
                 {
                     StartCoroutine(missileShoot());
                 }
