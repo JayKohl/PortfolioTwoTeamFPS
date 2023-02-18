@@ -37,6 +37,7 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
+        muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
     }
 
     // Update is called once per frame
