@@ -30,6 +30,7 @@ public class enemyBossAI : enemyAI
     bool isHealTwo;
     bool isHealThree;
     bool isHealFour;
+    bool isInCoolDown;
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +46,7 @@ public class enemyBossAI : enemyAI
         isHealTwo = true;
         isHealThree = true;
         isHealFour = true;
+        isInCoolDown = false;
 
         speedOrig = agent.speed;
     }
@@ -160,11 +162,13 @@ public class enemyBossAI : enemyAI
         {
             if (isHealOne && hitPoints <= (hitPointsOrig - (hitPointsOrig * .6)))
             {
+                isInCoolDown = true;
                 isHealOne = false;
                 agent.stoppingDistance = distanceToBoss;
                 // call cool down method
                 StartCoroutine(coolDownEvent());
                 agent.stoppingDistance = stoppingDistOrig;
+                isInCoolDown = false;
                 return true;
             }
             else if (isHealTwo && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
@@ -217,8 +221,8 @@ public class enemyBossAI : enemyAI
     {
         int saveStartHealth = hitPoints;
         shield.SetActive(true);
-        //anim.SetTrigger("CoolDown");
-        yield return new WaitForSeconds(5);
+        anim.SetTrigger("CoolDown");
+        yield return new WaitForSeconds(10);
         if (saveStartHealth == hitPoints)
         {
             hitPoints += 10;
