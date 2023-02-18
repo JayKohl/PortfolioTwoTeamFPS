@@ -88,7 +88,7 @@ public class enemyBossAI : enemyAI
     {
         isShootingTwo = true;
         // anim.SetTrigger("ShootTwo");
-        CreateBulletTwo();
+        anim.SetTrigger("ShootTwo");
         yield return new WaitForSeconds(shootRate);
         isShootingTwo = false;
     }
@@ -104,7 +104,7 @@ public class enemyBossAI : enemyAI
         bulletCloneTwo.GetComponent<Rigidbody>().velocity = shootingVectorTwo * bulletSpeed;
 
     }
-    public void CreateBulletTwo()
+    public void createBulletTwo()
     {
         GameObject bulletCloneThree = Instantiate(bullet, shootPositionThree.position, bullet.transform.rotation);
         Vector3 shootingVectorThree = (gameManager.instance.player.transform.position - shootPositionThree.position).normalized;
