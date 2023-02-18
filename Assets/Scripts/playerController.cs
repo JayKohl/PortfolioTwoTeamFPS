@@ -36,6 +36,7 @@ public class playerController : MonoBehaviour
     bool isRunning;
     public int hpOriginal;
     public int speedOriginal;
+    public int gunSelection;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +50,7 @@ public class playerController : MonoBehaviour
     void Update()
     {
         movement();
+        selectGun();
         if (!isShooting && Input.GetButton("Shoot"))
             StartCoroutine(shoot());
     }
@@ -153,5 +155,29 @@ public class playerController : MonoBehaviour
         
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponStat.weaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponStat.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+
+    void selectGun()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && gunSelection < weaponList.Count - 1)
+        {
+            gunSelection++;
+            changeGun();
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && gunSelection > 0)
+        {
+            gunSelection--;
+            changeGun();
+        }
+    }
+
+    void changeGun()
+    {
+        shootRate = weaponList[gunSelection].shootRate;
+        shootDist = weaponList[gunSelection].shootDist;
+        shootDamage = weaponList[gunSelection].shootDamage;
+
+        weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[gunSelection].weaponModel.GetComponent<MeshFilter>().sharedMesh;
+        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[gunSelection].weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
 }
