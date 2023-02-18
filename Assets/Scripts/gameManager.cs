@@ -23,6 +23,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI fuelCellsRemainingText;
     public GameObject textActivator;
     public TextMeshProUGUI temporaryText;
+    public GameObject muzzleFlash;
 
     [Header("Goals")]
     public int fuelCellsRemaining;
