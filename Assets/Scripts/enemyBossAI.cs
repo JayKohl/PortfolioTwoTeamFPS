@@ -35,7 +35,7 @@ public class enemyBossAI : enemyAI
     // Start is called before the first frame update
     void Start()
     {
-        gameManager.instance.updateGameGoal(+1);
+        gameManager.instance.bossDead = false;
         enemyBossCount += 1;
 
         hitPointsOrig = hitPoints;
@@ -76,6 +76,7 @@ public class enemyBossAI : enemyAI
         hitPoints -= dmg;
         if (hitPoints <= 0)
         {
+            gameManager.instance.bossDead = true;
             GetComponent<Collider>().enabled = false;
             GameObject fuel = Instantiate(fuelCap, gameObject.transform.position, fuelCap.transform.rotation);
             anim.SetBool("Dead", true);
