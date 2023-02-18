@@ -141,7 +141,9 @@ public class enemyBossAI : enemyAI
                 {
                     StartCoroutine(shoot());
                 }
-                float distanceToBoss = agent.transform.position.z - gameManager.instance.player.transform.position.z;
+                Vector3 two = agent.transform.position;
+                Vector3 one = gameManager.instance.player.transform.position;
+                float distanceToBoss = Mathf.Sqrt(Mathf.Pow((two.x - one.x), 2) + Mathf.Pow((two.y - one.y), 2) + Mathf.Pow((two.z - one.z), 2));
                 if (!isMissileShoot && distanceToBoss >= missileRange)
                 {
                     StartCoroutine(missileShoot());
