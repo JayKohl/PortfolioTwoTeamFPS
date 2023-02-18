@@ -44,6 +44,7 @@ public class playerController : MonoBehaviour
         hpOriginal = HP;
         updatePlayerHPBar();
         speedOriginal = playerSpeed;
+        playerRespawn();
     }
 
     // Update is called once per frame
@@ -179,5 +180,14 @@ public class playerController : MonoBehaviour
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[gunSelection].weaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[gunSelection].weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+
+    public void playerRespawn()
+    {
+        controller.enabled = false;
+        transform.position = gameManager.instance.playerSpawnPosition.transform.position;
+        HP = hpOriginal;
+        updatePlayerHPBar();
+        controller.enabled = true;
     }
 }
