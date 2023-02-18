@@ -438,6 +438,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3181655038206450796, guid: 051d74f482a534b439bc8fdd5ab17fc9, type: 3}
+      propertyPath: playerFaceSpeed
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 3181655038206450799, guid: 051d74f482a534b439bc8fdd5ab17fc9, type: 3}
       propertyPath: m_Name
       value: Enemy1
@@ -811,11 +815,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4872947410891552382, guid: e6cb78f2ede9d1345a6c1ce3accb7b1d, type: 3}
       propertyPath: shootRate
-      value: 2
+      value: 0.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 4872947410891552382, guid: e6cb78f2ede9d1345a6c1ce3accb7b1d, type: 3}
+      propertyPath: speedChase
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4872947410891552382, guid: e6cb78f2ede9d1345a6c1ce3accb7b1d, type: 3}
       propertyPath: bulletSpeed
-      value: 1
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4872947410891552382, guid: e6cb78f2ede9d1345a6c1ce3accb7b1d, type: 3}
       propertyPath: missileRange
