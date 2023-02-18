@@ -19,7 +19,7 @@ public class enemyBossAI : enemyAI
 
     [SerializeField] GameObject fuelCap;
     int enemyBossCount;
-    bool hasMelee;
+    // bool hasMelee;
     bool isMissileShoot;
     // Start is called before the first frame update
     void Start()
@@ -68,7 +68,7 @@ public class enemyBossAI : enemyAI
         else
         {
             anim.SetTrigger("Damage");
-            meleeColliderOff();
+            // meleeColliderOff();
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());
         }
@@ -83,10 +83,10 @@ public class enemyBossAI : enemyAI
 
     public override void createBullet()
     {
-        //GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-        //Vector3 shootingVector = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
-        //bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
-        base.createBullet();
+        GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
+        Vector3 shootingVector = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
+        bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
+       // base.createBullet();
 
         GameObject bulletCloneTwo = Instantiate(bullet, shootPositionTwo.position, bullet.transform.rotation);
         Vector3 shootingVectorTwo = (gameManager.instance.player.transform.position - shootPositionTwo.position).normalized;
@@ -141,10 +141,10 @@ public class enemyBossAI : enemyAI
                 {
                     StartCoroutine(shoot());
                 }
-                if (!isMissileShoot)
-                {
-                    StartCoroutine(missileShoot());
-                }
+                //if (!isMissileShoot)
+                //{
+                //    StartCoroutine(missileShoot());
+                //}
                 return true;
             }
         }
