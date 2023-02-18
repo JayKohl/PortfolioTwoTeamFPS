@@ -1,5 +1,102 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &696849869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 696849870}
+  - component: {fileID: 696849873}
+  - component: {fileID: 696849872}
+  - component: {fileID: 696849871}
+  m_Layer: 9
+  m_Name: shieldCoolDown
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &696849870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696849869}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4872947410899261872}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &696849873
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696849869}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &696849872
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696849869}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 8cef7ea9eee3cc049b11e4a6b324e91e, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &696849871
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696849869}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1970186758
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,6 +1275,7 @@ Transform:
   - {fileID: 9149088867895572097}
   - {fileID: 9149088867683809261}
   - {fileID: 1970186759}
+  - {fileID: 696849870}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1194,20 +1292,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 4872947410887264444}
-  anim: {fileID: 0}
+  agent: {fileID: 4872947410891552383}
+  anim: {fileID: 4872947410891552380}
   playerYOffset: 0
   headPos: {fileID: 9149088866178157363}
-  hitPoints: 20
+  hitPoints: 100
   playerFaceSpeed: 50
-  speedChase: 0
+  speedChase: 8
   viewAngle: 180
   shootAngle: 90
   waitTime: 0
   roamDist: 8
   shootPosition: {fileID: 9149088866541473396}
   bullet: {fileID: 8475010341257784611, guid: 9372fc5d1cf62584cb4129c921ae5bcd, type: 3}
-  bulletSpeed: 25
-  shootRate: 0.25
+  bulletSpeed: 30
+  shootRate: 0.17
   meleeCollider: {fileID: 0}
   meleeRate: 0
   isPlayerInRange: 0
@@ -1217,8 +1316,10 @@ MonoBehaviour:
   shootPositionMissile: {fileID: 1970186759}
   missile: {fileID: 5121451946341453906, guid: 5289c3b7f27e615408d4c3f6c17ba668, type: 3}
   missileSpeed: 15
-  missileShootRate: 5
-  missileYVelocity: 0
+  missileShootRate: 1.5
+  missileYVelocity: 0.75
+  missileRange: 12
+  shield: {fileID: 696849869}
   fuelCap: {fileID: 2750060092662801339, guid: 025c722e7ad19244ab6ed6c5e7f732cf, type: 3}
 --- !u!95 &4872947410891552380
 Animator:
@@ -1230,7 +1331,7 @@ Animator:
   m_GameObject: {fileID: 4872947410898830802}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fec746e46c2fd354fa0bc92720075dbd, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 21c3535930a06554d8a367f4a7ca9dbb, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

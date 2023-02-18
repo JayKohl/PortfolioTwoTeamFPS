@@ -12,6 +12,11 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.isPaused = !gameManager.instance.isPaused;
     }
 
+    public void respawn()
+    {
+        gameManager.instance.unPause();
+        gameManager.instance.playerScript.playerRespawn();
+    }
     
     public void restart()
     {

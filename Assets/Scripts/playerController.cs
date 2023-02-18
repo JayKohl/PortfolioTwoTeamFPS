@@ -21,6 +21,7 @@ public class playerController : MonoBehaviour
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] int shootDamage;
+    Vector3 muzzleFlashPosition;
 
     // Deactivated temp
     // [SerializeField] int bulletSpeed;
@@ -123,9 +124,12 @@ public class playerController : MonoBehaviour
 
     IEnumerator gunShootFlash()
     {
-        GameObject flash = Instantiate(gunFlash, shootPositionPlayer.position, gunFlash.transform.rotation);
-        yield return new WaitForSeconds(0.1f);
-        Destroy(flash);
+        if (weaponList.Count > 0)
+        {
+            gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Play();
+            yield return new WaitForSeconds(0.1f);
+            gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Stop();
+        }
     }
     IEnumerator flashDamage()
     {
@@ -153,7 +157,10 @@ public class playerController : MonoBehaviour
         shootRate = weaponStat.shootRate;
         shootDist = weaponStat.shootDist;
         shootDamage = weaponStat.shootDamage;
-        
+        muzzleFlashPosition = weaponStat.muzzleFlashPosition;
+
+        gameManager.instance.muzzleFlash.transform.localPosition = muzzleFlashPosition;
+
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponStat.weaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponStat.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
@@ -177,9 +184,12 @@ public class playerController : MonoBehaviour
         shootRate = weaponList[gunSelection].shootRate;
         shootDist = weaponList[gunSelection].shootDist;
         shootDamage = weaponList[gunSelection].shootDamage;
+        muzzleFlashPosition = weaponList[gunSelection].muzzleFlashPosition;
+
+        gameManager.instance.muzzleFlash.transform.localPosition = muzzleFlashPosition;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[gunSelection].weaponModel.GetComponent<MeshFilter>().sharedMesh;
-        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[gunSelection].weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
+        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[gunSelection].weaponModel.GetComponent<MeshRenderer>().sharedMaterial;        
     }
 
     public void playerRespawn()

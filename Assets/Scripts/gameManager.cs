@@ -23,11 +23,13 @@ public class gameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI fuelCellsRemainingText;
     public GameObject textActivator;
     public TextMeshProUGUI temporaryText;
+    public GameObject muzzleFlash;
 
     [Header("Goals")]
     public int fuelCellsRemaining;
 
     public bool isPaused;
+    public bool bossDead;
 
     // Start is called before the first frame update
     void Awake()
@@ -36,6 +38,7 @@ public class gameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
+        muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
     }
 
     // Update is called once per frame
@@ -69,20 +72,33 @@ public class gameManager : MonoBehaviour
     }
     public void updateGameGoal(int amount)
     {
-        fuelCellsRemaining += amount;
+        fuelCellsRemaining = fuelCellsRemaining + amount;
         fuelCellsRemainingText.text = fuelCellsRemaining.ToString("F0");
 
         if (fuelCellsRemaining <= 0)
         {
-            pause();
-            activeMenu = winMenu;
-            activeMenu.SetActive(true);
+            //send message to player to head to arena or something
+            if(bossDead)
+                StartCoroutine(end());
         }
+    }
+    IEnumerator end()
+    {
+        yield return new WaitForSeconds(2);
+        pause();
+        activeMenu = winMenu;
+        activeMenu.SetActive(true);
     }
     public void playerDead()
     {
         pause();
         activeMenu = loseMenu;
         activeMenu.SetActive(true);
+    }
+    public IEnumerator checkPointDisplay()
+    {
+        //checkPointPopUp.SetActive(true);
+        yield return new WaitForSeconds(2);
+        //checkPointPopUp.SetActive(false);
     }
 }
