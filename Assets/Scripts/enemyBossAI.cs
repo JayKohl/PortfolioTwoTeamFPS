@@ -22,12 +22,15 @@ public class enemyBossAI : enemyAI
     int enemyBossCount;
     // bool hasMelee;
     bool isMissileShoot;
+    int hitPointsOrig;
+
     // Start is called before the first frame update
     void Start()
     {
         gameManager.instance.updateGameGoal(+1);
         enemyBossCount += 1;
 
+        hitPointsOrig = hitPoints;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
 
@@ -80,6 +83,14 @@ public class enemyBossAI : enemyAI
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
+    protected IEnumerator shootTwo()
+    {
+        isShooting = true;
+        // anim.SetTrigger("ShootTwo");
+        CreateBulletTwo();
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
+    }
 
     public override void createBullet()
     {
@@ -91,6 +102,9 @@ public class enemyBossAI : enemyAI
         Vector3 shootingVectorTwo = (gameManager.instance.player.transform.position - shootPositionTwo.position).normalized;
         bulletCloneTwo.GetComponent<Rigidbody>().velocity = shootingVectorTwo * bulletSpeed;
 
+    }
+    public void CreateBulletTwo()
+    {
         GameObject bulletCloneThree = Instantiate(bullet, shootPositionThree.position, bullet.transform.rotation);
         Vector3 shootingVectorThree = (gameManager.instance.player.transform.position - shootPositionThree.position).normalized;
         bulletCloneThree.GetComponent<Rigidbody>().velocity = shootingVectorThree * bulletSpeed;
@@ -140,13 +154,21 @@ public class enemyBossAI : enemyAI
                 if (!isShooting && angleToPlayer <= shootAngle)
                 {
                     StartCoroutine(shoot());
+                    if (hitPoints <= (hitPointsOrig * .2))
+                    {
+                        StartCoroutine(shootTwo());
+                    }
                 }
-                Vector3 two = agent.transform.position;
-                Vector3 one = gameManager.instance.player.transform.position;
-                float distanceToBoss = Mathf.Sqrt(Mathf.Pow((two.x - one.x), 2) + Mathf.Pow((two.y - one.y), 2) + Mathf.Pow((two.z - one.z), 2));
-                if (!isMissileShoot && distanceToBoss >= missileRange)
+
+                if (hitPoints <= (hitPointsOrig / 2))
                 {
-                    StartCoroutine(missileShoot());
+                    Vector3 two = agent.transform.position;
+                    Vector3 one = gameManager.instance.player.transform.position;
+                    float distanceToBoss = Mathf.Sqrt(Mathf.Pow((two.x - one.x), 2) + Mathf.Pow((two.y - one.y), 2) + Mathf.Pow((two.z - one.z), 2));
+                    if (!isMissileShoot && distanceToBoss >= missileRange)
+                    {
+                        StartCoroutine(missileShoot());
+                    }
                 }
                 return true;
             }
