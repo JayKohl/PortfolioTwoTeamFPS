@@ -21,7 +21,10 @@ public class endBossAI : enemyShredder
     [SerializeField] Transform shootPositionSpikeEight;
     [SerializeField] Transform shootPositionSpikeNine;
 
+    bool isSpikeShoot;
+
     System.Random randomAttack;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -75,6 +78,10 @@ public class endBossAI : enemyShredder
                 {
                     StartCoroutine(shoot());
                 }
+                if (!isSpikeShoot && distanceToEnemy >= spikeRange)
+                {
+
+                }
                 return true;
             }
         }
@@ -95,5 +102,43 @@ public class endBossAI : enemyShredder
     public void meleeColliderTwoOff()
     {
         meleeColliderTwo.enabled = false;
+    }
+    protected IEnumerator spikeShoot()
+    {
+        isShooting = true;
+        isSpikeShoot = true;
+        anim.SetTrigger("SpikeShoot");
+        yield return new WaitForSeconds(spikeShootRate);
+        isShooting = false;
+        isSpikeShoot = false;
+    }
+    public void createSpike()
+    {
+        GameObject spikeClone = Instantiate(spike, shootPositionSpike.position, spike.transform.rotation);
+        spikeClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+        GameObject spikeCloneTwo = Instantiate(spike, shootPositionSpikeTwo.position, spike.transform.rotation);
+        spikeCloneTwo.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+        GameObject spikeCloneThree = Instantiate(spike, shootPositionSpikeThree.position, spike.transform.rotation);
+        spikeCloneThree.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+        GameObject spikeCloneFour = Instantiate(spike, shootPositionSpikeFour.position, spike.transform.rotation);
+        spikeCloneFour.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+        GameObject spikeCloneFive = Instantiate(spike, shootPositionSpikeFive.position, spike.transform.rotation);
+        spikeCloneFive.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+        GameObject spikeCloneSix = Instantiate(spike, shootPositionSpikeSix.position, spike.transform.rotation);
+        spikeCloneSix.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+        GameObject spikeCloneSeven = Instantiate(spike, shootPositionSpikeSeven.position, spike.transform.rotation);
+        spikeCloneSeven.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+        GameObject spikeCloneEight = Instantiate(spike, shootPositionSpikeEight.position, spike.transform.rotation);
+        spikeCloneEight.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+        GameObject spikeCloneNine = Instantiate(spike, shootPositionSpikeNine.position, spike.transform.rotation);
+        spikeCloneNine.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
     }
 }
