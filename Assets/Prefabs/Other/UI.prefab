@@ -30,12 +30,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2131254345594002893}
-  m_RootOrder: 0
+  m_Father: {fileID: 6111150019729176780}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1629, y: 331.1}
+  m_AnchoredPosition: {x: 669, y: -208.31601}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2131254345395773443
@@ -288,38 +288,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &2131254345594002892
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2131254345594002893}
-  m_Layer: 0
-  m_Name: TextHolder
-  m_TagString: TextHolder
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2131254345594002893
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2131254345594002892}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -960, y: -539.416, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2131254345395773440}
-  m_Father: {fileID: 6111150019729176780}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2131254345934362290
 GameObject:
   m_ObjectHideFlags: 0
@@ -1407,7 +1375,7 @@ RectTransform:
   m_Children:
   - {fileID: 1586520578938696415}
   - {fileID: 2840190245218899950}
-  - {fileID: 2131254345594002893}
+  - {fileID: 2131254345395773440}
   - {fileID: 6111150019771444998}
   - {fileID: 6111150019519613055}
   - {fileID: 6111150020843672367}
@@ -3773,8 +3741,7 @@ MonoBehaviour:
   playerDamageFlashScreen: {fileID: 6111150021007556120}
   playerHPBar: {fileID: 6111150021211672821}
   fuelCellsRemainingText: {fileID: 6111150020580394357}
-  textActivator: {fileID: 2131254345594002892}
-  temporaryText: {fileID: 2131254345395773442}
+  infoText: {fileID: 2131254345395773442}
   muzzleFlash: {fileID: 0}
   fuelCellsRemaining: 0
   isPaused: 0

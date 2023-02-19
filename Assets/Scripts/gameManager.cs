@@ -21,8 +21,10 @@ public class gameManager : MonoBehaviour
     public GameObject playerDamageFlashScreen;
     public Image playerHPBar;
     [SerializeField] TextMeshProUGUI fuelCellsRemainingText;
-    public GameObject textActivator;
-    public TextMeshProUGUI temporaryText;
+    //Angel deleted this line of code
+    //public GameObject textActivator;
+    //temporary text was changed to info text
+    public TextMeshProUGUI infoText;
     public GameObject muzzleFlash;
 
     [Header("Goals")]
@@ -100,5 +102,17 @@ public class gameManager : MonoBehaviour
         //checkPointPopUp.SetActive(true);
         yield return new WaitForSeconds(2);
         //checkPointPopUp.SetActive(false);
+    }
+    //Angel added this void method
+    public void displayText(string texToDisplay, float banishTime = .5f)
+    {
+        infoText.SetText(texToDisplay);
+        StartCoroutine(deleteText(texToDisplay, banishTime));
+    }
+
+    IEnumerator deleteText(string texToDisplay, float banishTime)
+    {
+        yield return new WaitForSeconds(banishTime);
+        gameManager.instance.infoText.SetText(" ");
     }
 }

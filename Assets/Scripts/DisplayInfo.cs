@@ -5,29 +5,14 @@ using UnityEngine;
 
 public class DisplayInfo : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI thisText;
+    string text = "Display this info please... Yes!";
  
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            gameManager.instance.temporaryText.text = thisText.text;
-            gameManager.instance.textActivator.SetActive(true);
- 
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if(other.CompareTag("Player"))
-        {
-            StartCoroutine(spawnText());   
-        }
-    }
+            gameManager.instance.displayText(text);
 
-    IEnumerator spawnText()
-    {
-        yield return new WaitForSeconds(4);
-        gameManager.instance.textActivator.SetActive(false);
-        Destroy(gameObject);
-    }
+        }
+    }   
 }
