@@ -39,6 +39,10 @@ public class enemyShredder : enemyAI
         Debug.Log(angleToPlayer);
         Debug.DrawRay(headPos.position, playerDirection);
 
+        Vector3 two = agent.transform.position;
+        Vector3 one = gameManager.instance.player.transform.position;
+        float distanceToEnemy = Mathf.Sqrt(Mathf.Pow((two.x - one.x), 2) + Mathf.Pow((two.y - one.y), 2) + Mathf.Pow((two.z - one.z), 2));
+
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
@@ -51,7 +55,7 @@ public class enemyShredder : enemyAI
                 {
                     facePlayer();
                 }
-                if (!isMelee && angleToPlayer <= shootAngle)
+                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 2)
                 {
                     StartCoroutine(melee());
                 }
