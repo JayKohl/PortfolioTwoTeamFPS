@@ -1244,6 +1244,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7945844431733106479}
+  - component: {fileID: 7945844431733106481}
+  - component: {fileID: 7945844431733106480}
   m_Layer: 0
   m_Name: Fulgurodonte_Head
   m_TagString: Untagged
@@ -2301,6 +2303,7 @@ MonoBehaviour:
   meleeRate: 1
   isPlayerInRange: 0
   meleeColliderTwo: {fileID: 8321985203071473837}
+  meleeColliderRam: {fileID: 7945844431733106480}
   spike: {fileID: 8475010341257784611, guid: 9c907584e009e6940a6680cc2a6f88b4, type: 3}
   spikeSpeed: 20
   spikeShootRate: 0.25
@@ -2643,6 +2646,32 @@ Transform:
   m_Father: {fileID: 1328434008173906547}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &7945844431733106480
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312934617008356602}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: -1, y: 0.7, z: 0}
+--- !u!114 &7945844431733106481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312934617008356602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d242d51f827cd004da3e25a74f839ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeDamage: 1
 --- !u!1 &7960205222021162232
 GameObject:
   m_ObjectHideFlags: 0
