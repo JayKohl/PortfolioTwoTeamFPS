@@ -57,7 +57,7 @@ public class endBossAI : enemyShredder
                 {
                     StartCoroutine(meleeTwo());
                 }
-                if (!isMelee && !isShooting && angleToPlayer <= shootAngle && selectAttack > 5)
+                if (!isMelee && !isShooting && angleToPlayer <= shootAngle)
                 {
                     StartCoroutine(shoot());
                 }
