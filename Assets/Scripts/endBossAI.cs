@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class endBossAI : enemyShredder
 {
+    [SerializeField] protected Collider meleeColliderTwo;
     //// Start is called before the first frame update
     //void Start()
     //{
@@ -48,5 +49,20 @@ public class endBossAI : enemyShredder
         }
         agent.stoppingDistance = 0;
         return false;
+    }
+    protected IEnumerator meleeTwo()
+    {
+        isMelee = true;
+        anim.SetTrigger("MeleeTwo");
+        yield return new WaitForSeconds(meleeRate);
+        isMelee = false;
+    }
+    public void meleeColliderTwoOn()
+    {
+        meleeColliderTwo.enabled = true;
+    }
+    public void meleeColliderTwoOff()
+    {
+        meleeColliderTwo.enabled = false;
     }
 }
