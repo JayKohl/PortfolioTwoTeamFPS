@@ -15,7 +15,7 @@ public class checkPoint : MonoBehaviour
         if(other.CompareTag("Player") && !playerIn)
         {
             playerIn = true;
-            gameManager.instance.displayNpcText("Checkpoint");
+            StartCoroutine(gameManager.instance.checkPointDisplay());
             gameManager.instance.playerSpawnPosition.transform.position = transform.position;
         }
     }

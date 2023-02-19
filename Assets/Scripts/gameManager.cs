@@ -110,6 +110,7 @@ public class gameManager : MonoBehaviour
     }
     public IEnumerator checkPointDisplay()
     {
+        //quicktext "checkpoint"
         gameManager.instance.infoText.text = "Checkpoint";        
         yield return new WaitForSeconds(1);
         gameManager.instance.infoText.text = "";
@@ -129,8 +130,6 @@ public class gameManager : MonoBehaviour
     {        
         npcChat.SetText(textToDisplay);
         playerChatBackground.SetActive(true);
-        if (textToDisplay == "Checkpoint")
-            StartCoroutine(deleteText(1));
     }
 
     IEnumerator deleteText(float banishTime)
