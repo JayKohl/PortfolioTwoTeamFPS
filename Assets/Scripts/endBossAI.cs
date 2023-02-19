@@ -81,6 +81,7 @@ public class endBossAI : enemyShredder
                 }
                 if (!isSpikeShoot && distanceToEnemy >= spikeRange)
                 {
+                    agent.stoppingDistance = stoppingDistOrig *= 3;
                     StartCoroutine(spikeShoot());
                 }
                 return true;
@@ -110,6 +111,7 @@ public class endBossAI : enemyShredder
         isSpikeShoot = true;
         anim.SetTrigger("SpikeShoot");
         yield return new WaitForSeconds(spikeShootRate);
+        agent.stoppingDistance = stoppingDistOrig;
         isShooting = false;
         isSpikeShoot = false;
     }
