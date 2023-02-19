@@ -7,6 +7,20 @@ public class endBossAI : enemyShredder
 {
     [SerializeField] protected Collider meleeColliderTwo;
 
+    [SerializeField] GameObject spike;
+    [SerializeField] int spikeSpeed;
+    [SerializeField] float spikeShootRate;
+    [SerializeField] float spikeRange;
+    [SerializeField] Transform shootPositionSpike;
+    [SerializeField] Transform shootPositionSpikeTwo;
+    [SerializeField] Transform shootPositionSpikeThree;
+    [SerializeField] Transform shootPositionSpikeFour;
+    [SerializeField] Transform shootPositionSpikeFive;
+    [SerializeField] Transform shootPositionSpikeSix;
+    [SerializeField] Transform shootPositionSpikeSeven;
+    [SerializeField] Transform shootPositionSpikeEight;
+    [SerializeField] Transform shootPositionSpikeNine;
+
     System.Random randomAttack;
     // Start is called before the first frame update
     void Start()
