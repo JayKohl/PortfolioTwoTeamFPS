@@ -39,7 +39,7 @@ public class endBossAI : enemyShredder
                 {
                     facePlayer();
                 }
-                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 2)
+                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7)
                 {
                     StartCoroutine(melee());
                 }
