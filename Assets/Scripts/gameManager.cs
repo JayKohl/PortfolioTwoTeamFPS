@@ -25,6 +25,11 @@ public class gameManager : MonoBehaviour
     //public GameObject textActivator;
     //temporary text was changed to info text
     public TextMeshProUGUI infoText;
+    //Angel added this line
+    public TextMeshProUGUI npcChat;
+    public GameObject playerChatBackground;
+
+
     public GameObject muzzleFlash;
 
     [Header("Goals")]
@@ -103,16 +108,28 @@ public class gameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         //checkPointPopUp.SetActive(false);
     }
-    //Angel added this void method
+    //Angel added this void methods
     public void displayText(string texToDisplay, float banishTime = .5f)
     {
         infoText.SetText(texToDisplay);
-        StartCoroutine(deleteText(texToDisplay, banishTime));
+        StartCoroutine(deleteText(banishTime));
     }
 
-    IEnumerator deleteText(string texToDisplay, float banishTime)
+    public void displayNpcText(string texToDisplay, float banishTime = .5f)
+    {
+        npcChat.SetText(texToDisplay);
+        playerChatBackground.SetActive(true);
+        StartCoroutine(deleteTextNpc(banishTime));
+    }
+
+    IEnumerator deleteText(float banishTime)
     {
         yield return new WaitForSeconds(banishTime);
         gameManager.instance.infoText.SetText(" ");
+    }
+    IEnumerator deleteTextNpc(float banishTime)
+    {
+        yield return new WaitForSeconds(banishTime);
+        playerChatBackground.SetActive(false);
     }
 }

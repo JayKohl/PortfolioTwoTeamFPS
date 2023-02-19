@@ -12,6 +12,7 @@ public class DisplayInfo : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             gameManager.instance.displayText(text);
+            gameManager.instance.displayNpcText("Hello Guys. this is a chat test");
 
         }
     }   
