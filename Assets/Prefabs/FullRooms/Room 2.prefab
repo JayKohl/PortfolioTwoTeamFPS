@@ -29019,61 +29019,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 7a795cfa352504447903363d206d1479, type: 3}
---- !u!1 &2167522437407311959
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2167522437407632221}
-  - component: {fileID: 2167522437408390087}
-  - component: {fileID: 2167522437405222501}
-  m_Layer: 0
-  m_Name: B2_HR_1_Col (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 66
-  m_IsActive: 1
---- !u!4 &2167522437407632221
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2167522437407311959}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: -1.009, y: -0.148, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2167522437407675635}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2167522437408390087
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2167522437407311959}
-  m_Mesh: {fileID: 4300000, guid: 7a795cfa352504447903363d206d1479, type: 3}
---- !u!64 &2167522437405222501
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2167522437407311959}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 7a795cfa352504447903363d206d1479, type: 3}
 --- !u!1 &2167522437407312137
 GameObject:
   m_ObjectHideFlags: 0
@@ -31035,7 +30980,6 @@ Transform:
   m_Children:
   - {fileID: 2167522437407612937}
   - {fileID: 2167522437407652075}
-  - {fileID: 2167522437407632221}
   m_Father: {fileID: 2167522437407584853}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
