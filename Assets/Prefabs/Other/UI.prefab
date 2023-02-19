@@ -1604,8 +1604,8 @@ MonoBehaviour:
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 3
+  m_FillClockwise: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &2840190245218899951
@@ -1897,6 +1897,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownImage: {fileID: 696113621479358805}
   cooldownText: {fileID: 1355979769}
+  cooldownTime: 10
+  cooldownTimer: 10
 --- !u!1 &4031378615518569575
 GameObject:
   m_ObjectHideFlags: 0
@@ -2112,6 +2114,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownImage: {fileID: 1828111240661287532}
   cooldownText: {fileID: 2123721854}
+  cooldownTime: 10
+  cooldownTimer: 10
 --- !u!1 &6111150019519613052
 GameObject:
   m_ObjectHideFlags: 0
@@ -4927,6 +4931,10 @@ MonoBehaviour:
   infoText: {fileID: 2131254345395773442}
   npcChat: {fileID: 1285192959}
   playerChatBackground: {fileID: 4031378615518569575}
+  AbilityOne: {fileID: 3571310666148170965}
+  AbilityTwo: {fileID: 8103068715929954385}
+  AbilityThree: {fileID: 5040218222133747294}
+  AbilityFour: {fileID: 6662437275942001003}
   muzzleFlash: {fileID: 0}
   fuelCellsRemaining: 0
   isPaused: 0
@@ -6060,6 +6068,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownImage: {fileID: 7858703464004896498}
   cooldownText: {fileID: 623896224}
+  cooldownTime: 10
+  cooldownTimer: 10
 --- !u!1 &6824694260846082837
 GameObject:
   m_ObjectHideFlags: 0
@@ -6279,8 +6289,8 @@ MonoBehaviour:
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 3
+  m_FillClockwise: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &7642768840127811790
@@ -6556,6 +6566,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownImage: {fileID: 8342591308905725409}
   cooldownText: {fileID: 430487643}
+  cooldownTime: 10
+  cooldownTimer: 10
 --- !u!1 &8160148697409567946
 GameObject:
   m_ObjectHideFlags: 0
@@ -6704,8 +6716,8 @@ MonoBehaviour:
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 3
+  m_FillClockwise: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &8947088639180394224
@@ -6780,7 +6792,7 @@ MonoBehaviour:
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 3
+  m_FillClockwise: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
