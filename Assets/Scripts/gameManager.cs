@@ -42,6 +42,8 @@ public class gameManager : MonoBehaviour
     public bool isPaused;
     public bool bossDead;
 
+    string goalsText;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -108,22 +110,27 @@ public class gameManager : MonoBehaviour
     }
     public IEnumerator checkPointDisplay()
     {
-        //checkPointPopUp.SetActive(true);
-        yield return new WaitForSeconds(2);
-        //checkPointPopUp.SetActive(false);
+        gameManager.instance.infoText.text = "Checkpoint";        
+        yield return new WaitForSeconds(1);
+        gameManager.instance.infoText.text = "";
     }
-    //Angel added this void methods
-    public void displayText(string texToDisplay, float banishTime = .5f)
+    public void displayText(string textToDisplay)
     {
-        infoText.SetText(texToDisplay);
-        StartCoroutine(deleteText(banishTime));
+        infoText.SetText(textToDisplay);
+        goalsText = textToDisplay;
     }
 
-    public void displayNpcText(string texToDisplay, float banishTime = .5f)
+    public void goalsDisplayText()
     {
-        npcChat.SetText(texToDisplay);
+        infoText.SetText(goalsText);
+    }
+
+    public void displayNpcText(string textToDisplay)
+    {        
+        npcChat.SetText(textToDisplay);
         playerChatBackground.SetActive(true);
-        StartCoroutine(deleteTextNpc(banishTime));
+        if (textToDisplay == "Checkpoint")
+            StartCoroutine(deleteText(1));
     }
 
     IEnumerator deleteText(float banishTime)
@@ -131,9 +138,8 @@ public class gameManager : MonoBehaviour
         yield return new WaitForSeconds(banishTime);
         gameManager.instance.infoText.SetText(" ");
     }
-    IEnumerator deleteTextNpc(float banishTime)
+    public void deleteTextNpc()
     {
-        yield return new WaitForSeconds(banishTime);
         playerChatBackground.SetActive(false);
     }
 }
