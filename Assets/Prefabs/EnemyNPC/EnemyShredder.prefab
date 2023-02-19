@@ -446,7 +446,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571483260470718170}
-  m_LocalRotation: {x: -0, y: 0.9851303, z: -0, w: -0.17180917}
+  m_LocalRotation: {x: 0, y: 0.98513037, z: -0, w: -0.17180866}
   m_LocalPosition: {x: 32.972828, y: 0, z: 37.985565}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -465,8 +465,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571483260470718170}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 655a837a2979acd49b85d1a0401fc0aa, type: 3}
-  m_Controller: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 26489012c8ee8af4d84156e5e5ac1035, type: 3}
+  m_Controller: {fileID: 9100000, guid: 761519c705015ee419aa6ed393c8f09b, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -490,11 +490,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 571483260473893488}
   agent: {fileID: 571483260478102706}
-  anim: {fileID: 0}
+  anim: {fileID: 571483260478102704}
   playerYOffset: 0
   headPos: {fileID: 571483260471210824}
   hitPoints: 3
   playerFaceSpeed: 100
+  speedChase: 0
   viewAngle: 90
   shootAngle: 90
   waitTime: 0
@@ -503,12 +504,9 @@ MonoBehaviour:
   bullet: {fileID: 0}
   bulletSpeed: 50
   shootRate: 1
-  playerDirection: {x: 0, y: 0, z: 0}
+  meleeCollider: {fileID: 0}
+  meleeRate: 0
   isPlayerInRange: 0
-  isShooting: 0
-  angleToPlayer: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  stoppingDistOrig: 0
 --- !u!136 &571483260478102707
 CapsuleCollider:
   m_ObjectHideFlags: 0
