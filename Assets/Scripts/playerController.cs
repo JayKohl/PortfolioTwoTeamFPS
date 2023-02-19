@@ -14,6 +14,7 @@ public class playerController : MonoBehaviour
     [Range(10, 25)] [SerializeField] int jumpSpeed;
     [Range(15, 45)] [SerializeField] int gravity;
     [SerializeField] int runSpeed;
+    [SerializeField] float pushbackResTime;
 
     [Header("----- Weapon Stats -----")]
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
@@ -38,6 +39,7 @@ public class playerController : MonoBehaviour
     public int hpOriginal;
     public int speedOriginal;
     public int gunSelection;
+    Vector3 pushback;
 
     // Start is called before the first frame update
     void Start()
@@ -211,5 +213,10 @@ public class playerController : MonoBehaviour
     {
 
         yield return new WaitForSeconds(coolDown + extraCooldown);
+    }
+
+    public void pushbackDir(Vector3 dir)
+    {
+        pushback += dir;
     }
 }
