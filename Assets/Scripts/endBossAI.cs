@@ -80,7 +80,7 @@ public class endBossAI : enemyShredder
                 }
                 if (!isSpikeShoot && distanceToEnemy >= spikeRange)
                 {
-
+                    StartCoroutine(spikeShoot());
                 }
                 return true;
             }
