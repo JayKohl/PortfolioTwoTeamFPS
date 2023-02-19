@@ -200,4 +200,16 @@ public class playerController : MonoBehaviour
         updatePlayerHPBar();
         controller.enabled = true;
     }
+
+    //added an ability here
+    public void SpeedAbility(int speed, float coolDown, float extraCooldown = 0)
+    {
+        playerSpeed += speed;
+        StartCoroutine(abilityWaitTime(coolDown, extraCooldown));
+    }
+    private IEnumerator abilityWaitTime(float coolDown, float extraCooldown)
+    {
+
+        yield return new WaitForSeconds(coolDown + extraCooldown);
+    }
 }

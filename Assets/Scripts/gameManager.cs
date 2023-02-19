@@ -28,6 +28,10 @@ public class gameManager : MonoBehaviour
     //Angel added this line
     public TextMeshProUGUI npcChat;
     public GameObject playerChatBackground;
+    public GameObject AbilityOne;
+    public GameObject AbilityTwo;
+    public GameObject AbilityThree;
+    public GameObject AbilityFour;
 
 
     public GameObject muzzleFlash;
