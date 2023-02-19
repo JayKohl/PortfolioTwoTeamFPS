@@ -15,23 +15,33 @@ public class enemyShredder : enemyAI
     // Update is called once per frame
     void Update()
     {
-        anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
-        agent.destination = gameManager.instance.player.transform.position;
-        if (isPlayerInRange)
+        if (agent.isActiveAndEnabled)
         {
-            canSeePlayer();
+            anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
+            if (isPlayerInRange)
+            {
+                if (!canSeePlayer())
+                {
+                    agent.destination = gameManager.instance.player.transform.position;
+                }
+            }
+            else if (agent.destination != gameManager.instance.player.transform.position)
+            {
+                StartCoroutine(roam());
+            }
         }
     }
     protected override bool canSeePlayer()
     {
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
-        // playerDirection.y += 1;
-        //playerYOffset = playerDirection.y;
-        //playerDirection = gameManager.instance.player.transform.position - transform.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
         Debug.Log(angleToPlayer);
         Debug.DrawRay(headPos.position, playerDirection);
+
+        Vector3 two = agent.transform.position;
+        Vector3 one = gameManager.instance.player.transform.position;
+        float distanceToEnemy = Mathf.Sqrt(Mathf.Pow((two.x - one.x), 2) + Mathf.Pow((two.y - one.y), 2) + Mathf.Pow((two.z - one.z), 2));
 
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
@@ -45,7 +55,7 @@ public class enemyShredder : enemyAI
                 {
                     facePlayer();
                 }
-                if (!isShooting && angleToPlayer <= shootAngle)
+                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 2)
                 {
                     StartCoroutine(melee());
                 }

@@ -446,7 +446,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571483260470718170}
-  m_LocalRotation: {x: -0, y: 0.9851303, z: -0, w: -0.17180917}
+  m_LocalRotation: {x: 0, y: 0.98513037, z: -0, w: -0.17180866}
   m_LocalPosition: {x: 32.972828, y: 0, z: 37.985565}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -465,8 +465,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571483260470718170}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 655a837a2979acd49b85d1a0401fc0aa, type: 3}
-  m_Controller: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 26489012c8ee8af4d84156e5e5ac1035, type: 3}
+  m_Controller: {fileID: 9100000, guid: 761519c705015ee419aa6ed393c8f09b, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -490,25 +490,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 571483260473893488}
   agent: {fileID: 571483260478102706}
-  anim: {fileID: 0}
+  anim: {fileID: 571483260478102704}
   playerYOffset: 0
   headPos: {fileID: 571483260471210824}
   hitPoints: 3
   playerFaceSpeed: 100
+  speedChase: 5
   viewAngle: 90
   shootAngle: 90
   waitTime: 0
   roamDist: 0
   shootPosition: {fileID: 0}
   bullet: {fileID: 0}
-  bulletSpeed: 50
-  shootRate: 1
-  playerDirection: {x: 0, y: 0, z: 0}
+  bulletSpeed: 0
+  shootRate: 0
+  meleeCollider: {fileID: 1398963485}
+  meleeRate: 1
   isPlayerInRange: 0
-  isShooting: 0
-  angleToPlayer: 0
-  startingPos: {x: 0, y: 0, z: 0}
-  stoppingDistOrig: 0
 --- !u!136 &571483260478102707
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -534,7 +532,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &571483260478102706
 NavMeshAgent:
@@ -550,7 +548,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -979,6 +977,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 571483260471210856}
+  - component: {fileID: 3540539869856371135}
+  - component: {fileID: 1398963485}
   m_Layer: 0
   m_Name: lowerarm_r
   m_TagString: Untagged
@@ -1003,6 +1003,33 @@ Transform:
   m_Father: {fileID: 571483260471210712}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3540539869856371135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571483260470718216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d242d51f827cd004da3e25a74f839ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeDamage: 1
+--- !u!136 &1398963485
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571483260470718216}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.25
+  m_Height: 2
+  m_Direction: 0
+  m_Center: {x: 0.5, y: 0, z: 0}
 --- !u!1 &571483260470718218
 GameObject:
   m_ObjectHideFlags: 0

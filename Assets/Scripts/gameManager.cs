@@ -21,8 +21,19 @@ public class gameManager : MonoBehaviour
     public GameObject playerDamageFlashScreen;
     public Image playerHPBar;
     [SerializeField] TextMeshProUGUI fuelCellsRemainingText;
-    public GameObject textActivator;
-    public TextMeshProUGUI temporaryText;
+    //Angel deleted this line of code
+    //public GameObject textActivator;
+    //temporary text was changed to info text
+    public TextMeshProUGUI infoText;
+    //Angel added this line
+    public TextMeshProUGUI npcChat;
+    public GameObject playerChatBackground;
+    public GameObject AbilityOne;
+    public GameObject AbilityTwo;
+    public GameObject AbilityThree;
+    public GameObject AbilityFour;
+
+
     public GameObject muzzleFlash;
 
     [Header("Goals")]
@@ -30,6 +41,8 @@ public class gameManager : MonoBehaviour
 
     public bool isPaused;
     public bool bossDead;
+
+    string goalsText;
 
     // Start is called before the first frame update
     void Awake()
@@ -97,8 +110,35 @@ public class gameManager : MonoBehaviour
     }
     public IEnumerator checkPointDisplay()
     {
-        //checkPointPopUp.SetActive(true);
-        yield return new WaitForSeconds(2);
-        //checkPointPopUp.SetActive(false);
+        //quicktext "checkpoint"
+        gameManager.instance.infoText.text = "Checkpoint";        
+        yield return new WaitForSeconds(1);
+        gameManager.instance.infoText.text = "";
+    }
+    public void displayText(string textToDisplay)
+    {
+        infoText.SetText(textToDisplay);
+        goalsText = textToDisplay;
+    }
+
+    public void goalsDisplayText()
+    {
+        infoText.SetText(goalsText);
+    }
+
+    public void displayNpcText(string textToDisplay)
+    {        
+        npcChat.SetText(textToDisplay);
+        playerChatBackground.SetActive(true);
+    }
+
+    IEnumerator deleteText(float banishTime)
+    {
+        yield return new WaitForSeconds(banishTime);
+        gameManager.instance.infoText.SetText(" ");
+    }
+    public void deleteTextNpc()
+    {
+        playerChatBackground.SetActive(false);
     }
 }

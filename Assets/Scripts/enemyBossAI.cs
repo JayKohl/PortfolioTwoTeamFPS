@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //// test
 //using UnityEngine.AI;
@@ -13,6 +14,7 @@ public class enemyBossAI : enemyAI
 
     [SerializeField] Transform shootPositionMissile;
     [SerializeField] GameObject missile;
+    public Image enemyHPBar;
     [SerializeField] int missileSpeed;
     [SerializeField] float missileShootRate;
     [SerializeField] float missileYVelocity;
@@ -72,7 +74,8 @@ public class enemyBossAI : enemyAI
     }
     public override void takeDamage(int dmg)
     {
-
+        //Angel Added this
+        updateEnemyHPBar();
         hitPoints -= dmg;
         if (hitPoints <= 0)
         {
@@ -243,6 +246,11 @@ public class enemyBossAI : enemyAI
 
         agent.stoppingDistance = stoppingDistOrig;
         isInCoolDown = false;
+    }
+    //Angel added this line
+    public void updateEnemyHPBar()
+    {
+        enemyHPBar.fillAmount = (float)hitPoints / (float)hitPointsOrig;
     }
     //protected IEnumerator shootTwo()
     //{
