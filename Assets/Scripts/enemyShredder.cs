@@ -34,9 +34,6 @@ public class enemyShredder : enemyAI
     protected override bool canSeePlayer()
     {
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
-        // playerDirection.y += 1;
-        //playerYOffset = playerDirection.y;
-        //playerDirection = gameManager.instance.player.transform.position - transform.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
         Debug.Log(angleToPlayer);
@@ -54,7 +51,7 @@ public class enemyShredder : enemyAI
                 {
                     facePlayer();
                 }
-                if (!isShooting && angleToPlayer <= shootAngle)
+                if (!isMelee && angleToPlayer <= shootAngle)
                 {
                     StartCoroutine(melee());
                 }
