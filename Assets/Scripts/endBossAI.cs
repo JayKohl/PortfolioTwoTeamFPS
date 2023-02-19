@@ -7,6 +7,8 @@ public class endBossAI : enemyShredder
 {
     [SerializeField] protected Collider meleeColliderTwo;
 
+    [SerializeField] Collider meleeColliderRam;
+
     [SerializeField] GameObject spike;
     [SerializeField] int spikeSpeed;
     [SerializeField] float spikeShootRate;
@@ -71,9 +73,13 @@ public class endBossAI : enemyShredder
                 {
                     StartCoroutine(melee());
                 }
-                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack >= 6)
+                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack >= 6 && distanceToEnemy != 10)
                 {
                     StartCoroutine(meleeTwo());
+                }
+                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack == 10)
+                {
+                    StartCoroutine(meleeRam());
                 }
                 if (!isMelee && !isShooting && angleToPlayer <= shootAngle)
                 {
@@ -89,6 +95,21 @@ public class endBossAI : enemyShredder
         }
         agent.stoppingDistance = 0;
         return false;
+    }
+    protected IEnumerator meleeRam()
+    {
+        isMelee = true;
+        anim.SetTrigger("Ram");
+        yield return new WaitForSeconds(meleeRate);
+        isMelee = false;
+    }
+    public void meleeRamColliderOn()
+    {
+        meleeColliderRam.enabled = true;
+    }
+    public void meleeRamColliderOff()
+    {
+        meleeColliderRam.enabled = false;
     }
     protected IEnumerator meleeTwo()
     {
