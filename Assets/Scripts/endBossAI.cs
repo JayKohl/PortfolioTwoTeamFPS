@@ -1,15 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class endBossAI : enemyShredder
 {
     [SerializeField] protected Collider meleeColliderTwo;
-    //// Start is called before the first frame update
-    //void Start()
-    //{
 
-    //}
+    System.Random randomAttack;
+    // Start is called before the first frame update
+    void Start()
+    {
+        startingPos = transform.position;
+        stoppingDistOrig = agent.stoppingDistance;
+        speedOrig = agent.speed;
+
+        randomAttack = new System.Random();
+    }
 
     //// Update is called once per frame
     //void Update()
@@ -33,6 +40,8 @@ public class endBossAI : enemyShredder
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
+                int selectAttack = randomAttack.Next(1, 11);
+
                 agent.stoppingDistance = stoppingDistOrig;
                 agent.speed = speedChase;
                 agent.SetDestination(gameManager.instance.player.transform.position);
@@ -40,9 +49,13 @@ public class endBossAI : enemyShredder
                 {
                     facePlayer();
                 }
-                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7)
+                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack < 6)
                 {
                     StartCoroutine(melee());
+                }
+                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack >= 6)
+                {
+                    StartCoroutine(meleeTwo());
                 }
                 return true;
             }
