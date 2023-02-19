@@ -20,6 +20,7 @@ public class endBossAI : enemyShredder
     [SerializeField] Transform shootPositionSpikeSeven;
     [SerializeField] Transform shootPositionSpikeEight;
     [SerializeField] Transform shootPositionSpikeNine;
+    [SerializeField] Transform shootPositionSpikeTen;
 
     bool isSpikeShoot;
 
@@ -140,5 +141,8 @@ public class endBossAI : enemyShredder
 
         GameObject spikeCloneNine = Instantiate(spike, shootPositionSpikeNine.position, spike.transform.rotation);
         spikeCloneNine.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+
+        GameObject spikeCloneTen = Instantiate(spike, shootPositionSpikeTen.position, spike.transform.rotation);
+        spikeCloneTen.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
     }
 }
