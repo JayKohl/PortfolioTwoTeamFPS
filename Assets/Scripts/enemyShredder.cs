@@ -17,13 +17,7 @@ public class enemyShredder : enemyAI
     {
         if (agent.isActiveAndEnabled)
         {
-
             anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
-            //agent.destination = gameManager.instance.player.transform.position;
-            //if (isPlayerInRange)
-            //{
-            //    canSeePlayer();
-            //}
             if (isPlayerInRange)
             {
                 if (!canSeePlayer())
@@ -35,7 +29,6 @@ public class enemyShredder : enemyAI
             {
                 StartCoroutine(roam());
             }
-
         }
     }
     protected override bool canSeePlayer()
