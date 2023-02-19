@@ -25,7 +25,7 @@ public class endBossAI : enemyShredder
     //}
     protected override bool canSeePlayer()
     {
-        playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
+        playerDirection = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
         Debug.Log(angleToPlayer);
