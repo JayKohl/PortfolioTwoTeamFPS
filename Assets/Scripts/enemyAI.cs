@@ -103,6 +103,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         if (hitPoints <= 0)
         {
             GetComponent<Collider>().enabled = false;
+            GetComponentInChildren<Canvas>().enabled = false;
             anim.SetBool("Dead", true);
             agent.enabled = false;
             //Destroy(gameObject); Create a IEnumerator for destroyObject
