@@ -130,11 +130,11 @@ public class endBossAI : enemyAI
                         isMelee = true;
                         StartCoroutine(meleeRam());
                     }
-                    else if (!isMelee && !isShooting && angleToPlayer <= shootAngle)
+                    else if (!isMelee && !isShooting && angleToPlayer <= shootAngle && hitPoints <= (hitPointsOrig - (hitPointsOrig * .2)))
                     {
                         StartCoroutine(shoot());
                     }
-                    else if (!isSpikeShoot && distanceToEnemy >= spikeRange)
+                    else if (!isSpikeShoot && distanceToEnemy >= spikeRange && hitPoints <= (hitPointsOrig - (hitPointsOrig * .2)))
                     {
                         isShooting = true;
                         isSpikeShoot = true;
