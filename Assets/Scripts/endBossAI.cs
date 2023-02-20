@@ -33,6 +33,7 @@ public class endBossAI : enemyAI
     bool isAgro;
     bool isMinionSpawnOne;
     bool isMinionSpawnTwo;
+    bool isPowerUp;
 
     System.Random randomAttack;
 
@@ -44,6 +45,7 @@ public class endBossAI : enemyAI
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
 
+        isPowerUp = false;
         isEventActive = false;
         isAgro = false;
 
@@ -107,6 +109,12 @@ public class endBossAI : enemyAI
                     isMinionSpawnOne = true;
                     StartCoroutine(spawnMinions());
                 }
+                else if (isPowerUp == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .5)))
+                {
+                    isEventActive = true;
+                    isPowerUp = true;
+                    StartCoroutine(powerUp());
+                }
                 else if (isMinionSpawnTwo == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
                 {
                     isEventActive = true;
@@ -148,6 +156,17 @@ public class endBossAI : enemyAI
         facePlayer();
         agent.stoppingDistance = stoppingDistOrig;
         return false;
+    }
+    protected IEnumerator powerUp()
+    {
+        anim.SetTrigger("PowerUp");
+        yield return new WaitForSeconds(2);
+        statsBuff();
+        isEventActive = false;
+    }
+    public void statsBuff()
+    {
+
     }
     protected IEnumerator spawnMinions()
     {
