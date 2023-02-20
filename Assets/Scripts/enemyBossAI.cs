@@ -20,6 +20,11 @@ public class enemyBossAI : enemyAI
     [SerializeField] float missileYVelocity;
     [SerializeField] float missileRange;
 
+    [Header("----- Effects -----")]
+    [SerializeField] GameObject explosion;
+    [SerializeField] GameObject plasmaExplosion;
+    [SerializeField] GameObject deathFlames;
+
     [SerializeField] GameObject shield;
 
     [SerializeField] GameObject fuelCap;
@@ -85,15 +90,29 @@ public class enemyBossAI : enemyAI
             GameObject fuel = Instantiate(fuelCap, gameObject.transform.position, fuelCap.transform.rotation);
             anim.SetBool("Dead", true);
             agent.enabled = false;
+            StartCoroutine(explosionTimer());
             // Destroy(gameObject);
         }
         else
         {
+            if (hitPoints <= hitPointsOrig / 2)
+            {
+                plasmaExplosion.SetActive(true);
+            }
             anim.SetTrigger("Damage");
             // meleeColliderOff();
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());
         }
+    }
+    IEnumerator explosionTimer()
+    {
+        explosion.SetActive(true);
+        plasmaExplosion.SetActive(true);
+        yield return new WaitForSeconds(2.5f);
+        explosion.SetActive(false);
+        plasmaExplosion.SetActive(false);
+        deathFlames.SetActive(true);
     }
     protected override IEnumerator shoot()
     {
@@ -143,7 +162,9 @@ public class enemyBossAI : enemyAI
     }
     public void createMissile()
     {
-        GameObject missileClone = Instantiate(missile, shootPositionMissile.position, missile.transform.rotation);
+        playerDirection = (gameManager.instance.player.transform.position - transform.position).normalized;
+        angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
+        GameObject missileClone = Instantiate(missile, shootPositionMissile.position, missile.transform.rotation);        
         Vector3 missileVector = (gameManager.instance.player.transform.position - shootPositionMissile.position).normalized;
         missileClone.GetComponent<Rigidbody>().velocity = (missileVector + new Vector3(0, missileYVelocity, 0)) * missileSpeed;
     }
@@ -232,8 +253,9 @@ public class enemyBossAI : enemyAI
         isInCoolDown = true;
 
         int saveStartHealth = hitPoints;
-        shield.SetActive(true);
+        shield.SetActive(true);        
         anim.SetTrigger("CoolDown");
+        plasmaExplosion.SetActive(false);
         yield return new WaitForSeconds(10);
         if (saveStartHealth == hitPoints)
         {

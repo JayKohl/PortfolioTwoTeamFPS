@@ -4,28 +4,21 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
-    [Header("----- Missile Info -----")]
-    public int missileDamage;
+    [Header("----- Missile Info -----")]    
     [SerializeField] int maxTravelTime;
-    //[SerializeField] GameObject missileModel;
+    [SerializeField] GameObject explosion;
+    [SerializeField] int detonationTimer;
+    Vector3 playerDirection;
+    float angleToPlayer;
     
-    // Start is called before the first frame update
     void Start()
-    {
-        Destroy(gameObject, maxTravelTime);
+    {        
+        StartCoroutine(timer());        
     }
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-
-    //}
-    private void OnTriggerEnter(Collider other)
+    IEnumerator timer()
     {
-        if (other.CompareTag("Player"))
-        {
-            gameManager.instance.playerScript.takeDamage(missileDamage);
-        }
+        yield return new WaitForSeconds(detonationTimer);
+        Instantiate(explosion, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }

@@ -71,6 +71,7 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        pushback = Vector3.Lerp(pushback, Vector3.zero, Time.deltaTime * pushbackResTime);
         movement();
         selectGun();
         zoomCamera();
@@ -91,6 +92,8 @@ public class playerController : MonoBehaviour
         move = (transform.right * Input.GetAxis("Horizontal") +
                (transform.forward * Input.GetAxis("Vertical")));
 
+        move = move.normalized;
+
         
         controller.Move(move * Time.deltaTime * playerSpeed);
 
@@ -110,7 +113,7 @@ public class playerController : MonoBehaviour
             playerSpeed = speedOriginal;
         }
         playerVelocity.y -= gravity * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+        controller.Move((playerVelocity + pushback) * Time.deltaTime);
     }
 
     IEnumerator shoot()
