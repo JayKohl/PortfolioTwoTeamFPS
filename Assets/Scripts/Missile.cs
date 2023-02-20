@@ -12,9 +12,7 @@ public class Missile : MonoBehaviour
     float angleToPlayer;
     
     void Start()
-    {
-        playerDirection = (gameManager.instance.player.transform.position - transform.position).normalized;
-        angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
+    {        
         StartCoroutine(timer());        
     }
     IEnumerator timer()
