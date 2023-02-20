@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class endBossAI : enemyShredder
+public class endBossAI : enemyAI
 {
     [SerializeField] protected Collider meleeColliderTwo;
 
@@ -35,14 +35,29 @@ public class endBossAI : enemyShredder
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
 
+       // isMelee = false;
         randomAttack = new System.Random();
     }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-
-    //}
+    // Update is called once per frame
+    void Update()
+    {
+        if (agent.isActiveAndEnabled)
+        {
+            anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
+            if (isPlayerInRange)
+            {
+                if (!canSeePlayer())
+                {
+                    agent.destination = gameManager.instance.player.transform.position;
+                }
+            }
+            else if (agent.destination != gameManager.instance.player.transform.position)
+            {
+                StartCoroutine(roam());
+            }
+        }
+    }
     protected override bool canSeePlayer()
     {
         playerDirection = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
@@ -73,20 +88,24 @@ public class endBossAI : enemyShredder
                 {
                     StartCoroutine(melee());
                 }
-                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack > 4 && selectAttack <= 8)
+                else if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack > 4 && selectAttack <= 8)
                 {
+                    isMelee = true;
                     StartCoroutine(meleeTwo());
                 }
-                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack > 8)
+                else if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack > 8)
                 {
+                    isMelee = true;
                     StartCoroutine(meleeRam());
                 }
-                if (!isMelee && !isShooting && angleToPlayer <= shootAngle)
+                else if (!isMelee && !isShooting && angleToPlayer <= shootAngle)
                 {
                     StartCoroutine(shoot());
                 }
-                if (!isSpikeShoot && distanceToEnemy >= spikeRange)
+                else if (!isSpikeShoot && distanceToEnemy >= spikeRange)
                 {
+                    isShooting = true;
+                    isSpikeShoot = true;
                     agent.stoppingDistance = stoppingDistOrig *= 3;
                     StartCoroutine(spikeShoot());
                 }
@@ -98,7 +117,7 @@ public class endBossAI : enemyShredder
     }
     protected IEnumerator meleeRam()
     {
-        isMelee = true;
+        //isMelee = true;
         anim.SetTrigger("Ram");
         yield return new WaitForSeconds(meleeRate);
         isMelee = false;
@@ -113,7 +132,7 @@ public class endBossAI : enemyShredder
     }
     protected IEnumerator meleeTwo()
     {
-        isMelee = true;
+        //isMelee = true;
         anim.SetTrigger("MeleeTwo");
         yield return new WaitForSeconds(meleeRate);
         isMelee = false;
@@ -128,8 +147,8 @@ public class endBossAI : enemyShredder
     }
     protected IEnumerator spikeShoot()
     {
-        isShooting = true;
-        isSpikeShoot = true;
+        //isShooting = true;
+        //isSpikeShoot = true;
         anim.SetTrigger("SpikeShoot");
         yield return new WaitForSeconds(spikeShootRate);
         agent.stoppingDistance = stoppingDistOrig;
