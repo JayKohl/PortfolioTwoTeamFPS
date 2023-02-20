@@ -22,6 +22,7 @@ public class playerController : MonoBehaviour
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] int shootDamage;
+    [SerializeField] float zoomMax;
     Vector3 muzzleFlashPosition;
 
     // Deactivated temp
@@ -39,6 +40,7 @@ public class playerController : MonoBehaviour
     public int hpOriginal;
     public int speedOriginal;
     public int gunSelection;
+    public float baseFOV;
     Vector3 pushback;
 
     // Start is called before the first frame update
@@ -46,6 +48,7 @@ public class playerController : MonoBehaviour
     {
         hpOriginal = HP;
         speedOriginal = playerSpeed;
+        baseFOV = Camera.main.fieldOfView;
         playerRespawn();
     }
 
@@ -54,7 +57,7 @@ public class playerController : MonoBehaviour
     {
         movement();
         selectGun();
-
+        zoomCamera();
         if (!isShooting && Input.GetButton("Shoot"))
             StartCoroutine(shoot());
     }
@@ -218,5 +221,19 @@ public class playerController : MonoBehaviour
     public void pushbackDir(Vector3 dir)
     {
         pushback += dir;
+    }
+
+    public void zoomCamera()
+    {
+
+        if (Input.GetButton("Zoom"))
+        {
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * 3);
+        }
+        else if (Camera.main.fieldOfView <= baseFOV)
+        {
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, baseFOV, Time.deltaTime * 6);
+        }
+
     }
 }
