@@ -32,6 +32,11 @@ public class gameManager : MonoBehaviour
     public GameObject AbilityTwo;
     public GameObject AbilityThree;
     public GameObject AbilityFour;
+    public AbilitiesColdown AbilityOneS;
+    public AbilitiesColdown AbilityTwoS;
+    public AbilitiesColdown AbilityThreeS;
+    public AbilitiesColdown AbilityFourS;
+    public bool ability;
 
 
     public GameObject muzzleFlash;
@@ -45,7 +50,9 @@ public class gameManager : MonoBehaviour
     public bool isPaused;
     public bool bossDead;
 
-    string goalsText;    
+    string goalsText;
+
+    
 
     // Start is called before the first frame update
     void Awake()
@@ -56,6 +63,12 @@ public class gameManager : MonoBehaviour
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
         crosshair = GameObject.FindGameObjectWithTag("Crosshair");
+        //Angel garcia
+        ability = playerScript.abilityOneActive;
+        AbilityOneS = AbilityOne.GetComponent<AbilitiesColdown>();
+        AbilityTwoS = AbilityTwo.GetComponent<AbilitiesColdown>();
+        AbilityThreeS = AbilityThree.GetComponent<AbilitiesColdown>();
+        AbilityFourS = AbilityFour.GetComponent<AbilitiesColdown>();
     }
 
     // Update is called once per frame
@@ -72,6 +85,22 @@ public class gameManager : MonoBehaviour
             else
                 unPause();
         }
+        if(Input.GetKeyDown(KeyCode.Q) && playerScript.abilityOneActive == false)
+        {
+            AbilityOneS.cooldownTime = 5f;
+            playerScript.StartCoroutine(playerScript.abilityCoolSpeed(5));
+            AbilityOneS.wasSpellUsed();
+            AbilityOneS.coolDownAbility();
+        }
+        if (Input.GetKeyDown(KeyCode.E) && playerScript.abilityTwoActive == false)
+        {
+
+            AbilityTwoS.cooldownTime = 2f;
+            playerScript.StartCoroutine(playerScript.abilityCoolHeart(2));
+            AbilityTwoS.wasSpellUsed();
+            AbilityTwoS.coolDownAbility();
+        }
+
     }
     public void pause()
     {
@@ -144,4 +173,5 @@ public class gameManager : MonoBehaviour
     {
         playerChatBackground.SetActive(false);
     }
+
 }

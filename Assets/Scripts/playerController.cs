@@ -43,6 +43,11 @@ public class playerController : MonoBehaviour
     public int gunSelection;
     Vector3 pushback;
 
+    //Angel Garcia
+    public bool abilityOneActive = false;
+    public bool abilityTwoActive = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -211,15 +216,22 @@ public class playerController : MonoBehaviour
     }
 
     //added an ability here
-    public void SpeedAbility(int speed, float coolDown, float extraCooldown = 0)
+    public IEnumerator abilityCoolSpeed(float cooldown)
     {
-        playerSpeed += speed;
-        StartCoroutine(abilityWaitTime(coolDown, extraCooldown));
+        abilityOneActive = true;
+        playerSpeed += 20;
+        yield return new WaitForSeconds(cooldown);
+        playerSpeed = speedOriginal;
+        abilityOneActive = false;
     }
-    private IEnumerator abilityWaitTime(float coolDown, float extraCooldown)
-    {
 
-        yield return new WaitForSeconds(coolDown + extraCooldown);
+    public IEnumerator abilityCoolHeart(float cooldown)
+    {
+        
+        abilityTwoActive = true;
+        giveHP(5);
+        yield return new WaitForSeconds(cooldown);
+        abilityTwoActive = false;
     }
 
     public void pushbackDir(Vector3 dir)

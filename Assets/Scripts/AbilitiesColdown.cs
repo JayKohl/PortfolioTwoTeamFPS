@@ -23,13 +23,10 @@ public class AbilitiesColdown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!used)
-        {
-            coolDownTimer();
-        }
+        coolDownAbility();
     }
 
-    private void coolDownTimer()
+    public void coolDownAbility()
     {
         cooldownTimer -= Time.deltaTime;
         if(cooldownTimer <= 0.0f)
