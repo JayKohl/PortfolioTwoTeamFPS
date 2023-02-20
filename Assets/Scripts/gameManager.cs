@@ -72,6 +72,9 @@ public class gameManager : MonoBehaviour
         AbilityTwoS = AbilityTwo.GetComponent<AbilitiesColdown>();
         AbilityThreeS = AbilityThree.GetComponent<AbilitiesColdown>();
         AbilityFourS = AbilityFour.GetComponent<AbilitiesColdown>();
+        AbilityOneS.cooldownTime = 10f;
+        AbilityTwoS.cooldownTime = 2f;
+        AbilityFourS.cooldownTime = 12f;
     }
 
     // Update is called once per frame
@@ -90,29 +93,26 @@ public class gameManager : MonoBehaviour
         }
 
         //Angel ADDED THIS CODE
-        if(Input.GetKeyDown(KeyCode.Q) && playerScript.abilityOneActive == false)
+        if(Input.GetKeyDown(KeyCode.Q) && AbilityOneS.wasSpellUsed() )
         {
-            AbilityOneS.cooldownTime = 5f;
-            playerScript.StartCoroutine(playerScript.abilityCoolSpeed(5));
+            
+            playerScript.StartCoroutine(playerScript.abilityCoolSpeed(4));
             AbilityOneS.wasSpellUsed();
             AbilityOneS.coolDownAbility();
         }
-        if (Input.GetKeyDown(KeyCode.R) && playerScript.abilityTwoActive == false)
+        if (Input.GetKeyDown(KeyCode.R) && AbilityTwoS.wasSpellUsed())
         {
-
-            AbilityTwoS.cooldownTime = 2f;
+            
             playerScript.StartCoroutine(playerScript.abilityCoolHeart(2));
             AbilityTwoS.wasSpellUsed();
             AbilityTwoS.coolDownAbility();
         }
-        if (Input.GetKeyDown(KeyCode.E) && playerScript.abilityFourActive == false)
+        if (Input.GetKeyDown(KeyCode.E) && AbilityFourS.wasSpellUsed())
         {
-
-            AbilityFourS.cooldownTime = 12f;
+            
             playerScript.StartCoroutine(playerScript.abilityCoolDash(12));
             AbilityFourS.wasSpellUsed();
-            AbilityFourS.coolDownAbility();
-            
+            AbilityFourS.coolDownAbility();           
         }
 
     }
