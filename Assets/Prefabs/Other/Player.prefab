@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1037604126}
-  playeranim: {fileID: 0}
+  playeranim: {fileID: 6551918312896228886}
   HP: 5
   playerSpeed: 5
   jumpTimes: 2
@@ -491,6 +491,9 @@ MonoBehaviour:
   speedOriginal: 0
   gunSelection: 0
   baseFOV: 0
+  abilityOneActive: 0
+  abilityTwoActive: 0
+  abilityFourActive: 0
 --- !u!95 &6551918312896228886
 Animator:
   serializedVersion: 5
@@ -501,7 +504,7 @@ Animator:
   m_GameObject: {fileID: 524364267517112022}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 26489012c8ee8af4d84156e5e5ac1035, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c8f4171422b82df429c1c582125ac032, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

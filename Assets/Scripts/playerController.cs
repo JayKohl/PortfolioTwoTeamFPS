@@ -74,7 +74,7 @@ public class playerController : MonoBehaviour
         movement();
         selectGun();
         zoomCamera();
-        playeranim.SetFloat("Speed", controller.velocity.normalized.magnitude);
+        //playeranim.SetFloat("Speed", controller.velocity.normalized.magnitude);
 
 
         if (!isShooting && Input.GetButton("Shoot"))
