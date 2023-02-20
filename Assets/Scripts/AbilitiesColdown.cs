@@ -22,14 +22,15 @@ public class AbilitiesColdown : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if(!used)
+    { 
+        if(used)
         {
-            coolDownTimer();
+            coolDownAbility();
         }
+            
     }
 
-    private void coolDownTimer()
+    public void coolDownAbility()
     {
         cooldownTimer -= Time.deltaTime;
         if(cooldownTimer <= 0.0f)
@@ -45,17 +46,18 @@ public class AbilitiesColdown : MonoBehaviour
         }
     }
 
-    public void wasSpellUsed()
+    public bool wasSpellUsed()
     {      
         if(used)
         {
-            return;
+            return false;
         }
         else
         {
             used = true;
             cooldownText.gameObject.SetActive(true);
             cooldownTimer = cooldownTime;
+            return true;
         }
           
     }

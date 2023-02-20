@@ -25,13 +25,20 @@ public class gameManager : MonoBehaviour
     //public GameObject textActivator;
     //temporary text was changed to info text
     public TextMeshProUGUI infoText;
-    //Angel added this line
+
+    //Angel ADDED THIS CODE
     public TextMeshProUGUI npcChat;
     public GameObject playerChatBackground;
     public GameObject AbilityOne;
     public GameObject AbilityTwo;
     public GameObject AbilityThree;
     public GameObject AbilityFour;
+    public AbilitiesColdown AbilityOneS;
+    public AbilitiesColdown AbilityTwoS;
+    public AbilitiesColdown AbilityThreeS;
+    public AbilitiesColdown AbilityFourS;
+    public bool ability;
+    //Angel ADDED THIS CODE Above
 
 
     public GameObject muzzleFlash;
@@ -45,7 +52,9 @@ public class gameManager : MonoBehaviour
     public bool isPaused;
     public bool bossDead;
 
-    string goalsText;    
+    string goalsText;
+
+    
 
     // Start is called before the first frame update
     void Awake()
@@ -56,6 +65,16 @@ public class gameManager : MonoBehaviour
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
         crosshair = GameObject.FindGameObjectWithTag("Crosshair");
+
+        //Angel garcia
+        ability = playerScript.abilityOneActive;
+        AbilityOneS = AbilityOne.GetComponent<AbilitiesColdown>();
+        AbilityTwoS = AbilityTwo.GetComponent<AbilitiesColdown>();
+        AbilityThreeS = AbilityThree.GetComponent<AbilitiesColdown>();
+        AbilityFourS = AbilityFour.GetComponent<AbilitiesColdown>();
+        AbilityOneS.cooldownTime = 10f;
+        AbilityTwoS.cooldownTime = 2f;
+        AbilityFourS.cooldownTime = 12f;
     }
 
     // Update is called once per frame
@@ -72,6 +91,30 @@ public class gameManager : MonoBehaviour
             else
                 unPause();
         }
+
+        //Angel ADDED THIS CODE
+        if(Input.GetKeyDown(KeyCode.Q) && AbilityOneS.wasSpellUsed() )
+        {
+            
+            playerScript.StartCoroutine(playerScript.abilityCoolSpeed(4));
+            AbilityOneS.wasSpellUsed();
+            AbilityOneS.coolDownAbility();
+        }
+        if (Input.GetKeyDown(KeyCode.R) && AbilityTwoS.wasSpellUsed())
+        {
+            
+            playerScript.StartCoroutine(playerScript.abilityCoolHeart(2));
+            AbilityTwoS.wasSpellUsed();
+            AbilityTwoS.coolDownAbility();
+        }
+        if (Input.GetKeyDown(KeyCode.E) && AbilityFourS.wasSpellUsed())
+        {
+            
+            playerScript.StartCoroutine(playerScript.abilityCoolDash(12));
+            AbilityFourS.wasSpellUsed();
+            AbilityFourS.coolDownAbility();           
+        }
+
     }
     public void pause()
     {
@@ -144,4 +187,5 @@ public class gameManager : MonoBehaviour
     {
         playerChatBackground.SetActive(false);
     }
+
 }

@@ -10,6 +10,9 @@ public class endBossAI : enemyAI
 
     [SerializeField] Collider meleeColliderRam;
 
+    [SerializeField] GameObject bulletUpgrade;
+    [SerializeField] GameObject spikeUpgrade;
+
     [SerializeField] GameObject spike;
     [SerializeField] int spikeSpeed;
     [SerializeField] float spikeShootRate;
@@ -104,19 +107,19 @@ public class endBossAI : enemyAI
                     facePlayer();
                 }
 
-                if (isMinionSpawnOne == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .3)))
+                if (isEventActive == false && isMinionSpawnOne == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .3)))
                 {
                     isEventActive = true;
                     isMinionSpawnOne = true;
                     StartCoroutine(spawnMinions());
                 }
-                else if (isPowerUp == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .5)))
+                else if (isEventActive == false && isPowerUp == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .5)))
                 {
                     isEventActive = true;
                     isPowerUp = true;
                     StartCoroutine(powerUp());
                 }
-                else if (isMinionSpawnTwo == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
+                else if (isEventActive == false && isMinionSpawnTwo == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
                 {
                     isEventActive = true;
                     isMinionSpawnTwo = true;
@@ -167,7 +170,8 @@ public class endBossAI : enemyAI
     }
     public void statsBuff()
     {
-        
+        bullet = bulletUpgrade;
+        spike = spikeUpgrade;
     }
     protected IEnumerator spawnMinions()
     {
