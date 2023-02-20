@@ -21,12 +21,8 @@ public class gameManager : MonoBehaviour
     public GameObject playerDamageFlashScreen;
     public Image playerHPBar;
     [SerializeField] TextMeshProUGUI fuelCellsRemainingText;
-    //Angel deleted this line of code
-    //public GameObject textActivator;
-    //temporary text was changed to info text
     public TextMeshProUGUI infoText;
 
-    //Angel ADDED THIS CODE
     public TextMeshProUGUI npcChat;
     public GameObject playerChatBackground;
     public GameObject AbilityOne;
@@ -38,11 +34,10 @@ public class gameManager : MonoBehaviour
     public AbilitiesColdown AbilityThreeS;
     public AbilitiesColdown AbilityFourS;
     public bool ability;
-    //Angel ADDED THIS CODE Above
 
 
     public GameObject muzzleFlash;
-    public TextMeshProUGUI quickTexts;    
+    public GameObject quickTexts;    
     public GameObject crosshair;
     public Sprite crosshairTexture;
 
@@ -53,10 +48,8 @@ public class gameManager : MonoBehaviour
     public bool bossDead;
 
     string goalsText;
+ 
 
-    
-
-    // Start is called before the first frame update
     void Awake()
     {
         instance = this;
@@ -65,8 +58,7 @@ public class gameManager : MonoBehaviour
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
         crosshair = GameObject.FindGameObjectWithTag("Crosshair");
-
-        //Angel garcia
+        
         ability = playerScript.abilityOneActive;
         AbilityOneS = AbilityOne.GetComponent<AbilitiesColdown>();
         AbilityTwoS = AbilityTwo.GetComponent<AbilitiesColdown>();
@@ -76,8 +68,6 @@ public class gameManager : MonoBehaviour
         AbilityTwoS.cooldownTime = 2f;
         AbilityFourS.cooldownTime = 12f;
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetButtonDown("Cancel") && activeMenu == null)
@@ -92,7 +82,6 @@ public class gameManager : MonoBehaviour
                 unPause();
         }
 
-        //Angel ADDED THIS CODE
         if(Input.GetKeyDown(KeyCode.Q) && AbilityOneS.wasSpellUsed() )
         {
             
@@ -157,9 +146,9 @@ public class gameManager : MonoBehaviour
     }
     public IEnumerator checkPointDisplay()
     {
-        quickTexts.text = "Checkpoint";
+        quickTexts.SetActive(true);
         yield return new WaitForSeconds(1);
-        quickTexts.text = "";
+        quickTexts.SetActive(false);
     }
     public void displayText(string textToDisplay)
     {
