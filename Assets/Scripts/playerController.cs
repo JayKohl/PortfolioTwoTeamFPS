@@ -225,15 +225,16 @@ public class playerController : MonoBehaviour
 
     public void zoomCamera()
     {
-
-        if (Input.GetButton("Zoom"))
+        if (weaponList.Count > 0)
         {
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * 3);
+            if (Input.GetButton("Zoom"))
+            {
+                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * 3);
+            }
+            else if (Camera.main.fieldOfView <= baseFOV)
+            {
+                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, baseFOV, Time.deltaTime * 6);
+            }
         }
-        else if (Camera.main.fieldOfView <= baseFOV)
-        {
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, baseFOV, Time.deltaTime * 6);
-        }
-
     }
 }
