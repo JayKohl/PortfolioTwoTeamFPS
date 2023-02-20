@@ -6,6 +6,7 @@ public class playerController : MonoBehaviour
 {
     [Header("----- Components -----")]
     [SerializeField] public CharacterController controller;
+    [SerializeField] Animator playeranim;
 
     [Header("----- Player Stats -----")]
     [Range(5, 10)] [SerializeField] public int HP;
@@ -58,6 +59,9 @@ public class playerController : MonoBehaviour
         movement();
         selectGun();
         zoomCamera();
+
+        
+
         if (!isShooting && Input.GetButton("Shoot"))
             StartCoroutine(shoot());
     }
@@ -72,6 +76,7 @@ public class playerController : MonoBehaviour
         move = (transform.right * Input.GetAxis("Horizontal") +
                (transform.forward * Input.GetAxis("Vertical")));
 
+        playeranim.SetFloat("Speed", playerVelocity.normalized.magnitude);
         controller.Move(move * Time.deltaTime * playerSpeed);
 
         if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes)
