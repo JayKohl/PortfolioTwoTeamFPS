@@ -23,6 +23,8 @@ public class playerController : MonoBehaviour
     [SerializeField] int shootDist;
     [SerializeField] int shootDamage;
     Vector3 muzzleFlashPosition;
+    GameObject crosshair;
+    Sprite crosshairTexture;
 
     // Deactivated temp
     // [SerializeField] int bulletSpeed;
@@ -48,6 +50,7 @@ public class playerController : MonoBehaviour
         updatePlayerHPBar();
         speedOriginal = playerSpeed;
         playerRespawn();
+        crosshair = gameManager.instance.crosshair;
     }
 
     // Update is called once per frame
@@ -160,7 +163,9 @@ public class playerController : MonoBehaviour
         shootDist = weaponStat.shootDist;
         shootDamage = weaponStat.shootDamage;
         muzzleFlashPosition = weaponStat.muzzleFlashPosition;
+        crosshairTexture = weaponStat.crosshairTexture;
 
+        //crosshair.GetComponent<SpriteRenderer>().sprite.texture = crosshairTexture;
         gameManager.instance.muzzleFlash.transform.localPosition = muzzleFlashPosition;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponStat.weaponModel.GetComponent<MeshFilter>().sharedMesh;
@@ -187,7 +192,9 @@ public class playerController : MonoBehaviour
         shootDist = weaponList[gunSelection].shootDist;
         shootDamage = weaponList[gunSelection].shootDamage;
         muzzleFlashPosition = weaponList[gunSelection].muzzleFlashPosition;
+        crosshairTexture = weaponList[gunSelection].crosshairTexture;
 
+        //crosshair.GetComponent<Texture>().sprite.texture = crosshairTexture;
         gameManager.instance.muzzleFlash.transform.localPosition = muzzleFlashPosition;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[gunSelection].weaponModel.GetComponent<MeshFilter>().sharedMesh;
