@@ -158,8 +158,11 @@ public class endBossAI : enemyAI
     }
     public void createMinions()
     {
-        int pos = UnityEngine.Random.Range(0, spawnPos.Length);
-        Instantiate(spawnEnemyType, spawnPos[pos].position, spawnPos[pos].rotation);
+        Instantiate(spawnEnemyType, spawnPos[0].position, spawnPos[0].rotation);
+        Instantiate(spawnEnemyType, spawnPos[1].position, spawnPos[1].rotation);
+        Instantiate(spawnEnemyType, spawnPos[2].position, spawnPos[2].rotation);
+        Instantiate(spawnEnemyType, spawnPos[3].position, spawnPos[3].rotation);
+        Instantiate(spawnEnemyType, spawnPos[4].position, spawnPos[4].rotation);
     }
     protected IEnumerator meleeRam()
     {
