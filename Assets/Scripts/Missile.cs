@@ -8,9 +8,13 @@ public class Missile : MonoBehaviour
     [SerializeField] int maxTravelTime;
     [SerializeField] GameObject explosion;
     [SerializeField] int detonationTimer;
+    Vector3 playerDirection;
+    float angleToPlayer;
     
     void Start()
     {
+        playerDirection = (gameManager.instance.player.transform.position - transform.position).normalized;
+        angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
         StartCoroutine(timer());        
     }
     IEnumerator timer()
