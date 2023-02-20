@@ -14,4 +14,5 @@ public class weaponStats : ScriptableObject
     public Sprite weaponIcon;
     public Vector3 muzzleFlashPosition;
     public Sprite crosshairTexture;
+    public float zoomAmount;
 }

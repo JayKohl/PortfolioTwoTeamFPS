@@ -187,12 +187,14 @@ public class playerController : MonoBehaviour
         shootDamage = weaponStat.shootDamage;
         muzzleFlashPosition = weaponStat.muzzleFlashPosition;
         crosshairTexture = weaponStat.crosshairTexture;
+        zoomMax = weaponStat.zoomAmount;
 
         //crosshair.GetComponent<SpriteRenderer>().sprite.texture = crosshairTexture;
         gameManager.instance.muzzleFlash.transform.localPosition = muzzleFlashPosition;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponStat.weaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponStat.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
+
     }
 
     void selectGun()
@@ -216,6 +218,7 @@ public class playerController : MonoBehaviour
         shootDamage = weaponList[gunSelection].shootDamage;
         muzzleFlashPosition = weaponList[gunSelection].muzzleFlashPosition;
         crosshairTexture = weaponList[gunSelection].crosshairTexture;
+        zoomMax = weaponList[gunSelection].zoomAmount;
 
         //crosshair.GetComponent<Texture>().sprite.texture = crosshairTexture;
         gameManager.instance.muzzleFlash.transform.localPosition = muzzleFlashPosition;
