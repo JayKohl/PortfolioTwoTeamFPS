@@ -25,6 +25,7 @@ public class endBossAI : enemyAI
     [SerializeField] Transform shootPositionSpikeTen;
 
     bool isSpikeShoot;
+    bool isAgro;
 
     System.Random randomAttack;
 
@@ -35,7 +36,8 @@ public class endBossAI : enemyAI
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
 
-       // isMelee = false;
+        isAgro = false;
+
         randomAttack = new System.Random();
     }
 
@@ -47,14 +49,19 @@ public class endBossAI : enemyAI
             anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
             if (isPlayerInRange)
             {
+                isAgro = true;
                 if (!canSeePlayer())
                 {
                     agent.destination = gameManager.instance.player.transform.position;
                 }
             }
-            else if (agent.destination != gameManager.instance.player.transform.position)
+            else if (agent.destination != gameManager.instance.player.transform.position && isAgro == false)
             {
                 StartCoroutine(roam());
+            }
+            else if (agent.destination != gameManager.instance.player.transform.position && isAgro == true)
+            {
+                agent.destination = gameManager.instance.player.transform.position;
             }
         }
     }
@@ -106,13 +113,14 @@ public class endBossAI : enemyAI
                 {
                     isShooting = true;
                     isSpikeShoot = true;
-                    agent.stoppingDistance = stoppingDistOrig *= 3;
+                    //agent.stoppingDistance = stoppingDistOrig *= 3;
                     StartCoroutine(spikeShoot());
                 }
                 return true;
             }
         }
-        agent.stoppingDistance = 0;
+        facePlayer();
+        agent.stoppingDistance = stoppingDistOrig;
         return false;
     }
     protected IEnumerator meleeRam()
@@ -151,7 +159,7 @@ public class endBossAI : enemyAI
         //isSpikeShoot = true;
         anim.SetTrigger("SpikeShoot");
         yield return new WaitForSeconds(spikeShootRate);
-        agent.stoppingDistance = stoppingDistOrig;
+        //agent.stoppingDistance = stoppingDistOrig;
         isShooting = false;
         isSpikeShoot = false;
     }
