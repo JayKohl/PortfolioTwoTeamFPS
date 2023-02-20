@@ -35,6 +35,7 @@ public class gameManager : MonoBehaviour
 
 
     public GameObject muzzleFlash;
+    public TextMeshProUGUI quickTexts;
 
     [Header("Goals")]
     public int fuelCellsRemaining;
@@ -42,7 +43,7 @@ public class gameManager : MonoBehaviour
     public bool isPaused;
     public bool bossDead;
 
-    string goalsText;
+    string goalsText;    
 
     // Start is called before the first frame update
     void Awake()
@@ -110,10 +111,9 @@ public class gameManager : MonoBehaviour
     }
     public IEnumerator checkPointDisplay()
     {
-        //quicktext "checkpoint"
-        gameManager.instance.infoText.text = "Checkpoint";        
+        quickTexts.text = "Checkpoint";
         yield return new WaitForSeconds(1);
-        gameManager.instance.infoText.text = "";
+        quickTexts.text = "";
     }
     public void displayText(string textToDisplay)
     {
