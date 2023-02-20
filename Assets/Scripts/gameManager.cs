@@ -25,7 +25,8 @@ public class gameManager : MonoBehaviour
     //public GameObject textActivator;
     //temporary text was changed to info text
     public TextMeshProUGUI infoText;
-    //Angel added this line
+
+    //Angel ADDED THIS CODE
     public TextMeshProUGUI npcChat;
     public GameObject playerChatBackground;
     public GameObject AbilityOne;
@@ -37,6 +38,7 @@ public class gameManager : MonoBehaviour
     public AbilitiesColdown AbilityThreeS;
     public AbilitiesColdown AbilityFourS;
     public bool ability;
+    //Angel ADDED THIS CODE Above
 
 
     public GameObject muzzleFlash;
@@ -63,6 +65,7 @@ public class gameManager : MonoBehaviour
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
         crosshair = GameObject.FindGameObjectWithTag("Crosshair");
+
         //Angel garcia
         ability = playerScript.abilityOneActive;
         AbilityOneS = AbilityOne.GetComponent<AbilitiesColdown>();
@@ -85,6 +88,8 @@ public class gameManager : MonoBehaviour
             else
                 unPause();
         }
+
+        //Angel ADDED THIS CODE
         if(Input.GetKeyDown(KeyCode.Q) && playerScript.abilityOneActive == false)
         {
             AbilityOneS.cooldownTime = 5f;
@@ -92,13 +97,22 @@ public class gameManager : MonoBehaviour
             AbilityOneS.wasSpellUsed();
             AbilityOneS.coolDownAbility();
         }
-        if (Input.GetKeyDown(KeyCode.E) && playerScript.abilityTwoActive == false)
+        if (Input.GetKeyDown(KeyCode.R) && playerScript.abilityTwoActive == false)
         {
 
             AbilityTwoS.cooldownTime = 2f;
             playerScript.StartCoroutine(playerScript.abilityCoolHeart(2));
             AbilityTwoS.wasSpellUsed();
             AbilityTwoS.coolDownAbility();
+        }
+        if (Input.GetKeyDown(KeyCode.E) && playerScript.abilityFourActive == false)
+        {
+
+            AbilityFourS.cooldownTime = 12f;
+            playerScript.StartCoroutine(playerScript.abilityCoolDash(12));
+            AbilityFourS.wasSpellUsed();
+            AbilityFourS.coolDownAbility();
+            
         }
 
     }
