@@ -13,4 +13,5 @@ public class weaponStats : ScriptableObject
     public AudioClip weaponAudio;
     public Sprite weaponIcon;
     public Vector3 muzzleFlashPosition;
+    public Sprite crosshairTexture;
 }

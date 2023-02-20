@@ -35,7 +35,9 @@ public class gameManager : MonoBehaviour
 
 
     public GameObject muzzleFlash;
-    public TextMeshProUGUI quickTexts;
+    public TextMeshProUGUI quickTexts;    
+    public GameObject crosshair;
+    public Sprite crosshairTexture;
 
     [Header("Goals")]
     public int fuelCellsRemaining;
@@ -53,6 +55,7 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
+        crosshair = GameObject.FindGameObjectWithTag("Crosshair");
     }
 
     // Update is called once per frame
