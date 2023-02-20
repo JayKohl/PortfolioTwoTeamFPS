@@ -25,6 +25,8 @@ public class playerController : MonoBehaviour
     [SerializeField] int shootDamage;
     [SerializeField] float zoomMax;
     Vector3 muzzleFlashPosition;
+    GameObject crosshair;
+    Sprite crosshairTexture;
 
     // Deactivated temp
     // [SerializeField] int bulletSpeed;
@@ -44,6 +46,14 @@ public class playerController : MonoBehaviour
     public float baseFOV;
     Vector3 pushback;
 
+    //Angel ADDED THIS CODE
+    public bool abilityOneActive = false;
+    public bool abilityTwoActive = false;
+    public bool abilityFourActive = false;
+    Rigidbody rig;
+    //Angel ADDED THIS CODE ABOVE
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +61,11 @@ public class playerController : MonoBehaviour
         speedOriginal = playerSpeed;
         baseFOV = Camera.main.fieldOfView;
         playerRespawn();
+        crosshair = gameManager.instance.crosshair;
+
+
+        //Angel ADDED THIS CODE
+        rig = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -168,7 +183,9 @@ public class playerController : MonoBehaviour
         shootDist = weaponStat.shootDist;
         shootDamage = weaponStat.shootDamage;
         muzzleFlashPosition = weaponStat.muzzleFlashPosition;
+        crosshairTexture = weaponStat.crosshairTexture;
 
+        //crosshair.GetComponent<SpriteRenderer>().sprite.texture = crosshairTexture;
         gameManager.instance.muzzleFlash.transform.localPosition = muzzleFlashPosition;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponStat.weaponModel.GetComponent<MeshFilter>().sharedMesh;
@@ -195,7 +212,9 @@ public class playerController : MonoBehaviour
         shootDist = weaponList[gunSelection].shootDist;
         shootDamage = weaponList[gunSelection].shootDamage;
         muzzleFlashPosition = weaponList[gunSelection].muzzleFlashPosition;
+        crosshairTexture = weaponList[gunSelection].crosshairTexture;
 
+        //crosshair.GetComponent<Texture>().sprite.texture = crosshairTexture;
         gameManager.instance.muzzleFlash.transform.localPosition = muzzleFlashPosition;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[gunSelection].weaponModel.GetComponent<MeshFilter>().sharedMesh;
@@ -211,17 +230,32 @@ public class playerController : MonoBehaviour
         controller.enabled = true;
     }
 
-    //added an ability here
-    public void SpeedAbility(int speed, float coolDown, float extraCooldown = 0)
+    //Angel ADDED THIS CODE
+    public IEnumerator abilityCoolSpeed(float cooldown)
     {
-        playerSpeed += speed;
-        StartCoroutine(abilityWaitTime(coolDown, extraCooldown));
+        abilityOneActive = true;
+        playerSpeed += 20;
+        yield return new WaitForSeconds(cooldown);
+        playerSpeed = speedOriginal;
+        abilityOneActive = false;
     }
-    private IEnumerator abilityWaitTime(float coolDown, float extraCooldown)
-    {
 
-        yield return new WaitForSeconds(coolDown + extraCooldown);
+    public IEnumerator abilityCoolHeart(float cooldown)
+    {
+        abilityTwoActive = true;
+        giveHP(1);
+        yield return new WaitForSeconds(cooldown);
+        abilityTwoActive = false;
     }
+
+    public IEnumerator abilityCoolDash(float cooldown)
+    {
+        abilityFourActive = true;
+        controller.Move(Camera.main.transform.forward * 20);
+        yield return new WaitForSeconds(cooldown);
+        abilityFourActive = false;
+    }
+    //Angel ADDED THIS CODE ABOVE
 
     public void pushbackDir(Vector3 dir)
     {

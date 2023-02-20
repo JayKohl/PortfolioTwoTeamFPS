@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class endBossAI : enemyShredder
+
+public class endBossAI : enemyAI
 {
     [SerializeField] protected Collider meleeColliderTwo;
 
     [SerializeField] Collider meleeColliderRam;
+
+    [SerializeField] GameObject bulletUpgrade;
+    [SerializeField] GameObject spikeUpgrade;
 
     [SerializeField] GameObject spike;
     [SerializeField] int spikeSpeed;
@@ -24,25 +28,58 @@ public class endBossAI : enemyShredder
     [SerializeField] Transform shootPositionSpikeNine;
     [SerializeField] Transform shootPositionSpikeTen;
 
+    [SerializeField] GameObject spawnEnemyType;
+    [SerializeField] Transform[] spawnPos;
+
+    int hitPointsOrig;
+    bool isEventActive;
     bool isSpikeShoot;
+    bool isAgro;
+    bool isMinionSpawnOne;
+    bool isMinionSpawnTwo;
+    bool isPowerUp;
 
     System.Random randomAttack;
 
     // Start is called before the first frame update
     void Start()
     {
+        hitPointsOrig = hitPoints;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
 
+        isPowerUp = false;
+        isEventActive = false;
+        isAgro = false;
+
         randomAttack = new System.Random();
     }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-
-    //}
+    // Update is called once per frame
+    void Update()
+    {
+        if (agent.isActiveAndEnabled)
+        {
+            anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
+            if (isPlayerInRange)
+            {
+                isAgro = true;
+                if (!canSeePlayer())
+                {
+                    agent.destination = gameManager.instance.player.transform.position;
+                }
+            }
+            else if (agent.destination != gameManager.instance.player.transform.position && isAgro == false)
+            {
+                StartCoroutine(roam());
+            }
+            else if (agent.destination != gameManager.instance.player.transform.position && isAgro == true)
+            {
+                agent.destination = gameManager.instance.player.transform.position;
+            }
+        }
+    }
     protected override bool canSeePlayer()
     {
         playerDirection = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
@@ -69,36 +106,90 @@ public class endBossAI : enemyShredder
                 {
                     facePlayer();
                 }
-                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack <= 4)
+
+                if (isEventActive == false && isMinionSpawnOne == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .3)))
                 {
-                    StartCoroutine(melee());
+                    isEventActive = true;
+                    isMinionSpawnOne = true;
+                    StartCoroutine(spawnMinions());
                 }
-                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack > 4 && selectAttack <= 8)
+                else if (isEventActive == false && isPowerUp == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .5)))
                 {
-                    StartCoroutine(meleeTwo());
+                    isEventActive = true;
+                    isPowerUp = true;
+                    StartCoroutine(powerUp());
                 }
-                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack > 8)
+                else if (isEventActive == false && isMinionSpawnTwo == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
                 {
-                    StartCoroutine(meleeRam());
+                    isEventActive = true;
+                    isMinionSpawnTwo = true;
+                    StartCoroutine(spawnMinions());
                 }
-                if (!isMelee && !isShooting && angleToPlayer <= shootAngle)
+                else if (isEventActive == false)
                 {
-                    StartCoroutine(shoot());
+                    // basic attacks
+                    if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack <= 4)
+                    {
+                        StartCoroutine(melee());
+                    }
+                    else if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack > 4 && selectAttack <= 8)
+                    {
+                        isMelee = true;
+                        StartCoroutine(meleeTwo());
+                    }
+                    else if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack > 8)
+                    {
+                        isMelee = true;
+                        StartCoroutine(meleeRam());
+                    }
+                    else if (!isMelee && !isShooting && angleToPlayer <= shootAngle && hitPoints <= (hitPointsOrig - (hitPointsOrig * .2)))
+                    {
+                        StartCoroutine(shoot());
+                    }
+                    else if (!isSpikeShoot && distanceToEnemy >= spikeRange && hitPoints <= (hitPointsOrig - (hitPointsOrig * .2)))
+                    {
+                        isShooting = true;
+                        isSpikeShoot = true;
+                        //agent.stoppingDistance = stoppingDistOrig *= 3;
+                        StartCoroutine(spikeShoot());
+                    }
+                    return true;
                 }
-                if (!isSpikeShoot && distanceToEnemy >= spikeRange)
-                {
-                    agent.stoppingDistance = stoppingDistOrig *= 3;
-                    StartCoroutine(spikeShoot());
-                }
-                return true;
             }
         }
-        agent.stoppingDistance = 0;
+        facePlayer();
+        agent.stoppingDistance = stoppingDistOrig;
         return false;
+    }
+    protected IEnumerator powerUp()
+    {
+        anim.SetTrigger("PowerUp");
+        yield return new WaitForSeconds(2);
+        statsBuff();
+        isEventActive = false;
+    }
+    public void statsBuff()
+    {
+        bullet = bulletUpgrade;
+        spike = spikeUpgrade;
+    }
+    protected IEnumerator spawnMinions()
+    {
+        anim.SetTrigger("Spawn");
+        yield return new WaitForSeconds(2);
+        isEventActive = false;
+    }
+    public void createMinions()
+    {
+        Instantiate(spawnEnemyType, spawnPos[0].position, spawnPos[0].rotation);
+        Instantiate(spawnEnemyType, spawnPos[1].position, spawnPos[1].rotation);
+        Instantiate(spawnEnemyType, spawnPos[2].position, spawnPos[2].rotation);
+        Instantiate(spawnEnemyType, spawnPos[3].position, spawnPos[3].rotation);
+        Instantiate(spawnEnemyType, spawnPos[4].position, spawnPos[4].rotation);
     }
     protected IEnumerator meleeRam()
     {
-        isMelee = true;
+        //isMelee = true;
         anim.SetTrigger("Ram");
         yield return new WaitForSeconds(meleeRate);
         isMelee = false;
@@ -113,7 +204,7 @@ public class endBossAI : enemyShredder
     }
     protected IEnumerator meleeTwo()
     {
-        isMelee = true;
+        //isMelee = true;
         anim.SetTrigger("MeleeTwo");
         yield return new WaitForSeconds(meleeRate);
         isMelee = false;
@@ -128,11 +219,11 @@ public class endBossAI : enemyShredder
     }
     protected IEnumerator spikeShoot()
     {
-        isShooting = true;
-        isSpikeShoot = true;
+        //isShooting = true;
+        //isSpikeShoot = true;
         anim.SetTrigger("SpikeShoot");
         yield return new WaitForSeconds(spikeShootRate);
-        agent.stoppingDistance = stoppingDistOrig;
+        //agent.stoppingDistance = stoppingDistOrig;
         isShooting = false;
         isSpikeShoot = false;
     }

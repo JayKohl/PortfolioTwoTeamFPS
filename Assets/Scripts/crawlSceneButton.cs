@@ -7,6 +7,6 @@ public class crawlSceneButton : MonoBehaviour
 {
     public void startGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("LvlOneArena");
     }
 }
