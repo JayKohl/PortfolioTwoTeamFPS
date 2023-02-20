@@ -35,7 +35,7 @@ public class playerController : MonoBehaviour
 
     int jumpsCurrent;
     Vector3 move;
-    Vector3 playerVelocity;
+    public Vector3 playerVelocity;
     bool isShooting;
     bool isRunning;
     public int hpOriginal;
@@ -59,8 +59,8 @@ public class playerController : MonoBehaviour
         movement();
         selectGun();
         zoomCamera();
+        playeranim.SetFloat("Speed", controller.velocity.normalized.magnitude);
 
-        
 
         if (!isShooting && Input.GetButton("Shoot"))
             StartCoroutine(shoot());
@@ -76,7 +76,7 @@ public class playerController : MonoBehaviour
         move = (transform.right * Input.GetAxis("Horizontal") +
                (transform.forward * Input.GetAxis("Vertical")));
 
-        playeranim.SetFloat("Speed", playerVelocity.normalized.magnitude);
+        
         controller.Move(move * Time.deltaTime * playerSpeed);
 
         if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes)
