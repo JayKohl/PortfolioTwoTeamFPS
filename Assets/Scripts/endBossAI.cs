@@ -10,6 +10,9 @@ public class endBossAI : enemyAI
 
     [SerializeField] Collider meleeColliderRam;
 
+    [SerializeField] GameObject bulletUpgrade;
+    [SerializeField] GameObject spikeUpgrade;
+
     [SerializeField] GameObject spike;
     [SerializeField] int spikeSpeed;
     [SerializeField] float spikeShootRate;
@@ -167,7 +170,8 @@ public class endBossAI : enemyAI
     }
     public void statsBuff()
     {
-        
+        bullet = bulletUpgrade;
+        spike = spikeUpgrade;
     }
     protected IEnumerator spawnMinions()
     {
