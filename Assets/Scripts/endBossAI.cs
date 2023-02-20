@@ -24,18 +24,24 @@ public class endBossAI : enemyAI
     [SerializeField] Transform shootPositionSpikeNine;
     [SerializeField] Transform shootPositionSpikeTen;
 
+    int hitPointsOrig;
+    bool isEventActive;
     bool isSpikeShoot;
     bool isAgro;
+    bool isMinionSpawnOne;
+    bool isMinionSpawnTwo;
 
     System.Random randomAttack;
 
     // Start is called before the first frame update
     void Start()
     {
+        hitPointsOrig = hitPoints;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
 
+        isEventActive = false;
         isAgro = false;
 
         randomAttack = new System.Random();
@@ -91,37 +97,58 @@ public class endBossAI : enemyAI
                 {
                     facePlayer();
                 }
-                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack <= 4)
+
+                if (isMinionSpawnOne == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .3)))
                 {
-                    StartCoroutine(melee());
+                    isEventActive = true;
+                    isMinionSpawnOne = true;
+                    isEventActive = false;
                 }
-                else if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack > 4 && selectAttack <= 8)
+                else if (isMinionSpawnTwo == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
                 {
-                    isMelee = true;
-                    StartCoroutine(meleeTwo());
+                    isEventActive = true;
+                    isMinionSpawnTwo = true;
+                    isEventActive = false;
                 }
-                else if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack > 8)
+                else if (isEventActive == false)
                 {
-                    isMelee = true;
-                    StartCoroutine(meleeRam());
+                    // basic attacks
+                    if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack <= 4)
+                    {
+                        StartCoroutine(melee());
+                    }
+                    else if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack > 4 && selectAttack <= 8)
+                    {
+                        isMelee = true;
+                        StartCoroutine(meleeTwo());
+                    }
+                    else if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack > 8)
+                    {
+                        isMelee = true;
+                        StartCoroutine(meleeRam());
+                    }
+                    else if (!isMelee && !isShooting && angleToPlayer <= shootAngle)
+                    {
+                        StartCoroutine(shoot());
+                    }
+                    else if (!isSpikeShoot && distanceToEnemy >= spikeRange)
+                    {
+                        isShooting = true;
+                        isSpikeShoot = true;
+                        //agent.stoppingDistance = stoppingDistOrig *= 3;
+                        StartCoroutine(spikeShoot());
+                    }
+                    return true;
                 }
-                else if (!isMelee && !isShooting && angleToPlayer <= shootAngle)
-                {
-                    StartCoroutine(shoot());
-                }
-                else if (!isSpikeShoot && distanceToEnemy >= spikeRange)
-                {
-                    isShooting = true;
-                    isSpikeShoot = true;
-                    //agent.stoppingDistance = stoppingDistOrig *= 3;
-                    StartCoroutine(spikeShoot());
-                }
-                return true;
             }
         }
         facePlayer();
         agent.stoppingDistance = stoppingDistOrig;
         return false;
+    }
+    protected IEnumerator spawnMinions()
+    {
+        yield return new WaitForSeconds(2);
     }
     protected IEnumerator meleeRam()
     {
