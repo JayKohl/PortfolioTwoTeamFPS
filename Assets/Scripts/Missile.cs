@@ -8,9 +8,11 @@ public class Missile : MonoBehaviour
     [SerializeField] int maxTravelTime;
     [SerializeField] GameObject explosion;
     [SerializeField] int detonationTimer;
+    Vector3 playerDirection;
+    float angleToPlayer;
     
     void Start()
-    {
+    {        
         StartCoroutine(timer());        
     }
     IEnumerator timer()

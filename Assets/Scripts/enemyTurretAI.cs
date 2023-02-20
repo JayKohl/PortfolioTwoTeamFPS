@@ -7,9 +7,17 @@ public class enemyTurretAI : enemyAI
     [SerializeField] Transform shootPositionTwo;
     [SerializeField] Transform shootPositionThree;
     [SerializeField] Transform shootPositionFour;
+
+    [Header("----- Effects -----")]
+    [SerializeField] GameObject explosion;
+    [SerializeField] GameObject plasmaExplosion;
+    [SerializeField] GameObject deathFlames;
     // Make sure the NavMesh stopping distance is the same as the sphere collider trigger radius.
+
+    bool alive;
     void Start()
     {
+        alive = true;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
@@ -18,7 +26,7 @@ public class enemyTurretAI : enemyAI
     //// Update is called once per frame
     void Update()
     {
-        if (isPlayerInRange)
+        if (isPlayerInRange && alive)
         {
             canSeePlayer();
         }
@@ -88,7 +96,20 @@ public class enemyTurretAI : enemyAI
         StartCoroutine(flashDamage());
         if (hitPoints <= 0)
         {
-            Destroy(gameObject);
+            GetComponent<Collider>().enabled = false;
+            GetComponentInChildren<Canvas>().enabled = false;
+            agent.enabled = false;
+            alive = false;
+            StartCoroutine(die());
         }
+    }
+    IEnumerator die()
+    {        
+        explosion.SetActive(true);
+        plasmaExplosion.SetActive(true);
+        deathFlames.SetActive(true);
+        yield return new WaitForSeconds(2);
+        explosion.SetActive(false);
+        plasmaExplosion.SetActive(false);        
     }
 }

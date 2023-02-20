@@ -7,6 +7,10 @@ public class explosion : MonoBehaviour
     [SerializeField] public int missileDamage;
     [SerializeField] int pushBackDistance;
     bool playerIn;
+    private void Start()
+    {
+        StartCoroutine(timer(.5f));
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player") && !playerIn)
@@ -14,9 +18,7 @@ public class explosion : MonoBehaviour
             playerIn = true;
             gameManager.instance.playerScript.takeDamage(missileDamage);
             gameManager.instance.playerScript.pushbackDir((gameManager.instance.player.transform.position - transform.position).normalized * pushBackDistance);
-            StartCoroutine(timer(.5f));
         }
-        StartCoroutine(timer(1));
     }
     IEnumerator timer(float time)
     {
