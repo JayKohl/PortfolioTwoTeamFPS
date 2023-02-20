@@ -24,6 +24,9 @@ public class endBossAI : enemyAI
     [SerializeField] Transform shootPositionSpikeNine;
     [SerializeField] Transform shootPositionSpikeTen;
 
+    [SerializeField] GameObject spawnEnemyType;
+    [SerializeField] Transform[] spawnPos;
+
     int hitPointsOrig;
     bool isEventActive;
     bool isSpikeShoot;
@@ -102,12 +105,14 @@ public class endBossAI : enemyAI
                 {
                     isEventActive = true;
                     isMinionSpawnOne = true;
+                    StartCoroutine(spawnMinions());
                     isEventActive = false;
                 }
                 else if (isMinionSpawnTwo == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
                 {
                     isEventActive = true;
                     isMinionSpawnTwo = true;
+                    StartCoroutine(spawnMinions());
                     isEventActive = false;
                 }
                 else if (isEventActive == false)
@@ -148,7 +153,13 @@ public class endBossAI : enemyAI
     }
     protected IEnumerator spawnMinions()
     {
+        anim.SetTrigger("Spawn");
         yield return new WaitForSeconds(2);
+    }
+    public void createMinions()
+    {
+        int pos = UnityEngine.Random.Range(0, spawnPos.Length);
+        Instantiate(spawnEnemyType, spawnPos[pos].position, spawnPos[pos].rotation);
     }
     protected IEnumerator meleeRam()
     {
