@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
 public class endBossAI : enemyAI
 {
     [SerializeField] protected Collider meleeColliderTwo;
@@ -166,7 +167,7 @@ public class endBossAI : enemyAI
     }
     public void statsBuff()
     {
-
+        
     }
     protected IEnumerator spawnMinions()
     {
