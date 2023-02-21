@@ -98,6 +98,7 @@ public class gameManager : MonoBehaviour
                 playerScript.StartCoroutine(playerScript.abilityCoolShield(2));
                 AbilityTwoS.wasSpellUsed();
                 AbilityTwoS.coolDownAbility();
+                shieldOn = false;
             }
         }
         if (Input.GetKeyDown(KeyCode.E) && AbilityFourS.wasSpellUsed())

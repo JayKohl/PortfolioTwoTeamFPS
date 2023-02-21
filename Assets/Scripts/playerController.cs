@@ -158,7 +158,9 @@ public class playerController : MonoBehaviour
             shieldHP -= dmg;
             if (shieldHP <= 0)
             {
+                shield.SetActive(false);
                 shieldOn = false;
+                gameManager.instance.shield.SetActive(false);                
             }
         }
         else
@@ -183,9 +185,12 @@ public class playerController : MonoBehaviour
     }
     IEnumerator flashDamage()
     {
-        gameManager.instance.playerDamageFlashScreen.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        gameManager.instance.playerDamageFlashScreen.SetActive(false);
+        if (!shieldOn)
+        {
+            gameManager.instance.playerDamageFlashScreen.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            gameManager.instance.playerDamageFlashScreen.SetActive(false);
+        }
     }
 
     public void giveHP(int amount)
@@ -273,11 +278,12 @@ public class playerController : MonoBehaviour
 
     public IEnumerator abilityCoolShield(float cooldown)
     {
+        shieldHP = shieldOrig;
+        shieldOn = true;
+        shield.SetActive(true);
         abilityTwoActive = true;
         yield return new WaitForSeconds(cooldown);
         abilityTwoActive = false;
-        shieldOn = false;
-        shieldHP = shieldOrig;
     }
 
     public IEnumerator abilityCoolDash(float cooldown)
