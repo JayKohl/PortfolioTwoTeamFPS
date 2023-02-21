@@ -17,6 +17,10 @@ public class playerController : MonoBehaviour
     [Range(15, 45)] [SerializeField] int gravity;
     [SerializeField] int runSpeed;
     [SerializeField] float pushbackResTime;
+    [SerializeField] GameObject shield;
+    [SerializeField] int shieldOrig;
+    bool shieldOn;
+    int shieldHP;
 
     [Header("----- Weapon Stats -----")]
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
@@ -59,6 +63,7 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        shieldHP = shieldOrig;
         weaponIcon = GameObject.FindGameObjectWithTag("Weapon Icon");
         crosshair = GameObject.FindGameObjectWithTag("Crosshair");
         if (weaponList.Count == 0)
@@ -148,12 +153,23 @@ public class playerController : MonoBehaviour
 
     public void takeDamage(int dmg)
     {
-        HP -= dmg;
-        updatePlayerHPBar();
-        StartCoroutine(flashDamage());
+        if (shieldOn)
+        {
+            shieldHP -= dmg;
+            if (shieldHP <= 0)
+            {
+                shieldOn = false;
+            }
+        }
+        else
+        {
+            HP -= dmg;
+            updatePlayerHPBar();
+            StartCoroutine(flashDamage());
 
-        if (HP <= 0)
-            gameManager.instance.playerDead();
+            if (HP <= 0)
+                gameManager.instance.playerDead();
+        }
     }
 
     IEnumerator gunShootFlash()
@@ -255,12 +271,13 @@ public class playerController : MonoBehaviour
         abilityOneActive = false;
     }
 
-    public IEnumerator abilityCoolHeart(float cooldown)
+    public IEnumerator abilityCoolShield(float cooldown)
     {
         abilityTwoActive = true;
-        giveHP(1);
         yield return new WaitForSeconds(cooldown);
         abilityTwoActive = false;
+        shieldOn = false;
+        shieldHP = shieldOrig;
     }
 
     public IEnumerator abilityCoolDash(float cooldown)
