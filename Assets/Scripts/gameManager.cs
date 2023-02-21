@@ -40,7 +40,7 @@ public class gameManager : MonoBehaviour
     public GameObject crosshair;
     public Sprite crosshairTexture;
     public bool shieldOn;
-    [SerializeField] public GameObject shieldUI;
+    [SerializeField] public GameObject shieldUI;    
 
     [Header("Goals")]
     public int fuelCellsRemaining;
@@ -84,8 +84,8 @@ public class gameManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Q) && AbilityOneS.wasSpellUsed() )
         {
-            
-            playerScript.StartCoroutine(playerScript.abilityCoolSpeed(4));
+            gameManager.instance.playerScript.throwGrenade();
+            //playerScript.StartCoroutine(playerScript.abilityCoolSpeed(4));
             AbilityOneS.wasSpellUsed();
             AbilityOneS.coolDownAbility();
         }

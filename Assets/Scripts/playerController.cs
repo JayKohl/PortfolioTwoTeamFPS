@@ -30,6 +30,9 @@ public class playerController : MonoBehaviour
     [SerializeField] GameObject crosshair;
     Sprite crosshairTexture;
     [SerializeField] GameObject weaponIcon;
+    [SerializeField] float grenadeYVel;
+    [SerializeField] int grenadeSpeed;
+    [SerializeField] GameObject grenade;
 
     // Deactivated temp
     // [SerializeField] int bulletSpeed;
@@ -146,7 +149,11 @@ public class playerController : MonoBehaviour
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
-
+    public void throwGrenade()
+    {
+        GameObject bulletClone = Instantiate(grenade, shootPositionPlayer.position, grenade.transform.rotation);
+        bulletClone.GetComponent<Rigidbody>().velocity = (transform.forward + new Vector3(0, grenadeYVel, 0)) * grenadeSpeed;
+    }
     public void takeDamage(int dmg)
     {
         if (gameManager.instance.shieldOn)

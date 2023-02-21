@@ -478,7 +478,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4872947410898830802, guid: e6cb78f2ede9d1345a6c1ce3accb7b1d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4872947410899261872, guid: e6cb78f2ede9d1345a6c1ce3accb7b1d, type: 3}
       propertyPath: m_RootOrder
@@ -1250,7 +1250,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8409468610966777788, guid: f2844778b06453a4eba9082147a4bda4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409468610966777788, guid: f2844778b06453a4eba9082147a4bda4, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 8410990560536341238, guid: f2844778b06453a4eba9082147a4bda4, type: 3}
       propertyPath: m_RootOrder
@@ -1927,11 +1931,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5592280609432298776, guid: 773d893a12eda8440bfc8c9bd3243d03, type: 3}
   m_PrefabInstance: {fileID: 1856593496}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1546103948 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 657828768, guid: cf8e26f8d6541cf4aad916c160e25568, type: 3}
-  m_PrefabInstance: {fileID: 7246622751542805940}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1566828550
 PrefabInstance:
@@ -2852,6 +2851,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6111150021040916087, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: grenadeYVel
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
 --- !u!1001 &2153171771032794252
@@ -3093,14 +3096,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 657828768, guid: cf8e26f8d6541cf4aad916c160e25568, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 487961066510684417, guid: cf8e26f8d6541cf4aad916c160e25568, type: 3}
-      propertyPath: shieldOrig
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 524364267517112022, guid: cf8e26f8d6541cf4aad916c160e25568, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3150,9 +3145,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6551918312896228884, guid: cf8e26f8d6541cf4aad916c160e25568, type: 3}
-      propertyPath: shieldOnPlayer
+      propertyPath: grenade
       value: 
-      objectReference: {fileID: 1546103948}
+      objectReference: {fileID: 7061225462723478300, guid: 0ebbab8ec242f5943b8a68674ce09c6c, type: 3}
+    - target: {fileID: 6551918312896228884, guid: cf8e26f8d6541cf4aad916c160e25568, type: 3}
+      propertyPath: grenadeYVel
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6551918312896228884, guid: cf8e26f8d6541cf4aad916c160e25568, type: 3}
+      propertyPath: grenadeSpeed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf8e26f8d6541cf4aad916c160e25568, type: 3}
 --- !u!1001 &7288502645565922750
