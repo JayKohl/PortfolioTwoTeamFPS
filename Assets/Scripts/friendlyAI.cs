@@ -65,7 +65,7 @@ public class friendlyAI : MonoBehaviour
                 agent.SetDestination(gameManager.instance.player.transform.position);
                 if (agent.remainingDistance < agent.stoppingDistance)
                 {
-                    // facePlayer();
+                    facePlayer();
                 }
                 if (!isTalking && angleToPlayer <= viewAngle)
                 {
@@ -76,5 +76,11 @@ public class friendlyAI : MonoBehaviour
         }
         agent.stoppingDistance = 0;
         return false;
+    }
+    private void facePlayer()
+    {
+        playerDirection.y = 0;
+        Quaternion rotate = Quaternion.LookRotation(playerDirection);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * playerFaceSpeed);
     }
 }
