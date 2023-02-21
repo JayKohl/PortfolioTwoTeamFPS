@@ -65,7 +65,7 @@ public class gameManager : MonoBehaviour
         AbilityThreeS = AbilityThree.GetComponent<AbilitiesColdown>();
         AbilityFourS = AbilityFour.GetComponent<AbilitiesColdown>();
         AbilityOneS.cooldownTime = 10f;
-        AbilityTwoS.cooldownTime = 2f;
+        AbilityTwoS.cooldownTime = 10f;
         AbilityFourS.cooldownTime = 12f;
     }
     void Update()
