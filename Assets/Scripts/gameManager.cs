@@ -35,11 +35,12 @@ public class gameManager : MonoBehaviour
     public AbilitiesColdown AbilityFourS;
     public bool ability;
 
-
     public GameObject muzzleFlash;
     public GameObject quickTexts;    
     public GameObject crosshair;
     public Sprite crosshairTexture;
+    public GameObject shield;
+    bool shieldOn;
 
     [Header("Goals")]
     public int fuelCellsRemaining;
@@ -90,10 +91,14 @@ public class gameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.R) && AbilityTwoS.wasSpellUsed())
         {
-            
-            playerScript.StartCoroutine(playerScript.abilityCoolHeart(2));
-            AbilityTwoS.wasSpellUsed();
-            AbilityTwoS.coolDownAbility();
+            if (!shieldOn)
+            {
+                shieldOn = true;
+                shield.SetActive(true);
+                playerScript.StartCoroutine(playerScript.abilityCoolShield(2));
+                AbilityTwoS.wasSpellUsed();
+                AbilityTwoS.coolDownAbility();
+            }
         }
         if (Input.GetKeyDown(KeyCode.E) && AbilityFourS.wasSpellUsed())
         {
