@@ -24,7 +24,7 @@ public class friendlyAI : MonoBehaviour
     float angleToPlayer;
     Vector3 playerDirection;
     Vector3 startingPos;
-    Vector3 moveToTerminal;
+    Transform moveToTerminal;
     bool destinationChosen;
     float stoppingDistOrig;
     float speedOrig;
