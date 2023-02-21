@@ -26,7 +26,7 @@ public class bossEvent : MonoBehaviour
 
     void Update()
     {
-        if (bossAttachedToDoor == null)
+        if (bossAttachedToDoor.GetComponent<enemyBossAI>().hitPoints <= 0)
         {
             setLazerColor.material.color = Color.clear;
             setLazerColorTwo.material.color = Color.clear;
