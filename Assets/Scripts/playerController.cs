@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerController : MonoBehaviour
 {
@@ -25,8 +26,9 @@ public class playerController : MonoBehaviour
     [SerializeField] int shootDamage;
     [SerializeField] float zoomMax;
     Vector3 muzzleFlashPosition;
-    GameObject crosshair;
-    [SerializeField] GameObject crosshairTexture;
+    [SerializeField] GameObject crosshair;
+    Sprite crosshairTexture;
+    [SerializeField] GameObject weaponIcon;
 
     // Deactivated temp
     // [SerializeField] int bulletSpeed;
@@ -57,11 +59,12 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (weaponList.Count == 0)
+            weaponIcon.SetActive(false);
         hpOriginal = HP;
         speedOriginal = playerSpeed;
         baseFOV = Camera.main.fieldOfView;
         playerRespawn();
-        crosshair = gameManager.instance.crosshair;
 
 
         //Angel ADDED THIS CODE
@@ -182,15 +185,17 @@ public class playerController : MonoBehaviour
     public void weaponPickup(weaponStats weaponStat)
     {
         weaponList.Add(weaponStat);
-
+        
         shootRate = weaponStat.shootRate;
         shootDist = weaponStat.shootDist;
         shootDamage = weaponStat.shootDamage;
         muzzleFlashPosition = weaponStat.muzzleFlashPosition;
-        //crosshairTexture = weaponStat.crosshairTexture;
+        crosshairTexture = weaponStat.crosshairTexture;
         zoomMax = weaponStat.zoomAmount;
 
-        //crosshair.GetComponent<SpriteRenderer>().sprite.texture = crosshairTexture;
+        crosshair.GetComponent<Image>().sprite = crosshairTexture;
+        weaponIcon.GetComponent<Image>().sprite = weaponStat.weaponIcon;
+        weaponIcon.SetActive(true);
         gameManager.instance.muzzleFlash.transform.localPosition = muzzleFlashPosition;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponStat.weaponModel.GetComponent<MeshFilter>().sharedMesh;
@@ -218,10 +223,11 @@ public class playerController : MonoBehaviour
         shootDist = weaponList[gunSelection].shootDist;
         shootDamage = weaponList[gunSelection].shootDamage;
         muzzleFlashPosition = weaponList[gunSelection].muzzleFlashPosition;
-        //crosshairTexture = weaponList[gunSelection].crosshairTexture;
+        crosshairTexture = weaponList[gunSelection].crosshairTexture;
         zoomMax = weaponList[gunSelection].zoomAmount;
+        weaponIcon.GetComponent<Image>().sprite = weaponList[gunSelection].weaponIcon;
 
-        //crosshair.GetComponent<Texture>().sprite.texture = crosshairTexture;
+        crosshair.GetComponent<Image>().sprite = crosshairTexture;
         gameManager.instance.muzzleFlash.transform.localPosition = muzzleFlashPosition;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[gunSelection].weaponModel.GetComponent<MeshFilter>().sharedMesh;
