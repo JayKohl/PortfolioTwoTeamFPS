@@ -55,6 +55,7 @@ public class friendlyAI : MonoBehaviour
                     isGivenQuest = true;
                     anim.SetTrigger("Talk");
                     gameManager.instance.displayNpcText("Chat Test");
+                    StartCoroutine(gameManager.instance.deleteTextNpc(8));
                 }
             }
             else if (agent.destination != gameManager.instance.player.transform.position)

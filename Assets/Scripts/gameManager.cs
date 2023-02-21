@@ -179,8 +179,9 @@ public class gameManager : MonoBehaviour
         yield return new WaitForSeconds(banishTime);
         gameManager.instance.infoText.SetText(" ");
     }
-    public void deleteTextNpc()
+    public IEnumerator deleteTextNpc(float banishTime)
     {
+        yield return new WaitForSeconds(banishTime);
         playerChatBackground.SetActive(false);
     }
 
