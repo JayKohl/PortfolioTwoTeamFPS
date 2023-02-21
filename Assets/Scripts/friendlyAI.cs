@@ -18,6 +18,7 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] int roamDist;
     [SerializeField] int speedFast;
 
+    bool isGivenQuest;
     bool isPlayerInRange;
     bool isTalking;
     float angleToPlayer;
@@ -31,6 +32,7 @@ public class friendlyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isGivenQuest = false;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
@@ -47,6 +49,11 @@ public class friendlyAI : MonoBehaviour
                 if (!canSeePlayer())
                 {
                     StartCoroutine(roam());
+                }
+                else if (!isGivenQuest)
+                {
+                    isGivenQuest = true;
+                    gameManager.instance.displayNpcText("Chat Test");
                 }
             }
             else if (agent.destination != gameManager.instance.player.transform.position)
