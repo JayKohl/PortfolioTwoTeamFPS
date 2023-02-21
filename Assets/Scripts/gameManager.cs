@@ -89,7 +89,7 @@ public class gameManager : MonoBehaviour
             AbilityOneS.wasSpellUsed();
             AbilityOneS.coolDownAbility();
         }
-        if (Input.GetKeyDown(KeyCode.R) && AbilityTwoS.wasSpellUsed())
+        if (Input.GetKeyDown(KeyCode.R))
         {
             if (!shieldOn)
             {
