@@ -39,8 +39,8 @@ public class gameManager : MonoBehaviour
     public GameObject quickTexts;    
     public GameObject crosshair;
     public Sprite crosshairTexture;
-    public GameObject shield;
-    bool shieldOn;
+    public bool shieldOn;
+    [SerializeField] public GameObject shieldUI;
 
     [Header("Goals")]
     public int fuelCellsRemaining;
@@ -89,16 +89,13 @@ public class gameManager : MonoBehaviour
             AbilityOneS.wasSpellUsed();
             AbilityOneS.coolDownAbility();
         }
-        if (Input.GetKeyDown(KeyCode.R) && AbilityTwoS.wasSpellUsed())
+        if (Input.GetKeyDown(KeyCode.R))
         {
             if (!shieldOn)
             {
+                shieldUI.SetActive(true);
                 shieldOn = true;
-                shield.SetActive(true);
-                playerScript.StartCoroutine(playerScript.abilityCoolShield(2));
-                AbilityTwoS.wasSpellUsed();
-                AbilityTwoS.coolDownAbility();
-                shieldOn = false;
+                gameManager.instance.playerScript.shieldStartPlayer();                
             }
         }
         if (Input.GetKeyDown(KeyCode.E) && AbilityFourS.wasSpellUsed())
@@ -109,6 +106,11 @@ public class gameManager : MonoBehaviour
             AbilityFourS.coolDownAbility();           
         }
 
+    }
+    public void shieldCoolDown()
+    {
+        AbilityTwoS.wasSpellUsed();
+        AbilityTwoS.coolDownAbility();
     }
     public void pause()
     {
