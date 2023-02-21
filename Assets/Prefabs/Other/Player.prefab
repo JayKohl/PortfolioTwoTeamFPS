@@ -46,34 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c0df951eed72014ca4386bc30f79616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
-  playeranim: {fileID: 0}
-  HP: 0
-  playerSpeed: 0
-  jumpTimes: 0
-  jumpSpeed: 0
-  gravity: 0
-  runSpeed: 0
-  pushbackResTime: 0
-  weaponList: []
-  weaponModel: {fileID: 0}
-  shootRate: 0
-  shootDist: 0
-  shootDamage: 0
-  zoomMax: 0
-  crosshair: {fileID: 0}
-  weaponIcon: {fileID: 0}
-  shootPositionPlayer: {fileID: 0}
-  gunFlash: {fileID: 0}
-  playerVelocity: {x: 0, y: 0, z: 0}
-  hpOriginal: 0
-  speedOriginal: 0
-  gunSelection: 0
-  baseFOV: 0
-  abilityOneActive: 0
-  abilityTwoActive: 0
-  abilityFourActive: 0
-  shieldOrig: 0
+  shieldOrig: 5
+  cooldown: 10
 --- !u!33 &657828771
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -507,6 +481,7 @@ MonoBehaviour:
   shootDist: 0
   shootDamage: 0
   zoomMax: 35
+  shieldOnPlayer: {fileID: 657828768}
   crosshair: {fileID: 0}
   weaponIcon: {fileID: 0}
   shootPositionPlayer: {fileID: 2929723904278214019}
