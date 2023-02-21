@@ -65,7 +65,7 @@ public class gameManager : MonoBehaviour
         AbilityThreeS = AbilityThree.GetComponent<AbilitiesColdown>();
         AbilityFourS = AbilityFour.GetComponent<AbilitiesColdown>();
         AbilityOneS.cooldownTime = 10f;
-        AbilityTwoS.cooldownTime = 2f;
+        AbilityTwoS.cooldownTime = 10f;
         AbilityFourS.cooldownTime = 12f;
     }
     void Update()
@@ -98,6 +98,7 @@ public class gameManager : MonoBehaviour
                 playerScript.StartCoroutine(playerScript.abilityCoolShield(2));
                 AbilityTwoS.wasSpellUsed();
                 AbilityTwoS.coolDownAbility();
+                shieldOn = false;
             }
         }
         if (Input.GetKeyDown(KeyCode.E) && AbilityFourS.wasSpellUsed())
