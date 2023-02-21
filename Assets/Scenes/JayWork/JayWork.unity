@@ -910,10 +910,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8000204712239950038, guid: 98967f7b29900a74c8b0d665137829a5, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 3d2912d417223594b84247a33e393b5a, type: 2}
     - target: {fileID: 8000204712246839132, guid: 98967f7b29900a74c8b0d665137829a5, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -958,18 +954,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8000204712247204416, guid: 98967f7b29900a74c8b0d665137829a5, type: 3}
+      propertyPath: m_Speed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8000204712247204417, guid: 98967f7b29900a74c8b0d665137829a5, type: 3}
-      propertyPath: anim
-      value: 
-      objectReference: {fileID: 8470220184830267926}
+      propertyPath: speedFast
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8000204712247204540, guid: 98967f7b29900a74c8b0d665137829a5, type: 3}
       propertyPath: m_Name
       value: FriendlyNpc
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98967f7b29900a74c8b0d665137829a5, type: 3}
---- !u!95 &8470220184830267926 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 8000204712239950038, guid: 98967f7b29900a74c8b0d665137829a5, type: 3}
-  m_PrefabInstance: {fileID: 1912389013890742976}
-  m_PrefabAsset: {fileID: 0}
