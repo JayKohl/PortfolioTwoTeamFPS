@@ -8,7 +8,7 @@ public class friendlyAI : MonoBehaviour
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
     public NavMeshAgent agent;
-    //[SerializeField] Animator anim;
+    [SerializeField] Animator anim;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -53,6 +53,7 @@ public class friendlyAI : MonoBehaviour
                 else if (!isGivenQuest)
                 {
                     isGivenQuest = true;
+                    anim.SetTrigger("Talk");
                     gameManager.instance.displayNpcText("Chat Test");
                 }
             }
