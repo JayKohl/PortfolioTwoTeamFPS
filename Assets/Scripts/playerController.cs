@@ -59,6 +59,8 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        weaponIcon = GameObject.FindGameObjectWithTag("Weapon Icon");
+        crosshair = GameObject.FindGameObjectWithTag("Crosshair");
         if (weaponList.Count == 0)
             weaponIcon.SetActive(false);
         hpOriginal = HP;
