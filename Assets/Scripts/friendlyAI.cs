@@ -42,9 +42,36 @@ public class friendlyAI : MonoBehaviour
         if (agent.isActiveAndEnabled)
         {
             anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
-            if (true)
+            if (isPlayerInRange)
             {
+                if (!canSeePlayer())
+                {
+                    StartCoroutine(roam());
+                }
+            }
+            else if (agent.destination != gameManager.instance.player.transform.position)
+            {
+                StartCoroutine(roam());
+            }
+        }
+    }
+    private IEnumerator roam()
+    {
+        if (!destinationChosen && agent.remainingDistance < 0.1f)
+        {
+            destinationChosen = true;
+            agent.stoppingDistance = 0;
+            agent.speed = speedOrig;
+            yield return new WaitForSeconds(waitTime);
+            destinationChosen = false;
 
+            if (agent.isActiveAndEnabled)
+            {
+                Vector3 randDir = Random.insideUnitSphere * roamDist;
+                randDir += startingPos;
+                NavMeshHit hit;
+                NavMesh.SamplePosition(randDir, out hit, roamDist, NavMesh.AllAreas);
+                agent.SetDestination(hit.position);
             }
         }
     }
