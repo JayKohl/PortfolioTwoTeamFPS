@@ -17,10 +17,6 @@ public class playerController : MonoBehaviour
     [Range(15, 45)] [SerializeField] int gravity;
     [SerializeField] int runSpeed;
     [SerializeField] float pushbackResTime;
-    [SerializeField] GameObject shield;
-    [SerializeField] int shieldOrig;
-    bool shieldOn;
-    int shieldHP;
 
     [Header("----- Weapon Stats -----")]
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
@@ -30,9 +26,13 @@ public class playerController : MonoBehaviour
     [SerializeField] int shootDamage;
     [SerializeField] float zoomMax;
     Vector3 muzzleFlashPosition;
+    [SerializeField] GameObject shieldOnPlayer;
     [SerializeField] GameObject crosshair;
     Sprite crosshairTexture;
     [SerializeField] GameObject weaponIcon;
+    [SerializeField] float grenadeYVel;
+    [SerializeField] int grenadeSpeed;
+    [SerializeField] GameObject grenade;
 
     // Deactivated temp
     // [SerializeField] int bulletSpeed;
@@ -63,7 +63,6 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        shieldHP = shieldOrig;
         weaponIcon = GameObject.FindGameObjectWithTag("Weapon Icon");
         crosshair = GameObject.FindGameObjectWithTag("Crosshair");
         if (weaponList.Count == 0)
@@ -140,7 +139,6 @@ public class playerController : MonoBehaviour
             // GameObject bulletClone = Instantiate(bullet, shootPositionPlayer.position, bullet.transform.rotation);
             // bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
 
-
             if (hit.collider.GetComponent<IDamage>() != null)
             {
                 hit.collider.GetComponent<IDamage>().takeDamage(shootDamage);
@@ -150,18 +148,16 @@ public class playerController : MonoBehaviour
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
-
+    public void throwGrenade()
+    {
+        GameObject bulletClone = Instantiate(grenade, shootPositionPlayer.position, grenade.transform.rotation);
+        bulletClone.GetComponent<Rigidbody>().velocity = (transform.forward + new Vector3(0, grenadeYVel, 0)) * grenadeSpeed;
+    }
     public void takeDamage(int dmg)
     {
-        if (shieldOn)
+        if (gameManager.instance.shieldOn)
         {
-            shieldHP -= dmg;
-            if (shieldHP <= 0)
-            {
-                shield.SetActive(false);
-                shieldOn = false;
-                gameManager.instance.shield.SetActive(false);                
-            }
+            shieldOnPlayer.GetComponent<shield>().shieldTakeDamage(dmg);
         }
         else
         {
@@ -173,8 +169,18 @@ public class playerController : MonoBehaviour
                 gameManager.instance.playerDead();
         }
     }
+    public void shieldOffPlayer()
+    {
+        gameManager.instance.shieldOn = false;
+        gameManager.instance.shieldUI.SetActive(false);
+    }
+    public void shieldStartPlayer()
+    {
+        shieldOnPlayer.GetComponent<shield>().shieldStart();
+        abilityTwoActive = true;
+    }
 
-    IEnumerator gunShootFlash()
+        IEnumerator gunShootFlash()
     {
         if (weaponList.Count > 0)
         {
@@ -185,7 +191,7 @@ public class playerController : MonoBehaviour
     }
     IEnumerator flashDamage()
     {
-        if (!shieldOn)
+        if (!gameManager.instance.shieldOn)
         {
             gameManager.instance.playerDamageFlashScreen.SetActive(true);
             yield return new WaitForSeconds(0.1f);
@@ -277,11 +283,7 @@ public class playerController : MonoBehaviour
     }
 
     public IEnumerator abilityCoolShield(float cooldown)
-    {
-        shieldHP = shieldOrig;
-        shieldOn = true;
-        shield.SetActive(true);
-        abilityTwoActive = true;
+    {        
         yield return new WaitForSeconds(cooldown);
         abilityTwoActive = false;
     }

@@ -35,8 +35,8 @@ public class enemyBossAI : enemyAI
     int hitPointsOrig;
     bool isHealOne;
     bool isHealTwo;
-    bool isHealThree;
-    bool isHealFour;
+    //bool isHealThree;
+    //bool isHealFour;
     bool isInCoolDown;
 
     // Start is called before the first frame update
@@ -51,8 +51,8 @@ public class enemyBossAI : enemyAI
 
         isHealOne = true;
         isHealTwo = true;
-        isHealThree = true;
-        isHealFour = true;
+        //isHealThree = true;
+        //isHealFour = true;
         isInCoolDown = false;
 
         speedOrig = agent.speed;
@@ -193,27 +193,27 @@ public class enemyBossAI : enemyAI
                 StartCoroutine(coolDownEvent());
                 return true;
             }
-            else if (isHealTwo && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
+            //else if (isHealTwo && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
+            //{
+            //    isHealTwo = false;
+            //    agent.stoppingDistance = distanceToBoss + 5;
+            //    StartCoroutine(coolDownEvent());
+            //    return true;
+            //}
+            else if (isHealTwo && hitPoints <= (hitPointsOrig - (hitPointsOrig * .8)))
             {
                 isHealTwo = false;
                 agent.stoppingDistance = distanceToBoss + 5;
                 StartCoroutine(coolDownEvent());
                 return true;
             }
-            else if (isHealThree && hitPoints <= (hitPointsOrig - (hitPointsOrig * .8)))
-            {
-                isHealThree = false;
-                agent.stoppingDistance = distanceToBoss + 5;
-                StartCoroutine(coolDownEvent());
-                return true;
-            }
-            else if (isHealFour && hitPoints <= (hitPointsOrig - (hitPointsOrig * .9)))
-            {
-                isHealFour = false;
-                agent.stoppingDistance = distanceToBoss + 5;
-                StartCoroutine(coolDownEvent());
-                return true;
-            }
+            //else if (isHealFour && hitPoints <= (hitPointsOrig - (hitPointsOrig * .9)))
+            //{
+            //    isHealFour = false;
+            //    agent.stoppingDistance = distanceToBoss + 5;
+            //    StartCoroutine(coolDownEvent());
+            //    return true;
+            //}
             else if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
@@ -260,6 +260,7 @@ public class enemyBossAI : enemyAI
         if (saveStartHealth == hitPoints)
         {
             hitPoints += 10;
+            updateEnemyHPBar();
         }
         else
         {

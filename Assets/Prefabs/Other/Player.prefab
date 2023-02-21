@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 657828769}
+  - component: {fileID: 487961066510684417}
   - component: {fileID: 657828771}
   - component: {fileID: 657828770}
   m_Layer: 0
@@ -33,6 +34,20 @@ Transform:
   m_Father: {fileID: 868414252815463532}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &487961066510684417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657828768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c0df951eed72014ca4386bc30f79616, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldOrig: 5
+  cooldown: 10
 --- !u!33 &657828771
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -460,16 +475,18 @@ MonoBehaviour:
   gravity: 15
   runSpeed: 9
   pushbackResTime: 1
-  shield: {fileID: 657828768}
-  shieldOrig: 5
   weaponList: []
   weaponModel: {fileID: 2929723904278486435}
   shootRate: 0
   shootDist: 0
   shootDamage: 0
   zoomMax: 35
+  shieldOnPlayer: {fileID: 657828768}
   crosshair: {fileID: 0}
   weaponIcon: {fileID: 0}
+  grenadeYVel: 0.5
+  grenadeSpeed: 1
+  grenade: {fileID: 7061225462723478300, guid: 0ebbab8ec242f5943b8a68674ce09c6c, type: 3}
   shootPositionPlayer: {fileID: 2929723904278214019}
   gunFlash: {fileID: 5501709145308778831, guid: d5b838e7e4f606a4ab356f28b4746021, type: 3}
   playerVelocity: {x: 0, y: 0, z: 0}
