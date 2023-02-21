@@ -139,7 +139,6 @@ public class playerController : MonoBehaviour
             // GameObject bulletClone = Instantiate(bullet, shootPositionPlayer.position, bullet.transform.rotation);
             // bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
 
-
             if (hit.collider.GetComponent<IDamage>() != null)
             {
                 hit.collider.GetComponent<IDamage>().takeDamage(shootDamage);
