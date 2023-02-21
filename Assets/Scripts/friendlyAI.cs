@@ -50,13 +50,13 @@ public class friendlyAI : MonoBehaviour
                 {
                     StartCoroutine(roam());
                 }
-                else if (!isGivenQuest)
-                {
-                    isGivenQuest = true;
-                    anim.SetTrigger("Talk");
-                    gameManager.instance.displayNpcText("Chat Test");
-                    StartCoroutine(gameManager.instance.deleteTextNpc(8));
-                }
+                //else if (!isGivenQuest)
+                //{
+                //    isGivenQuest = true;
+                //    anim.SetTrigger("Talk");
+                //    gameManager.instance.displayNpcText("Chat Test");
+                //    StartCoroutine(gameManager.instance.deleteTextNpc(8));
+                //}
             }
             else if (agent.destination != gameManager.instance.player.transform.position)
             {
@@ -110,11 +110,6 @@ public class friendlyAI : MonoBehaviour
                     gameManager.instance.displayNpcText("Chat Test");
                     StartCoroutine(gameManager.instance.deleteTextNpc(8));
                 }
-                //if (!isTalking && angleToPlayer <= viewAngle)
-                //{
-                //    facePlayer();
-                //    // call the methods to talk to the player.
-                //}
                 return true;
             }
         }
