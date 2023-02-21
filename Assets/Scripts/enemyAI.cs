@@ -15,7 +15,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [Header("----- Enemy Stats -----")]
     [SerializeField] protected float playerYOffset;
     [SerializeField] protected Transform headPos;
-    [SerializeField] protected int hitPoints;
+    [SerializeField] public int hitPoints;
     [SerializeField] protected int playerFaceSpeed;
     [SerializeField] protected int speedChase;
     [SerializeField] protected int viewAngle;
