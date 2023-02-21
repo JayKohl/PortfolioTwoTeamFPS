@@ -6,6 +6,7 @@ public class playerController : MonoBehaviour
 {
     [Header("----- Components -----")]
     [SerializeField] public CharacterController controller;
+    [SerializeField] Animator playeranim;
 
     [Header("----- Player Stats -----")]
     [Range(5, 10)] [SerializeField] public int HP;
@@ -22,25 +23,27 @@ public class playerController : MonoBehaviour
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
     [SerializeField] int shootDamage;
+    [SerializeField] float zoomMax;
     Vector3 muzzleFlashPosition;
     GameObject crosshair;
-    Sprite crosshairTexture;
+    [SerializeField] GameObject crosshairTexture;
 
     // Deactivated temp
     // [SerializeField] int bulletSpeed;
     [SerializeField] Transform shootPositionPlayer;
     // Deactivated temp
     // [SerializeField] GameObject bullet;
-    [SerializeField] GameObject gunFlash;    
+    [SerializeField] GameObject gunFlash;
 
     int jumpsCurrent;
     Vector3 move;
-    Vector3 playerVelocity;
+    public Vector3 playerVelocity;
     bool isShooting;
     bool isRunning;
     public int hpOriginal;
     public int speedOriginal;
     public int gunSelection;
+    public float baseFOV;
     Vector3 pushback;
 
     //Angel ADDED THIS CODE
@@ -55,8 +58,8 @@ public class playerController : MonoBehaviour
     void Start()
     {
         hpOriginal = HP;
-        updatePlayerHPBar();
         speedOriginal = playerSpeed;
+        baseFOV = Camera.main.fieldOfView;
         playerRespawn();
         crosshair = gameManager.instance.crosshair;
 
@@ -71,6 +74,11 @@ public class playerController : MonoBehaviour
         pushback = Vector3.Lerp(pushback, Vector3.zero, Time.deltaTime * pushbackResTime);
         movement();
         selectGun();
+        zoomCamera();
+        animatePlayer();
+        //playeranim.SetFloat("Speed", controller.velocity.normalized.magnitude);
+
+
         if (!isShooting && Input.GetButton("Shoot"))
             StartCoroutine(shoot());
     }
@@ -91,15 +99,16 @@ public class playerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes)
         {
+
             jumpsCurrent++;
             playerVelocity.y = jumpSpeed;
         }
-        if(Input.GetButton("Run") && !isRunning)
+        if (Input.GetButton("Run") && !isRunning)
         {
             isRunning = true;
             playerSpeed = runSpeed;
         }
-        if(isRunning && Input.GetButtonUp("Run"))
+        if (isRunning && Input.GetButtonUp("Run"))
         {
             isRunning = false;
             playerSpeed = speedOriginal;
@@ -120,7 +129,7 @@ public class playerController : MonoBehaviour
             // Deactivated temp
             // GameObject bulletClone = Instantiate(bullet, shootPositionPlayer.position, bullet.transform.rotation);
             // bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
-            
+
 
             if (hit.collider.GetComponent<IDamage>() != null)
             {
@@ -178,13 +187,15 @@ public class playerController : MonoBehaviour
         shootDist = weaponStat.shootDist;
         shootDamage = weaponStat.shootDamage;
         muzzleFlashPosition = weaponStat.muzzleFlashPosition;
-        crosshairTexture = weaponStat.crosshairTexture;
+        //crosshairTexture = weaponStat.crosshairTexture;
+        zoomMax = weaponStat.zoomAmount;
 
         //crosshair.GetComponent<SpriteRenderer>().sprite.texture = crosshairTexture;
         gameManager.instance.muzzleFlash.transform.localPosition = muzzleFlashPosition;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponStat.weaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponStat.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
+
     }
 
     void selectGun()
@@ -207,13 +218,14 @@ public class playerController : MonoBehaviour
         shootDist = weaponList[gunSelection].shootDist;
         shootDamage = weaponList[gunSelection].shootDamage;
         muzzleFlashPosition = weaponList[gunSelection].muzzleFlashPosition;
-        crosshairTexture = weaponList[gunSelection].crosshairTexture;
+        //crosshairTexture = weaponList[gunSelection].crosshairTexture;
+        zoomMax = weaponList[gunSelection].zoomAmount;
 
         //crosshair.GetComponent<Texture>().sprite.texture = crosshairTexture;
         gameManager.instance.muzzleFlash.transform.localPosition = muzzleFlashPosition;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[gunSelection].weaponModel.GetComponent<MeshFilter>().sharedMesh;
-        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[gunSelection].weaponModel.GetComponent<MeshRenderer>().sharedMaterial;        
+        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[gunSelection].weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
 
     public void playerRespawn()
@@ -255,5 +267,41 @@ public class playerController : MonoBehaviour
     public void pushbackDir(Vector3 dir)
     {
         pushback += dir;
+    }
+
+    public void zoomCamera()
+    {
+        if (weaponList.Count > 0)
+        {
+            if (Input.GetButton("Zoom"))
+            {
+                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * 3);
+            }
+            else if (Camera.main.fieldOfView <= baseFOV)
+            {
+                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, baseFOV, Time.deltaTime * 6);
+            }
+        }
+    }
+
+    public void animatePlayer()
+    {
+        if(Input.GetKey("w"))
+        {
+            playeranim.SetBool("isWalking", true);
+        }
+        if (!Input.GetKey("w"))
+        {
+            playeranim.SetBool("isWalking", false);
+        }
+
+        if (Input.GetKey("w") && Input.GetKey("left shift"))
+        {
+            playeranim.SetBool("isRunning", true);
+        }
+        if (!Input.GetKey("w") || !Input.GetKey("left shift"))
+        {
+            playeranim.SetBool("isRunning", false);
+        }
     }
 }
