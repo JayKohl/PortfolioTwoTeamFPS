@@ -26,14 +26,14 @@ public class playerController : MonoBehaviour
     [SerializeField] float zoomMax;
     Vector3 muzzleFlashPosition;
     GameObject crosshair;
-    Sprite crosshairTexture;
+    [SerializeField] GameObject crosshairTexture;
 
     // Deactivated temp
     // [SerializeField] int bulletSpeed;
     [SerializeField] Transform shootPositionPlayer;
     // Deactivated temp
     // [SerializeField] GameObject bullet;
-    [SerializeField] GameObject gunFlash;    
+    [SerializeField] GameObject gunFlash;
 
     int jumpsCurrent;
     Vector3 move;
@@ -75,6 +75,7 @@ public class playerController : MonoBehaviour
         movement();
         selectGun();
         zoomCamera();
+        animatePlayer();
         //playeranim.SetFloat("Speed", controller.velocity.normalized.magnitude);
 
 
@@ -94,20 +95,20 @@ public class playerController : MonoBehaviour
 
         move = move.normalized;
 
-        
         controller.Move(move * Time.deltaTime * playerSpeed);
 
         if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes)
         {
+
             jumpsCurrent++;
             playerVelocity.y = jumpSpeed;
         }
-        if(Input.GetButton("Run") && !isRunning)
+        if (Input.GetButton("Run") && !isRunning)
         {
             isRunning = true;
             playerSpeed = runSpeed;
         }
-        if(isRunning && Input.GetButtonUp("Run"))
+        if (isRunning && Input.GetButtonUp("Run"))
         {
             isRunning = false;
             playerSpeed = speedOriginal;
@@ -128,7 +129,7 @@ public class playerController : MonoBehaviour
             // Deactivated temp
             // GameObject bulletClone = Instantiate(bullet, shootPositionPlayer.position, bullet.transform.rotation);
             // bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
-            
+
 
             if (hit.collider.GetComponent<IDamage>() != null)
             {
@@ -186,7 +187,7 @@ public class playerController : MonoBehaviour
         shootDist = weaponStat.shootDist;
         shootDamage = weaponStat.shootDamage;
         muzzleFlashPosition = weaponStat.muzzleFlashPosition;
-        crosshairTexture = weaponStat.crosshairTexture;
+        //crosshairTexture = weaponStat.crosshairTexture;
         zoomMax = weaponStat.zoomAmount;
 
         //crosshair.GetComponent<SpriteRenderer>().sprite.texture = crosshairTexture;
@@ -217,14 +218,14 @@ public class playerController : MonoBehaviour
         shootDist = weaponList[gunSelection].shootDist;
         shootDamage = weaponList[gunSelection].shootDamage;
         muzzleFlashPosition = weaponList[gunSelection].muzzleFlashPosition;
-        crosshairTexture = weaponList[gunSelection].crosshairTexture;
+        //crosshairTexture = weaponList[gunSelection].crosshairTexture;
         zoomMax = weaponList[gunSelection].zoomAmount;
 
         //crosshair.GetComponent<Texture>().sprite.texture = crosshairTexture;
         gameManager.instance.muzzleFlash.transform.localPosition = muzzleFlashPosition;
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponList[gunSelection].weaponModel.GetComponent<MeshFilter>().sharedMesh;
-        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[gunSelection].weaponModel.GetComponent<MeshRenderer>().sharedMaterial;        
+        weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponList[gunSelection].weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
 
     public void playerRespawn()
@@ -280,6 +281,27 @@ public class playerController : MonoBehaviour
             {
                 Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, baseFOV, Time.deltaTime * 6);
             }
+        }
+    }
+
+    public void animatePlayer()
+    {
+        if(Input.GetKey("w"))
+        {
+            playeranim.SetBool("isWalking", true);
+        }
+        if (!Input.GetKey("w"))
+        {
+            playeranim.SetBool("isWalking", false);
+        }
+
+        if (Input.GetKey("w") && Input.GetKey("left shift"))
+        {
+            playeranim.SetBool("isRunning", true);
+        }
+        if (!Input.GetKey("w") || !Input.GetKey("left shift"))
+        {
+            playeranim.SetBool("isRunning", false);
         }
     }
 }
