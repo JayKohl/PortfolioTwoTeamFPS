@@ -162,7 +162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105189451424531970}
   m_LocalRotation: {x: -0.011157195, y: -0.037654217, z: -0.0021731588, w: 0.9992262}
-  m_LocalPosition: {x: -0.044, y: 1.75, z: 0.08000004}
+  m_LocalPosition: {x: -0.044, y: 1.75, z: 0.097}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -375,13 +375,14 @@ MonoBehaviour:
   jumpSpeed: 15
   gravity: 15
   runSpeed: 9
-  pushbackResTime: 0
+  pushbackResTime: 1
   weaponList: []
   weaponModel: {fileID: 2929723904278486435}
   shootRate: 0
   shootDist: 0
   shootDamage: 0
   zoomMax: 35
+  crosshairTexture: {fileID: 0}
   shootPositionPlayer: {fileID: 2929723904278214019}
   gunFlash: {fileID: 5501709145308778831, guid: d5b838e7e4f606a4ab356f28b4746021, type: 3}
   playerVelocity: {x: 0, y: 0, z: 0}
