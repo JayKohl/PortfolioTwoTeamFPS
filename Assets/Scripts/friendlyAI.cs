@@ -8,7 +8,7 @@ public class friendlyAI : MonoBehaviour
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
     public NavMeshAgent agent;
-    [SerializeField] Animator anim;
+    //[SerializeField] Animator anim;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -41,7 +41,7 @@ public class friendlyAI : MonoBehaviour
     {
         if (agent.isActiveAndEnabled)
         {
-            anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
+            //anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
             if (isPlayerInRange)
             {
                 if (!canSeePlayer())
@@ -55,7 +55,7 @@ public class friendlyAI : MonoBehaviour
             }
         }
     }
-    private IEnumerator roam()
+    protected IEnumerator roam()
     {
         if (!destinationChosen && agent.remainingDistance < 0.1f)
         {
@@ -75,7 +75,7 @@ public class friendlyAI : MonoBehaviour
             }
         }
     }
-    private bool canSeePlayer()
+    protected bool canSeePlayer()
     {
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
@@ -94,20 +94,36 @@ public class friendlyAI : MonoBehaviour
                 {
                     facePlayer();
                 }
-                if (!isTalking && angleToPlayer <= viewAngle)
-                {
-                    // call the methods to talk to the player.
-                }
+                //if (!isTalking && angleToPlayer <= viewAngle)
+                //{
+                //    facePlayer();
+                //    // call the methods to talk to the player.
+                //}
                 return true;
             }
         }
         agent.stoppingDistance = 0;
         return false;
     }
-    private void facePlayer()
+    protected void facePlayer()
     {
         playerDirection.y = 0;
         Quaternion rotate = Quaternion.LookRotation(playerDirection);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * playerFaceSpeed);
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInRange = true;
+        }
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInRange = false;
+            agent.stoppingDistance = 0;
+        }
     }
 }
