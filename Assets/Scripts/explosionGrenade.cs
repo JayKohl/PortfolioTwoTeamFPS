@@ -6,18 +6,18 @@ public class explosionGrenade : MonoBehaviour
 {
     [SerializeField] public int grenadeDamage;
     [SerializeField] int pushBackDistance;
+    [SerializeField] int time;
     bool playerIn;
-    private void Start()
+    void Start()
     {
-        StartCoroutine(timer(1f));
+        StartCoroutine(timer(time));
     }
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         //if(other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
         {
-            other.GetComponent<Collider>().GetComponent<IDamage>().takeDamage(grenadeDamage);
+            other.GetComponent<IDamage>().takeDamage(grenadeDamage);
         }
-        //gameManager.instance.playerScript.pushbackDir((gameManager.instance.player.transform.position - transform.position).normalized * pushBackDistance);
     }
     IEnumerator timer(float time)
     {

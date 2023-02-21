@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class destroyParticlesOnTimer : MonoBehaviour
 {
-    [SerializeField] int timer;
+    [SerializeField] int time;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(timerStart());
+        StartCoroutine(timer());
     }
-    IEnumerator timerStart()
+    IEnumerator timer()
     {
-        yield return new WaitForSeconds(timer);
+        yield return new WaitForSeconds(time);
         Destroy(gameObject);
     }
 }
