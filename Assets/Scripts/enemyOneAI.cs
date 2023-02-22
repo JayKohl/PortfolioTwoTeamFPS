@@ -14,7 +14,7 @@ public class enemyOneAI : enemyAI
 
         if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
         {
-            gameManager.instance.updateGameGoal(1);
+            gameManager.instance.updateGameGoalLvl2(1);
         }
     }
 
@@ -38,5 +38,29 @@ public class enemyOneAI : enemyAI
             }
         }
 
+    }
+    public override void takeDamage(int dmg)
+    {
+        hitPoints -= dmg;
+        if (hitPoints <= 0)
+        {
+
+            GetComponent<Collider>().enabled = false;
+            GetComponentInChildren<Canvas>().enabled = false;
+            anim.SetBool("Dead", true);
+            agent.enabled = false;
+            //if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
+            //{
+            //    gameManager.instance.updateGameGoalLvl2(-1);
+            //}
+            //Destroy(gameObject); Create a IEnumerator for destroyObject
+        }
+        else
+        {
+            anim.SetTrigger("Damage");
+            // melee add a function for turning off the weapon collider.
+            agent.SetDestination(gameManager.instance.player.transform.position);
+            StartCoroutine(flashDamage());
+        }
     }
 }

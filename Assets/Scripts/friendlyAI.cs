@@ -46,13 +46,14 @@ public class friendlyAI : MonoBehaviour
     {
         if (agent.isActiveAndEnabled)
         {
+            Debug.Log(gameManager.instance.enemiesRemaining);
             if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == false)
             {
                 anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
                 agent.SetDestination(moveToTerminal.position);
                 Destroy(doorToBoss);
                 isDoorOpen = true;
-                gameManager.instance.displayNpcText("Hurry to the flight to secure your ship... I will hold off the reinforcements.");
+                gameManager.instance.displayNpcText("Hurry to the flight deck to secure your ship... I will hold off the reinforcements.");
                 //exitArena();
             }
             else if (isDoorOpen == false)
