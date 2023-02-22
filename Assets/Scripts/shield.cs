@@ -25,16 +25,22 @@ public class shield : MonoBehaviour
         shieldHP -= dmg;
         if (shieldHP <= 0)
         {
-            timeOver();
+            StartCoroutine(gameManager.instance.playerScript.abilityCoolShield(0));
+            gameManager.instance.AbilityTwoS.cooldownTimer = 0;
+            shutOffShield();
         }
+    }
+    public void shutOffShield()
+    {
+        gameObject.SetActive(false);
+        gameManager.instance.shieldOn = false;
+        gameManager.instance.shieldUI.SetActive(false);
+        shieldHP = shieldOrig;
     }
     public void timeOver()
     {
         gameManager.instance.AbilityTwoS.wasSpellUsed();
         gameManager.instance.AbilityTwoS.coolDownAbility();
-        gameObject.SetActive(false);
-        gameManager.instance.shieldOn = false;
-        gameManager.instance.shieldUI.SetActive(false);
-        shieldHP = shieldOrig;
+        shutOffShield();
     }
 }

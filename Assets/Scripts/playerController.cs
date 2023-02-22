@@ -282,7 +282,10 @@ public class playerController : MonoBehaviour
     {
         shieldOnPlayer.GetComponent<shield>().shieldStart();
         yield return new WaitForSeconds(cooldown);
-        shieldOnPlayer.GetComponent<shield>().timeOver();
+        if (gameManager.instance.shieldUI)
+        {
+            shieldOnPlayer.GetComponent<shield>().timeOver();
+        }
     }
     public IEnumerator abilityCoolInvisible(float cooldown)
     {
