@@ -49,13 +49,6 @@ public class friendlyAI : MonoBehaviour
             if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == false)
             {
                 exitArena();
-                if (agent.transform.position == moveToTerminal.position)
-                {
-                    Destroy(doorToBoss);
-                    isDoorOpen = true;
-                    gameManager.instance.displayNpcText("Hurry to the flight to secure your ship... I will hold off the reinforcements.");
-                    StartCoroutine(roam());
-                }
             }
             else
             {
@@ -82,11 +75,19 @@ public class friendlyAI : MonoBehaviour
             }
         }
     }
-    protected void exitArena()
+    protected IEnumerator exitArena()
     {
-        agent.speed = speedFast;
-        anim.SetTrigger("Run");
-        agent.SetDestination(moveToTerminal.position);
+        //agent.speed = speedFast;
+        //anim.SetTrigger("Run");
+        agent.SetDestination(moveToTerminal.transform.position);
+        yield return new WaitForSeconds(15);
+        if (agent.transform.position == moveToTerminal.position)
+        {
+            Destroy(doorToBoss);
+            isDoorOpen = true;
+            gameManager.instance.displayNpcText("Hurry to the flight to secure your ship... I will hold off the reinforcements.");
+            StartCoroutine(roam());
+        }
     }
     protected IEnumerator roam()
     {
