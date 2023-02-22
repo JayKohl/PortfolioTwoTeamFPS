@@ -36,6 +36,10 @@ public class gameManager : MonoBehaviour
     public AbilitiesColdown AbilityThreeS;
     public AbilitiesColdown AbilityFourS;
     public bool ability;
+    
+    //Angel added this code
+    public GameObject particleTeleport;
+    
 
     public GameObject muzzleFlash;
     public GameObject quickTexts;    
@@ -54,7 +58,9 @@ public class gameManager : MonoBehaviour
     public bool flightDeck = false;
 
     string goalsText;
- 
+
+    //Angel added this
+    public GameObject screenSpawnLocation;
 
     void Awake()
     {
@@ -108,7 +114,7 @@ public class gameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E) && AbilityFourS.wasSpellUsed())
         {
-            
+            Instantiate(particleTeleport, screenSpawnLocation.transform);
             playerScript.StartCoroutine(playerScript.abilityCoolDash(12));
             AbilityFourS.wasSpellUsed();
             AbilityFourS.coolDownAbility();           
