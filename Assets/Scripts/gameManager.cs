@@ -121,6 +121,7 @@ public class gameManager : MonoBehaviour
         AbilityTwoS.wasSpellUsed();
         AbilityTwoS.coolDownAbility();
     }
+
     public void pause()
     {
         Time.timeScale = 0;
