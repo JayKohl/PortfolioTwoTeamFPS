@@ -96,9 +96,6 @@ public class gameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && AbilityTwoS.wasSpellUsed())
         {
             StartCoroutine(playerScript.abilityCoolShield(playerScript.shieldOnPlayer.GetComponent<shield>().shieldTimer));
-                //shieldUI.SetActive(true);
-                //shieldOn = true;
-                //gameManager.instance.playerScript.shieldStartPlayer();                
         }
         if (Input.GetKeyDown(KeyCode.F) && AbilityThreeS.wasSpellUsed())
         {
