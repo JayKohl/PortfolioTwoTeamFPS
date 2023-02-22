@@ -93,14 +93,12 @@ public class gameManager : MonoBehaviour
             AbilityOneS.wasSpellUsed();
             AbilityOneS.coolDownAbility();
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && AbilityTwoS.wasSpellUsed())
         {
-            if (!shieldOn)
-            {
-                shieldUI.SetActive(true);
-                shieldOn = true;
-                gameManager.instance.playerScript.shieldStartPlayer();                
-            }
+            StartCoroutine(playerScript.abilityCoolShield(playerScript.shieldOnPlayer.GetComponent<shield>().shieldTimer));
+                //shieldUI.SetActive(true);
+                //shieldOn = true;
+                //gameManager.instance.playerScript.shieldStartPlayer();                
         }
         if (Input.GetKeyDown(KeyCode.F) && AbilityThreeS.wasSpellUsed())
         {
@@ -117,11 +115,11 @@ public class gameManager : MonoBehaviour
         }
 
     }
-    public void shieldCoolDown()
-    {
-        AbilityTwoS.wasSpellUsed();
-        AbilityTwoS.coolDownAbility();
-    }
+    //public void shieldCoolDown()
+    //{
+    //    AbilityTwoS.wasSpellUsed();
+    //    AbilityTwoS.coolDownAbility();
+    //}
 
     public void pause()
     {
