@@ -128,11 +128,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 868414252815463532, guid: cf8e26f8d6541cf4aad916c160e25568, type: 3}
   m_PrefabInstance: {fileID: 1751135243}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &256406439 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8138602767927908529, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
-  m_PrefabInstance: {fileID: 1550416492}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &361748703
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -441,41 +436,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6111150021040916087, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
-      propertyPath: effectScreen
-      value: 
-      objectReference: {fileID: 256406439}
-    - target: {fileID: 6111150021040916087, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
-      propertyPath: particleInvinsible
-      value: 
-      objectReference: {fileID: 4168933362833244677, guid: 19bbe519f4c6d744e830e3dad463844b, type: 3}
-    - target: {fileID: 6111150021040916087, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
       propertyPath: screenSpawnLocation
       value: 
       objectReference: {fileID: 1735440289}
-    - target: {fileID: 6139838968650607827, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6139838968650607827, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
-      propertyPath: m_Color.a
-      value: 0.27058825
-      objectReference: {fileID: 0}
-    - target: {fileID: 6139838968650607827, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6139838968650607827, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
-      propertyPath: m_Color.g
-      value: 0.64450914
-      objectReference: {fileID: 0}
-    - target: {fileID: 6139838968650607827, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
-      propertyPath: m_Color.r
-      value: 0.023584902
-      objectReference: {fileID: 0}
-    - target: {fileID: 8138602767927908529, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
 --- !u!1 &1735440289 stripped
@@ -490,10 +453,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 105189451424531999, guid: cf8e26f8d6541cf4aad916c160e25568, type: 3}
-      propertyPath: m_ClearFlags
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 524364267517112022, guid: cf8e26f8d6541cf4aad916c160e25568, type: 3}
       propertyPath: m_Name
       value: Player
