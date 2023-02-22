@@ -39,9 +39,7 @@ public class gameManager : MonoBehaviour
     
     //Angel added this code
     public GameObject particleTeleport;
-    public GameObject effectScreen;
-    public GameObject particleInvinsible;
-
+    
 
     public GameObject muzzleFlash;
     public GameObject quickTexts;    
@@ -79,8 +77,7 @@ public class gameManager : MonoBehaviour
         AbilityFourS = AbilityFour.GetComponent<AbilitiesColdown>();
         AbilityTwoS.cooldownTime = playerScript.shieldOnPlayer.GetComponent<shield>().GetCoolDown();
         AbilityOneS.cooldownTime = 10f;        
-        AbilityFourS.cooldownTime = 12f;
-        AbilityOneS.cooldownTime = 20f;
+        AbilityFourS.cooldownTime = 12f;        
     }
     void Update()
     {
@@ -111,8 +108,7 @@ public class gameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F) && AbilityThreeS.wasSpellUsed())
         {
-            Instantiate(particleInvinsible, player.transform);
-            playerScript.StartCoroutine(playerScript.abilityCoolInvisible(5));
+            playerScript.StartCoroutine(playerScript.abilityCoolInvisible(10));
             AbilityThreeS.wasSpellUsed();
             AbilityThreeS.coolDownAbility();
         }
