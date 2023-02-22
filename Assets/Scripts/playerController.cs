@@ -26,7 +26,7 @@ public class playerController : MonoBehaviour
     [SerializeField] int shootDamage;
     [SerializeField] float zoomMax;
     Vector3 muzzleFlashPosition;
-    [SerializeField] GameObject shieldOnPlayer;
+    [SerializeField] public GameObject shieldOnPlayer;
     [SerializeField] GameObject crosshair;
     Sprite crosshairTexture;
     [SerializeField] GameObject weaponIcon;
@@ -169,16 +169,6 @@ public class playerController : MonoBehaviour
                 gameManager.instance.playerDead();
         }
     }
-    //public void shieldOffPlayer()
-    //{
-    //    gameManager.instance.shieldOn = false;
-    //    gameManager.instance.shieldUI.SetActive(false);
-    //}
-    //public void shieldStartPlayer()
-    //{
-    //    abilityTwoActive = true;
-    //    shieldOnPlayer.GetComponent<shield>().shieldStart();
-    //}
     public void invisibility()
     {
         gameObject.tag = "Invisible";
@@ -291,7 +281,7 @@ public class playerController : MonoBehaviour
     public IEnumerator abilityCoolShield(float cooldown)
     {
         shieldOnPlayer.GetComponent<shield>().shieldStart();
-        yield return new WaitForSeconds(shieldOnPlayer.GetComponent<shield>().shielTimer);
+        yield return new WaitForSeconds(cooldown);
         shieldOnPlayer.GetComponent<shield>().timeOver();
     }
     public IEnumerator abilityCoolInvisible(float cooldown)
