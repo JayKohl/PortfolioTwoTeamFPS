@@ -11,13 +11,13 @@ public class explosionGrenade : MonoBehaviour
     {
         StartCoroutine(timer(time));
     }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
-        {
-            other.gameObject.GetComponentInChildren<enemyAI>().takeDamage(grenadeDamage);
-        }
-    }
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
+    //    {
+    //        other.gameObject.GetComponent<enemyAI>().takeDamage(grenadeDamage);
+    //    }
+    //} This part commented out because it hits EVERY enemy in the scene
     IEnumerator timer(float time)
     {
         yield return new WaitForSeconds(time);
