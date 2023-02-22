@@ -130,10 +130,12 @@ public class playerController : MonoBehaviour
     {
         isShooting = true;
         StartCoroutine(gunShootFlash());
+        
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
         {
             Debug.Log(hit.collider.name);
+           
 
             // Deactivated temp
             // GameObject bulletClone = Instantiate(bullet, shootPositionPlayer.position, bullet.transform.rotation);
@@ -147,6 +149,7 @@ public class playerController : MonoBehaviour
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
+        
     }
     public void throwGrenade()
     {
@@ -319,22 +322,43 @@ public class playerController : MonoBehaviour
 
     public void animatePlayer()
     {
-        if(Input.GetKey("w"))
+        // Control for isWalking animation bool
+        if(Input.GetKey("w") || Input.GetKey("s"))
         {
             playeranim.SetBool("isWalking", true);
         }
-        if (!Input.GetKey("w"))
+        if (!Input.GetKey("w") && !Input.GetKey("s"))
         {
             playeranim.SetBool("isWalking", false);
         }
 
-        if (Input.GetKey("w") && Input.GetKey("left shift"))
+        // Control for isRunning animation bool
+        if ((Input.GetKey("w") || Input.GetKey("s")) && Input.GetKey("left shift"))
         {
             playeranim.SetBool("isRunning", true);
         }
-        if (!Input.GetKey("w") || !Input.GetKey("left shift"))
+        if ((!Input.GetKey("w") && !Input.GetKey("s")) || !Input.GetKey("left shift"))
         {
             playeranim.SetBool("isRunning", false);
+        }
+
+        // Control for isShooting animation bool
+        if (Input.GetKey("mouse 0"))
+        {
+            playeranim.SetBool("isShooting", true);
+        }
+        if (!Input.GetKey("mouse 0"))
+        {
+            playeranim.SetBool("isShooting", false);
+        }
+
+        if (Input.GetKey("space") && jumpsCurrent < jumpTimes)
+        {
+            playeranim.SetBool("isJummping", true);
+        }
+        if (controller.isGrounded)
+        {
+            playeranim.SetBool("isJummping", false);
         }
     }
 }
