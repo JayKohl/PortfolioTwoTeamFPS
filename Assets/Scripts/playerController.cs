@@ -10,7 +10,7 @@ public class playerController : MonoBehaviour
     [SerializeField] Animator playeranim;
 
     [Header("----- Player Stats -----")]
-    [Range(5, 100)] [SerializeField] public int HP;
+    [Range(5, 10)] [SerializeField] public int HP;
     [Range(1, 50)] [SerializeField] int playerSpeed;
     [Range(1, 3)] [SerializeField] int jumpTimes;
     [Range(10, 25)] [SerializeField] int jumpSpeed;
@@ -26,7 +26,7 @@ public class playerController : MonoBehaviour
     [SerializeField] int shootDamage;
     [SerializeField] float zoomMax;
     Vector3 muzzleFlashPosition;
-    public GameObject shieldOnPlayer;
+    [SerializeField] GameObject shieldOnPlayer;
     [SerializeField] GameObject crosshair;
     Sprite crosshairTexture;
     [SerializeField] GameObject weaponIcon;
@@ -169,7 +169,21 @@ public class playerController : MonoBehaviour
                 gameManager.instance.playerDead();
         }
     }
-    
+    public void shieldOffPlayer()
+    {
+        gameManager.instance.shieldOn = false;
+        gameManager.instance.shieldUI.SetActive(false);
+    }
+    public void shieldStartPlayer()
+    {
+        abilityTwoActive = true;
+        shieldOnPlayer.GetComponent<shield>().shieldStart();
+    }
+    public void invisibility()
+    {
+        gameObject.tag = "Invisible";
+        StartCoroutine(abilityCoolInvisible(10));
+    }
     IEnumerator gunShootFlash()
     {
         if (weaponList.Count > 0)
@@ -275,21 +289,13 @@ public class playerController : MonoBehaviour
     }
 
     public IEnumerator abilityCoolShield(float cooldown)
-    {
-        
-        shieldOnPlayer.GetComponent<shield>().shieldStart();
-        gameManager.instance.shieldUI.SetActive(true);
+    {        
         yield return new WaitForSeconds(cooldown);
-        shieldOnPlayer.GetComponent<shield>().timeOut();
-        gameManager.instance.shieldUI.SetActive(false);
-        gameManager.instance.shieldOn = false;
-
         abilityTwoActive = false;
     }
     public IEnumerator abilityCoolInvisible(float cooldown)
     {
         abilityThreeActive = true;
-        gameObject.tag = "Invisible";
         yield return new WaitForSeconds(cooldown);
         gameObject.tag = "Player";
         abilityThreeActive = false;
