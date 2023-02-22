@@ -69,8 +69,8 @@ public class gameManager : MonoBehaviour
         AbilityTwoS = AbilityTwo.GetComponent<AbilitiesColdown>();
         AbilityThreeS = AbilityThree.GetComponent<AbilitiesColdown>();
         AbilityFourS = AbilityFour.GetComponent<AbilitiesColdown>();
-        AbilityOneS.cooldownTime = 10f;
-        AbilityTwoS.cooldownTime = 10f;
+        AbilityTwoS.cooldownTime = playerScript.shieldOnPlayer.GetComponent<shield>().GetCoolDown();
+        AbilityOneS.cooldownTime = 10f;        
         AbilityFourS.cooldownTime = 12f;        
     }
     void Update()
@@ -89,22 +89,20 @@ public class gameManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Q) && AbilityOneS.wasSpellUsed() )
         {
-            gameManager.instance.playerScript.throwGrenade();
+            instance.playerScript.throwGrenade();
             AbilityOneS.wasSpellUsed();
             AbilityOneS.coolDownAbility();
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && AbilityTwoS.wasSpellUsed())
         {
-            if (!shieldOn)
-            {
-                shieldUI.SetActive(true);
-                shieldOn = true;
-                gameManager.instance.playerScript.shieldStartPlayer();                
-            }
+           shieldOn = true;
+           playerScript.StartCoroutine(playerScript.abilityCoolShield(10));
+           AbilityTwoS.wasSpellUsed();
+           AbilityTwoS.coolDownAbility();
         }
         if (Input.GetKeyDown(KeyCode.F) && AbilityThreeS.wasSpellUsed())
         {
-            gameManager.instance.playerScript.invisibility();
+            playerScript.StartCoroutine(playerScript.abilityCoolInvisible(10));
             AbilityThreeS.wasSpellUsed();
             AbilityThreeS.coolDownAbility();
         }
@@ -117,11 +115,11 @@ public class gameManager : MonoBehaviour
         }
 
     }
-    public void shieldCoolDown()
-    {
-        AbilityTwoS.wasSpellUsed();
-        AbilityTwoS.coolDownAbility();
-    }
+    //public void shieldCoolDown()
+    //{
+    //    AbilityTwoS.wasSpellUsed();
+    //    AbilityTwoS.coolDownAbility();
+    //}
 
     public void pause()
     {

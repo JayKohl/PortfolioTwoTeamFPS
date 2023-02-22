@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class shield : MonoBehaviour
 {
-    int shieldHP;
+    public int shieldHP = 5;
     [SerializeField] int shieldOrig;
     [SerializeField] float cooldown;
 
     void Start()
     {
-        shieldHP = shieldOrig;
+       
+        shieldOrig = shieldHP;
     }
     public void shieldStart()
     {
-        gameManager.instance.shieldOn = true;
+               
         gameObject.SetActive(true);
     }
     public void shieldTakeDamage(int dmg)
@@ -22,11 +23,25 @@ public class shield : MonoBehaviour
         shieldHP -= dmg;
         if (shieldHP <= 0)
         {
-            gameManager.instance.playerScript.StartCoroutine(gameManager.instance.playerScript.abilityCoolShield(cooldown));
-            gameManager.instance.playerScript.shieldOffPlayer();
-            gameManager.instance.shieldCoolDown();
+
+            gameManager.instance.shieldUI.SetActive(false);
+            //gameManager.instance.shieldCoolDown();
             gameObject.SetActive(false);
             gameManager.instance.shieldOn = false;
+            shieldHP = shieldOrig;
+
         }
+    }
+    public void timeOut()
+    {
+        gameManager.instance.shieldUI.SetActive(false);
+        //gameManager.instance.shieldCoolDown();
+        gameObject.SetActive(false);
+        gameManager.instance.shieldOn = false;
+        shieldHP = shieldOrig;
+    }
+    public float GetCoolDown()
+    {
+        return cooldown;
     }
 }
