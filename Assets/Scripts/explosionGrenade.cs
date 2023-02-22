@@ -14,9 +14,9 @@ public class explosionGrenade : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        //if(other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
         {
-            other.GetComponent<IDamage>().takeDamage(grenadeDamage);
+            other.GetComponent<enemyTurretAI>().takeDamage(grenadeDamage);
         }
     }
     IEnumerator timer(float time)

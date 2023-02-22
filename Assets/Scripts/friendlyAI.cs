@@ -9,6 +9,7 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] Renderer model;
     public NavMeshAgent agent;
     [SerializeField] Animator anim;
+    [SerializeField] Transform moveToTerminal;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -24,7 +25,6 @@ public class friendlyAI : MonoBehaviour
     float angleToPlayer;
     Vector3 playerDirection;
     Vector3 startingPos;
-    Transform moveToTerminal;
     bool destinationChosen;
     float stoppingDistOrig;
     float speedOrig;
@@ -102,6 +102,13 @@ public class friendlyAI : MonoBehaviour
                 if (agent.remainingDistance < agent.stoppingDistance)
                 {
                     facePlayer();
+                }
+                if (!isGivenQuest)
+                {
+                    isGivenQuest = true;
+                    anim.SetTrigger("Talk");
+                    gameManager.instance.displayNpcText("Chat Test");
+                    StartCoroutine(gameManager.instance.deleteTextNpc(8));
                 }
                 //if (!isTalking && angleToPlayer <= viewAngle)
                 //{
