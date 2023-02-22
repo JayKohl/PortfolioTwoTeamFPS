@@ -49,10 +49,10 @@ public class enemyOneAI : enemyAI
             GetComponentInChildren<Canvas>().enabled = false;
             anim.SetBool("Dead", true);
             agent.enabled = false;
-            //if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
-            //{
-            //    gameManager.instance.updateGameGoalLvl2(-1);
-            //}
+            if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
+            {
+                gameManager.instance.updateGameGoalLvl2(-1);
+            }
             //Destroy(gameObject); Create a IEnumerator for destroyObject
         }
         else
