@@ -27,11 +27,14 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
     [SerializeField] GameObject blowUp;
     [SerializeField] GameObject brokenEffect;
 
+
     public virtual void takeDamage(int dmg)
     {
         hitPoints -= dmg;
         if (hitPoints <= 0)
         {
+            blowUp.SetActive(true);
+
             screenOne.SetActive(false);
             screenTwo.SetActive(false);
             screenThree.SetActive(false);
@@ -44,12 +47,13 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
             laserSix.SetActive(false);
             laserSeven.SetActive(false);
             laserEight.SetActive(false);
-            //GetComponent<Collider>().enabled = false;
-            //Destroy(gameObject); Create a IEnumerator for destroyObject
+            GetComponent<Collider>().enabled = false;
+            StartCoroutine(terminalDead());
         }
         else
         {
             StartCoroutine(flashDamage());
+            damageSparks.SetActive(true);
         }
     }
     protected IEnumerator flashDamage()
@@ -57,5 +61,10 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.15f);
         model.material.color = Color.white;
+    }
+    IEnumerator terminalDead()
+    {
+        yield return new WaitForSeconds(2);
+        brokenEffect.SetActive(true);
     }
 }
