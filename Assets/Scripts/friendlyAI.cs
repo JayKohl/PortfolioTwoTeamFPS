@@ -56,6 +56,7 @@ public class friendlyAI : MonoBehaviour
                 transform.position = moveToTerminal.transform.position;
                 StartCoroutine(setAgentOn());
                 anim.SetTrigger("Idle");
+                agent.enabled = false;
                 //agent.enabled = true;
 
                 Destroy(doorToBoss);
