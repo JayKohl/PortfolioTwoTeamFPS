@@ -7,7 +7,7 @@ public class shield : MonoBehaviour
     int shieldHP;
     [SerializeField] int shieldOrig;
     [SerializeField] float cooldown;
-    [SerializeField] public int shielTimer;
+    [SerializeField] public int shieldTimer;
 
     void Start()
     {
@@ -26,22 +26,15 @@ public class shield : MonoBehaviour
         if (shieldHP <= 0)
         {
             timeOver();
-            ////gameManager.instance.playerScript.shieldOffPlayer();
-            ////gameManager.instance.shieldCoolDown();
-            //gameObject.SetActive(false);
-            //gameManager.instance.shieldOn = false;
-            //shieldHP = shieldOrig;
         }
     }
     public void timeOver()
     {
-        //gameManager.instance.playerScript.shieldOffPlayer();
         gameManager.instance.AbilityTwoS.wasSpellUsed();
         gameManager.instance.AbilityTwoS.coolDownAbility();
         gameObject.SetActive(false);
         gameManager.instance.shieldOn = false;
         gameManager.instance.shieldUI.SetActive(false);
         shieldHP = shieldOrig;
-
-    }    
+    }
 }
