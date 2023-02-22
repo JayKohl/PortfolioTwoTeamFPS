@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
@@ -49,8 +50,8 @@ public class gameManager : MonoBehaviour
 
     public bool isPaused;
     public bool bossDead;
-    public bool boss2Dead;
-    public bool flightDeck;
+    public bool boss2Dead = false;
+    public bool flightDeck = false;
 
     string goalsText;
  
@@ -70,7 +71,7 @@ public class gameManager : MonoBehaviour
         AbilityFourS = AbilityFour.GetComponent<AbilitiesColdown>();
         AbilityOneS.cooldownTime = 10f;
         AbilityTwoS.cooldownTime = 10f;
-        AbilityFourS.cooldownTime = 12f;
+        AbilityFourS.cooldownTime = 12f;        
     }
     void Update()
     {

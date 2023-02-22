@@ -15,7 +15,7 @@ public class explosionGrenade : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
         {
-            other.GetComponent<enemyAI>().takeDamage(grenadeDamage);
+            other.gameObject.GetComponentInChildren<enemyAI>().takeDamage(grenadeDamage);
         }
     }
     IEnumerator timer(float time)
