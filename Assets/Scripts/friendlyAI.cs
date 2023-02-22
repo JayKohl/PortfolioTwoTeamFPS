@@ -11,6 +11,7 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] Animator anim;
     [SerializeField] Transform moveToTerminal;
     [SerializeField] GameObject doorToBoss;
+    [SerializeField] GameObject doorToArena;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -50,7 +51,7 @@ public class friendlyAI : MonoBehaviour
             if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == false)
             {
                 anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
-                agent.SetDestination(moveToTerminal.position);
+                agent.transform.position = moveToTerminal.transform.position;
                 Destroy(doorToBoss);
                 isDoorOpen = true;
                 gameManager.instance.displayNpcText("Hurry to the flight deck to secure your ship... I will hold off the reinforcements.");
@@ -142,6 +143,7 @@ public class friendlyAI : MonoBehaviour
                     gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. " +
                                                         "If by chance you can survive I will help you escape. Now go away before anyone notices us talking.");
                     StartCoroutine(gameManager.instance.deleteTextNpc(8));
+                    Destroy(doorToArena);
                 }
                 return true;
             }
