@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class playerController : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class playerController : MonoBehaviour
     [SerializeField] int grenadeSpeed;
     [SerializeField] GameObject grenade;
     [SerializeField] string weaponName;
+    [SerializeField] AudioClip weaponAudio;
 
     // Deactivated temp
     // [SerializeField] int bulletSpeed;
@@ -77,6 +79,16 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene().name == "LvlOneArena")
+        {
+            gameManager.instance.fuelCellsRemainingObject.SetActive(true);
+            gameManager.instance.enemiesRemainingObject.SetActive(false);
+        }
+        if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
+        {
+            gameManager.instance.enemiesRemainingObject.SetActive(true);
+            gameManager.instance.fuelCellsRemainingObject.SetActive(false);
+        }
         pushback = Vector3.Lerp(pushback, Vector3.zero, Time.deltaTime * pushbackResTime);
         movement();
         selectGun();
@@ -216,6 +228,7 @@ public class playerController : MonoBehaviour
         crosshairTexture = weaponStat.crosshairTexture;
         zoomMax = weaponStat.zoomAmount;
         weaponName = weaponStat.weaponName;
+        weaponAudio = weaponStat.weaponAudio;
 
         crosshair.GetComponent<Image>().sprite = crosshairTexture;
         weaponIcon.GetComponent<Image>().sprite = weaponStat.weaponIcon;
@@ -251,6 +264,8 @@ public class playerController : MonoBehaviour
         crosshairTexture = weaponList[gunSelection].crosshairTexture;
         zoomMax = weaponList[gunSelection].zoomAmount;
         weaponName = weaponList[gunSelection].weaponName;
+        weaponAudio = weaponList[gunSelection].weaponAudio;
+
         weaponIcon.GetComponent<Image>().sprite = weaponList[gunSelection].weaponIcon;
 
         crosshair.GetComponent<Image>().sprite = crosshairTexture;
