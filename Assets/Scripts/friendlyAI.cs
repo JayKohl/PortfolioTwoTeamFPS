@@ -43,6 +43,10 @@ public class friendlyAI : MonoBehaviour
     {
         if (agent.isActiveAndEnabled)
         {
+            if (true)
+            {
+
+            }
             anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
             if (isPlayerInRange)
             {
