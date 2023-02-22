@@ -171,7 +171,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         {
             isPlayerInRange = true;
         }
-        else if (other.CompareTag("Grenade"))
+        if (other.CompareTag("Grenade"))
         {
             takeDamage(grenadeDam);
         }
