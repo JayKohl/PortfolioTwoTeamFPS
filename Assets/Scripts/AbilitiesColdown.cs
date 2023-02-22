@@ -9,7 +9,7 @@ public class AbilitiesColdown : MonoBehaviour
     [SerializeField] private Image cooldownImage;
     [SerializeField] private TMP_Text cooldownText;
 
-    private bool used = false;
+    public bool used = false;
     public float cooldownTime = 10.0f;
     public float cooldownTimer = 10.0f;
 
