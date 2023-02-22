@@ -21,7 +21,9 @@ public class gameManager : MonoBehaviour
     public GameObject loseMenu;
     public GameObject playerDamageFlashScreen;
     public Image playerHPBar;
+    [SerializeField] public GameObject fuelCellsRemainingObject;
     [SerializeField] TextMeshProUGUI fuelCellsRemainingText;
+    [SerializeField] public GameObject enemiesRemainingObject;
     [SerializeField] TextMeshProUGUI enemiesRemainingText;
     public TextMeshProUGUI infoText;
 
@@ -46,7 +48,7 @@ public class gameManager : MonoBehaviour
 
     [Header("Goals")]
     public int fuelCellsRemaining;
-    public int enemiesRemaining;
+    public int enemiesRemaining;    
 
     public bool isPaused;
     public bool bossDead;
@@ -155,7 +157,7 @@ public class gameManager : MonoBehaviour
     public void updateGameGoalLvl2(int amount)
     {
         enemiesRemaining += amount;
-        //enemiesRemainingText.text = enemiesRemaining.ToString("F0");
+        enemiesRemainingText.text = enemiesRemaining.ToString("F0");
         if(enemiesRemaining <= 0 && flightDeck && boss2Dead)
         {
             endLevel2();

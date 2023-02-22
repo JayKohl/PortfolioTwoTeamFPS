@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class playerController : MonoBehaviour
 {
@@ -78,6 +79,16 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene().name == "LvlOneArena")
+        {
+            gameManager.instance.fuelCellsRemainingObject.SetActive(true);
+            gameManager.instance.enemiesRemainingObject.SetActive(false);
+        }
+        if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
+        {
+            gameManager.instance.enemiesRemainingObject.SetActive(true);
+            gameManager.instance.fuelCellsRemainingObject.SetActive(false);
+        }
         pushback = Vector3.Lerp(pushback, Vector3.zero, Time.deltaTime * pushbackResTime);
         movement();
         selectGun();
