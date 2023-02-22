@@ -101,6 +101,11 @@ public class gameManager : MonoBehaviour
                 gameManager.instance.playerScript.shieldStartPlayer();                
             }
         }
+        if (Input.GetKeyDown(KeyCode.F) && AbilityThreeS.wasSpellUsed())
+        {
+            AbilityThreeS.wasSpellUsed();
+            AbilityThreeS.coolDownAbility();
+        }
         if (Input.GetKeyDown(KeyCode.E) && AbilityFourS.wasSpellUsed())
         {
             
