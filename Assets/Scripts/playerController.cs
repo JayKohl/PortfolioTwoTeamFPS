@@ -33,6 +33,7 @@ public class playerController : MonoBehaviour
     [SerializeField] float grenadeYVel;
     [SerializeField] int grenadeSpeed;
     [SerializeField] GameObject grenade;
+    [SerializeField] string weaponName;
 
     // Deactivated temp
     // [SerializeField] int bulletSpeed;
@@ -224,6 +225,7 @@ public class playerController : MonoBehaviour
         muzzleFlashPosition = weaponStat.muzzleFlashPosition;
         crosshairTexture = weaponStat.crosshairTexture;
         zoomMax = weaponStat.zoomAmount;
+        weaponName = weaponStat.weaponName;
 
         crosshair.GetComponent<Image>().sprite = crosshairTexture;
         weaponIcon.GetComponent<Image>().sprite = weaponStat.weaponIcon;
@@ -232,6 +234,7 @@ public class playerController : MonoBehaviour
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponStat.weaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponStat.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
+        
 
     }
 
@@ -257,6 +260,7 @@ public class playerController : MonoBehaviour
         muzzleFlashPosition = weaponList[gunSelection].muzzleFlashPosition;
         crosshairTexture = weaponList[gunSelection].crosshairTexture;
         zoomMax = weaponList[gunSelection].zoomAmount;
+        weaponName = weaponList[gunSelection].weaponName;
         weaponIcon.GetComponent<Image>().sprite = weaponList[gunSelection].weaponIcon;
 
         crosshair.GetComponent<Image>().sprite = crosshairTexture;
@@ -343,9 +347,56 @@ public class playerController : MonoBehaviour
         }
 
         // Control for isShooting animation bool
+        if (weaponList.Count > 0)
+       {
+            if (weaponName == "Pistol")
+            {
+                playeranim.SetBool("Pistol", true);
+                playeranim.SetBool("SMG", false);
+                playeranim.SetBool("MachineGun", false);
+                playeranim.SetBool("Rifle", false);
+                playeranim.SetBool("Sniper", false);
+            }
+            if (weaponName == "SMG")
+            {
+                playeranim.SetBool("Pistol", false);
+                playeranim.SetBool("SMG", true);
+                playeranim.SetBool("MachineGun", false);
+                playeranim.SetBool("Rifle", false);
+                playeranim.SetBool("Sniper", false);
+            }
+            if (weaponName == "MachineGun")
+            {
+                playeranim.SetBool("Pistol", false);
+                playeranim.SetBool("SMG", false);
+                playeranim.SetBool("MachineGun", true);
+                playeranim.SetBool("Rifle", false);
+                playeranim.SetBool("Sniper", false);
+            }
+            if (weaponName == "Rifle")
+            {
+                playeranim.SetBool("Pistol", false);
+                playeranim.SetBool("SMG", false);
+                playeranim.SetBool("MachineGun", false);
+                playeranim.SetBool("Rifle", true);
+                playeranim.SetBool("Sniper", false);
+            }
+            if (weaponName == "Sniper")
+            {
+                playeranim.SetBool("Pistol", false);
+                playeranim.SetBool("SMG", false);
+                playeranim.SetBool("MachineGun", false);
+                playeranim.SetBool("Rifle", false);
+                playeranim.SetBool("Sniper", true);
+            }
+
+        }
+
         if (Input.GetKey("mouse 0"))
         {
             playeranim.SetBool("isShooting", true);
+            
+
         }
         if (!Input.GetKey("mouse 0"))
         {
