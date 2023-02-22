@@ -9,10 +9,9 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] Renderer model;
     public NavMeshAgent agent;
     [SerializeField] Animator anim;
-    //[SerializeField] Transform moveToTerminal;
+    [SerializeField] Transform moveToTerminal;
     [SerializeField] GameObject doorToBoss;
     [SerializeField] GameObject doorToArena;
-    [SerializeField] GameObject newLocationAtDoor;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -52,8 +51,8 @@ public class friendlyAI : MonoBehaviour
             if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == false)
             {
                 anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
-                newLocationAtDoor.SetActive(true);
-                //agent.transform.position = moveToTerminal.transform.position;
+                //newLocationAtDoor.SetActive(true);
+                transform.position = moveToTerminal.transform.position;
                 Destroy(doorToBoss);
                 isDoorOpen = true;
                 gameManager.instance.displayNpcText("Hurry to the flight deck to secure your ship... I will hold off the reinforcements.");
