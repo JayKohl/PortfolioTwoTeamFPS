@@ -50,17 +50,23 @@ public class friendlyAI : MonoBehaviour
             Debug.Log(gameManager.instance.enemiesRemaining);
             if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == false)
             {
-                anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
+                //anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
 
                 agent.enabled = false;
                 transform.position = moveToTerminal.transform.position;
-                agent.enabled = true;
+                StartCoroutine(setAgentOn());
+                anim.SetTrigger("Idle");
+                //agent.enabled = true;
 
                 Destroy(doorToBoss);
                 isDoorOpen = true;
                 gameManager.instance.displayNpcText("Hurry to the flight deck to secure your ship... I will hold off the reinforcements.");
                 //exitArena();
             }
+            //if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == true)
+            //{
+            //    StartCoroutine(roam());
+            //}
             else if (isDoorOpen == false)
             {
 
@@ -89,6 +95,11 @@ public class friendlyAI : MonoBehaviour
             //    StartCoroutine(roam());
             //}
         }
+    }
+    IEnumerator setAgentOn()
+    {
+        yield return new WaitForSeconds(1);
+        agent.enabled = true;
     }
     //protected IEnumerator exitArena()
     //{
