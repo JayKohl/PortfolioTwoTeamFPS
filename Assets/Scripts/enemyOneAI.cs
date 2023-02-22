@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class enemyOneAI : enemyAI
 {
@@ -10,6 +11,11 @@ public class enemyOneAI : enemyAI
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
+
+        if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
+        {
+            gameManager.instance.updateGameGoal(1);
+        }
     }
 
     // Update is called once per frame
