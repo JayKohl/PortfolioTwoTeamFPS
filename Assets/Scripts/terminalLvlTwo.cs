@@ -32,6 +32,18 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
         hitPoints -= dmg;
         if (hitPoints <= 0)
         {
+            screenOne.SetActive(false);
+            screenTwo.SetActive(false);
+            screenThree.SetActive(false);
+
+            laserOne.SetActive(false);
+            laserTwo.SetActive(false);
+            laserThree.SetActive(false);
+            laserFour.SetActive(false);
+            laserFive.SetActive(false);
+            laserSix.SetActive(false);
+            laserSeven.SetActive(false);
+            laserEight.SetActive(false);
             //GetComponent<Collider>().enabled = false;
             //Destroy(gameObject); Create a IEnumerator for destroyObject
         }
