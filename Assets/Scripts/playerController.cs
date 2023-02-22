@@ -282,7 +282,7 @@ public class playerController : MonoBehaviour
     {
         shieldOnPlayer.GetComponent<shield>().shieldStart();
         yield return new WaitForSeconds(cooldown);
-        if (gameManager.instance.shieldUI)
+        if (gameManager.instance.shieldOn)
         {
             shieldOnPlayer.GetComponent<shield>().timeOver();
         }
