@@ -61,6 +61,7 @@ public class friendlyAI : MonoBehaviour
                 Destroy(doorToBoss);
                 isDoorOpen = true;
                 gameManager.instance.displayNpcText("Hurry to the flight deck to secure your ship... I will hold off the reinforcements.");
+                StartCoroutine(gameManager.instance.deleteTextNpc(8));
                 //exitArena();
             }
             //if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == true)
