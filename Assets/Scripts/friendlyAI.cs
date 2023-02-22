@@ -10,8 +10,6 @@ public class friendlyAI : MonoBehaviour
     public NavMeshAgent agent;
     [SerializeField] Animator anim;
     [SerializeField] Transform moveToTerminal;
-    [SerializeField] GameObject doorToBoss;
-    [SerializeField] GameObject doorToArena;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -21,7 +19,6 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] int roamDist;
     [SerializeField] int speedFast;
 
-    bool isDoorOpen;
     bool isGivenQuest;
     bool isPlayerInRange;
     bool isTalking;
@@ -39,7 +36,6 @@ public class friendlyAI : MonoBehaviour
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
-        isDoorOpen = false;
     }
 
     // Update is called once per frame
@@ -47,73 +43,27 @@ public class friendlyAI : MonoBehaviour
     {
         if (agent.isActiveAndEnabled)
         {
-            Debug.Log(gameManager.instance.enemiesRemaining);
-            if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == false)
+            anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
+            if (isPlayerInRange)
             {
-                //anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
-
-                agent.enabled = false;
-                transform.position = moveToTerminal.transform.position;
-                StartCoroutine(setAgentOn());
-                anim.SetTrigger("Idle");
-                agent.enabled = false;
-                //agent.enabled = true;
-
-                Destroy(doorToBoss);
-                isDoorOpen = true;
-                gameManager.instance.displayNpcText("Hurry to the flight deck to secure your ship... I will hold off the reinforcements.");
-                StartCoroutine(gameManager.instance.deleteTextNpc(8));
-                //exitArena();
-            }
-            //if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == true)
-            //{
-            //    StartCoroutine(roam());
-            //}
-            else if (isDoorOpen == false)
-            {
-
-                anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
-                if (isPlayerInRange)
-                {
-                    if (!canSeePlayer())
-                    {
-                        StartCoroutine(roam());
-                    }
-                    //else if (!isGivenQuest)
-                    //{
-                    //    isGivenQuest = true;
-                    //    anim.SetTrigger("Talk");
-                    //    gameManager.instance.displayNpcText("Chat Test");
-                    //    StartCoroutine(gameManager.instance.deleteTextNpc(8));
-                    //}
-                }
-                else if (agent.destination != gameManager.instance.player.transform.position)
+                if (!canSeePlayer())
                 {
                     StartCoroutine(roam());
                 }
+                else if (!isGivenQuest)
+                {
+                    isGivenQuest = true;
+                    anim.SetTrigger("Talk");
+                    gameManager.instance.displayNpcText("Chat Test");
+                    StartCoroutine(gameManager.instance.deleteTextNpc(8));
+                }
             }
-            //else
-            //{
-            //    StartCoroutine(roam());
-            //}
+            else if (agent.destination != gameManager.instance.player.transform.position)
+            {
+                StartCoroutine(roam());
+            }
         }
     }
-    IEnumerator setAgentOn()
-    {
-        yield return new WaitForSeconds(1);
-        agent.enabled = true;
-    }
-    //protected IEnumerator exitArena()
-    //{
-    //    //agent.speed = speedFast;
-    //    //anim.SetTrigger("Run");
-    //    //agent.SetDestination(moveToTerminal.transform.position);
-    //    yield return new WaitForSeconds(2);
-    //    Destroy(doorToBoss);
-    //    isDoorOpen = true;
-    //    gameManager.instance.displayNpcText("Hurry to the flight to secure your ship... I will hold off the reinforcements.");
-    //    //StartCoroutine(roam());
-    //}
     protected IEnumerator roam()
     {
         if (!destinationChosen && agent.remainingDistance < 0.1f)
@@ -157,11 +107,14 @@ public class friendlyAI : MonoBehaviour
                 {
                     isGivenQuest = true;
                     anim.SetTrigger("Talk");
-                    gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. " +
-                                                        "If by chance you can survive I will help you escape. Now go away before anyone notices us talking.");
+                    gameManager.instance.displayNpcText("Chat Test");
                     StartCoroutine(gameManager.instance.deleteTextNpc(8));
-                    Destroy(doorToArena);
                 }
+                //if (!isTalking && angleToPlayer <= viewAngle)
+                //{
+                //    facePlayer();
+                //    // call the methods to talk to the player.
+                //}
                 return true;
             }
         }

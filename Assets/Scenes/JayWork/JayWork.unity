@@ -277,11 +277,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &169414573 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8374198945572088613, guid: eb35686acdfdbbb458298737a6d8de31, type: 3}
-  m_PrefabInstance: {fileID: 8374198945741497480}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &249260023
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -295,7 +290,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4872947410898830802, guid: e6cb78f2ede9d1345a6c1ce3accb7b1d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4872947410899261872, guid: e6cb78f2ede9d1345a6c1ce3accb7b1d, type: 3}
       propertyPath: m_RootOrder
@@ -708,11 +703,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf8e26f8d6541cf4aad916c160e25568, type: 3}
---- !u!4 &1100803072 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3137208164353385683, guid: dff531e6f2f40cb4983132cd686c3f71, type: 3}
-  m_PrefabInstance: {fileID: 3137208165433723091}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1128888830
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -868,6 +858,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1576399245 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1576399245, guid: 98967f7b29900a74c8b0d665137829a5, type: 3}
+  m_PrefabInstance: {fileID: 1912389013890742976}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1606358632
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1168,19 +1163,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8000204712247204417, guid: 98967f7b29900a74c8b0d665137829a5, type: 3}
-      propertyPath: doorToBoss
-      value: 
-      objectReference: {fileID: 169414573}
-    - target: {fileID: 8000204712247204417, guid: 98967f7b29900a74c8b0d665137829a5, type: 3}
       propertyPath: moveToTerminal
       value: 
-      objectReference: {fileID: 1100803072}
+      objectReference: {fileID: 1576399245}
     - target: {fileID: 8000204712247204540, guid: 98967f7b29900a74c8b0d665137829a5, type: 3}
       propertyPath: m_Name
       value: FriendlyNpc
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98967f7b29900a74c8b0d665137829a5, type: 3}
+<<<<<<< HEAD
 --- !u!1001 &3137208165433723091
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1295,3 +1287,5 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb35686acdfdbbb458298737a6d8de31, type: 3}
+=======
+>>>>>>> parent of bbc0843 (Merge branch 'main' of https://github.com/JayKohl/PortfolioTwoTeamFPS)

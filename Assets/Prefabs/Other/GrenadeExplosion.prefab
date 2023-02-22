@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grenadeDamage: 3
+  pushBackDistance: 0
   time: 1
 --- !u!135 &-2859095314628523069
 SphereCollider:
@@ -59,7 +60,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3904960321037970915
 Rigidbody:

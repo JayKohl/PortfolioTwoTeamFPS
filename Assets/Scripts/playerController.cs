@@ -33,7 +33,6 @@ public class playerController : MonoBehaviour
     [SerializeField] float grenadeYVel;
     [SerializeField] int grenadeSpeed;
     [SerializeField] GameObject grenade;
-    [SerializeField] string weaponName;
 
     // Deactivated temp
     // [SerializeField] int bulletSpeed;
@@ -53,11 +52,12 @@ public class playerController : MonoBehaviour
     public float baseFOV;
     Vector3 pushback;
 
+    //Angel ADDED THIS CODE
     public bool abilityOneActive = false;
     public bool abilityTwoActive = false;
-    public bool abilityThreeActive = false;
     public bool abilityFourActive = false;
     Rigidbody rig;
+    //Angel ADDED THIS CODE ABOVE
 
 
     // Start is called before the first frame update
@@ -71,6 +71,9 @@ public class playerController : MonoBehaviour
         speedOriginal = playerSpeed;
         baseFOV = Camera.main.fieldOfView;
         playerRespawn();
+
+
+        //Angel ADDED THIS CODE
         rig = GetComponent<Rigidbody>();
     }
 
@@ -127,12 +130,10 @@ public class playerController : MonoBehaviour
     {
         isShooting = true;
         StartCoroutine(gunShootFlash());
-        
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
         {
             Debug.Log(hit.collider.name);
-           
 
             // Deactivated temp
             // GameObject bulletClone = Instantiate(bullet, shootPositionPlayer.position, bullet.transform.rotation);
@@ -146,7 +147,6 @@ public class playerController : MonoBehaviour
 
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
-        
     }
     public void throwGrenade()
     {
@@ -176,15 +176,11 @@ public class playerController : MonoBehaviour
     }
     public void shieldStartPlayer()
     {
-        abilityTwoActive = true;
         shieldOnPlayer.GetComponent<shield>().shieldStart();
+        abilityTwoActive = true;
     }
-    public void invisibility()
-    {
-        gameObject.tag = "Invisible";
-        StartCoroutine(abilityCoolInvisible(10));
-    }
-    IEnumerator gunShootFlash()
+
+        IEnumerator gunShootFlash()
     {
         if (weaponList.Count > 0)
         {
@@ -225,7 +221,6 @@ public class playerController : MonoBehaviour
         muzzleFlashPosition = weaponStat.muzzleFlashPosition;
         crosshairTexture = weaponStat.crosshairTexture;
         zoomMax = weaponStat.zoomAmount;
-        weaponName = weaponStat.weaponName;
 
         crosshair.GetComponent<Image>().sprite = crosshairTexture;
         weaponIcon.GetComponent<Image>().sprite = weaponStat.weaponIcon;
@@ -234,7 +229,6 @@ public class playerController : MonoBehaviour
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponStat.weaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponStat.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
-        
 
     }
 
@@ -260,7 +254,6 @@ public class playerController : MonoBehaviour
         muzzleFlashPosition = weaponList[gunSelection].muzzleFlashPosition;
         crosshairTexture = weaponList[gunSelection].crosshairTexture;
         zoomMax = weaponList[gunSelection].zoomAmount;
-        weaponName = weaponList[gunSelection].weaponName;
         weaponIcon.GetComponent<Image>().sprite = weaponList[gunSelection].weaponIcon;
 
         crosshair.GetComponent<Image>().sprite = crosshairTexture;
@@ -279,6 +272,7 @@ public class playerController : MonoBehaviour
         controller.enabled = true;
     }
 
+    //Angel ADDED THIS CODE
     public IEnumerator abilityCoolSpeed(float cooldown)
     {
         abilityOneActive = true;
@@ -293,13 +287,6 @@ public class playerController : MonoBehaviour
         yield return new WaitForSeconds(cooldown);
         abilityTwoActive = false;
     }
-    public IEnumerator abilityCoolInvisible(float cooldown)
-    {
-        abilityThreeActive = true;
-        yield return new WaitForSeconds(cooldown);
-        gameObject.tag = "Player";
-        abilityThreeActive = false;
-    }
 
     public IEnumerator abilityCoolDash(float cooldown)
     {
@@ -307,7 +294,8 @@ public class playerController : MonoBehaviour
         controller.Move(Camera.main.transform.forward * 20);
         yield return new WaitForSeconds(cooldown);
         abilityFourActive = false;
-    }    
+    }
+    //Angel ADDED THIS CODE ABOVE
 
     public void pushbackDir(Vector3 dir)
     {
@@ -331,90 +319,22 @@ public class playerController : MonoBehaviour
 
     public void animatePlayer()
     {
-        // Control for isWalking animation bool
-        if(Input.GetKey("w") || Input.GetKey("s"))
+        if(Input.GetKey("w"))
         {
             playeranim.SetBool("isWalking", true);
         }
-        if (!Input.GetKey("w") && !Input.GetKey("s"))
+        if (!Input.GetKey("w"))
         {
             playeranim.SetBool("isWalking", false);
         }
 
-        // Control for isRunning animation bool
-        if ((Input.GetKey("w") || Input.GetKey("s")) && Input.GetKey("left shift"))
+        if (Input.GetKey("w") && Input.GetKey("left shift"))
         {
             playeranim.SetBool("isRunning", true);
         }
-        if ((!Input.GetKey("w") && !Input.GetKey("s")) || !Input.GetKey("left shift"))
+        if (!Input.GetKey("w") || !Input.GetKey("left shift"))
         {
             playeranim.SetBool("isRunning", false);
-        }
-
-        // Control for isShooting animation bool
-        if (weaponList.Count > 0)
-       {
-            if (weaponName == "Pistol")
-            {
-                playeranim.SetBool("Pistol", true);
-                playeranim.SetBool("SMG", false);
-                playeranim.SetBool("MachineGun", false);
-                playeranim.SetBool("Rifle", false);
-                playeranim.SetBool("Sniper", false);
-            }
-            if (weaponName == "SMG")
-            {
-                playeranim.SetBool("Pistol", false);
-                playeranim.SetBool("SMG", true);
-                playeranim.SetBool("MachineGun", false);
-                playeranim.SetBool("Rifle", false);
-                playeranim.SetBool("Sniper", false);
-            }
-            if (weaponName == "MachineGun")
-            {
-                playeranim.SetBool("Pistol", false);
-                playeranim.SetBool("SMG", false);
-                playeranim.SetBool("MachineGun", true);
-                playeranim.SetBool("Rifle", false);
-                playeranim.SetBool("Sniper", false);
-            }
-            if (weaponName == "Rifle")
-            {
-                playeranim.SetBool("Pistol", false);
-                playeranim.SetBool("SMG", false);
-                playeranim.SetBool("MachineGun", false);
-                playeranim.SetBool("Rifle", true);
-                playeranim.SetBool("Sniper", false);
-            }
-            if (weaponName == "Sniper")
-            {
-                playeranim.SetBool("Pistol", false);
-                playeranim.SetBool("SMG", false);
-                playeranim.SetBool("MachineGun", false);
-                playeranim.SetBool("Rifle", false);
-                playeranim.SetBool("Sniper", true);
-            }
-
-        }
-
-        if (Input.GetKey("mouse 0"))
-        {
-            playeranim.SetBool("isShooting", true);
-            
-
-        }
-        if (!Input.GetKey("mouse 0"))
-        {
-            playeranim.SetBool("isShooting", false);
-        }
-
-        if (Input.GetKey("space") && jumpsCurrent < jumpTimes)
-        {
-            playeranim.SetBool("isJummping", true);
-        }
-        if (controller.isGrounded)
-        {
-            playeranim.SetBool("isJummping", false);
         }
     }
 }

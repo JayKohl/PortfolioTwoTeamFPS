@@ -5,8 +5,9 @@ using UnityEngine;
 public class explosionGrenade : MonoBehaviour
 {
     [SerializeField] public int grenadeDamage;
+    [SerializeField] int pushBackDistance;
     [SerializeField] int time;
-
+    bool playerIn;
     void Start()
     {
         StartCoroutine(timer(time));
@@ -15,7 +16,7 @@ public class explosionGrenade : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
         {
-            other.gameObject.GetComponent<enemyAI>().takeDamage(grenadeDamage);
+            other.GetComponent<enemyTurretAI>().takeDamage(grenadeDamage);
         }
     }
     IEnumerator timer(float time)

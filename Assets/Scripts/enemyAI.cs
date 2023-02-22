@@ -11,6 +11,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Renderer model;
     public NavMeshAgent agent;
     [SerializeField] protected Animator anim;
+    [SerializeField] int grenadeDam;
 
     [Header("----- Enemy Stats -----")]
     [SerializeField] protected float playerYOffset;

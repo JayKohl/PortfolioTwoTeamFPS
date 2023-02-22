@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
@@ -50,8 +49,8 @@ public class gameManager : MonoBehaviour
 
     public bool isPaused;
     public bool bossDead;
-    public bool boss2Dead = false;
-    public bool flightDeck = false;
+    public bool boss2Dead;
+    public bool flightDeck;
 
     string goalsText;
  
@@ -71,7 +70,7 @@ public class gameManager : MonoBehaviour
         AbilityFourS = AbilityFour.GetComponent<AbilitiesColdown>();
         AbilityOneS.cooldownTime = 10f;
         AbilityTwoS.cooldownTime = 10f;
-        AbilityFourS.cooldownTime = 12f;        
+        AbilityFourS.cooldownTime = 12f;
     }
     void Update()
     {
@@ -102,12 +101,6 @@ public class gameManager : MonoBehaviour
                 gameManager.instance.playerScript.shieldStartPlayer();                
             }
         }
-        if (Input.GetKeyDown(KeyCode.F) && AbilityThreeS.wasSpellUsed())
-        {
-            gameManager.instance.playerScript.invisibility();
-            AbilityThreeS.wasSpellUsed();
-            AbilityThreeS.coolDownAbility();
-        }
         if (Input.GetKeyDown(KeyCode.E) && AbilityFourS.wasSpellUsed())
         {
             
@@ -122,7 +115,6 @@ public class gameManager : MonoBehaviour
         AbilityTwoS.wasSpellUsed();
         AbilityTwoS.coolDownAbility();
     }
-
     public void pause()
     {
         Time.timeScale = 0;
@@ -160,7 +152,7 @@ public class gameManager : MonoBehaviour
     public void updateGameGoalLvl2(int amount)
     {
         enemiesRemaining += amount;
-        //enemiesRemainingText.text = enemiesRemaining.ToString("F0");
+        enemiesRemainingText.text = enemiesRemaining.ToString("F0");
         if(enemiesRemaining <= 0 && flightDeck && boss2Dead)
         {
             endLevel2();
