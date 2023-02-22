@@ -55,6 +55,7 @@ public class playerController : MonoBehaviour
     //Angel ADDED THIS CODE
     public bool abilityOneActive = false;
     public bool abilityTwoActive = false;
+    public bool abilityThreeActive = false;
     public bool abilityFourActive = false;
     Rigidbody rig;
     //Angel ADDED THIS CODE ABOVE
@@ -179,8 +180,11 @@ public class playerController : MonoBehaviour
         shieldOnPlayer.GetComponent<shield>().shieldStart();
         abilityTwoActive = true;
     }
-
-        IEnumerator gunShootFlash()
+    public void pushBackAbility()
+    {        
+        abilityThreeActive = true;
+    }
+    IEnumerator gunShootFlash()
     {
         if (weaponList.Count > 0)
         {
