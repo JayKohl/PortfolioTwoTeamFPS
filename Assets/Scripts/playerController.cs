@@ -34,6 +34,7 @@ public class playerController : MonoBehaviour
     [SerializeField] int grenadeSpeed;
     [SerializeField] GameObject grenade;
     [SerializeField] string weaponName;
+
     // Deactivated temp
     // [SerializeField] int bulletSpeed;
     [SerializeField] Transform shootPositionPlayer;
@@ -58,12 +59,10 @@ public class playerController : MonoBehaviour
     public bool abilityFourActive = false;
     Rigidbody rig;
 
-   
 
     // Start is called before the first frame update
     void Start()
     {
-       
         weaponIcon = GameObject.FindGameObjectWithTag("Weapon Icon");
         crosshair = GameObject.FindGameObjectWithTag("Crosshair");
         if (weaponList.Count == 0)
