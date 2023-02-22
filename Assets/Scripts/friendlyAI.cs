@@ -48,9 +48,14 @@ public class friendlyAI : MonoBehaviour
         {
             if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == false)
             {
-                exitArena();
+                anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
+                agent.SetDestination(moveToTerminal.position);
+                Destroy(doorToBoss);
+                isDoorOpen = true;
+                gameManager.instance.displayNpcText("Hurry to the flight to secure your ship... I will hold off the reinforcements.");
+                //exitArena();
             }
-            else
+            else if (isDoorOpen == false)
             {
 
                 anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
@@ -73,22 +78,23 @@ public class friendlyAI : MonoBehaviour
                     StartCoroutine(roam());
                 }
             }
+            //else
+            //{
+            //    StartCoroutine(roam());
+            //}
         }
     }
-    protected IEnumerator exitArena()
-    {
-        //agent.speed = speedFast;
-        //anim.SetTrigger("Run");
-        agent.SetDestination(moveToTerminal.transform.position);
-        yield return new WaitForSeconds(15);
-        if (agent.transform.position == moveToTerminal.position)
-        {
-            Destroy(doorToBoss);
-            isDoorOpen = true;
-            gameManager.instance.displayNpcText("Hurry to the flight to secure your ship... I will hold off the reinforcements.");
-            StartCoroutine(roam());
-        }
-    }
+    //protected IEnumerator exitArena()
+    //{
+    //    //agent.speed = speedFast;
+    //    //anim.SetTrigger("Run");
+    //    //agent.SetDestination(moveToTerminal.transform.position);
+    //    yield return new WaitForSeconds(2);
+    //    Destroy(doorToBoss);
+    //    isDoorOpen = true;
+    //    gameManager.instance.displayNpcText("Hurry to the flight to secure your ship... I will hold off the reinforcements.");
+    //    //StartCoroutine(roam());
+    //}
     protected IEnumerator roam()
     {
         if (!destinationChosen && agent.remainingDistance < 0.1f)
@@ -132,7 +138,7 @@ public class friendlyAI : MonoBehaviour
                 {
                     isGivenQuest = true;
                     anim.SetTrigger("Talk");
-                    gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a compatant in the arena. " +
+                    gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. " +
                                                         "If by chance you can survive I will help you escape. Now go away before anyone notices us talking.");
                     StartCoroutine(gameManager.instance.deleteTextNpc(8));
                 }
