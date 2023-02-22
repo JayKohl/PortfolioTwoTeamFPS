@@ -103,6 +103,7 @@ public class gameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F) && AbilityThreeS.wasSpellUsed())
         {
+            gameManager.instance.playerScript.invisibility();
             AbilityThreeS.wasSpellUsed();
             AbilityThreeS.coolDownAbility();
         }
