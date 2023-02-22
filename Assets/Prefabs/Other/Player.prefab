@@ -433,8 +433,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3897074286468349944}
   - {fileID: 998632656903284953}
+  - {fileID: 3897074286468349944}
   - {fileID: 382016835089374996}
   - {fileID: 4376244391691475386}
   - {fileID: 5115814555365896751}
@@ -482,6 +482,7 @@ MonoBehaviour:
   shootDamage: 0
   zoomMax: 35
   shieldOnPlayer: {fileID: 657828768}
+  pushBackOnPlayer: {fileID: 0}
   crosshair: {fileID: 0}
   weaponIcon: {fileID: 0}
   grenadeYVel: 0.5
@@ -496,6 +497,7 @@ MonoBehaviour:
   baseFOV: 0
   abilityOneActive: 0
   abilityTwoActive: 0
+  abilityThreeActive: 0
   abilityFourActive: 0
 --- !u!95 &6551918312896228886
 Animator:
@@ -1562,7 +1564,7 @@ Transform:
   m_Children:
   - {fileID: 1553790642646224693}
   m_Father: {fileID: 868414252815463532}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3740516014330399146
 GameObject:
@@ -8338,9 +8340,13 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 5143955260607616571, guid: dde40f310d730774d80e4b024ef47fbf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5492560520156101589, guid: dde40f310d730774d80e4b024ef47fbf, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5492560520156101589, guid: dde40f310d730774d80e4b024ef47fbf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8386,11 +8392,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6402436021491192449, guid: dde40f310d730774d80e4b024ef47fbf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6740124487726610926, guid: dde40f310d730774d80e4b024ef47fbf, type: 3}
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 781857604, guid: dde40f310d730774d80e4b024ef47fbf, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dde40f310d730774d80e4b024ef47fbf, type: 3}
 --- !u!4 &998632656903284953 stripped
 Transform:

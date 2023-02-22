@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class gameManager : MonoBehaviour
     public GameObject playerDamageFlashScreen;
     public Image playerHPBar;
     [SerializeField] TextMeshProUGUI fuelCellsRemainingText;
+    [SerializeField] TextMeshProUGUI enemiesRemainingText;
     public TextMeshProUGUI infoText;
 
     public TextMeshProUGUI npcChat;
@@ -44,9 +46,12 @@ public class gameManager : MonoBehaviour
 
     [Header("Goals")]
     public int fuelCellsRemaining;
+    public int enemiesRemaining;
 
     public bool isPaused;
     public bool bossDead;
+    public bool boss2Dead = false;
+    public bool flightDeck = false;
 
     string goalsText;
  
@@ -66,7 +71,7 @@ public class gameManager : MonoBehaviour
         AbilityFourS = AbilityFour.GetComponent<AbilitiesColdown>();
         AbilityOneS.cooldownTime = 10f;
         AbilityTwoS.cooldownTime = 10f;
-        AbilityFourS.cooldownTime = 12f;
+        AbilityFourS.cooldownTime = 12f;        
     }
     void Update()
     {
@@ -85,7 +90,6 @@ public class gameManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Q) && AbilityOneS.wasSpellUsed() )
         {
             gameManager.instance.playerScript.throwGrenade();
-            //playerScript.StartCoroutine(playerScript.abilityCoolSpeed(4));
             AbilityOneS.wasSpellUsed();
             AbilityOneS.coolDownAbility();
         }
@@ -97,6 +101,12 @@ public class gameManager : MonoBehaviour
                 shieldOn = true;
                 gameManager.instance.playerScript.shieldStartPlayer();                
             }
+        }
+        if (Input.GetKeyDown(KeyCode.F) && AbilityThreeS.wasSpellUsed())
+        {
+            gameManager.instance.playerScript.invisibility();
+            AbilityThreeS.wasSpellUsed();
+            AbilityThreeS.coolDownAbility();
         }
         if (Input.GetKeyDown(KeyCode.E) && AbilityFourS.wasSpellUsed())
         {
@@ -112,6 +122,7 @@ public class gameManager : MonoBehaviour
         AbilityTwoS.wasSpellUsed();
         AbilityTwoS.coolDownAbility();
     }
+
     public void pause()
     {
         Time.timeScale = 0;
@@ -128,20 +139,38 @@ public class gameManager : MonoBehaviour
     }
     public void updateGameGoal(int amount)
     {
-        fuelCellsRemaining = fuelCellsRemaining + amount;
+        fuelCellsRemaining += amount;
         fuelCellsRemainingText.text = fuelCellsRemaining.ToString("F0");
 
         if (fuelCellsRemaining <= 0)
         {
             //send message to player to head to arena or something
             if(bossDead)
-                StartCoroutine(end());
+                StartCoroutine(endLevel1());
         }
     }
-    IEnumerator end()
+    IEnumerator endLevel1()
     {
         yield return new WaitForSeconds(2);
         pause();
+        //change winMenu text for level 1
+        activeMenu = winMenu;
+        activeMenu.SetActive(true);
+    }
+    public void updateGameGoalLvl2(int amount)
+    {
+        enemiesRemaining += amount;
+        //enemiesRemainingText.text = enemiesRemaining.ToString("F0");
+        if(enemiesRemaining <= 0 && flightDeck && boss2Dead)
+        {
+            endLevel2();
+        }
+    }
+    IEnumerator endLevel2()
+    {
+        yield return new WaitForSeconds(2);
+        pause();
+        //change winMenu text for level 2
         activeMenu = winMenu;
         activeMenu.SetActive(true);
     }

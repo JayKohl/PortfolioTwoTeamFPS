@@ -53,12 +53,11 @@ public class playerController : MonoBehaviour
     public float baseFOV;
     Vector3 pushback;
 
-    //Angel ADDED THIS CODE
     public bool abilityOneActive = false;
     public bool abilityTwoActive = false;
+    public bool abilityThreeActive = false;
     public bool abilityFourActive = false;
     Rigidbody rig;
-    //Angel ADDED THIS CODE ABOVE
 
 
     // Start is called before the first frame update
@@ -72,9 +71,6 @@ public class playerController : MonoBehaviour
         speedOriginal = playerSpeed;
         baseFOV = Camera.main.fieldOfView;
         playerRespawn();
-
-
-        //Angel ADDED THIS CODE
         rig = GetComponent<Rigidbody>();
     }
 
@@ -180,11 +176,15 @@ public class playerController : MonoBehaviour
     }
     public void shieldStartPlayer()
     {
-        shieldOnPlayer.GetComponent<shield>().shieldStart();
         abilityTwoActive = true;
+        shieldOnPlayer.GetComponent<shield>().shieldStart();
     }
-
-        IEnumerator gunShootFlash()
+    public void invisibility()
+    {
+        gameObject.tag = "Invisible";
+        StartCoroutine(abilityCoolInvisible(10));
+    }
+    IEnumerator gunShootFlash()
     {
         if (weaponList.Count > 0)
         {
@@ -279,7 +279,6 @@ public class playerController : MonoBehaviour
         controller.enabled = true;
     }
 
-    //Angel ADDED THIS CODE
     public IEnumerator abilityCoolSpeed(float cooldown)
     {
         abilityOneActive = true;
@@ -294,6 +293,13 @@ public class playerController : MonoBehaviour
         yield return new WaitForSeconds(cooldown);
         abilityTwoActive = false;
     }
+    public IEnumerator abilityCoolInvisible(float cooldown)
+    {
+        abilityThreeActive = true;
+        yield return new WaitForSeconds(cooldown);
+        gameObject.tag = "Player";
+        abilityThreeActive = false;
+    }
 
     public IEnumerator abilityCoolDash(float cooldown)
     {
@@ -301,8 +307,7 @@ public class playerController : MonoBehaviour
         controller.Move(Camera.main.transform.forward * 20);
         yield return new WaitForSeconds(cooldown);
         abilityFourActive = false;
-    }
-    //Angel ADDED THIS CODE ABOVE
+    }    
 
     public void pushbackDir(Vector3 dir)
     {
