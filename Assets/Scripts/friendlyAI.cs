@@ -10,6 +10,7 @@ public class friendlyAI : MonoBehaviour
     public NavMeshAgent agent;
     [SerializeField] Animator anim;
     [SerializeField] Transform moveToTerminal;
+    [SerializeField] GameObject doorToBoss;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -19,6 +20,7 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] int roamDist;
     [SerializeField] int speedFast;
 
+    bool isDoorOpen;
     bool isGivenQuest;
     bool isPlayerInRange;
     bool isTalking;
@@ -36,6 +38,7 @@ public class friendlyAI : MonoBehaviour
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
+        isDoorOpen = false;
     }
 
     // Update is called once per frame
@@ -43,30 +46,47 @@ public class friendlyAI : MonoBehaviour
     {
         if (agent.isActiveAndEnabled)
         {
-            if (true)
+            if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == false)
+            {
+                exitArena();
+                if (agent.transform.position == moveToTerminal.position)
+                {
+                    Destroy(doorToBoss);
+                    isDoorOpen = true;
+                    gameManager.instance.displayNpcText("Hurry to the flight to secure your ship... I will hold off the reinforcements.");
+                    StartCoroutine(roam());
+                }
+            }
+            else
             {
 
-            }
-            anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
-            if (isPlayerInRange)
-            {
-                if (!canSeePlayer())
+                anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
+                if (isPlayerInRange)
+                {
+                    if (!canSeePlayer())
+                    {
+                        StartCoroutine(roam());
+                    }
+                    //else if (!isGivenQuest)
+                    //{
+                    //    isGivenQuest = true;
+                    //    anim.SetTrigger("Talk");
+                    //    gameManager.instance.displayNpcText("Chat Test");
+                    //    StartCoroutine(gameManager.instance.deleteTextNpc(8));
+                    //}
+                }
+                else if (agent.destination != gameManager.instance.player.transform.position)
                 {
                     StartCoroutine(roam());
                 }
-                //else if (!isGivenQuest)
-                //{
-                //    isGivenQuest = true;
-                //    anim.SetTrigger("Talk");
-                //    gameManager.instance.displayNpcText("Chat Test");
-                //    StartCoroutine(gameManager.instance.deleteTextNpc(8));
-                //}
-            }
-            else if (agent.destination != gameManager.instance.player.transform.position)
-            {
-                StartCoroutine(roam());
             }
         }
+    }
+    protected void exitArena()
+    {
+        agent.speed = speedFast;
+        anim.SetTrigger("Run");
+        agent.SetDestination(moveToTerminal.position);
     }
     protected IEnumerator roam()
     {
@@ -111,7 +131,8 @@ public class friendlyAI : MonoBehaviour
                 {
                     isGivenQuest = true;
                     anim.SetTrigger("Talk");
-                    gameManager.instance.displayNpcText("Chat Test");
+                    gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a compatant in the arena. " +
+                                                        "If by chance you can survive I will help you escape. Now go away before anyone notices us talking.");
                     StartCoroutine(gameManager.instance.deleteTextNpc(8));
                 }
                 return true;
