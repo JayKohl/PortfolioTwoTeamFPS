@@ -34,6 +34,7 @@ public class playerController : MonoBehaviour
     [SerializeField] int grenadeSpeed;
     [SerializeField] GameObject grenade;
     [SerializeField] string weaponName;
+    [SerializeField] AudioClip weaponAudio;
 
     // Deactivated temp
     // [SerializeField] int bulletSpeed;
@@ -216,6 +217,7 @@ public class playerController : MonoBehaviour
         crosshairTexture = weaponStat.crosshairTexture;
         zoomMax = weaponStat.zoomAmount;
         weaponName = weaponStat.weaponName;
+        weaponAudio = weaponStat.weaponAudio;
 
         crosshair.GetComponent<Image>().sprite = crosshairTexture;
         weaponIcon.GetComponent<Image>().sprite = weaponStat.weaponIcon;
@@ -251,6 +253,8 @@ public class playerController : MonoBehaviour
         crosshairTexture = weaponList[gunSelection].crosshairTexture;
         zoomMax = weaponList[gunSelection].zoomAmount;
         weaponName = weaponList[gunSelection].weaponName;
+        weaponAudio = weaponList[gunSelection].weaponAudio;
+
         weaponIcon.GetComponent<Image>().sprite = weaponList[gunSelection].weaponIcon;
 
         crosshair.GetComponent<Image>().sprite = crosshairTexture;
