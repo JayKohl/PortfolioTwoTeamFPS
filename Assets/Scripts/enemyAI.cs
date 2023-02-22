@@ -171,10 +171,6 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         {
             isPlayerInRange = true;
         }
-        if (other.CompareTag("Grenade"))
-        {
-            takeDamage(grenadeDam);
-        }
     }
     public void OnTriggerExit(Collider other)
     {

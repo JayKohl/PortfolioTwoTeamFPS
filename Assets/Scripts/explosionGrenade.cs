@@ -12,6 +12,13 @@ public class explosionGrenade : MonoBehaviour
     {
         StartCoroutine(timer(time));
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
+        {
+            other.GetComponent<enemyTurretAI>().takeDamage(grenadeDamage);
+        }
+    }
     IEnumerator timer(float time)
     {
         yield return new WaitForSeconds(time);
