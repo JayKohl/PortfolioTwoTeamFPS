@@ -160,7 +160,7 @@ public class gameManager : MonoBehaviour
     public void updateGameGoalLvl2(int amount)
     {
         enemiesRemaining += amount;
-        enemiesRemainingText.text = enemiesRemaining.ToString("F0");
+        //enemiesRemainingText.text = enemiesRemaining.ToString("F0");
         if(enemiesRemaining <= 0 && flightDeck && boss2Dead)
         {
             endLevel2();
