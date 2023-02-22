@@ -54,9 +54,11 @@ public class friendlyAI : MonoBehaviour
 
                 agent.enabled = false;
                 transform.position = moveToTerminal.transform.position;
-                StartCoroutine(setAgentOn());
+                //StartCoroutine(setAgentOn());
+
                 anim.SetTrigger("Idle");
-                agent.enabled = false;
+                //agent.enabled = false;
+                //agent.enabled = false;
                 //agent.enabled = true;
 
                 Destroy(doorToBoss);
@@ -98,11 +100,11 @@ public class friendlyAI : MonoBehaviour
             //}
         }
     }
-    IEnumerator setAgentOn()
-    {
-        yield return new WaitForSeconds(1);
-        agent.enabled = true;
-    }
+    //IEnumerator setAgentOn()
+    //{
+    //    yield return new WaitForSeconds(1);
+    //    //agent.enabled = true;
+    //}
     //protected IEnumerator exitArena()
     //{
     //    //agent.speed = speedFast;
