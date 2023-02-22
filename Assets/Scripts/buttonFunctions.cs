@@ -33,4 +33,9 @@ public class buttonFunctions : MonoBehaviour
     {
         SceneManager.LoadScene("CrawlScene");
     }
+
+    public void cont()
+    {
+        SceneManager.LoadScene("LvlTwoTheArena");
+    }
 }
