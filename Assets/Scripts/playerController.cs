@@ -10,6 +10,10 @@ public class playerController : MonoBehaviour
     [SerializeField] public CharacterController controller;
     [SerializeField] Animator playeranim;
     [SerializeField] AudioSource aud;
+    [SerializeField] AudioClip medPickupSound;
+    [Range(0, 1)] [SerializeField] float medPickupVol;
+    [SerializeField] AudioClip weaponPickupSound;
+    [Range(0, 1)] [SerializeField] float weaponPickupVol;
 
     [Header("----- Player Stats -----")]
     [Range(5, 10)] [SerializeField] public int HP;
@@ -295,10 +299,12 @@ public class playerController : MonoBehaviour
 
     public void updatePlayerHPBar()
     {
+        aud.PlayOneShot(medPickupSound, medPickupVol);
         gameManager.instance.playerHPBar.fillAmount = (float)HP / (float)hpOriginal;
     }
     public void weaponPickup(weaponStats weaponStat)
     {
+        aud.PlayOneShot(weaponPickupSound, weaponPickupVol);
         weaponList.Add(weaponStat);
         
         shootRate = weaponStat.shootRate;

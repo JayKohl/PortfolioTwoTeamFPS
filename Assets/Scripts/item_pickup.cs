@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class item_pickup : MonoBehaviour
 {
     float time = 1;
@@ -35,12 +34,12 @@ public class item_pickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             if (isWeapon)
-            {
+            {                
                 gameManager.instance.playerScript.weaponPickup(weapon);
                 Destroy(gameObject);
             }
             else if (isHealth && gameManager.instance.playerScript.HP < gameManager.instance.playerScript.hpOriginal)
-            {
+            {                
                 gameManager.instance.playerScript.giveHP(hpAmount);
                 Destroy(gameObject);
             }            
