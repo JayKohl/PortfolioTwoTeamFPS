@@ -31,6 +31,9 @@ public class endBossAI : enemyAI
     [SerializeField] GameObject spawnEnemyType;
     [SerializeField] Transform[] spawnPos;
 
+    [SerializeField] GameObject smokeOne;
+    [SerializeField] GameObject smokeTwo;
+
     int hitPointsOrig;
     bool isEventActive;
     bool isSpikeShoot;
@@ -117,6 +120,8 @@ public class endBossAI : enemyAI
                 {
                     isEventActive = true;
                     isPowerUp = true;
+                    smokeOne.SetActive(true);
+                    smokeTwo.SetActive(true);
                     StartCoroutine(powerUp());
                 }
                 else if (isEventActive == false && isMinionSpawnTwo == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
