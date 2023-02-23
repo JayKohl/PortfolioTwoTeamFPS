@@ -63,6 +63,8 @@ public class playerController : MonoBehaviour
     [SerializeField] AudioClip[] audDead;
     [Range(0, 1)] [SerializeField] float audDeadVol;
 
+    public bool dirt;
+
 
 
     // Deactivated temp
@@ -97,6 +99,25 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (SceneManager.GetActiveScene().name == "LvlOneArena" && currentLevel < 1)
+        {
+            dirt = true;
+            currentLevel = 1;
+            gameManager.instance.fuelCellsRemainingObject.SetActive(true);
+            gameManager.instance.enemiesRemainingObject.SetActive(false);
+        }
+        else if (SceneManager.GetActiveScene().name == "LvlTwoTheArena" && currentLevel < 2)
+        {
+            dirt = false;
+            currentLevel = 2;
+            gameManager.instance.enemiesRemainingObject.SetActive(true);
+            gameManager.instance.fuelCellsRemainingObject.SetActive(false);
+            gameManager.instance.AbilityOne.SetActive(false);
+            gameManager.instance.AbilityTwo.SetActive(false);
+            gameManager.instance.AbilityThree.SetActive(false);
+            gameManager.instance.AbilityFour.SetActive(false);
+            gameManager.instance.AbilitiesBackground.SetActive(false);
+        }
         gameManager.instance.infoTextBackground.SetActive(false);
         gameManager.instance.infoText.text = "";
         weaponIcon = GameObject.FindGameObjectWithTag("Weapon Icon");
@@ -112,24 +133,7 @@ public class playerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (SceneManager.GetActiveScene().name == "LvlOneArena" && currentLevel < 1)
-        {
-            currentLevel = 1;
-            gameManager.instance.fuelCellsRemainingObject.SetActive(true);
-            gameManager.instance.enemiesRemainingObject.SetActive(false);            
-        }
-        if (SceneManager.GetActiveScene().name == "LvlTwoTheArena" && currentLevel < 2)
-        {
-            currentLevel = 2;
-            gameManager.instance.enemiesRemainingObject.SetActive(true);
-            gameManager.instance.fuelCellsRemainingObject.SetActive(false);
-            gameManager.instance.AbilityOne.SetActive(false);
-            gameManager.instance.AbilityTwo.SetActive(false);
-            gameManager.instance.AbilityThree.SetActive(false);
-            gameManager.instance.AbilityFour.SetActive(false);
-            gameManager.instance.AbilitiesBackground.SetActive(false);
-        }
+    {        
         pushback = Vector3.Lerp(pushback, Vector3.zero, Time.deltaTime * pushbackResTime);
         movement();
         selectGun();
@@ -169,20 +173,27 @@ public class playerController : MonoBehaviour
         {
             isRunning = true;
             playerSpeed = runSpeed;
-            aud.PlayOneShot(audGravelRun[Random.Range(0, audGravelRun.Length)], audGravelRunVol);
+            //aud.PlayOneShot(audGravelRun[Random.Range(0, audGravelRun.Length)], audGravelRunVol);
         }
         if (isRunning && Input.GetButtonUp("Run")) //walk
         {
             isRunning = false;
             playerSpeed = speedOriginal;
-            aud.PlayOneShot(audGravelSteps[Random.Range(0, audGravelSteps.Length)], audGravelStepsVol);
+            //aud.PlayOneShot(audGravelSteps[Random.Range(0, audGravelSteps.Length)], audGravelStepsVol);
         }
         playerVelocity.y -= gravity * Time.deltaTime;
         controller.Move((playerVelocity + pushback) * Time.deltaTime);
 
         if (controller.isGrounded && move.normalized.magnitude > 0.8f && !isPlayingSteps)
         {
-            StartCoroutine(playGravelSteps());
+            if (dirt)
+            {
+                StartCoroutine(playGravelSteps());
+            }
+            else
+            {
+                StartCoroutine(playMetalSteps());
+            }
         }
     }
 
@@ -222,14 +233,13 @@ public class playerController : MonoBehaviour
 
 
     IEnumerator shoot()
-    {
-        aud.PlayOneShot(weaponAudio, weaponAudioVol);
+    {        
         isShooting = true;
         StartCoroutine(gunShootFlash());
         
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
-        {            
+        {
             Debug.Log(hit.collider.name);
            
 
@@ -239,6 +249,7 @@ public class playerController : MonoBehaviour
 
             if (hit.collider.GetComponent<IDamage>() != null)
             {
+                gameObject.tag = "Player";
                 hit.collider.GetComponent<IDamage>().takeDamage(shootDamage);
             }
         }
@@ -284,6 +295,7 @@ public class playerController : MonoBehaviour
     {
         if (weaponList.Count > 0)
         {
+            aud.PlayOneShot(weaponAudio, weaponAudioVol);
             gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Play();
             yield return new WaitForSeconds(0.1f);
             gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Stop();

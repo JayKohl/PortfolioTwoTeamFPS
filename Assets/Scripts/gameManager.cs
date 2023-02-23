@@ -161,7 +161,7 @@ public class gameManager : MonoBehaviour
 
         if(boss2Dead && flightDeck && enemiesRemaining <= 0)
         {
-            gameManager.instance.infoText.text = "Escape!";
+            gameManager.instance.infoText.text = "<s>Get to the flight deck</s>" + "\n<s>Kill the radiated bug</s>"+"\nEscape!";
             gameManager.instance.infoTextBackground.SetActive(true);            
         }        
     }
