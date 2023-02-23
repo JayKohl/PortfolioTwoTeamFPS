@@ -52,9 +52,11 @@ public class gameManager : MonoBehaviour
 
     [SerializeField] AudioSource aud;
     [SerializeField] public AudioClip invisOnAud;
-    [Range(0, 1)] [SerializeField] float invisOnVol;
+    [Range(0, 1)] [SerializeField] public float invisOnVol;
     [SerializeField] public AudioClip invisOffAud;
-    [Range(0, 1)] [SerializeField] float invisOffVol;
+    [Range(0, 1)] [SerializeField] public float invisOffVol;
+    [SerializeField] public AudioClip dashAud;
+    [Range(0, 1)] [SerializeField] public float dashVol;
 
     [Header("Goals")]
     public int fuelCellsRemaining;
@@ -112,6 +114,7 @@ public class gameManager : MonoBehaviour
         {
             if (gameManager.instance.AbilityTwo)
             {
+                aud.PlayOneShot(invisOffAud, invisOffVol);
                 StartCoroutine(playerScript.abilityCoolShield(playerScript.shieldOnPlayer.GetComponent<shield>().shieldTimer));
             }
         }
@@ -119,6 +122,7 @@ public class gameManager : MonoBehaviour
         {
             if (gameManager.instance.AbilityThree)
             {
+                aud.PlayOneShot(invisOnAud, invisOnVol);
                 gameManager.instance.playerScript.invisibility();
                 AbilityThreeS.wasSpellUsed();
                 AbilityThreeS.coolDownAbility();
@@ -128,6 +132,7 @@ public class gameManager : MonoBehaviour
         {
             if (gameManager.instance.AbilityFour)
             {
+                aud.PlayOneShot(dashAud, dashVol);
                 playerScript.StartCoroutine(playerScript.abilityCoolDash(12));
                 AbilityFourS.wasSpellUsed();
                 AbilityFourS.coolDownAbility();

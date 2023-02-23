@@ -250,7 +250,7 @@ public class playerController : MonoBehaviour
 
             if (hit.collider.GetComponent<IDamage>() != null)
             {
-                gameObject.tag = "Player";
+                gameObject.tag = "Player";                
                 gameManager.instance.invisUI.SetActive(false);
                 weaponModel.GetComponent<MeshRenderer>().enabled = true;
                 hit.collider.GetComponent<IDamage>().takeDamage(shootDamage);
@@ -292,6 +292,7 @@ public class playerController : MonoBehaviour
     public void invisibility()
     {
         gameObject.tag = "Invisible";
+        aud.PlayOneShot(gameManager.instance.invisOnAud, gameManager.instance.invisOnVol);
         weaponModel.GetComponent<MeshRenderer>().enabled = false;
         gameManager.instance.invisUI.SetActive(true);
         StartCoroutine(abilityCoolInvisible(10));
@@ -408,6 +409,7 @@ public class playerController : MonoBehaviour
 
     public IEnumerator abilityCoolShield(float cooldown)
     {
+        aud.PlayOneShot(gameManager.instance.invisOffAud, gameManager.instance.invisOffVol);
         shieldOnPlayer.GetComponent<shield>().shieldStart();
         yield return new WaitForSeconds(cooldown);
         if (gameManager.instance.shieldOn)
