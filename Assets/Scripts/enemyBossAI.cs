@@ -90,6 +90,7 @@ public class enemyBossAI : enemyAI
             GameObject fuel = Instantiate(fuelCap, gameObject.transform.position, fuelCap.transform.rotation);
             anim.SetBool("Dead", true);
             agent.enabled = false;
+            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
             StartCoroutine(explosionTimer());
             // Destroy(gameObject);
         }
@@ -100,6 +101,7 @@ public class enemyBossAI : enemyAI
                 plasmaExplosion.SetActive(true);
             }
             anim.SetTrigger("Damage");
+            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
             // meleeColliderOff();
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());

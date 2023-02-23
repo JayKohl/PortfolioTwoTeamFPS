@@ -334,10 +334,12 @@ MonoBehaviour:
   shootRate: 0.25
   meleeCollider: {fileID: 0}
   meleeRate: 0
-  audTakeDamage: []
-  audTakeDamageVol: 0
-  audDeath: []
-  audDeathVol: 0
+  audTakeDamage:
+  - {fileID: 8300000, guid: 75adfe9a619833445a701305b983e548, type: 3}
+  audTakeDamageVol: 0.5
+  audDeath:
+  - {fileID: 8300000, guid: 1fd31868d68903d4f9e2c4a3b7ef98f3, type: 3}
+  audDeathVol: 0.5
   audBasicAttack:
   - {fileID: 8300000, guid: fc69448b2352dbd40ad03a2c7bb840a6, type: 3}
   audBasicAttackVol: 0.5
