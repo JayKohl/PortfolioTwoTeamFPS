@@ -20,7 +20,7 @@ public class bossTriggerEvent : MonoBehaviour
                 playerIn = true;
                 laserField.SetActive(true);
                 gameManager.instance.flightDeck = true;
-                gameManager.instance.infoText.text = "Kill the radiated bug";
+                gameManager.instance.infoText.text = "<s>Get to the flight deck</s>"+"\nKill the radiated bug";
                 gameManager.instance.infoTextBackground.SetActive(true);
             }
         }
