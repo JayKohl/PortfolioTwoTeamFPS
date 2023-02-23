@@ -9,6 +9,7 @@ public class playerController : MonoBehaviour
     [Header("----- Components -----")]
     [SerializeField] public CharacterController controller;
     [SerializeField] Animator playeranim;
+    [SerializeField] AudioSource aud;
 
     [Header("----- Player Stats -----")]
     [Range(5, 10)] [SerializeField] public int HP;
@@ -37,6 +38,25 @@ public class playerController : MonoBehaviour
     [SerializeField] string weaponName;
     [SerializeField] AudioClip weaponAudio;
 
+    [Header("----- Audio -----")]
+    [SerializeField] AudioClip[] audGravelSteps;
+    [Range(0, 1)] [SerializeField] float audGravelStepsVol;
+    [SerializeField] AudioClip[] audGravelRun;
+    [Range(0, 1)] [SerializeField] float audGravelRunVol;
+
+    [SerializeField] AudioClip[] audMetalSteps;
+    [Range(0, 1)] [SerializeField] float audMetalStepsVol;
+    [SerializeField] AudioClip[] audMetalRun;
+    [Range(0, 1)] [SerializeField] float audMetalRunVol;
+
+    [SerializeField] AudioClip[] audJump;
+    [Range(0, 1)] [SerializeField] float audJumpVol;
+
+    [SerializeField] AudioClip[] audDamaged;
+    [Range(0, 1)] [SerializeField] float audDamagedVol;
+
+
+
     // Deactivated temp
     // [SerializeField] int bulletSpeed;
     [SerializeField] Transform shootPositionPlayer;
@@ -54,6 +74,8 @@ public class playerController : MonoBehaviour
     public int gunSelection;
     public float baseFOV;
     Vector3 pushback;
+    bool isPlayingSteps;
+    bool isSprinting;
 
     public bool abilityOneActive = false;
     public bool abilityTwoActive = false;
@@ -83,6 +105,7 @@ public class playerController : MonoBehaviour
         {
             gameManager.instance.fuelCellsRemainingObject.SetActive(true);
             gameManager.instance.enemiesRemainingObject.SetActive(false);
+            
         }
         if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
         {
@@ -117,23 +140,65 @@ public class playerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes)
         {
-
             jumpsCurrent++;
             playerVelocity.y = jumpSpeed;
+            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
         }
-        if (Input.GetButton("Run") && !isRunning)
+        if (Input.GetButton("Run") && !isRunning) //run
         {
             isRunning = true;
             playerSpeed = runSpeed;
+            aud.PlayOneShot(audGravelRun[Random.Range(0, audGravelRun.Length)], audGravelRunVol);
         }
-        if (isRunning && Input.GetButtonUp("Run"))
+        if (isRunning && Input.GetButtonUp("Run")) //walk
         {
             isRunning = false;
             playerSpeed = speedOriginal;
+            aud.PlayOneShot(audGravelSteps[Random.Range(0, audGravelSteps.Length)], audGravelStepsVol);
         }
         playerVelocity.y -= gravity * Time.deltaTime;
         controller.Move((playerVelocity + pushback) * Time.deltaTime);
+
+        if (controller.isGrounded && move.normalized.magnitude > 0.8f && !isPlayingSteps)
+        {
+            StartCoroutine(playGravelSteps());
+        }
     }
+
+    IEnumerator playGravelSteps()
+    {
+        isPlayingSteps = true;
+        aud.PlayOneShot(audGravelSteps[Random.Range(0, audGravelSteps.Length)], audGravelStepsVol);
+        if (isSprinting)
+        {
+            yield return new WaitForSeconds(0.3f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        isPlayingSteps = false;
+    }
+
+    IEnumerator playMetalSteps()
+    {
+        isPlayingSteps = true;
+        aud.PlayOneShot(audMetalSteps[Random.Range(0, audMetalSteps.Length)], audMetalStepsVol);
+        if (isSprinting)
+        {
+            yield return new WaitForSeconds(0.3f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        isPlayingSteps = false;
+    }
+
+
+
 
     IEnumerator shoot()
     {
@@ -176,6 +241,7 @@ public class playerController : MonoBehaviour
             HP -= dmg;
             updatePlayerHPBar();
             StartCoroutine(flashDamage());
+            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
 
             if (HP <= 0)
                 gameManager.instance.playerDead();

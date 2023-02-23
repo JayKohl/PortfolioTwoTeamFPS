@@ -2580,21 +2580,80 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 7334298391094394035}
+  playeranim: {fileID: 0}
+  aud: {fileID: 0}
   HP: 5
   playerSpeed: 5
   jumpTimes: 2
   jumpSpeed: 15
   gravity: 15
   runSpeed: 9
+  pushbackResTime: 3
   weaponList: []
   weaponModel: {fileID: 5575687069768070158}
   shootRate: 0
   shootDist: 0
   shootDamage: 0
+  zoomMax: 0
+  shieldOnPlayer: {fileID: 0}
+  crosshair: {fileID: 0}
+  weaponIcon: {fileID: 0}
+  grenadeYVel: 0
+  grenadeSpeed: 0
+  grenade: {fileID: 0}
+  weaponName: 
+  weaponAudio: {fileID: 0}
+  audGravelSteps:
+  - {fileID: 8300000, guid: 5461cae585b64f64089805f0d313bc84, type: 3}
+  - {fileID: 8300000, guid: 2b3fc7e56f2686b48b9445e48c7db2c9, type: 3}
+  - {fileID: 8300000, guid: 87d51f07abec0584d805bbe3708a7c71, type: 3}
+  - {fileID: 8300000, guid: 9f96c8d3fef6ab440bdc9bd4ad3d08fe, type: 3}
+  - {fileID: 8300000, guid: 61abfb7bb17151f458862ef823ac0932, type: 3}
+  audGravelStepsVol: 0.5
+  audGravelRun:
+  - {fileID: 8300000, guid: 44737e645aa918043b3d8cab5d1511bc, type: 3}
+  - {fileID: 8300000, guid: 302595b93370c52408825d7fb07d09be, type: 3}
+  - {fileID: 8300000, guid: 2bb076cd89fe2a148a76da2a45c910e4, type: 3}
+  - {fileID: 8300000, guid: 0b8aed54efbbfa946af2f31d3d92f9cd, type: 3}
+  - {fileID: 8300000, guid: 16627ace4424d91498eb01bb4028a449, type: 3}
+  audGravelRunVol: 0.5
+  audMetalSteps:
+  - {fileID: 8300000, guid: 5e265270fb85126479eef52d8fce3b08, type: 3}
+  - {fileID: 8300000, guid: 3701a5fdf99882f40bc00eb9053eec92, type: 3}
+  - {fileID: 8300000, guid: 2f949b40b7283404099a802630fb2077, type: 3}
+  - {fileID: 8300000, guid: dfff2b3c7dfb43c419592789f0a6ab81, type: 3}
+  - {fileID: 8300000, guid: 812100e3982e56842adb6ba5be867b7a, type: 3}
+  audMetalStepsVol: 0
+  audMetalRun:
+  - {fileID: 8300000, guid: b25225c72201cd740b16b95b86d57940, type: 3}
+  - {fileID: 8300000, guid: 5e8e6e435e65fe146b588b8a9d2df461, type: 3}
+  - {fileID: 8300000, guid: 8900ae4b297a017448ddb78ea0c2d4da, type: 3}
+  - {fileID: 8300000, guid: be6f9c5983062b9488c5423a7e1fd1e0, type: 3}
+  - {fileID: 8300000, guid: 2244aa424da7d2f439f4c53fa73e8b53, type: 3}
+  audMetalRunVol: 0
+  audJump:
+  - {fileID: 8300000, guid: 80d4ea7778bc3d9459d9fcea672afcee, type: 3}
+  - {fileID: 8300000, guid: 314755392aa072e4eb6fc3b02b791b72, type: 3}
+  - {fileID: 8300000, guid: f7d6941d3b847874686c2b6a80ab8a1b, type: 3}
+  audJumpVol: 0.5
+  audDamaged:
+  - {fileID: 8300000, guid: 37670623b2aa89a4589af3d795088c80, type: 3}
+  - {fileID: 8300000, guid: 6857c17d0b39a594298d2c0ebc09f389, type: 3}
+  - {fileID: 8300000, guid: 9ac9e455e130968459fc7ff35a33428c, type: 3}
+  - {fileID: 8300000, guid: f325d26adff89d64cb93f78147635cf7, type: 3}
+  - {fileID: 8300000, guid: 8f4f375ffa0090842aeb8c5e2df71b5f, type: 3}
+  audDamagedVol: 0
   shootPositionPlayer: {fileID: 5575687069768342574}
   gunFlash: {fileID: 5501709145308778831, guid: d5b838e7e4f606a4ab356f28b4746021, type: 3}
+  playerVelocity: {x: 0, y: 0, z: 0}
   hpOriginal: 0
   speedOriginal: 0
+  gunSelection: 0
+  baseFOV: 0
+  abilityOneActive: 0
+  abilityTwoActive: 0
+  abilityThreeActive: 0
+  abilityFourActive: 0
 --- !u!95 &4550253533222438843
 Animator:
   serializedVersion: 5
