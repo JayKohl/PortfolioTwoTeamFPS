@@ -39,6 +39,8 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [Range(0, 1)] [SerializeField] protected float audTakeDamageVol;
     [SerializeField] protected AudioClip[] audDeath;
     [Range(0, 1)] [SerializeField] protected float audDeathVol;
+    [SerializeField] protected AudioClip[] audBasicAttack;
+    [Range(0, 1)] [SerializeField] protected float audBasicAttackVol;
 
     protected Vector3 playerDirection;
     public bool isPlayerInRange;
@@ -142,6 +144,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     {
         isMelee = true;
         anim.SetTrigger("Melee");
+        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
         yield return new WaitForSeconds(meleeRate);
         isMelee = false;
     }
@@ -155,6 +158,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     public virtual void createBullet()
     {
         GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
+        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
         bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
     }
     public void meleeColliderOn()
