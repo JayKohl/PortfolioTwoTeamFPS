@@ -144,7 +144,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     {
         isMelee = true;
         anim.SetTrigger("Melee");
-        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
+        //aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
         yield return new WaitForSeconds(meleeRate);
         isMelee = false;
     }
