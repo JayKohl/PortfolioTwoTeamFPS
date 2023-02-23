@@ -64,6 +64,7 @@ public class friendlyAI : MonoBehaviour
                 Destroy(doorToBoss);
                 isDoorOpen = true;
                 gameManager.instance.displayNpcText("Hurry to the flight deck to secure your ship... I will hold off the reinforcements.");
+                StartCoroutine(setGoal("Get to the flight deck"));
                 StartCoroutine(gameManager.instance.deleteTextNpc(8));
                 //exitArena();
             }
@@ -159,16 +160,22 @@ public class friendlyAI : MonoBehaviour
                 {
                     isGivenQuest = true;
                     anim.SetTrigger("Talk");
-                    gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. " +
+                    gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. \n\n" +
                                                         "If by chance you can survive I will help you escape. Now go away before anyone notices us talking.");
                     StartCoroutine(gameManager.instance.deleteTextNpc(8));
-                    Destroy(doorToArena);
+                    Destroy(doorToArena);                    
                 }
                 return true;
             }
         }
         agent.stoppingDistance = 0;
         return false;
+    }
+    IEnumerator setGoal(string text)
+    {
+        yield return new WaitForSeconds(8);
+        gameManager.instance.infoText.text = text;
+        gameManager.instance.infoTextBackground.SetActive(true);
     }
     protected void facePlayer()
     {
