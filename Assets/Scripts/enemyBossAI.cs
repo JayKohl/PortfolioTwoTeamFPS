@@ -114,7 +114,7 @@ public class enemyBossAI : enemyAI
         yield return new WaitForSeconds(2.5f);
         explosion.SetActive(false);
         plasmaExplosion.SetActive(false);
-        deathFlames.SetActive(true);
+        deathFlames.SetActive(true);        
     }
     protected override IEnumerator shoot()
     {

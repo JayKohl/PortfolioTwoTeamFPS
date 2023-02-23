@@ -42,15 +42,15 @@ public class gameManager : MonoBehaviour
     public bool ability;
 
     public GameObject muzzleFlash;
-    public GameObject quickTexts;    
+    public GameObject quickTexts;
     public GameObject crosshair;
     public Sprite crosshairTexture;
     public bool shieldOn;
-    [SerializeField] public GameObject shieldUI;    
+    [SerializeField] public GameObject shieldUI;
 
     [Header("Goals")]
     public int fuelCellsRemaining;
-    public int enemiesRemaining;    
+    public int enemiesRemaining;
 
     public bool isPaused;
     public bool bossDead;
@@ -58,7 +58,7 @@ public class gameManager : MonoBehaviour
     public bool flightDeck = false;
 
     string goalsText;
- 
+
 
     void Awake()
     {
@@ -67,7 +67,7 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
-        
+
         ability = playerScript.abilityOneActive;
         AbilityOneS = AbilityOne.GetComponent<AbilitiesColdown>();
         AbilityTwoS = AbilityTwo.GetComponent<AbilitiesColdown>();
@@ -75,7 +75,7 @@ public class gameManager : MonoBehaviour
         AbilityFourS = AbilityFour.GetComponent<AbilitiesColdown>();
         AbilityOneS.cooldownTime = 10f;
         AbilityTwoS.cooldownTime = 10f;
-        AbilityFourS.cooldownTime = 12f;        
+        AbilityFourS.cooldownTime = 12f;
     }
     void Update()
     {
@@ -91,7 +91,7 @@ public class gameManager : MonoBehaviour
                 unPause();
         }
 
-        if(Input.GetKeyDown(KeyCode.Q) && AbilityOneS.wasSpellUsed() )
+        if (Input.GetKeyDown(KeyCode.Q) && AbilityOneS.wasSpellUsed())
         {
             gameManager.instance.playerScript.throwGrenade();
             AbilityOneS.wasSpellUsed();
@@ -109,12 +109,11 @@ public class gameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E) && AbilityFourS.wasSpellUsed())
         {
-            
+
             playerScript.StartCoroutine(playerScript.abilityCoolDash(12));
             AbilityFourS.wasSpellUsed();
-            AbilityFourS.coolDownAbility();           
+            AbilityFourS.coolDownAbility();
         }
-
     }
     //public void shieldCoolDown()
     //{
@@ -144,7 +143,7 @@ public class gameManager : MonoBehaviour
         if (fuelCellsRemaining <= 0)
         {
             //send message to player to head to arena or something
-            if(bossDead)
+            if (bossDead)
                 StartCoroutine(endLevel1());
         }
     }
@@ -152,19 +151,17 @@ public class gameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         pause();
-        //change winMenu text for level 1
-        //activeMenu = winMenu;
-        //activeMenu.SetActive(true);
         SceneManager.LoadScene("Part2Scene");
     }
     public void updateGameGoalLvl2(int amount)
     {
         enemiesRemaining += amount;
         enemiesRemainingText.text = enemiesRemaining.ToString("F0");
-        if(enemiesRemaining <= 0 && flightDeck && boss2Dead)
+
+        if(boss2Dead && flightDeck && enemiesRemaining <= 0)
         {
-            endLevel2();
-        }
+            StartCoroutine(endLevel2());
+        }        
     }
     IEnumerator endLevel2()
     {
@@ -198,7 +195,7 @@ public class gameManager : MonoBehaviour
     }
 
     public void displayNpcText(string textToDisplay)
-    {        
+    {
         npcChat.SetText(textToDisplay);
         playerChatBackground.SetActive(true);
     }

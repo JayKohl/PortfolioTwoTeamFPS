@@ -28,6 +28,10 @@ public class buttonFunctions : MonoBehaviour
     {
         Application.Quit();
     }
+    public void menu()
+    {
+        SceneManager.LoadScene("StartMenu");
+    }
 
     public void start()
     {

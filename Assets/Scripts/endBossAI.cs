@@ -47,6 +47,7 @@ public class endBossAI : enemyAI
     // Start is called before the first frame update
     void Start()
     {
+        gameManager.instance.boss2Dead = false;
         hitPointsOrig = hitPoints;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
@@ -274,6 +275,8 @@ public class endBossAI : enemyAI
             aud.PlayOneShot(audDeath[UnityEngine.Random.Range(0, audDeath.Length)], audDeathVol);
             anim.SetBool("Dead", true);
             agent.enabled = false;
+            gameManager.instance.boss2Dead = true;
+            gameManager.instance.updateGameGoalLvl2(0);
             //Destroy(gameObject); Create a IEnumerator for destroyObject
         }
         else
