@@ -29,6 +29,7 @@ public class gameManager : MonoBehaviour
 
     public TextMeshProUGUI npcChat;
     public GameObject playerChatBackground;
+    public GameObject AbilitiesBackground;
     public GameObject AbilityOne;
     public GameObject AbilityTwo;
     public GameObject AbilityThree;

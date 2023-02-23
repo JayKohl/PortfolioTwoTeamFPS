@@ -91,6 +91,8 @@ public class playerController : MonoBehaviour
     public bool abilityFourActive = false;
     Rigidbody rig;
 
+    int currentLevel = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -109,16 +111,22 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "LvlOneArena")
+        if (SceneManager.GetActiveScene().name == "LvlOneArena" && currentLevel < 1)
         {
+            currentLevel = 1;
             gameManager.instance.fuelCellsRemainingObject.SetActive(true);
-            gameManager.instance.enemiesRemainingObject.SetActive(false);
-            
+            gameManager.instance.enemiesRemainingObject.SetActive(false);            
         }
-        if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
+        if (SceneManager.GetActiveScene().name == "LvlTwoTheArena" && currentLevel < 2)
         {
+            currentLevel = 2;
             gameManager.instance.enemiesRemainingObject.SetActive(true);
             gameManager.instance.fuelCellsRemainingObject.SetActive(false);
+            gameManager.instance.AbilityOne.SetActive(false);
+            gameManager.instance.AbilityTwo.SetActive(false);
+            gameManager.instance.AbilityThree.SetActive(false);
+            gameManager.instance.AbilityFour.SetActive(false);
+            gameManager.instance.AbilitiesBackground.SetActive(false);
         }
         pushback = Vector3.Lerp(pushback, Vector3.zero, Time.deltaTime * pushbackResTime);
         movement();
