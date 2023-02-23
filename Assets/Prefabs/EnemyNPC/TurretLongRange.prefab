@@ -318,6 +318,7 @@ MonoBehaviour:
   model: {fileID: 9092918899659782779}
   agent: {fileID: 9092918899523927406}
   anim: {fileID: 0}
+  aud: {fileID: 0}
   playerYOffset: 0
   headPos: {fileID: 9092918899426488351}
   hitPoints: 6
@@ -333,6 +334,13 @@ MonoBehaviour:
   shootRate: 0.25
   meleeCollider: {fileID: 0}
   meleeRate: 0
+  audTakeDamage: []
+  audTakeDamageVol: 0
+  audDeath: []
+  audDeathVol: 0
+  audBasicAttack:
+  - {fileID: 8300000, guid: fc69448b2352dbd40ad03a2c7bb840a6, type: 3}
+  audBasicAttackVol: 0.5
   isPlayerInRange: 0
   shootPositionTwo: {fileID: 0}
   shootPositionThree: {fileID: 0}
