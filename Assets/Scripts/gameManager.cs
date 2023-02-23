@@ -50,6 +50,12 @@ public class gameManager : MonoBehaviour
     [SerializeField] public GameObject shieldUI;
     [SerializeField] public GameObject invisUI;
 
+    [SerializeField] AudioSource aud;
+    [SerializeField] public AudioClip invisOnAud;
+    [Range(0, 1)] [SerializeField] float invisOnVol;
+    [SerializeField] public AudioClip invisOffAud;
+    [Range(0, 1)] [SerializeField] float invisOffVol;
+
     [Header("Goals")]
     public int fuelCellsRemaining;
     public int enemiesRemaining;
@@ -95,26 +101,37 @@ public class gameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) && AbilityOneS.wasSpellUsed())
         {
-            gameManager.instance.playerScript.throwGrenade();
-            AbilityOneS.wasSpellUsed();
-            AbilityOneS.coolDownAbility();
+            if(gameManager.instance.AbilityOne)
+            {
+                gameManager.instance.playerScript.throwGrenade();
+                AbilityOneS.wasSpellUsed();
+                AbilityOneS.coolDownAbility();
+            }            
         }
         if (Input.GetKeyDown(KeyCode.R) && AbilityTwoS.wasSpellUsed())
         {
-            StartCoroutine(playerScript.abilityCoolShield(playerScript.shieldOnPlayer.GetComponent<shield>().shieldTimer));
+            if (gameManager.instance.AbilityTwo)
+            {
+                StartCoroutine(playerScript.abilityCoolShield(playerScript.shieldOnPlayer.GetComponent<shield>().shieldTimer));
+            }
         }
         if (Input.GetKeyDown(KeyCode.F) && AbilityThreeS.wasSpellUsed())
         {
-            gameManager.instance.playerScript.invisibility();
-            AbilityThreeS.wasSpellUsed();
-            AbilityThreeS.coolDownAbility();
+            if (gameManager.instance.AbilityThree)
+            {
+                gameManager.instance.playerScript.invisibility();
+                AbilityThreeS.wasSpellUsed();
+                AbilityThreeS.coolDownAbility();
+            }
         }
         if (Input.GetKeyDown(KeyCode.E) && AbilityFourS.wasSpellUsed())
         {
-
-            playerScript.StartCoroutine(playerScript.abilityCoolDash(12));
-            AbilityFourS.wasSpellUsed();
-            AbilityFourS.coolDownAbility();
+            if (gameManager.instance.AbilityFour)
+            {
+                playerScript.StartCoroutine(playerScript.abilityCoolDash(12));
+                AbilityFourS.wasSpellUsed();
+                AbilityFourS.coolDownAbility();
+            }
         }
     }
     //public void shieldCoolDown()
@@ -159,6 +176,10 @@ public class gameManager : MonoBehaviour
     {
         enemiesRemaining += amount;
         enemiesRemainingText.text = enemiesRemaining.ToString("F0");
+        if(enemiesRemaining <= 0)
+        {
+            enemiesRemainingObject.SetActive(false);
+        }
 
         if(boss2Dead && flightDeck && enemiesRemaining <= 0)
         {
@@ -183,7 +204,7 @@ public class gameManager : MonoBehaviour
     public IEnumerator checkPointDisplay()
     {
         quickTexts.SetActive(true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         quickTexts.SetActive(false);
     }
     public void displayText(string textToDisplay)
