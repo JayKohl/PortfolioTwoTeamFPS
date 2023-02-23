@@ -104,7 +104,7 @@ public class gameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) && AbilityOneS.wasSpellUsed())
         {
-            if(gameManager.instance.AbilityOne)
+            if(AbilityOne.activeSelf)
             {
                 gameManager.instance.playerScript.throwGrenade();
                 AbilityOneS.wasSpellUsed();
@@ -113,7 +113,7 @@ public class gameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.R) && AbilityTwoS.wasSpellUsed())
         {
-            if (gameManager.instance.AbilityTwo)
+            if (AbilityTwo.activeSelf)
             {
                 aud.PlayOneShot(invisOffAud, invisOffVol);
                 StartCoroutine(playerScript.abilityCoolShield(playerScript.shieldOnPlayer.GetComponent<shield>().shieldTimer));
@@ -121,7 +121,7 @@ public class gameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F) && AbilityThreeS.wasSpellUsed())
         {
-            if (gameManager.instance.AbilityThree)
+            if (AbilityThree.activeSelf)
             {
                 aud.PlayOneShot(invisOnAud, invisOnVol);
                 gameManager.instance.playerScript.invisibility();
@@ -131,7 +131,7 @@ public class gameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E) && AbilityFourS.wasSpellUsed())
         {
-            if (gameManager.instance.AbilityFour)
+            if (AbilityFour.activeSelf)
             {
                 aud.PlayOneShot(dashAud, dashVol);
                 playerScript.StartCoroutine(playerScript.abilityCoolDash(12));
