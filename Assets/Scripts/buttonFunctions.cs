@@ -37,5 +37,6 @@ public class buttonFunctions : MonoBehaviour
     public void cont()
     {
         SceneManager.LoadScene("LvlTwoTheArena");
+        resume();
     }
 }
