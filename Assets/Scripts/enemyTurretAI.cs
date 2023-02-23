@@ -98,9 +98,14 @@ public class enemyTurretAI : enemyAI
         {
             GetComponent<Collider>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
+            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
             agent.enabled = false;
             alive = false;
             StartCoroutine(die());
+        }
+        else
+        {
+            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
         }
     }
     IEnumerator die()
