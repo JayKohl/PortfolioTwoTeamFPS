@@ -97,6 +97,8 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager.instance.infoTextBackground.SetActive(false);
+        gameManager.instance.infoText.text = "";
         weaponIcon = GameObject.FindGameObjectWithTag("Weapon Icon");
         crosshair = GameObject.FindGameObjectWithTag("Crosshair");
         if (weaponList.Count == 0)
@@ -127,8 +129,6 @@ public class playerController : MonoBehaviour
             gameManager.instance.AbilityThree.SetActive(false);
             gameManager.instance.AbilityFour.SetActive(false);
             gameManager.instance.AbilitiesBackground.SetActive(false);
-            gameManager.instance.infoTextBackground.SetActive(false);
-            gameManager.instance.infoText.text = "";
         }
         pushback = Vector3.Lerp(pushback, Vector3.zero, Time.deltaTime * pushbackResTime);
         movement();

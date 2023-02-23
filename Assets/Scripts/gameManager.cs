@@ -25,6 +25,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI fuelCellsRemainingText;
     [SerializeField] public GameObject enemiesRemainingObject;
     [SerializeField] TextMeshProUGUI enemiesRemainingText;
+
     public GameObject infoTextBackground;
     public TextMeshProUGUI infoText;
 
@@ -160,10 +161,11 @@ public class gameManager : MonoBehaviour
 
         if(boss2Dead && flightDeck && enemiesRemaining <= 0)
         {
-            StartCoroutine(endLevel2());
+            gameManager.instance.infoText.text = "Escape!";
+            gameManager.instance.infoTextBackground.SetActive(true);            
         }        
     }
-    IEnumerator endLevel2()
+    public IEnumerator endLevel2()
     {
         yield return new WaitForSeconds(2);
         pause();
