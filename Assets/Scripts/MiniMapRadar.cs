@@ -11,7 +11,7 @@ public class MiniMapRadar : MonoBehaviour
         Vector3 position = player.position;
         position.y = transform.position.y;
         transform.position = position;
-
+        player = gameManager.instance.player.transform;
         transform.rotation = Quaternion.Euler(90f, player.localEulerAngles.y, 0);
     }
 }
