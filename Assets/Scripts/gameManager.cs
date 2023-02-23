@@ -49,6 +49,7 @@ public class gameManager : MonoBehaviour
     public bool shieldOn;
     [SerializeField] public GameObject shieldUI;
     [SerializeField] public GameObject invisUI;
+    [SerializeField] public GameObject dashUI;
 
     [SerializeField] AudioSource aud;
     [SerializeField] public AudioClip invisOnAud;
@@ -132,7 +133,7 @@ public class gameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && AbilityFourS.wasSpellUsed())
         {
             if (AbilityFour.activeSelf)
-            {
+            {                
                 aud.PlayOneShot(dashAud, dashVol);
                 playerScript.StartCoroutine(playerScript.abilityCoolDash(12));
                 AbilityFourS.wasSpellUsed();

@@ -428,11 +428,14 @@ public class playerController : MonoBehaviour
     }
 
     public IEnumerator abilityCoolDash(float cooldown)
-    {
+    {        
         abilityFourActive = true;
         controller.Move(Camera.main.transform.forward * 20);
+        gameManager.instance.dashUI.SetActive(true);
+        yield return new WaitForSeconds(.1f);
+        gameManager.instance.dashUI.SetActive(false);
         yield return new WaitForSeconds(cooldown);
-        abilityFourActive = false;
+        abilityFourActive = false;        
     }    
 
     public void pushbackDir(Vector3 dir)
