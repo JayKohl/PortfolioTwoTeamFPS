@@ -143,10 +143,12 @@ public class playerController : MonoBehaviour
         //playeranim.SetFloat("Speed", controller.velocity.normalized.magnitude);
 
 
-        if (!isShooting && Input.GetButton("Shoot"))
+        if (!isShooting && Input.GetButton("Shoot") && gameManager.instance.activeMenu == null)
         {
-            if(weaponList.Count > 0)
+            if (weaponList.Count > 0)
+            {
                 StartCoroutine(shoot());
+            }
         }
     }
 
@@ -234,7 +236,8 @@ public class playerController : MonoBehaviour
 
 
     IEnumerator shoot()
-    {        
+    {
+        aud.PlayOneShot(weaponAudio, weaponAudioVol);
         isShooting = true;
         StartCoroutine(gunShootFlash());
         
@@ -299,8 +302,7 @@ public class playerController : MonoBehaviour
     IEnumerator gunShootFlash()
     {
         if (weaponList.Count > 0)
-        {
-            aud.PlayOneShot(weaponAudio, weaponAudioVol);
+        {            
             gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Play();
             yield return new WaitForSeconds(0.1f);
             gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Stop();
@@ -476,7 +478,7 @@ public class playerController : MonoBehaviour
         }
 
         // Control for isShooting animation bool
-        if (weaponList.Count > 0)
+        if (weaponList.Count > 0 && gameManager.instance.activeMenu == null)
        {
             if (weaponName == "Pistol")
             {
