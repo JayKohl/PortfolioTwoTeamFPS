@@ -42,6 +42,7 @@ public class playerController : MonoBehaviour
     [SerializeField] string weaponName;
     [SerializeField] AudioClip weaponAudio;
     [Range(0, 1)] [SerializeField] float weaponAudioVol;
+    public MeshRenderer visible;
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] audGravelSteps;
@@ -250,6 +251,8 @@ public class playerController : MonoBehaviour
             if (hit.collider.GetComponent<IDamage>() != null)
             {
                 gameObject.tag = "Player";
+                gameManager.instance.invisUI.SetActive(false);
+                weaponModel.GetComponent<MeshRenderer>().enabled = true;
                 hit.collider.GetComponent<IDamage>().takeDamage(shootDamage);
             }
         }
@@ -289,8 +292,10 @@ public class playerController : MonoBehaviour
     public void invisibility()
     {
         gameObject.tag = "Invisible";
+        weaponModel.GetComponent<MeshRenderer>().enabled = false;
+        gameManager.instance.invisUI.SetActive(true);
         StartCoroutine(abilityCoolInvisible(10));
-    }
+    }    
     IEnumerator gunShootFlash()
     {
         if (weaponList.Count > 0)
@@ -415,6 +420,8 @@ public class playerController : MonoBehaviour
         abilityThreeActive = true;
         yield return new WaitForSeconds(cooldown);
         gameObject.tag = "Player";
+        gameManager.instance.invisUI.SetActive(false);
+        weaponModel.GetComponent<MeshRenderer>().enabled = true;
         abilityThreeActive = false;
     }
 
