@@ -25,6 +25,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI fuelCellsRemainingText;
     [SerializeField] public GameObject enemiesRemainingObject;
     [SerializeField] TextMeshProUGUI enemiesRemainingText;
+    public GameObject infoTextBackground;
     public TextMeshProUGUI infoText;
 
     public TextMeshProUGUI npcChat;

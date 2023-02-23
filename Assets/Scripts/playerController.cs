@@ -127,6 +127,8 @@ public class playerController : MonoBehaviour
             gameManager.instance.AbilityThree.SetActive(false);
             gameManager.instance.AbilityFour.SetActive(false);
             gameManager.instance.AbilitiesBackground.SetActive(false);
+            gameManager.instance.infoTextBackground.SetActive(false);
+            gameManager.instance.infoText.text = "";
         }
         pushback = Vector3.Lerp(pushback, Vector3.zero, Time.deltaTime * pushbackResTime);
         movement();
