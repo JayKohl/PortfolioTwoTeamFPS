@@ -48,6 +48,7 @@ public class gameManager : MonoBehaviour
     public Sprite crosshairTexture;
     public bool shieldOn;
     [SerializeField] public GameObject shieldUI;
+    [SerializeField] public GameObject invisUI;
 
     [Header("Goals")]
     public int fuelCellsRemaining;
