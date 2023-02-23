@@ -37,6 +37,7 @@ public class playerController : MonoBehaviour
     [SerializeField] GameObject grenade;
     [SerializeField] string weaponName;
     [SerializeField] AudioClip weaponAudio;
+    [Range(0, 1)] [SerializeField] float weaponAudioVol;
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] audGravelSteps;
@@ -54,6 +55,9 @@ public class playerController : MonoBehaviour
 
     [SerializeField] AudioClip[] audDamaged;
     [Range(0, 1)] [SerializeField] float audDamagedVol;
+
+    [SerializeField] AudioClip[] audDead;
+    [Range(0, 1)] [SerializeField] float audDeadVol;
 
 
 
@@ -121,7 +125,10 @@ public class playerController : MonoBehaviour
 
 
         if (!isShooting && Input.GetButton("Shoot"))
-            StartCoroutine(shoot());
+        {
+            if(weaponList.Count > 0)
+                StartCoroutine(shoot());
+        }
     }
 
     void movement()
@@ -202,12 +209,13 @@ public class playerController : MonoBehaviour
 
     IEnumerator shoot()
     {
+        aud.PlayOneShot(weaponAudio, weaponAudioVol);
         isShooting = true;
         StartCoroutine(gunShootFlash());
         
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
-        {
+        {            
             Debug.Log(hit.collider.name);
            
 
@@ -240,13 +248,16 @@ public class playerController : MonoBehaviour
         {
             HP -= dmg;
             updatePlayerHPBar();
-            StartCoroutine(flashDamage());
-            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
+            StartCoroutine(flashDamage());            
 
             if (HP <= 0)
             {
-
+                aud.PlayOneShot(audDead[Random.Range(0, audDead.Length)], audDeadVol);
                 gameManager.instance.playerDead();
+            }
+            else
+            {
+                aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
             }
         }
     }

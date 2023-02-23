@@ -490,7 +490,8 @@ MonoBehaviour:
   grenadeSpeed: 10
   grenade: {fileID: 7061225462723478300, guid: 0ebbab8ec242f5943b8a68674ce09c6c, type: 3}
   weaponName: 
-  weaponAudio: {fileID: 0}
+  weaponAudio: {fileID: 8300000, guid: 6739c01659ad96d47987f4ddee226b36, type: 3}
+  weaponAudioVol: 0.5
   audGravelSteps:
   - {fileID: 8300000, guid: 5461cae585b64f64089805f0d313bc84, type: 3}
   - {fileID: 8300000, guid: 2b3fc7e56f2686b48b9445e48c7db2c9, type: 3}
@@ -531,6 +532,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 36104c8b981b4a349a1948b61c9e8a20, type: 3}
   - {fileID: 8300000, guid: 9ef3f6cb1b48c67419812b50793d9da6, type: 3}
   audDamagedVol: 0.5
+  audDead:
+  - {fileID: 8300000, guid: 37670623b2aa89a4589af3d795088c80, type: 3}
+  - {fileID: 8300000, guid: 6857c17d0b39a594298d2c0ebc09f389, type: 3}
+  - {fileID: 8300000, guid: 9ac9e455e130968459fc7ff35a33428c, type: 3}
+  - {fileID: 8300000, guid: f325d26adff89d64cb93f78147635cf7, type: 3}
+  - {fileID: 8300000, guid: 8f4f375ffa0090842aeb8c5e2df71b5f, type: 3}
+  audDeadVol: 0.5
   shootPositionPlayer: {fileID: 2929723904278214019}
   gunFlash: {fileID: 5501709145308778831, guid: d5b838e7e4f606a4ab356f28b4746021, type: 3}
   playerVelocity: {x: 0, y: 0, z: 0}
