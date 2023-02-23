@@ -47,6 +47,7 @@ public class enemyOneAI : enemyAI
 
             GetComponent<Collider>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
+            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
             anim.SetBool("Dead", true);
             agent.enabled = false;
             if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
@@ -58,6 +59,7 @@ public class enemyOneAI : enemyAI
         else
         {
             anim.SetTrigger("Damage");
+            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
             // melee add a function for turning off the weapon collider.
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());

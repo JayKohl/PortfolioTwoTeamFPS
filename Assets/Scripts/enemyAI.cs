@@ -11,7 +11,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Renderer model;
     public NavMeshAgent agent;
     [SerializeField] protected Animator anim;
-    [SerializeField] AudioSource aud;
+    [SerializeField] protected AudioSource aud;
 
     [Header("----- Enemy Stats -----")]
     [SerializeField] protected float playerYOffset;
@@ -35,10 +35,10 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [SerializeField] protected float meleeRate;
 
     [Header("----- Audio -----")]
-    [SerializeField] AudioClip[] audTakeDamage;
-    [Range(0, 1)] [SerializeField] float audTakeDamageVol;
-    [SerializeField] AudioClip[] audDeath;
-    [Range(0, 1)] [SerializeField] float audDeathVol;
+    [SerializeField] protected AudioClip[] audTakeDamage;
+    [Range(0, 1)] [SerializeField] protected float audTakeDamageVol;
+    [SerializeField] protected AudioClip[] audDeath;
+    [Range(0, 1)] [SerializeField] protected float audDeathVol;
 
     protected Vector3 playerDirection;
     public bool isPlayerInRange;
@@ -119,8 +119,8 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         }
         else
         {
-            aud.PlayOneShot(audDeath[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
             anim.SetTrigger("Damage");
+            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
             // melee add a function for turning off the weapon collider.
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());
