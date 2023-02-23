@@ -33,8 +33,11 @@ public class buttonFunctions : MonoBehaviour
     {
         SceneManager.LoadScene("CrawlScene");
     }
-
-    public void cont()
+    public void startGame()
+    {
+        SceneManager.LoadScene("LvlOneArena");
+    }
+    public void startLevel2()
     {
         SceneManager.LoadScene("LvlTwoTheArena");
         resume();

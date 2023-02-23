@@ -153,8 +153,9 @@ public class gameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         pause();
         //change winMenu text for level 1
-        activeMenu = winMenu;
-        activeMenu.SetActive(true);
+        //activeMenu = winMenu;
+        //activeMenu.SetActive(true);
+        SceneManager.LoadScene("Part2Scene");
     }
     public void updateGameGoalLvl2(int amount)
     {
