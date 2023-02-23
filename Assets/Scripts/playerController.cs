@@ -37,6 +37,7 @@ public class playerController : MonoBehaviour
     [SerializeField] GameObject grenade;
     [SerializeField] string weaponName;
     [SerializeField] AudioClip weaponAudio;
+    [Range(0, 1)] [SerializeField] float weaponAudioVol;
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] audGravelSteps;
@@ -124,7 +125,10 @@ public class playerController : MonoBehaviour
 
 
         if (!isShooting && Input.GetButton("Shoot"))
-            StartCoroutine(shoot());
+        {
+            if(weaponList.Count > 0)
+                StartCoroutine(shoot());
+        }
     }
 
     void movement()
@@ -205,12 +209,13 @@ public class playerController : MonoBehaviour
 
     IEnumerator shoot()
     {
+        aud.PlayOneShot(weaponAudio, weaponAudioVol);
         isShooting = true;
         StartCoroutine(gunShootFlash());
         
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
-        {
+        {            
             Debug.Log(hit.collider.name);
            
 
