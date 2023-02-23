@@ -127,6 +127,8 @@ public class playerController : MonoBehaviour
             gameManager.instance.AbilityThree.SetActive(false);
             gameManager.instance.AbilityFour.SetActive(false);
             gameManager.instance.AbilitiesBackground.SetActive(false);
+            gameManager.instance.infoTextBackground.SetActive(false);
+            gameManager.instance.infoText.text = "";
         }
         pushback = Vector3.Lerp(pushback, Vector3.zero, Time.deltaTime * pushbackResTime);
         movement();
@@ -299,6 +301,7 @@ public class playerController : MonoBehaviour
 
     public void giveHP(int amount)
     {
+        aud.PlayOneShot(medPickupSound, medPickupVol);
         HP += amount;
         if (HP > hpOriginal)
             HP = hpOriginal;
@@ -306,8 +309,7 @@ public class playerController : MonoBehaviour
     }
 
     public void updatePlayerHPBar()
-    {
-        aud.PlayOneShot(medPickupSound, medPickupVol);
+    {        
         gameManager.instance.playerHPBar.fillAmount = (float)HP / (float)hpOriginal;
     }
     public void weaponPickup(weaponStats weaponStat)
