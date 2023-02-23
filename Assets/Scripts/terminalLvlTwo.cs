@@ -7,6 +7,7 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
     [SerializeField] Renderer model;
+    [SerializeField] GameObject alarmTrigger;
     [Header("----- Terminal Stats -----")]
     [SerializeField] int hitPoints;
     [Header("----- Terminal Monitor -----")]
@@ -66,5 +67,6 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
     {
         yield return new WaitForSeconds(2);
         brokenEffect.SetActive(true);
+        alarmTrigger.SetActive(false);
     }
 }
