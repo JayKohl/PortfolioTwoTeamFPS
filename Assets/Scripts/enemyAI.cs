@@ -11,6 +11,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [SerializeField] Renderer model;
     public NavMeshAgent agent;
     [SerializeField] protected Animator anim;
+    [SerializeField] protected AudioSource aud;
 
     [Header("----- Enemy Stats -----")]
     [SerializeField] protected float playerYOffset;
@@ -32,6 +33,12 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [Header("----- Melee -----")]
     [SerializeField] protected Collider meleeCollider;
     [SerializeField] protected float meleeRate;
+
+    [Header("----- Audio -----")]
+    [SerializeField] protected AudioClip[] audTakeDamage;
+    [Range(0, 1)] [SerializeField] protected float audTakeDamageVol;
+    [SerializeField] protected AudioClip[] audDeath;
+    [Range(0, 1)] [SerializeField] protected float audDeathVol;
 
     protected Vector3 playerDirection;
     public bool isPlayerInRange;
@@ -105,6 +112,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         {
             GetComponent<Collider>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
+            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
             anim.SetBool("Dead", true);
             agent.enabled = false;
             //Destroy(gameObject); Create a IEnumerator for destroyObject
@@ -112,6 +120,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         else
         {
             anim.SetTrigger("Damage");
+            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
             // melee add a function for turning off the weapon collider.
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());
