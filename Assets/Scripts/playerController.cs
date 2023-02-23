@@ -173,13 +173,13 @@ public class playerController : MonoBehaviour
         {
             isRunning = true;
             playerSpeed = runSpeed;
-            aud.PlayOneShot(audGravelRun[Random.Range(0, audGravelRun.Length)], audGravelRunVol);
+            //aud.PlayOneShot(audGravelRun[Random.Range(0, audGravelRun.Length)], audGravelRunVol);
         }
         if (isRunning && Input.GetButtonUp("Run")) //walk
         {
             isRunning = false;
             playerSpeed = speedOriginal;
-            aud.PlayOneShot(audGravelSteps[Random.Range(0, audGravelSteps.Length)], audGravelStepsVol);
+            //aud.PlayOneShot(audGravelSteps[Random.Range(0, audGravelSteps.Length)], audGravelStepsVol);
         }
         playerVelocity.y -= gravity * Time.deltaTime;
         controller.Move((playerVelocity + pushback) * Time.deltaTime);
@@ -239,7 +239,7 @@ public class playerController : MonoBehaviour
         
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
-        {            
+        {
             Debug.Log(hit.collider.name);
            
 
@@ -249,6 +249,7 @@ public class playerController : MonoBehaviour
 
             if (hit.collider.GetComponent<IDamage>() != null)
             {
+                gameObject.tag = "Player";
                 hit.collider.GetComponent<IDamage>().takeDamage(shootDamage);
             }
         }
