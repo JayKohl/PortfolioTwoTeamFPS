@@ -301,6 +301,7 @@ public class playerController : MonoBehaviour
 
     public void giveHP(int amount)
     {
+        aud.PlayOneShot(medPickupSound, medPickupVol);
         HP += amount;
         if (HP > hpOriginal)
             HP = hpOriginal;
@@ -308,8 +309,7 @@ public class playerController : MonoBehaviour
     }
 
     public void updatePlayerHPBar()
-    {
-        aud.PlayOneShot(medPickupSound, medPickupVol);
+    {        
         gameManager.instance.playerHPBar.fillAmount = (float)HP / (float)hpOriginal;
     }
     public void weaponPickup(weaponStats weaponStat)
