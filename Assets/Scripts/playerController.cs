@@ -239,7 +239,7 @@ public class playerController : MonoBehaviour
         
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
-        {            
+        {
             Debug.Log(hit.collider.name);
            
 
@@ -249,6 +249,7 @@ public class playerController : MonoBehaviour
 
             if (hit.collider.GetComponent<IDamage>() != null)
             {
+                gameObject.tag = "Player";
                 hit.collider.GetComponent<IDamage>().takeDamage(shootDamage);
             }
         }
