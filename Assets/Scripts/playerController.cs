@@ -244,7 +244,10 @@ public class playerController : MonoBehaviour
             aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
 
             if (HP <= 0)
+            {
+
                 gameManager.instance.playerDead();
+            }
         }
     }
     public void invisibility()
