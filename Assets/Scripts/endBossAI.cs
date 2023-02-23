@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using UnityEngine.UI;
 
 public class endBossAI : enemyAI
 {
@@ -33,7 +33,7 @@ public class endBossAI : enemyAI
 
     [SerializeField] GameObject smokeOne;
     [SerializeField] GameObject smokeTwo;
-
+    public Image enemyHPBar;
     int hitPointsOrig;
     bool isEventActive;
     bool isSpikeShoot;
@@ -268,8 +268,10 @@ public class endBossAI : enemyAI
     public override void takeDamage(int dmg)
     {
         hitPoints -= dmg;
+        updateEnemyHPBar();
         if (hitPoints <= 0)
         {
+            
             GetComponent<Collider>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
             aud.PlayOneShot(audDeath[UnityEngine.Random.Range(0, audDeath.Length)], audDeathVol);
@@ -287,5 +289,10 @@ public class endBossAI : enemyAI
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());
         }
+    }
+
+    public void updateEnemyHPBar()
+    {
+        enemyHPBar.fillAmount = (float)hitPoints / (float)hitPointsOrig;
     }
 }
