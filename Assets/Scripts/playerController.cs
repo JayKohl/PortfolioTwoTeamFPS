@@ -243,13 +243,16 @@ public class playerController : MonoBehaviour
         {
             HP -= dmg;
             updatePlayerHPBar();
-            StartCoroutine(flashDamage());
-            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
+            StartCoroutine(flashDamage());            
 
             if (HP <= 0)
             {
                 aud.PlayOneShot(audDead[Random.Range(0, audDead.Length)], audDeadVol);
                 gameManager.instance.playerDead();
+            }
+            else
+            {
+                aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
             }
         }
     }
