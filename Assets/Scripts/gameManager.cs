@@ -68,6 +68,7 @@ public class gameManager : MonoBehaviour
     public bool flightDeck = false;
 
     string goalsText;
+    [SerializeField] public GameObject endGameTrigger;
 
 
     void Awake()

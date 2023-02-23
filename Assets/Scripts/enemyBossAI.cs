@@ -92,6 +92,7 @@ public class enemyBossAI : enemyAI
         {
             gameManager.instance.bossDead = true;
             GetComponent<Collider>().enabled = false;
+            gameManager.instance.endGameTrigger.GetComponent<endGame>().endGameColliderOn();
             GetComponentInChildren<Canvas>().enabled = false;
             GameObject fuel = Instantiate(fuelCap, gameObject.transform.position, fuelCap.transform.rotation);
             anim.SetBool("Dead", true);

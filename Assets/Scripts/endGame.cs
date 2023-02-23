@@ -5,6 +5,14 @@ using UnityEngine;
 public class endGame : MonoBehaviour
 {
     bool playerIn;
+    private void Start()
+    {
+        gameObject.GetComponent<BoxCollider>().enabled = false;
+    }
+    public void endGameColliderOn()
+    {
+        gameObject.GetComponent<BoxCollider>().enabled = true;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
