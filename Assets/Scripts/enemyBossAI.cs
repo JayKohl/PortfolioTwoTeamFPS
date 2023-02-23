@@ -25,6 +25,12 @@ public class enemyBossAI : enemyAI
     [SerializeField] GameObject plasmaExplosion;
     [SerializeField] GameObject deathFlames;
 
+    [Header("----- Audio Cont -----")]
+    [SerializeField] protected AudioClip[] audMissile;
+    [Range(0, 1)] [SerializeField] protected float audMissileVol;
+    [SerializeField] protected AudioClip[] audShield;
+    [Range(0, 1)] [SerializeField] protected float audShieldVol;
+
     [SerializeField] GameObject shield;
 
     [SerializeField] GameObject fuelCap;
@@ -170,7 +176,8 @@ public class enemyBossAI : enemyAI
     {
         playerDirection = (gameManager.instance.player.transform.position - transform.position).normalized;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
-        GameObject missileClone = Instantiate(missile, shootPositionMissile.position, missile.transform.rotation);        
+        GameObject missileClone = Instantiate(missile, shootPositionMissile.position, missile.transform.rotation);
+        aud.PlayOneShot(audMissile[Random.Range(0, audMissile.Length)], audMissileVol);
         Vector3 missileVector = (gameManager.instance.player.transform.position - shootPositionMissile.position).normalized;
         missileClone.GetComponent<Rigidbody>().velocity = (missileVector + new Vector3(0, missileYVelocity, 0)) * missileSpeed;
     }
@@ -259,6 +266,7 @@ public class enemyBossAI : enemyAI
         isInCoolDown = true;
 
         int saveStartHealth = hitPoints;
+        aud.PlayOneShot(audShield[Random.Range(0, audShield.Length)], audShieldVol);
         shield.SetActive(true);        
         anim.SetTrigger("CoolDown");
         plasmaExplosion.SetActive(false);
