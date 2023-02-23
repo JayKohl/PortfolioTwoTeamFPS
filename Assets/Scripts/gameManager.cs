@@ -52,9 +52,9 @@ public class gameManager : MonoBehaviour
 
     [SerializeField] AudioSource aud;
     [SerializeField] public AudioClip invisOnAud;
-    [Range(0, 1)] [SerializeField] float invisOnVol;
+    [Range(0, 1)] [SerializeField] public float invisOnVol;
     [SerializeField] public AudioClip invisOffAud;
-    [Range(0, 1)] [SerializeField] float invisOffVol;
+    [Range(0, 1)] [SerializeField] public float invisOffVol;
 
     [Header("Goals")]
     public int fuelCellsRemaining;
