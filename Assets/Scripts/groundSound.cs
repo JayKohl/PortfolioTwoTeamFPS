@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class groundSound : MonoBehaviour
 {
-    bool playerIn;
     [SerializeField] bool isDirt;
     private void OnTriggerEnter(Collider other)
     {
-        if(!playerIn)
+        if(other.CompareTag("Player"))
         {
-            playerIn = true;
             if(isDirt)
             {
                 gameManager.instance.playerScript.dirt = true;

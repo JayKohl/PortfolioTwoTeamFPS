@@ -173,13 +173,13 @@ public class playerController : MonoBehaviour
         {
             isRunning = true;
             playerSpeed = runSpeed;
-            aud.PlayOneShot(audGravelRun[Random.Range(0, audGravelRun.Length)], audGravelRunVol);
+            //aud.PlayOneShot(audGravelRun[Random.Range(0, audGravelRun.Length)], audGravelRunVol);
         }
         if (isRunning && Input.GetButtonUp("Run")) //walk
         {
             isRunning = false;
             playerSpeed = speedOriginal;
-            aud.PlayOneShot(audGravelSteps[Random.Range(0, audGravelSteps.Length)], audGravelStepsVol);
+            //aud.PlayOneShot(audGravelSteps[Random.Range(0, audGravelSteps.Length)], audGravelStepsVol);
         }
         playerVelocity.y -= gravity * Time.deltaTime;
         controller.Move((playerVelocity + pushback) * Time.deltaTime);
