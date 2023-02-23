@@ -19,6 +19,7 @@ public class bossTriggerEvent : MonoBehaviour
             {
                 playerIn = true;
                 laserField.SetActive(true);
+                gameManager.instance.flightDeck = true;
             }
         }
     }
