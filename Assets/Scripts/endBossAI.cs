@@ -264,4 +264,25 @@ public class endBossAI : enemyAI
         GameObject spikeCloneTen = Instantiate(spike, shootPositionSpikeTen.position, spike.transform.rotation);
         spikeCloneTen.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
     }
+    public override void takeDamage(int dmg)
+    {
+        hitPoints -= dmg;
+        if (hitPoints <= 0)
+        {
+            GetComponent<Collider>().enabled = false;
+            GetComponentInChildren<Canvas>().enabled = false;
+            aud.PlayOneShot(audDeath[UnityEngine.Random.Range(0, audDeath.Length)], audDeathVol);
+            anim.SetBool("Dead", true);
+            agent.enabled = false;
+            //Destroy(gameObject); Create a IEnumerator for destroyObject
+        }
+        else
+        {
+            anim.SetTrigger("Damage");
+            aud.PlayOneShot(audTakeDamage[UnityEngine.Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            // melee add a function for turning off the weapon collider.
+            agent.SetDestination(gameManager.instance.player.transform.position);
+            StartCoroutine(flashDamage());
+        }
+    }
 }
