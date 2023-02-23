@@ -55,6 +55,9 @@ public class playerController : MonoBehaviour
     [SerializeField] AudioClip[] audDamaged;
     [Range(0, 1)] [SerializeField] float audDamagedVol;
 
+    [SerializeField] AudioClip[] audDead;
+    [Range(0, 1)] [SerializeField] float audDeadVol;
+
 
 
     // Deactivated temp
@@ -245,7 +248,7 @@ public class playerController : MonoBehaviour
 
             if (HP <= 0)
             {
-
+                aud.PlayOneShot(audDead[Random.Range(0, audDead.Length)], audDeadVol);
                 gameManager.instance.playerDead();
             }
         }
