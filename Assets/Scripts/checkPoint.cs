@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class checkPoint : MonoBehaviour
 {
+    [SerializeField] notifications texture;
     bool playerIn;
     private void Start()
     {
@@ -15,7 +16,7 @@ public class checkPoint : MonoBehaviour
         if(other.CompareTag("Player") && !playerIn)
         {
             playerIn = true;
-            StartCoroutine(gameManager.instance.checkPointDisplay());
+            StartCoroutine(gameManager.instance.checkPointDisplay(texture));
             gameManager.instance.playerSpawnPosition.transform.position = transform.position;
         }
     }
