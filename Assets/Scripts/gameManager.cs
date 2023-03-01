@@ -32,6 +32,7 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI npcChat;
     public GameObject playerChatBackground;
     bool displayingAbility;
+    [SerializeField] public GameObject abilityHub;
     [SerializeField] public GameObject abilityDisplay;
     public GameObject AbilitiesBackground;
     public GameObject AbilityOne;
@@ -105,10 +106,11 @@ public class gameManager : MonoBehaviour
                 unPause();
         }
 
-        if (Input.GetKeyDown(KeyCode.F) && displayingAbility)
+        if (Input.GetKeyDown(KeyCode.X) && displayingAbility)
         {
             displayingAbility = false;
-            abilityDisplay.SetActive(true);
+            abilityDisplay.SetActive(false);
+            unPause();
         }
         if (Input.GetKeyDown(KeyCode.R) && AbilityTwoS.wasSpellUsed())
         {
