@@ -143,7 +143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &188252969
 Transform:
   m_ObjectHideFlags: 0
@@ -453,6 +453,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfd61f61855fc0348892f58d5ad1ad9d, type: 3}
+--- !u!1 &470631312 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4734119152474699362, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+  m_PrefabInstance: {fileID: 2131254347045424268}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &470631314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470631312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3609ad55fdc80ae42a2d4f7542b559b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &491772859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2919,6 +2936,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SMG
       objectReference: {fileID: 0}
+    - target: {fileID: 1670305395264365110, guid: 4c68c6d27a495e94785b1d5cdbd81e06, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c68c6d27a495e94785b1d5cdbd81e06, type: 3}
 --- !u!1001 &2131254347045424268
@@ -3244,6 +3265,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MachineGun
       objectReference: {fileID: 0}
+    - target: {fileID: 2328248131371227018, guid: 0d5b2f6d83f2b3347b4c5d5326358704, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d5b2f6d83f2b3347b4c5d5326358704, type: 3}
 --- !u!1001 &2930678530764620389
@@ -3256,6 +3281,10 @@ PrefabInstance:
     - target: {fileID: 2930678531451092224, guid: c960648826ef7bf43b521459a6bf917b, type: 3}
       propertyPath: m_Name
       value: Ability Pickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 2930678531451092224, guid: c960648826ef7bf43b521459a6bf917b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2930678531451445536, guid: c960648826ef7bf43b521459a6bf917b, type: 3}
       propertyPath: m_RootOrder
@@ -3358,6 +3387,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rifle
       objectReference: {fileID: 0}
+    - target: {fileID: 8049331183767392715, guid: f50f8df3b43cb6e4382aa856b54abc00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f50f8df3b43cb6e4382aa856b54abc00, type: 3}
 --- !u!1001 &5075258919923982955
@@ -3414,6 +3447,10 @@ PrefabInstance:
     - target: {fileID: 5074060210944279594, guid: 4691efaf44bb78545ba8c8f7bd7c3799, type: 3}
       propertyPath: m_Name
       value: Sniper Rifle
+      objectReference: {fileID: 0}
+    - target: {fileID: 5074060210944279594, guid: 4691efaf44bb78545ba8c8f7bd7c3799, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4691efaf44bb78545ba8c8f7bd7c3799, type: 3}
@@ -3650,6 +3687,10 @@ PrefabInstance:
     - target: {fileID: 8943493327974920391, guid: 75c1b8a2c90aa4844a20260530c831e3, type: 3}
       propertyPath: m_Name
       value: Pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943493327974920391, guid: 75c1b8a2c90aa4844a20260530c831e3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75c1b8a2c90aa4844a20260530c831e3, type: 3}

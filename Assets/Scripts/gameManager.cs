@@ -103,7 +103,7 @@ public class gameManager : MonoBehaviour
                 unPause();
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && AbilityOneS.wasSpellUsed())
+        /*if (Input.GetKeyDown(KeyCode.Q) && AbilityOneS.wasSpellUsed())
         {
             if(AbilityOne.activeSelf)
             {
@@ -111,7 +111,7 @@ public class gameManager : MonoBehaviour
                 AbilityOneS.wasSpellUsed();
                 AbilityOneS.coolDownAbility();
             }            
-        }
+        }*/
         if (Input.GetKeyDown(KeyCode.R) && AbilityTwoS.wasSpellUsed())
         {
             if (AbilityTwo.activeSelf)
