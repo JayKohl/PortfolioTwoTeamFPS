@@ -208,10 +208,11 @@ public class gameManager : MonoBehaviour
         activeMenu = loseMenu;
         activeMenu.SetActive(true);
     }
-    public IEnumerator checkPointDisplay()
-    {
+    public IEnumerator checkPointDisplay(notifications textureDisp)
+    {        
+        quickTexts.GetComponent<Image>().sprite = textureDisp.textureToDisplay;
         quickTexts.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         quickTexts.SetActive(false);
     }
     public void displayText(string textToDisplay)
