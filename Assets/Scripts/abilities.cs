@@ -1,0 +1,16 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+[CreateAssetMenu]
+
+public class abilities : ScriptableObject
+{
+    public float cooldownTime;
+    public float cooldownTimer;
+    public Sprite abilityImage;
+    public AudioClip abilityAudio;
+    public string abilityName;
+}
