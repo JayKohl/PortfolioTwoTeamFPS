@@ -209,11 +209,13 @@ public class gameManager : MonoBehaviour
         activeMenu.SetActive(true);
     }
     public IEnumerator checkPointDisplay(notifications textureDisp)
-    {        
+    {
+        crosshair.SetActive(false);
         quickTexts.GetComponent<Image>().sprite = textureDisp.textureToDisplay;
         quickTexts.SetActive(true);
         yield return new WaitForSeconds(1f);
         quickTexts.SetActive(false);
+        crosshair.SetActive(true);
     }
     public void displayAbility(Sprite abilityTexture)
     {
