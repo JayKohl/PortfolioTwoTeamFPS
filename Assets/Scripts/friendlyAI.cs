@@ -12,8 +12,8 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] Transform moveToTerminal;
     [SerializeField] GameObject doorToBoss;
     [SerializeField] GameObject doorToArena;
-    [SerializeField] Transform cameraPos;
-    [SerializeField] Transform npcPos;
+    [SerializeField] Transform playerTransportPos;
+    [SerializeField] Transform npcTransportPos;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -160,10 +160,14 @@ public class friendlyAI : MonoBehaviour
                 }
                 if (!isGivenQuest)
                 {
+                    gameManager.instance.playerScript.controller.enabled = false;
+                    transform.position = npcTransportPos.position;
+                    transform.rotation = Quaternion.Euler(0, playerTransportPos.localEulerAngles.y * -1, 0);
+
+                    gameManager.instance.player.transform.rotation = Quaternion.Euler(0, npcTransportPos.localEulerAngles.y * -1, 0);
+                    gameManager.instance.player.transform.position = playerTransportPos.position;
+                    Time.timeScale = 0;
                     
-                    gameManager.instance.playerCamera.transform.position = cameraPos.position;                    
-                    gameManager.instance.playerCamera.transform.rotation = Quaternion.Euler(0, cameraPos.localEulerAngles.y, 0);
-                    gameManager.instance.pause();
 
 
                     isGivenQuest = true;
