@@ -29,27 +29,61 @@ public class activateAbility : MonoBehaviour
         abilityFour = gameManager.instance.AbilityFour;
     }
     void Update()
-    {        
+    {
         if (Input.GetKeyDown(KeyCode.Q))
         {
             abilityTexture = abilityOne.GetComponent<Image>().sprite;
             abilityActivation(abilityTexture);
-        }
+            foreach (abilities stats in abilityBar)
+            {
+                if (stats.abilityImage == abilityTexture)
+                {
+                    gameManager.instance.AbilityOneS.wasSpellUsed();
+                    gameManager.instance.AbilityOneS.coolDownAbility(stats.cooldownTime, stats.cooldownTimer);
+                }
+            }
+         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
             abilityTexture = abilityTwo.GetComponent<Image>().sprite;
-            abilityActivation(abilityTexture);            
+            abilityActivation(abilityTexture);
+            foreach (abilities stats in abilityBar)
+            {
+                if (stats.abilityImage == abilityTexture)
+                {
+                    Debug.Log("cooldownTime: "+stats.cooldownTime);
+                    gameManager.instance.AbilityTwoS.wasSpellUsed();
+                    gameManager.instance.AbilityTwoS.coolDownAbility(stats.cooldownTime, stats.cooldownTimer);
+                }
+            }
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
             abilityTexture = abilityThree.GetComponent<Image>().sprite;
             abilityActivation(abilityTexture);
+            foreach (abilities stats in abilityBar)
+            {
+                if (stats.abilityImage == abilityTexture)
+                {
+                    Debug.Log("cooldownTime: " + stats.cooldownTime);
+                    gameManager.instance.AbilityThreeS.wasSpellUsed();
+                    gameManager.instance.AbilityThreeS.coolDownAbility(stats.cooldownTime, stats.cooldownTimer);
+                }
+            }
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             abilityTexture = abilityFour.GetComponent<Image>().sprite;
             abilityActivation(abilityTexture);
-        }
+            foreach (abilities stats in abilityBar)
+            {
+                if (stats.abilityImage == abilityTexture)
+                {
+                    gameManager.instance.AbilityFourS.wasSpellUsed();
+                    gameManager.instance.AbilityFourS.coolDownAbility(stats.cooldownTime, stats.cooldownTimer);
+                }
+            }
+        }        
     }
     public void abilityActivation(Sprite abilityTexture)
     {

@@ -10,8 +10,8 @@ public class AbilitiesColdown : MonoBehaviour
     [SerializeField] private TMP_Text cooldownText;
 
     public bool used = false;
-    public float cooldownTime = 10.0f;
-    public float cooldownTimer = 10.0f;
+    public float cooldownTime;
+    public float cooldownTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +25,12 @@ public class AbilitiesColdown : MonoBehaviour
     { 
         if(used)
         {
-            coolDownAbility();
+            coolDownAbility(cooldownTime, cooldownTimer);
         }
             
     }
 
-    public void coolDownAbility()
+    public void coolDownAbility(float cooldownTime, float cooldownTimer)
     {
         cooldownTimer -= Time.deltaTime;
         if(cooldownTimer <= 0.0f)
