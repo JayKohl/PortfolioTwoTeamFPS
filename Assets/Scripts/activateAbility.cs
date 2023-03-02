@@ -19,8 +19,7 @@ public class activateAbility : MonoBehaviour
     GameObject abilityTwo;
     GameObject abilityThree;
     GameObject abilityFour;
-
-    AudioSource aud;
+    Sprite abilityTexture;
 
     private void Start()
     {
@@ -33,28 +32,28 @@ public class activateAbility : MonoBehaviour
     {        
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Sprite abilityTexture = abilityOne.GetComponent<Image>().sprite;
+            abilityTexture = abilityOne.GetComponent<Image>().sprite;
             abilityActivation(abilityTexture);
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
-            Sprite abilityTexture = abilityTwo.GetComponent<Image>().sprite;
-            abilityActivation(abilityTexture);
+            abilityTexture = abilityTwo.GetComponent<Image>().sprite;
+            abilityActivation(abilityTexture);            
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
-            Sprite abilityTexture = abilityThree.GetComponent<Image>().sprite;
+            abilityTexture = abilityThree.GetComponent<Image>().sprite;
             abilityActivation(abilityTexture);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            Sprite abilityTexture = abilityFour.GetComponent<Image>().sprite;
+            abilityTexture = abilityFour.GetComponent<Image>().sprite;
             abilityActivation(abilityTexture);
         }
     }
     public void abilityActivation(Sprite abilityTexture)
     {
-        foreach(abilities stats in abilityBar)
+        foreach (abilities stats in abilityBar)
         {
             if(stats.abilityImage == abilityTexture)
             {
@@ -70,7 +69,8 @@ public class activateAbility : MonoBehaviour
                     cooldownTimer = stats.cooldownTimer;
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
-                    aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
+
                     StartCoroutine(gameManager.instance.playerScript.abilityCoolShield(cooldownTime));
                 }
             }            

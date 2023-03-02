@@ -55,7 +55,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] public GameObject invisUI;
     [SerializeField] public GameObject dashUI;
 
-    [SerializeField] AudioSource aud;
+    [SerializeField] public AudioSource aud;
     [SerializeField] public AudioClip invisOnAud;
     [Range(0, 1)] [SerializeField] public float invisOnVol;
     [SerializeField] public AudioClip invisOffAud;
