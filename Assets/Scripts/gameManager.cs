@@ -55,7 +55,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] public GameObject invisUI;
     [SerializeField] public GameObject dashUI;
 
-    [SerializeField] AudioSource aud;
+    [SerializeField] public AudioSource aud;
     [SerializeField] public AudioClip invisOnAud;
     [Range(0, 1)] [SerializeField] public float invisOnVol;
     [SerializeField] public AudioClip invisOffAud;
@@ -113,15 +113,7 @@ public class gameManager : MonoBehaviour
             abilityDisplay.SetActive(false);
             unPause();
         }
-        /*if (Input.GetKeyDown(KeyCode.R) && AbilityTwoS.wasSpellUsed())
-        {
-            if (AbilityTwo.activeSelf)
-            {
-                aud.PlayOneShot(invisOffAud, invisOffVol);
-                StartCoroutine(playerScript.abilityCoolShield(playerScript.shieldOnPlayer.GetComponent<shield>().shieldTimer));
-            }
-        }*/
-        if (Input.GetKeyDown(KeyCode.F) && AbilityThreeS.wasSpellUsed())
+        /*if (Input.GetKeyDown(KeyCode.F) && AbilityThreeS.wasSpellUsed())
         {
             if (AbilityThree.activeSelf)
             {
@@ -140,7 +132,7 @@ public class gameManager : MonoBehaviour
                 AbilityFourS.wasSpellUsed();
                 AbilityFourS.coolDownAbility();
             }
-        }
+        }*/
     }
     //public void shieldCoolDown()
     //{

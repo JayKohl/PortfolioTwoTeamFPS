@@ -414,7 +414,7 @@ public class playerController : MonoBehaviour
         yield return new WaitForSeconds(cooldown);
         if (gameManager.instance.shieldOn)
         {
-            shieldOnPlayer.GetComponent<shield>().timeOver();
+            shieldOnPlayer.GetComponent<shield>().shutOffShield();
         }
     }
     public IEnumerator abilityCoolInvisible(float cooldown)

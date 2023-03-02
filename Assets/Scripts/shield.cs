@@ -26,7 +26,7 @@ public class shield : MonoBehaviour
         if (shieldHP <= 0)
         {
             gameManager.instance.AbilityTwoS.used = false;
-            gameManager.instance.AbilityTwoS.cooldownTimer = 0;
+            //gameManager.instance.AbilityTwoS.cooldownTimer = 0;
             timeOver();
         }
     }
@@ -39,8 +39,8 @@ public class shield : MonoBehaviour
     }
     public void timeOver()
     {
-        gameManager.instance.AbilityTwoS.wasSpellUsed();
-        gameManager.instance.AbilityTwoS.coolDownAbility();
+        //gameManager.instance.AbilityTwoS.wasSpellUsed();
+        //gameManager.instance.AbilityTwoS.coolDownAbility();
         shutOffShield();
     }
 }
