@@ -13,6 +13,7 @@ public class gameManager : MonoBehaviour
     public GameObject player;
     public playerController playerScript;
     public GameObject playerSpawnPosition;
+    [SerializeField] public GameObject playerCamera;
 
     [Header("UI")]
     public GameObject activeMenu;
@@ -112,14 +113,14 @@ public class gameManager : MonoBehaviour
             abilityDisplay.SetActive(false);
             unPause();
         }
-        if (Input.GetKeyDown(KeyCode.R) && AbilityTwoS.wasSpellUsed())
+        /*if (Input.GetKeyDown(KeyCode.R) && AbilityTwoS.wasSpellUsed())
         {
             if (AbilityTwo.activeSelf)
             {
                 aud.PlayOneShot(invisOffAud, invisOffVol);
                 StartCoroutine(playerScript.abilityCoolShield(playerScript.shieldOnPlayer.GetComponent<shield>().shieldTimer));
             }
-        }
+        }*/
         if (Input.GetKeyDown(KeyCode.F) && AbilityThreeS.wasSpellUsed())
         {
             if (AbilityThree.activeSelf)

@@ -11,6 +11,7 @@ public class activateAbility : MonoBehaviour
     float cooldownTimer;
     Sprite abilityImage;
     AudioClip abilityAudio;
+    float abilityAudioVol;
     string abilityName;
     Sprite abilityInfo;
 
@@ -18,6 +19,8 @@ public class activateAbility : MonoBehaviour
     GameObject abilityTwo;
     GameObject abilityThree;
     GameObject abilityFour;
+
+    AudioSource aud;
 
     private void Start()
     {
@@ -27,35 +30,50 @@ public class activateAbility : MonoBehaviour
         abilityFour = gameManager.instance.AbilityFour;
     }
     void Update()
-    {
-        Sprite abilityTexture = null;
-
+    {        
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            abilityTexture = abilityOne.GetComponent<Image>().sprite;
+            Sprite abilityTexture = abilityOne.GetComponent<Image>().sprite;
+            abilityActivation(abilityTexture);
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
-            abilityTexture = abilityTwo.GetComponent<Image>().sprite;
+            Sprite abilityTexture = abilityTwo.GetComponent<Image>().sprite;
+            abilityActivation(abilityTexture);
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
-            abilityTexture = abilityThree.GetComponent<Image>().sprite;
+            Sprite abilityTexture = abilityThree.GetComponent<Image>().sprite;
+            abilityActivation(abilityTexture);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            abilityTexture = abilityFour.GetComponent<Image>().sprite;            
-        }
-        if(abilityTexture != null)
-        {
+            Sprite abilityTexture = abilityFour.GetComponent<Image>().sprite;
             abilityActivation(abilityTexture);
         }
     }
     public void abilityActivation(Sprite abilityTexture)
     {
-        if(abilityTexture.name == "grenade")
+        foreach(abilities stats in abilityBar)
         {
-            gameManager.instance.playerScript.throwGrenade();
+            if(stats.abilityImage == abilityTexture)
+            {
+                if (stats.abilityName == "Plasma Grenade")
+                {
+                    cooldownTime = stats.cooldownTime;
+                    cooldownTimer = stats.cooldownTimer;
+                    gameManager.instance.playerScript.throwGrenade();
+                }
+                else if (stats.abilityName == "Shield")
+                {
+                    cooldownTime = stats.cooldownTime;
+                    cooldownTimer = stats.cooldownTimer;
+                    abilityAudio = stats.abilityAudio;
+                    abilityAudioVol = stats.abilityAudioVol;
+                    aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    StartCoroutine(gameManager.instance.playerScript.abilityCoolShield(cooldownTime));
+                }
+            }            
         }
     }
     public void abilityPickup(abilities stats)
@@ -66,8 +84,10 @@ public class activateAbility : MonoBehaviour
             cooldownTimer = stats.cooldownTimer;
             abilityImage = stats.abilityImage;
             abilityAudio = stats.abilityAudio;
+            abilityAudioVol = stats.abilityAudioVol;
             abilityName = stats.abilityName;
             abilityInfo = stats.abilityInfo;
+
             abilityBar.Add(stats);
 
             gameManager.instance.displayAbility(abilityInfo);

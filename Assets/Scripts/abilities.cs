@@ -12,6 +12,7 @@ public class abilities : ScriptableObject
     public float cooldownTimer;
     public Sprite abilityImage;
     public AudioClip abilityAudio;
+    public float abilityAudioVol;
     public string abilityName;
     public Sprite abilityInfo;
 }
