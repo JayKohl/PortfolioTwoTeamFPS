@@ -31,6 +31,9 @@ public class gameManager : MonoBehaviour
 
     public TextMeshProUGUI npcChat;
     public GameObject playerChatBackground;
+    bool displayingAbility;
+    [SerializeField] public GameObject abilityHub;
+    [SerializeField] public GameObject abilityDisplay;
     public GameObject AbilitiesBackground;
     public GameObject AbilityOne;
     public GameObject AbilityTwo;
@@ -103,15 +106,12 @@ public class gameManager : MonoBehaviour
                 unPause();
         }
 
-        /*if (Input.GetKeyDown(KeyCode.Q) && AbilityOneS.wasSpellUsed())
+        if (Input.GetKeyDown(KeyCode.X) && displayingAbility)
         {
-            if(AbilityOne.activeSelf)
-            {
-                gameManager.instance.playerScript.throwGrenade();
-                AbilityOneS.wasSpellUsed();
-                AbilityOneS.coolDownAbility();
-            }            
-        }*/
+            displayingAbility = false;
+            abilityDisplay.SetActive(false);
+            unPause();
+        }
         if (Input.GetKeyDown(KeyCode.R) && AbilityTwoS.wasSpellUsed())
         {
             if (AbilityTwo.activeSelf)
@@ -214,6 +214,12 @@ public class gameManager : MonoBehaviour
         quickTexts.SetActive(true);
         yield return new WaitForSeconds(1f);
         quickTexts.SetActive(false);
+    }
+    public void displayAbility(Sprite abilityTexture)
+    {
+        abilityDisplay.GetComponent<Image>().sprite = abilityTexture;
+        abilityDisplay.SetActive(true);
+        displayingAbility = true;
     }
     public void displayText(string textToDisplay)
     {

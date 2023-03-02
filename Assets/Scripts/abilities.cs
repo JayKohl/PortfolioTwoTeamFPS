@@ -13,4 +13,5 @@ public class abilities : ScriptableObject
     public Sprite abilityImage;
     public AudioClip abilityAudio;
     public string abilityName;
+    public Sprite abilityInfo;
 }
