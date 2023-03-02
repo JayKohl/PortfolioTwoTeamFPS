@@ -25,13 +25,19 @@ public class AbilitiesColdown : MonoBehaviour
     { 
         if(used)
         {
-            coolDownAbility(cooldownTime, cooldownTimer);
+            coolDownAbility();
         }
             
     }
-
-    public void coolDownAbility(float cooldownTime, float cooldownTimer)
+    
+    public void coolDownStart(float cdTime)
     {
+        cooldownTimer = cdTime;
+        coolDownAbility();
+    }
+
+    public void coolDownAbility()
+    {        
         cooldownTimer -= Time.deltaTime;
         if(cooldownTimer <= 0.0f)
         {

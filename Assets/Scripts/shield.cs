@@ -39,7 +39,7 @@ public class shield : MonoBehaviour
     }
     public void timeOver()
     {
-        gameManager.instance.AbilityTwoS.wasSpellUsed();
+        //gameManager.instance.AbilityTwoS.wasSpellUsed();
         //gameManager.instance.AbilityTwoS.coolDownAbility();
         shutOffShield();
     }

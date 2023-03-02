@@ -8,7 +8,6 @@ public class activateAbility : MonoBehaviour
 {
     [SerializeField] List<abilities> abilityBar = new List<abilities>();
     float cooldownTime;
-    float cooldownTimer;
     Sprite abilityImage;
     AudioClip abilityAudio;
     float abilityAudioVol;
@@ -39,7 +38,7 @@ public class activateAbility : MonoBehaviour
                 if (stats.abilityImage == abilityTexture)
                 {
                     gameManager.instance.AbilityOneS.wasSpellUsed();
-                    gameManager.instance.AbilityOneS.coolDownAbility(stats.cooldownTime, stats.cooldownTimer);
+                    gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
                 }
             }
          }
@@ -53,7 +52,7 @@ public class activateAbility : MonoBehaviour
                 {
                     Debug.Log("cooldownTime: "+stats.cooldownTime);
                     gameManager.instance.AbilityTwoS.wasSpellUsed();
-                    gameManager.instance.AbilityTwoS.coolDownAbility(stats.cooldownTime, stats.cooldownTimer);
+                    gameManager.instance.AbilityTwoS.coolDownStart(stats.cooldownTime);
                 }
             }
         }
@@ -67,7 +66,7 @@ public class activateAbility : MonoBehaviour
                 {
                     Debug.Log("cooldownTime: " + stats.cooldownTime);
                     gameManager.instance.AbilityThreeS.wasSpellUsed();
-                    gameManager.instance.AbilityThreeS.coolDownAbility(stats.cooldownTime, stats.cooldownTimer);
+                    gameManager.instance.AbilityThreeS.coolDownStart(stats.cooldownTime);
                 }
             }
         }
@@ -80,7 +79,7 @@ public class activateAbility : MonoBehaviour
                 if (stats.abilityImage == abilityTexture)
                 {
                     gameManager.instance.AbilityFourS.wasSpellUsed();
-                    gameManager.instance.AbilityFourS.coolDownAbility(stats.cooldownTime, stats.cooldownTimer);
+                    gameManager.instance.AbilityFourS.coolDownStart(stats.cooldownTime);
                 }
             }
         }        
@@ -93,18 +92,13 @@ public class activateAbility : MonoBehaviour
             {
                 if (stats.abilityName == "Plasma Grenade")
                 {
-                    cooldownTime = stats.cooldownTime;
-                    cooldownTimer = stats.cooldownTimer;
                     gameManager.instance.playerScript.throwGrenade();
                 }
                 else if (stats.abilityName == "Shield")
                 {
-                    cooldownTime = stats.cooldownTime;
-                    cooldownTimer = stats.cooldownTimer;
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
                     gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
-
                     StartCoroutine(gameManager.instance.playerScript.abilityCoolShield(cooldownTime));
                 }
             }            
@@ -115,7 +109,6 @@ public class activateAbility : MonoBehaviour
         if (abilityBar.Count < 4)
         {
             cooldownTime = stats.cooldownTime;
-            cooldownTimer = stats.cooldownTimer;
             abilityImage = stats.abilityImage;
             abilityAudio = stats.abilityAudio;
             abilityAudioVol = stats.abilityAudioVol;
