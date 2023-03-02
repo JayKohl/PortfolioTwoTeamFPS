@@ -10,7 +10,7 @@ public class abilityPickup : MonoBehaviour
 
     void Update()
     {
-        StartCoroutine(bounce());
+        //StartCoroutine(bounce());
     }
     IEnumerator bounce()
     {

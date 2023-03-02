@@ -158,6 +158,7 @@ public class friendlyAI : MonoBehaviour
                 }
                 if (!isGivenQuest)
                 {
+                    
                     isGivenQuest = true;
                     anim.SetTrigger("Talk");
                     gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. \n\n" +

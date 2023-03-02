@@ -8,9 +8,9 @@ public class activateAbility : MonoBehaviour
 {
     [SerializeField] List<abilities> abilityBar = new List<abilities>();
     float cooldownTime;
-    float cooldownTimer;
     Sprite abilityImage;
     AudioClip abilityAudio;
+    float abilityAudioVol;
     string abilityName;
     Sprite abilityInfo;
 
@@ -18,6 +18,7 @@ public class activateAbility : MonoBehaviour
     GameObject abilityTwo;
     GameObject abilityThree;
     GameObject abilityFour;
+    Sprite abilityTexture;
 
     private void Start()
     {
@@ -28,34 +29,79 @@ public class activateAbility : MonoBehaviour
     }
     void Update()
     {
-        Sprite abilityTexture = null;
-
         if (Input.GetKeyDown(KeyCode.Q))
         {
             abilityTexture = abilityOne.GetComponent<Image>().sprite;
-        }
+            abilityActivation(abilityTexture);
+            foreach (abilities stats in abilityBar)
+            {
+                if (stats.abilityImage == abilityTexture)
+                {
+                    gameManager.instance.AbilityOneS.wasSpellUsed();
+                    gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
+                }
+            }
+         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
             abilityTexture = abilityTwo.GetComponent<Image>().sprite;
+            abilityActivation(abilityTexture);
+            foreach (abilities stats in abilityBar)
+            {
+                if (stats.abilityImage == abilityTexture)
+                {
+                    Debug.Log("cooldownTime: "+stats.cooldownTime);
+                    gameManager.instance.AbilityTwoS.wasSpellUsed();
+                    gameManager.instance.AbilityTwoS.coolDownStart(stats.cooldownTime);
+                }
+            }
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
             abilityTexture = abilityThree.GetComponent<Image>().sprite;
+            abilityActivation(abilityTexture);
+            foreach (abilities stats in abilityBar)
+            {
+                if (stats.abilityImage == abilityTexture)
+                {
+                    Debug.Log("cooldownTime: " + stats.cooldownTime);
+                    gameManager.instance.AbilityThreeS.wasSpellUsed();
+                    gameManager.instance.AbilityThreeS.coolDownStart(stats.cooldownTime);
+                }
+            }
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            abilityTexture = abilityFour.GetComponent<Image>().sprite;            
-        }
-        if(abilityTexture != null)
-        {
+            abilityTexture = abilityFour.GetComponent<Image>().sprite;
             abilityActivation(abilityTexture);
-        }
+            foreach (abilities stats in abilityBar)
+            {
+                if (stats.abilityImage == abilityTexture)
+                {
+                    gameManager.instance.AbilityFourS.wasSpellUsed();
+                    gameManager.instance.AbilityFourS.coolDownStart(stats.cooldownTime);
+                }
+            }
+        }        
     }
     public void abilityActivation(Sprite abilityTexture)
     {
-        if(abilityTexture.name == "grenade")
+        foreach (abilities stats in abilityBar)
         {
-            gameManager.instance.playerScript.throwGrenade();
+            if(stats.abilityImage == abilityTexture)
+            {
+                if (stats.abilityName == "Plasma Grenade")
+                {
+                    gameManager.instance.playerScript.throwGrenade();
+                }
+                else if (stats.abilityName == "Shield")
+                {
+                    abilityAudio = stats.abilityAudio;
+                    abilityAudioVol = stats.abilityAudioVol;
+                    gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    StartCoroutine(gameManager.instance.playerScript.abilityCoolShield(cooldownTime));
+                }
+            }            
         }
     }
     public void abilityPickup(abilities stats)
@@ -63,11 +109,12 @@ public class activateAbility : MonoBehaviour
         if (abilityBar.Count < 4)
         {
             cooldownTime = stats.cooldownTime;
-            cooldownTimer = stats.cooldownTimer;
             abilityImage = stats.abilityImage;
             abilityAudio = stats.abilityAudio;
+            abilityAudioVol = stats.abilityAudioVol;
             abilityName = stats.abilityName;
             abilityInfo = stats.abilityInfo;
+
             abilityBar.Add(stats);
 
             gameManager.instance.displayAbility(abilityInfo);
