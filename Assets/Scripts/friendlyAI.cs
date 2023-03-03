@@ -12,8 +12,9 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] Transform moveToTerminal;
     [SerializeField] GameObject doorToBoss;
     [SerializeField] GameObject doorToArena;
-    [SerializeField] Transform cameraPos;
-    [SerializeField] Transform npcPos;
+    [SerializeField] Transform playerTransportPos;
+    [SerializeField] Transform npcTransportPos;
+    [SerializeField] GameObject cam2;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -23,6 +24,7 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] int roamDist;
     [SerializeField] int speedFast;
 
+    Transform orgPos;
     bool isDoorOpen;
     bool isGivenQuest;
     bool isPlayerInRange;
@@ -37,6 +39,8 @@ public class friendlyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+        cam2.SetActive(false);
         isGivenQuest = false;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
@@ -160,10 +164,19 @@ public class friendlyAI : MonoBehaviour
                 }
                 if (!isGivenQuest)
                 {
+
+                    orgPos = transform;
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.Confined;
+
+                    transform.position = npcTransportPos.position;
+                    transform.localRotation = npcTransportPos.localRotation;
+                    gameManager.instance.playerScript.controller.enabled = false;
                     
-                    gameManager.instance.playerCamera.transform.position = cameraPos.position;                    
-                    gameManager.instance.playerCamera.transform.rotation = Quaternion.Euler(0, cameraPos.localEulerAngles.y, 0);
-                    gameManager.instance.pause();
+                    cam2.SetActive(true);
+                    gameManager.instance.playerCamera.SetActive(false);
+                    Time.timeScale = 0;
+                    
 
 
                     isGivenQuest = true;

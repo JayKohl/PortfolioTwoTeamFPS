@@ -88,7 +88,7 @@ public class activateAbility : MonoBehaviour
     {
         foreach (abilities stats in abilityBar)
         {
-            if(stats.abilityImage == abilityTexture)
+            if (stats.abilityImage == abilityTexture)
             {
                 if (stats.abilityName == "Plasma Grenade")
                 {
@@ -99,9 +99,16 @@ public class activateAbility : MonoBehaviour
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
                     gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
-                    StartCoroutine(gameManager.instance.playerScript.abilityCoolShield(cooldownTime));
+                    StartCoroutine(abilityCoolShield(cooldownTime));
                 }
-            }            
+                else if (stats.abilityName == "Fire")
+                {
+                    abilityAudio = stats.abilityAudio;
+                    abilityAudioVol = stats.abilityAudioVol;
+                    gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    StartCoroutine(abilityCoolFire(5));
+                }
+            }
         }
     }
     public void abilityPickup(abilities stats)
@@ -142,5 +149,20 @@ public class activateAbility : MonoBehaviour
             //OR
             //send new ability to inventory to replace later
         }
+    }
+    public IEnumerator abilityCoolShield(float cooldown)
+    {
+        gameManager.instance.playerScript.shieldOnPlayer.GetComponent<shield>().shieldStart();
+        yield return new WaitForSeconds(cooldown);
+        if (gameManager.instance.shieldOn)
+        {
+            gameManager.instance.playerScript.shieldOnPlayer.GetComponent<shield>().shutOffShield();
+        }
+    }
+    public IEnumerator abilityCoolFire(float cooldown)
+    {
+        gameManager.instance.playerScript.fireOnPlayer.SetActive(true);
+        yield return new WaitForSeconds(cooldown);
+        gameManager.instance.playerScript.fireOnPlayer.SetActive(false);
     }
 }
