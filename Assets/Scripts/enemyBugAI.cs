@@ -138,7 +138,7 @@ public class enemyBugAI : enemyAI
         {
 
             GetComponent<Collider>().enabled = false;
-            GetComponentInChildren<Canvas>().enabled = false;
+            //GetComponentInChildren<Canvas>().enabled = false;
             aud.PlayOneShot(audDeath[UnityEngine.Random.Range(0, audDeath.Length)], audDeathVol);
             anim.SetBool("Dead", true);
             agent.enabled = false;
