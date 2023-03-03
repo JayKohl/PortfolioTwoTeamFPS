@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class enemyShredder : enemyAI
 {
+    [SerializeField] GameObject fireEffect;
+    bool setOnFire;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,5 +66,54 @@ public class enemyShredder : enemyAI
         }
         agent.stoppingDistance = 0;
         return false;
+    }
+    public override void takeDamage(int dmg)
+    {
+        if (gameManager.instance.playerScript.fireOn && !setOnFire)
+        {
+            setOnFire = true;
+            StartCoroutine(onFire());
+        }
+        if (dmg > 0)
+        {
+            hitPoints -= dmg;
+        }
+        if (hitPoints <= 0)
+        {
+            if (setOnFire)
+            {
+                model.material.color = Color.black;
+            }
+            GetComponent<Collider>().enabled = false;
+            GetComponentInChildren<Canvas>().enabled = false;            
+            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
+            anim.SetBool("Dead", true);
+            agent.enabled = false;
+            //Destroy(gameObject); Create a IEnumerator for destroyObject
+        }
+        else
+        {
+            anim.SetTrigger("Damage");
+            if (dmg > 0)
+            {
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            }
+            // melee add a function for turning off the weapon collider.
+            agent.SetDestination(gameManager.instance.player.transform.position);
+            StartCoroutine(flashDamage());
+        }
+    }
+    IEnumerator onFire()
+    {
+        yield return new WaitForSeconds(.5f);
+        fireEffect.SetActive(true);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        yield return new WaitForSeconds(2);
+        fireEffect.SetActive(false);
+        setOnFire = false;
     }
 }

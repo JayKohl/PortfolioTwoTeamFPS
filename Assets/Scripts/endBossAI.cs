@@ -33,6 +33,8 @@ public class endBossAI : enemyAI
 
     [SerializeField] GameObject smokeOne;
     [SerializeField] GameObject smokeTwo;
+    [SerializeField] GameObject fireEffect;
+    bool setOnFire;
     public Image enemyHPBar;
     int hitPointsOrig;
     bool isEventActive;
@@ -274,7 +276,15 @@ public class endBossAI : enemyAI
     }
     public override void takeDamage(int dmg)
     {
-        hitPoints -= dmg;
+        if (gameManager.instance.playerScript.fireOn && !setOnFire)
+        {
+            setOnFire = true;
+            StartCoroutine(onFire());
+        }
+        if (dmg > 0)
+        {
+            hitPoints -= dmg;
+        }
         updateEnemyHPBar();
         if (hitPoints <= 0)
         {
@@ -292,7 +302,10 @@ public class endBossAI : enemyAI
         else
         {
             anim.SetTrigger("Damage");
-            aud.PlayOneShot(audTakeDamage[UnityEngine.Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            if (dmg > 0)
+            {
+                aud.PlayOneShot(audTakeDamage[UnityEngine.Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            }
             // melee add a function for turning off the weapon collider.
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());
@@ -302,5 +315,18 @@ public class endBossAI : enemyAI
     public void updateEnemyHPBar()
     {
         enemyHPBar.fillAmount = (float)hitPoints / (float)hitPointsOrig;
+    }
+    IEnumerator onFire()
+    {
+        yield return new WaitForSeconds(.5f);
+        fireEffect.SetActive(true);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        yield return new WaitForSeconds(2);
+        fireEffect.SetActive(false);
+        setOnFire = false;
     }
 }
