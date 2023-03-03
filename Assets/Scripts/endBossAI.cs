@@ -113,12 +113,14 @@ public class endBossAI : enemyAI
 
                 if (isEventActive == false && isMinionSpawnOne == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .3)))
                 {
+                    agentStart();
                     isEventActive = true;
                     isMinionSpawnOne = true;
                     StartCoroutine(spawnMinions());
                 }
                 else if (isEventActive == false && isPowerUp == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .5)))
                 {
+                    agentStop();
                     isEventActive = true;
                     isPowerUp = true;
                     smokeOne.SetActive(true);
@@ -127,6 +129,7 @@ public class endBossAI : enemyAI
                 }
                 else if (isEventActive == false && isMinionSpawnTwo == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
                 {
+                    agentStop();
                     isEventActive = true;
                     isMinionSpawnTwo = true;
                     StartCoroutine(spawnMinions());
@@ -154,6 +157,7 @@ public class endBossAI : enemyAI
                     }
                     else if (!isSpikeShoot && distanceToEnemy >= spikeRange && hitPoints <= (hitPointsOrig - (hitPointsOrig * .2)))
                     {
+                        agentStop();
                         isShooting = true;
                         isSpikeShoot = true;
                         //agent.stoppingDistance = stoppingDistOrig *= 3;
@@ -172,6 +176,7 @@ public class endBossAI : enemyAI
         anim.SetTrigger("PowerUp");
         yield return new WaitForSeconds(2);
         statsBuff();
+        agentStart();
         isEventActive = false;
     }
     public void statsBuff()
@@ -183,6 +188,7 @@ public class endBossAI : enemyAI
     {
         anim.SetTrigger("Spawn");
         yield return new WaitForSeconds(2);
+        agentStart();
         isEventActive = false;
     }
     public void createMinions()
@@ -232,6 +238,7 @@ public class endBossAI : enemyAI
         //agent.stoppingDistance = stoppingDistOrig;
         isShooting = false;
         isSpikeShoot = false;
+        agentStart();
     }
     public void createSpike()
     {
