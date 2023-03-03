@@ -94,6 +94,7 @@ public class playerController : MonoBehaviour
     public bool abilityThreeActive = false;
     public bool abilityFourActive = false;
     Rigidbody rig;
+    public bool fireOn;
 
     int currentLevel = 0;
 
