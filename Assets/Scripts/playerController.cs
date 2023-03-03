@@ -33,6 +33,7 @@ public class playerController : MonoBehaviour
     [SerializeField] float zoomMax;
     Vector3 muzzleFlashPosition;
     [SerializeField] public GameObject shieldOnPlayer;
+    [SerializeField] public GameObject fireOnPlayer;
     [SerializeField] GameObject crosshair;
     Sprite crosshairTexture;
     [SerializeField] GameObject weaponIcon;
