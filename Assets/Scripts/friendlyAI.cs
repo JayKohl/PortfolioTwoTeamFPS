@@ -10,11 +10,10 @@ public class friendlyAI : MonoBehaviour
     public NavMeshAgent agent;
     [SerializeField] Animator anim;
     [SerializeField] Transform moveToTerminal;
-    [SerializeField] GameObject doorToBoss;
-    [SerializeField] GameObject doorToArena;
+    [SerializeField] public GameObject doorToBoss;
     [SerializeField] Transform playerTransportPos;
     [SerializeField] Transform npcTransportPos;
-    [SerializeField] GameObject cam2;
+    [SerializeField] public GameObject cam2;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -23,8 +22,9 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] int waitTime;
     [SerializeField] int roamDist;
     [SerializeField] int speedFast;
+    [SerializeField] public GameObject friend;
 
-    Transform orgPos;
+    public Transform orgPos;
     bool isDoorOpen;
     bool isGivenQuest;
     bool isPlayerInRange;
@@ -46,6 +46,7 @@ public class friendlyAI : MonoBehaviour
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
         isDoorOpen = false;
+        
     }
 
     // Update is called once per frame
@@ -164,27 +165,22 @@ public class friendlyAI : MonoBehaviour
                 }
                 if (!isGivenQuest)
                 {
-
                     orgPos = transform;
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.Confined;
-
                     transform.position = npcTransportPos.position;
                     transform.localRotation = npcTransportPos.localRotation;
-                    gameManager.instance.playerScript.controller.enabled = false;
-                    
+                    gameManager.instance.playerScript.controller.enabled = false;           
                     cam2.SetActive(true);
                     gameManager.instance.playerCamera.SetActive(false);
-                    Time.timeScale = 0;
-                    
-
-
+                    gameManager.instance.pause();
                     isGivenQuest = true;
                     anim.SetTrigger("Talk");
                     gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. \n\n" +
                                                         "If by chance you can survive I will help you escape. Now go away before anyone notices us talking.");
+ 
                     StartCoroutine(gameManager.instance.deleteTextNpc(8));
-                    Destroy(doorToArena);                    
+                                      
                 }
                 return true;
             }
