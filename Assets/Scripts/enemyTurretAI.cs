@@ -121,7 +121,10 @@ public class enemyTurretAI : enemyAI
         }
         else
         {
-            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            if (dmg > 0)
+            {
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            }
         }
     }
     IEnumerator die()
