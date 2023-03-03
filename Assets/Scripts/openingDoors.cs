@@ -14,7 +14,8 @@ public class openingDoors : MonoBehaviour
     }
     public IEnumerator OpenDoorOne(GameObject doorOne)
     {
-        doorOne.SetActive(false);
-        yield return new WaitForSeconds(1);
+        doorOne.transform.position = Vector3.Lerp(doorOne.transform.position, doorOne.transform.position + new Vector3(0, -5, 0), 2 * Time.deltaTime);
+        //doorOne.SetActive(false);
+        yield return new WaitForSeconds(2);
     }
 }
