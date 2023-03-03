@@ -14,6 +14,7 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] GameObject doorToArena;
     [SerializeField] Transform playerTransportPos;
     [SerializeField] Transform npcTransportPos;
+    [SerializeField] GameObject cam2;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -23,6 +24,7 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] int roamDist;
     [SerializeField] int speedFast;
 
+    Transform orgPos;
     bool isDoorOpen;
     bool isGivenQuest;
     bool isPlayerInRange;
@@ -37,6 +39,8 @@ public class friendlyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+        cam2.SetActive(false);
         isGivenQuest = false;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
@@ -160,13 +164,17 @@ public class friendlyAI : MonoBehaviour
                 }
                 if (!isGivenQuest)
                 {
-                    gameManager.instance.playerScript.controller.enabled = false;
-                    transform.position = npcTransportPos.position;
-                    transform.rotation = Quaternion.Euler(0, playerTransportPos.localEulerAngles.y * -1, 0);
 
-                    gameManager.instance.player.transform.position = playerTransportPos.position;
-                    gameManager.instance.player.transform.rotation = Quaternion.Euler(0, npcTransportPos.localEulerAngles.y * -1, 0);
+                    orgPos = transform;
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.Confined;
+
+                    transform.position = npcTransportPos.position;
+                    transform.localRotation = npcTransportPos.localRotation;
+                    gameManager.instance.playerScript.controller.enabled = false;
                     
+                    cam2.SetActive(true);
+                    gameManager.instance.playerCamera.SetActive(false);
                     Time.timeScale = 0;
                     
 
