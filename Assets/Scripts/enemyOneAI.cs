@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class enemyOneAI : enemyAI
 {
+    [SerializeField] GameObject fireEffect;
+    bool setOnFire;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,16 +42,19 @@ public class enemyOneAI : enemyAI
 
     }
     public override void takeDamage(int dmg)
-    {
+    {        
+        if(gameManager.instance.playerScript.fireOn)
+        {
+            StartCoroutine(onFire());
+        }
         hitPoints -= dmg;
         if (hitPoints <= 0)
         {
-
             GetComponent<Collider>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
-            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
+            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);            
             anim.SetBool("Dead", true);
-            agent.enabled = false;
+            agent.enabled = false;            
             if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
             {
                 gameManager.instance.updateGameGoalLvl2(-1);
@@ -64,5 +69,13 @@ public class enemyOneAI : enemyAI
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());
         }
+    }
+    IEnumerator onFire()
+    {
+        setOnFire = true;
+        fireEffect.SetActive(true);        
+        yield return new WaitForSeconds(5);
+        model.material.color = Color.black;
+        fireEffect.SetActive(false);        
     }
 }
