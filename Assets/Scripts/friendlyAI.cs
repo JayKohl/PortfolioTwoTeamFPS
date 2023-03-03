@@ -13,7 +13,8 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] public GameObject doorToBoss;
     [SerializeField] Transform playerTransportPos;
     [SerializeField] Transform npcTransportPos;
-    [SerializeField] public GameObject cam2;
+    
+    [SerializeField] public GameObject doorOutOfCell;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -22,7 +23,7 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] int waitTime;
     [SerializeField] int roamDist;
     [SerializeField] int speedFast;
-    [SerializeField] public GameObject friend;
+   
 
     public Transform orgPos;
     bool isDoorOpen;
@@ -35,12 +36,13 @@ public class friendlyAI : MonoBehaviour
     bool destinationChosen;
     float stoppingDistOrig;
     float speedOrig;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        
-        cam2.SetActive(false);
+       
+        gameManager.instance.cam2.SetActive(false);
         isGivenQuest = false;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
@@ -52,6 +54,27 @@ public class friendlyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.X) && isTalking)
+        {
+            doorOutOfCell.SetActive(false);
+            //doorOutOfCell.transform.localPosition = Vector3.Lerp(doorOutOfCell.transform.localPosition, doorOutOfCell.transform.localPosition + new Vector3(0, -4, 0), 5 * Time.deltaTime);
+            //gameManager.instance.transform.position = gameManager.instance.doorsEvents.doorCamOne.transform.position;
+            //StartCoroutine(gameManager.instance.doorsEvents.OpenDoorOne(doorOutOfCell));
+            //gameManager.instance.cam2.transform.position = gameManager.instance.doorsEvents.doorCamOne.transform.position;             
+            gameManager.instance.playerCamera.SetActive(true);
+            gameManager.instance.cam2.SetActive(false);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            transform.position = orgPos.position;
+            transform.localRotation = orgPos.localRotation;
+            gameManager.instance.playerScript.controller.enabled = true;
+            gameManager.instance.unPause();
+            
+
+            isTalking = false;
+            
+        }
+
         if (agent.isActiveAndEnabled)
         {
             Debug.Log(gameManager.instance.enemiesRemaining);
@@ -165,13 +188,14 @@ public class friendlyAI : MonoBehaviour
                 }
                 if (!isGivenQuest)
                 {
+                    isTalking = true;
                     orgPos = transform;
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.Confined;
                     transform.position = npcTransportPos.position;
                     transform.localRotation = npcTransportPos.localRotation;
-                    gameManager.instance.playerScript.controller.enabled = false;           
-                    cam2.SetActive(true);
+                    gameManager.instance.playerScript.controller.enabled = false;
+                    gameManager.instance.cam2.SetActive(true);
                     gameManager.instance.playerCamera.SetActive(false);
                     gameManager.instance.pause();
                     isGivenQuest = true;

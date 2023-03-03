@@ -12,7 +12,8 @@ public class enemyTurretAI : enemyAI
     [SerializeField] GameObject explosion;
     [SerializeField] GameObject plasmaExplosion;
     [SerializeField] GameObject deathFlames;
-    // Make sure the NavMesh stopping distance is the same as the sphere collider trigger radius.
+    bool setOnFire;
+    // Make sure the NavMesh stopping distance is the same as the sphere collider trigger radius.    
 
     bool alive;
     void Start()
@@ -96,13 +97,24 @@ public class enemyTurretAI : enemyAI
     }
     public override void takeDamage(int dmg)
     {
-        hitPoints -= dmg;
+        if (gameManager.instance.playerScript.fireOn && !setOnFire)
+        {
+            setOnFire = true;
+            StartCoroutine(onFire());
+        }
+        if (dmg > 0)
+        {
+            hitPoints -= dmg;
+        }
         StartCoroutine(flashDamage());
         if (hitPoints <= 0)
         {
             GetComponent<Collider>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
-            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
+            if (!setOnFire)
+            {
+                aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
+            }
             agent.enabled = false;
             alive = false;
             StartCoroutine(die());
@@ -120,5 +132,15 @@ public class enemyTurretAI : enemyAI
         yield return new WaitForSeconds(2);
         explosion.SetActive(false);
         plasmaExplosion.SetActive(false);        
+    }
+    IEnumerator onFire()
+    {
+        yield return new WaitForSeconds(.5f);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        setOnFire = false;
     }
 }

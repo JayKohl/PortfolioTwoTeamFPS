@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class buttonFunctions : MonoBehaviour
 {
-    public bool click;
-    public friendlyAI friendNPC;
+    //public bool click;
+    //public friendlyAI friendNPC;
+    //[SerializeField] Button theButton;
     //Start is called before the first frame update
 
-    private void Start()
-    {
-        friendNPC = GetComponent<friendlyAI>();
-    }
+    //private void Start()
+    //{
+    //    friendNPC = GetComponent<friendlyAI>();
+    //}
     public void resume()
     {
         gameManager.instance.unPause();
@@ -54,18 +56,18 @@ public class buttonFunctions : MonoBehaviour
         resume();
     }
 
-    public void closeQuestOne()
-    {
-        StartCoroutine(gameManager.instance.deleteTextNpc(0.1f));
-        Destroy(friendNPC.doorToBoss);
-        gameManager.instance.playerCamera.SetActive(true);
-        friendNPC.cam2.SetActive(false);
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        friendNPC.friend.transform.position = friendNPC.orgPos.position;
-        friendNPC.friend.transform.localRotation = friendNPC.orgPos.localRotation;
-        gameManager.instance.unPause();
-        click = true;
+    //public void closeQuestOne()
+    //{
+    //    StartCoroutine(gameManager.instance.deleteTextNpc(0.1f));
+    //    Destroy(friendNPC.doorToBoss);
+    //    gameManager.instance.playerCamera.SetActive(true);
+    //    friendNPC.cam2.SetActive(false);
+    //    Cursor.visible = false;
+    //    Cursor.lockState = CursorLockMode.Locked;
+    //    friendNPC.friend.transform.position = friendNPC.orgPos.position;
+    //    friendNPC.friend.transform.localRotation = friendNPC.orgPos.localRotation;
+    //    gameManager.instance.unPause();
+    //    click = true;
 
-    }
+    //}
 }
