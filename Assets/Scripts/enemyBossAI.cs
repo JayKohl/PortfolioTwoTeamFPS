@@ -202,7 +202,8 @@ public class enemyBossAI : enemyAI
             if (isHealOne && hitPoints <= (hitPointsOrig - (hitPointsOrig * .6)))
             {
                 isHealOne = false;
-                agent.stoppingDistance = distanceToBoss + 5;
+                agentStop();
+                //agent.stoppingDistance = distanceToBoss + 5;
                 StartCoroutine(coolDownEvent());
                 return true;
             }
@@ -216,7 +217,8 @@ public class enemyBossAI : enemyAI
             else if (isHealTwo && hitPoints <= (hitPointsOrig - (hitPointsOrig * .8)))
             {
                 isHealTwo = false;
-                agent.stoppingDistance = distanceToBoss + 5;
+                agentStop();
+                //agent.stoppingDistance = distanceToBoss + 5;
                 StartCoroutine(coolDownEvent());
                 return true;
             }
@@ -282,7 +284,8 @@ public class enemyBossAI : enemyAI
         }
         shield.SetActive(false);
 
-        agent.stoppingDistance = stoppingDistOrig;
+        agentStart();
+        //agent.stoppingDistance = stoppingDistOrig;
         isInCoolDown = false;
     }
     //Angel added this line

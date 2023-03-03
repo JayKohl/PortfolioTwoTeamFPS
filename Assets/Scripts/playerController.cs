@@ -35,6 +35,7 @@ public class playerController : MonoBehaviour
     [SerializeField] float zoomMax;
     Vector3 muzzleFlashPosition;
     [SerializeField] public GameObject shieldOnPlayer;
+    [SerializeField] public GameObject fireOnPlayer;
     [SerializeField] GameObject crosshair;
     Sprite crosshairTexture;
     [SerializeField] GameObject weaponIcon;
@@ -97,6 +98,7 @@ public class playerController : MonoBehaviour
     public bool abilityThreeActive = false;
     public bool abilityFourActive = false;
     Rigidbody rig;
+    public bool fireOn;
 
     int currentLevel = 0;
 
@@ -433,16 +435,7 @@ public class playerController : MonoBehaviour
         playerSpeed = speedOriginal;
         abilityOneActive = false;
     }
-
-    public IEnumerator abilityCoolShield(float cooldown)
-    {
-        shieldOnPlayer.GetComponent<shield>().shieldStart();
-        yield return new WaitForSeconds(cooldown);
-        if (gameManager.instance.shieldOn)
-        {
-            shieldOnPlayer.GetComponent<shield>().shutOffShield();
-        }
-    }
+    
     public IEnumerator abilityCoolInvisible(float cooldown)
     {
         abilityThreeActive = true;

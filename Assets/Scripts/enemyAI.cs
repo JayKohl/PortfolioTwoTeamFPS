@@ -8,7 +8,7 @@ using UnityEngine.AI;
 public abstract class enemyAI : MonoBehaviour, IDamage
 {
     [Header("----- Components -----")]
-    [SerializeField] Renderer model;
+    [SerializeField] protected Renderer model;
     public NavMeshAgent agent;
     [SerializeField] protected Animator anim;
     [SerializeField] protected AudioSource aud;
