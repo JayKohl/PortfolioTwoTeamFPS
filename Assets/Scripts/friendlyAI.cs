@@ -12,6 +12,8 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] Transform moveToTerminal;
     [SerializeField] GameObject doorToBoss;
     [SerializeField] GameObject doorToArena;
+    [SerializeField] Transform cameraPos;
+    [SerializeField] Transform npcPos;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -159,6 +161,11 @@ public class friendlyAI : MonoBehaviour
                 if (!isGivenQuest)
                 {
                     
+                    gameManager.instance.playerCamera.transform.position = cameraPos.position;                    
+                    gameManager.instance.playerCamera.transform.rotation = Quaternion.Euler(0, cameraPos.localEulerAngles.y, 0);
+                    gameManager.instance.pause();
+
+
                     isGivenQuest = true;
                     anim.SetTrigger("Talk");
                     gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. \n\n" +

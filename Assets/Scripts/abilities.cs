@@ -9,7 +9,6 @@ using TMPro;
 public class abilities : ScriptableObject
 {
     public float cooldownTime;
-    public float cooldownTimer;
     public Sprite abilityImage;
     public AudioClip abilityAudio;
     public float abilityAudioVol;
