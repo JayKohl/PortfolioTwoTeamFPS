@@ -44,6 +44,7 @@ public class enemyBossAI : enemyAI
     //bool isHealThree;
     //bool isHealFour;
     bool isInCoolDown;
+    bool setOnFire;
 
     // Start is called before the first frame update
     void Start()
@@ -87,7 +88,15 @@ public class enemyBossAI : enemyAI
     {
         //Angel Added this
         updateEnemyHPBar();
-        hitPoints -= dmg;
+        if (gameManager.instance.playerScript.fireOn && !setOnFire)
+        {
+            setOnFire = true;
+            StartCoroutine(onFire());
+        }
+        if (dmg > 0)
+        {
+            hitPoints -= dmg;
+        }
         if (hitPoints <= 0)
         {
             gameManager.instance.bossDead = true;
@@ -107,11 +116,24 @@ public class enemyBossAI : enemyAI
                 plasmaExplosion.SetActive(true);
             }
             anim.SetTrigger("Damage");
-            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            if (!setOnFire)
+            {
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            }
             // meleeColliderOff();
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());
         }
+    }
+    IEnumerator onFire()
+    {
+        yield return new WaitForSeconds(.5f);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        setOnFire = false;
     }
     IEnumerator explosionTimer()
     {

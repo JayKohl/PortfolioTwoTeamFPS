@@ -34,10 +34,10 @@ public class activateAbility : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 10))
             {
-                hit.collider.GetComponent<IDamage>().takeDamage(1);
+                hit.collider.GetComponent<IDamage>().takeDamage(0);
             }
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && gameManager.instance.AbilityOneS.wasSpellUsed())
         {
             abilityTexture = abilityOne.GetComponent<Image>().sprite;
             abilityActivation(abilityTexture);
@@ -50,7 +50,7 @@ public class activateAbility : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.R))
+        else if (Input.GetKeyDown(KeyCode.R) && gameManager.instance.AbilityTwoS.wasSpellUsed())
         {
             abilityTexture = abilityTwo.GetComponent<Image>().sprite;
             abilityActivation(abilityTexture);
@@ -64,7 +64,7 @@ public class activateAbility : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.F))
+        else if (Input.GetKeyDown(KeyCode.F) && gameManager.instance.AbilityThreeS.wasSpellUsed())
         {
             abilityTexture = abilityThree.GetComponent<Image>().sprite;
             abilityActivation(abilityTexture);
@@ -78,7 +78,7 @@ public class activateAbility : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetKeyDown(KeyCode.E) && gameManager.instance.AbilityFourS.wasSpellUsed())
         {
             abilityTexture = abilityFour.GetComponent<Image>().sprite;
             abilityActivation(abilityTexture);
@@ -170,7 +170,7 @@ public class activateAbility : MonoBehaviour
     public IEnumerator abilityCoolFire(float cooldown)
     {
         gameManager.instance.playerScript.fireOnPlayer.SetActive(true);
-        gameManager.instance.playerScript.fireOn = true;
+        gameManager.instance.playerScript.fireOn = true;        
         yield return new WaitForSeconds(cooldown);
         gameManager.instance.playerScript.fireOnPlayer.SetActive(false);
         gameManager.instance.playerScript.fireOn = false;
