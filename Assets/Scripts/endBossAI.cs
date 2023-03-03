@@ -154,6 +154,7 @@ public class endBossAI : enemyAI
                     }
                     else if (!isSpikeShoot && distanceToEnemy >= spikeRange && hitPoints <= (hitPointsOrig - (hitPointsOrig * .2)))
                     {
+                        agentStop();
                         isShooting = true;
                         isSpikeShoot = true;
                         //agent.stoppingDistance = stoppingDistOrig *= 3;
@@ -232,6 +233,7 @@ public class endBossAI : enemyAI
         //agent.stoppingDistance = stoppingDistOrig;
         isShooting = false;
         isSpikeShoot = false;
+        agentStart();
     }
     public void createSpike()
     {
