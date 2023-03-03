@@ -119,6 +119,7 @@ public class endBossAI : enemyAI
                 }
                 else if (isEventActive == false && isPowerUp == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .5)))
                 {
+                    agentStop();
                     isEventActive = true;
                     isPowerUp = true;
                     smokeOne.SetActive(true);
@@ -173,6 +174,7 @@ public class endBossAI : enemyAI
         anim.SetTrigger("PowerUp");
         yield return new WaitForSeconds(2);
         statsBuff();
+        agentStart();
         isEventActive = false;
     }
     public void statsBuff()
