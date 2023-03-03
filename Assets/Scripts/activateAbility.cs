@@ -29,6 +29,14 @@ public class activateAbility : MonoBehaviour
     }
     void Update()
     {
+        if (gameManager.instance.playerScript.fireOn)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 10))
+            {
+                hit.collider.GetComponent<IDamage>().takeDamage(1);
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Q))
         {
             abilityTexture = abilityOne.GetComponent<Image>().sprite;
@@ -41,7 +49,7 @@ public class activateAbility : MonoBehaviour
                     gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
                 }
             }
-         }
+        }
         else if (Input.GetKeyDown(KeyCode.R))
         {
             abilityTexture = abilityTwo.GetComponent<Image>().sprite;
@@ -50,7 +58,7 @@ public class activateAbility : MonoBehaviour
             {
                 if (stats.abilityImage == abilityTexture)
                 {
-                    Debug.Log("cooldownTime: "+stats.cooldownTime);
+                    Debug.Log("cooldownTime: " + stats.cooldownTime);
                     gameManager.instance.AbilityTwoS.wasSpellUsed();
                     gameManager.instance.AbilityTwoS.coolDownStart(stats.cooldownTime);
                 }
@@ -82,7 +90,7 @@ public class activateAbility : MonoBehaviour
                     gameManager.instance.AbilityFourS.coolDownStart(stats.cooldownTime);
                 }
             }
-        }        
+        }
     }
     public void abilityActivation(Sprite abilityTexture)
     {
@@ -106,7 +114,7 @@ public class activateAbility : MonoBehaviour
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
                     gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
-                    StartCoroutine(abilityCoolFire(5));
+                    StartCoroutine(abilityCoolFire(3));
                 }
             }
         }
@@ -126,11 +134,11 @@ public class activateAbility : MonoBehaviour
 
             gameManager.instance.displayAbility(abilityInfo);
 
-            if(abilityOne.GetComponent<Image>().sprite.name == "None2")
+            if (abilityOne.GetComponent<Image>().sprite.name == "None2")
             {
                 abilityOne.GetComponent<Image>().sprite = abilityImage;
             }
-            else if(abilityTwo.GetComponent<Image>().sprite.name == "None2")
+            else if (abilityTwo.GetComponent<Image>().sprite.name == "None2")
             {
                 abilityTwo.GetComponent<Image>().sprite = abilityImage;
             }
@@ -162,7 +170,9 @@ public class activateAbility : MonoBehaviour
     public IEnumerator abilityCoolFire(float cooldown)
     {
         gameManager.instance.playerScript.fireOnPlayer.SetActive(true);
+        gameManager.instance.playerScript.fireOn = true;
         yield return new WaitForSeconds(cooldown);
         gameManager.instance.playerScript.fireOnPlayer.SetActive(false);
+        gameManager.instance.playerScript.fireOn = false;
     }
 }
