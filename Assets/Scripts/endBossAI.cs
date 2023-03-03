@@ -113,6 +113,7 @@ public class endBossAI : enemyAI
 
                 if (isEventActive == false && isMinionSpawnOne == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .3)))
                 {
+                    agentStart();
                     isEventActive = true;
                     isMinionSpawnOne = true;
                     StartCoroutine(spawnMinions());
@@ -128,6 +129,7 @@ public class endBossAI : enemyAI
                 }
                 else if (isEventActive == false && isMinionSpawnTwo == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
                 {
+                    agentStop();
                     isEventActive = true;
                     isMinionSpawnTwo = true;
                     StartCoroutine(spawnMinions());
@@ -186,6 +188,7 @@ public class endBossAI : enemyAI
     {
         anim.SetTrigger("Spawn");
         yield return new WaitForSeconds(2);
+        agentStart();
         isEventActive = false;
     }
     public void createMinions()
