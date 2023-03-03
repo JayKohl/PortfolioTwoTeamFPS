@@ -23,6 +23,8 @@ public class playerController : MonoBehaviour
     [Range(15, 45)] [SerializeField] int gravity;
     [SerializeField] int runSpeed;
     [SerializeField] float pushbackResTime;
+    [SerializeField] int crouchSpeed;
+    [SerializeField] float crouchHeight;
 
     [Header("----- Weapon Stats -----")]
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
@@ -87,6 +89,8 @@ public class playerController : MonoBehaviour
     Vector3 pushback;
     bool isPlayingSteps;
     bool isSprinting;
+    public bool isCrouched;
+    public float startY;
 
     public bool abilityOneActive = false;
     public bool abilityTwoActive = false;
@@ -128,6 +132,7 @@ public class playerController : MonoBehaviour
         hpOriginal = HP;
         speedOriginal = playerSpeed;
         baseFOV = Camera.main.fieldOfView;
+        startY = transform.localScale.y;
         playerRespawn();
         rig = GetComponent<Rigidbody>();
     }
@@ -165,14 +170,18 @@ public class playerController : MonoBehaviour
         move = move.normalized;
 
         controller.Move(move * Time.deltaTime * playerSpeed);
-
+        if (Input.GetButton("Crouch"))
+        {
+            isCrouched = true;
+            
+        }
         if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes)
         {
             jumpsCurrent++;
             playerVelocity.y = jumpSpeed;
             aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
         }
-        if (Input.GetButton("Run") && !isRunning) //run
+        if ((Input.GetButton("Run") && !isRunning) && !isCrouched) //run
         {
             isRunning = true;
             playerSpeed = runSpeed;
@@ -183,6 +192,23 @@ public class playerController : MonoBehaviour
             isRunning = false;
             playerSpeed = speedOriginal;
             //aud.PlayOneShot(audGravelSteps[Random.Range(0, audGravelSteps.Length)], audGravelStepsVol);
+        }
+        if (Input.GetButtonDown("Crouch") && !isCrouched)
+        {
+            isCrouched = true;
+            playerSpeed = crouchSpeed;
+            //transform.localScale = new Vector3(transform.localScale.x, crouchHeight, transform.localScale.z);
+            controller.height = crouchHeight;
+            //rig.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+
+        }
+        if (Input.GetButtonUp("Crouch") && isCrouched)
+        {
+            isCrouched = false;
+            playerSpeed = speedOriginal;
+            transform.localScale = new Vector3(transform.localScale.x, startY, transform.localScale.z);
+           
+
         }
         playerVelocity.y -= gravity * Time.deltaTime;
         controller.Move((playerVelocity + pushback) * Time.deltaTime);
@@ -471,7 +497,7 @@ public class playerController : MonoBehaviour
         }
 
         // Control for isRunning animation bool
-        if ((Input.GetKey("w") || Input.GetKey("s")) && Input.GetKey("left shift"))
+        if (((Input.GetKey("w") || Input.GetKey("s")) && Input.GetKey("left shift")) && !isCrouched)
         {
             playeranim.SetBool("isRunning", true);
         }
