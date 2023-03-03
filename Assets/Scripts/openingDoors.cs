@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class openingDoors : MonoBehaviour
 {
-    [SerializeField] Transform doorCamOne;
+    [SerializeField] public Transform doorCamOne;
+    
+
 
     private void Start()
     {
         
     }
-    public IEnumerator OpenDoorOne(GameObject door)
+    public IEnumerator OpenDoorOne(GameObject doorOne)
     {
-        door.SetActive(false);
-        gameManager.instance.cam2.transform.position = doorCamOne.position;
-
-        //transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3(0, -10, 0), 10f) * Time.deltaTime;
-        yield return new WaitForSeconds(.5f);
+        doorOne.SetActive(false);
+        yield return new WaitForSeconds(1);
     }
 }

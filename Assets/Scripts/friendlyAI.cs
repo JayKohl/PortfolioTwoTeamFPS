@@ -14,7 +14,7 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] Transform playerTransportPos;
     [SerializeField] Transform npcTransportPos;
     
-    [SerializeField] GameObject doorOutOfCell;
+    [SerializeField] public GameObject doorOutOfCell;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -41,7 +41,7 @@ public class friendlyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager.instance.doorsEvents.OpenDoorOne(doorOutOfCell);
         gameManager.instance.cam2.SetActive(false);
         isGivenQuest = false;
         startingPos = transform.position;
@@ -56,8 +56,9 @@ public class friendlyAI : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.X) && isTalking)
         {
-
             StartCoroutine(gameManager.instance.doorsEvents.OpenDoorOne(doorOutOfCell));
+            //gameManager.instance.cam2.transform.position = gameManager.instance.doorsEvents.doorCamOne.transform.position; 
+            new WaitForSeconds(10);
             gameManager.instance.playerCamera.SetActive(true);
             gameManager.instance.cam2.SetActive(false);
             Cursor.visible = false;

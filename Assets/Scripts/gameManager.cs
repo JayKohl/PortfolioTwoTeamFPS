@@ -74,6 +74,7 @@ public class gameManager : MonoBehaviour
 
     string goalsText;
     [SerializeField] public GameObject endGameTrigger;
+    
 
 
     void Awake()
@@ -93,6 +94,8 @@ public class gameManager : MonoBehaviour
         AbilityOneS.cooldownTime = 10f;
         AbilityTwoS.cooldownTime = 10f;
         AbilityFourS.cooldownTime = 12f;
+
+
         
     }
     void Update()
