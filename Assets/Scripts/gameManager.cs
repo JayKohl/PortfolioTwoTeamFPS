@@ -14,7 +14,7 @@ public class gameManager : MonoBehaviour
     public playerController playerScript;
     public GameObject playerSpawnPosition;
     [SerializeField] public GameObject playerCamera;
-
+    [SerializeField] public GameObject cam2;
     [Header("UI")]
     public GameObject activeMenu;
     public GameObject pauseMenu;
@@ -26,7 +26,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI fuelCellsRemainingText;
     [SerializeField] public GameObject enemiesRemainingObject;
     [SerializeField] TextMeshProUGUI enemiesRemainingText;
-
+    [SerializeField] public openingDoors doorsEvents;
     public GameObject infoTextBackground;
     public TextMeshProUGUI infoText;
 
@@ -78,6 +78,7 @@ public class gameManager : MonoBehaviour
 
     void Awake()
     {
+        
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
@@ -92,6 +93,7 @@ public class gameManager : MonoBehaviour
         AbilityOneS.cooldownTime = 10f;
         AbilityTwoS.cooldownTime = 10f;
         AbilityFourS.cooldownTime = 12f;
+        
     }
     void Update()
     {
