@@ -164,8 +164,9 @@ public class friendlyAI : MonoBehaviour
                     transform.position = npcTransportPos.position;
                     transform.rotation = Quaternion.Euler(0, playerTransportPos.localEulerAngles.y * -1, 0);
 
-                    gameManager.instance.player.transform.rotation = Quaternion.Euler(0, npcTransportPos.localEulerAngles.y * -1, 0);
                     gameManager.instance.player.transform.position = playerTransportPos.position;
+                    gameManager.instance.player.transform.rotation = Quaternion.Euler(0, npcTransportPos.localEulerAngles.y * -1, 0);
+                    
                     Time.timeScale = 0;
                     
 
