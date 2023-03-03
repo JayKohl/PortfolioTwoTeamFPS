@@ -408,16 +408,7 @@ public class playerController : MonoBehaviour
         playerSpeed = speedOriginal;
         abilityOneActive = false;
     }
-
-    public IEnumerator abilityCoolShield(float cooldown)
-    {
-        shieldOnPlayer.GetComponent<shield>().shieldStart();
-        yield return new WaitForSeconds(cooldown);
-        if (gameManager.instance.shieldOn)
-        {
-            shieldOnPlayer.GetComponent<shield>().shutOffShield();
-        }
-    }
+    
     public IEnumerator abilityCoolInvisible(float cooldown)
     {
         abilityThreeActive = true;
