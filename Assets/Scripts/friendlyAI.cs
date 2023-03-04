@@ -41,7 +41,7 @@ public class friendlyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        
         gameManager.instance.cam2.SetActive(false);
         isGivenQuest = false;
         startingPos = transform.position;
@@ -56,18 +56,21 @@ public class friendlyAI : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.X) && isTalking)
         {
-            doorOutOfCell.SetActive(false);                    
-            gameManager.instance.playerCamera.SetActive(true);
-            gameManager.instance.cam2.SetActive(false);
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            transform.position = orgPos.position;
-            transform.localRotation = orgPos.localRotation;
-            gameManager.instance.playerScript.controller.enabled = true;
-            
-            isGivenQuest = true;
-            isTalking = false;
+
+            gameManager.instance.cameraTwo.openDoorOne();
             gameManager.instance.unPause();
+            //doorOutOfCell.SetActive(false);                    
+            //gameManager.instance.playerCamera.SetActive(true);
+            //gameManager.instance.cam2.SetActive(false);
+            //Cursor.visible = false;
+            //Cursor.lockState = CursorLockMode.Locked;
+            //transform.position = orgPos.position;
+            //transform.localRotation = orgPos.localRotation;
+            //gameManager.instance.playerScript.controller.enabled = true;
+
+            //isGivenQuest = true;
+            //isTalking = false;
+            //gameManager.instance.unPause();
 
         }
 
