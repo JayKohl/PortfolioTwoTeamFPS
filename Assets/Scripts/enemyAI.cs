@@ -122,7 +122,10 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         else
         {
             anim.SetTrigger("Damage");
-            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            if (dmg > 0)
+            {
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            }
             // melee add a function for turning off the weapon collider.
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());

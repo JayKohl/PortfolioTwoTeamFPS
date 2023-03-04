@@ -43,13 +43,21 @@ public class enemyOneAI : enemyAI
     }
     public override void takeDamage(int dmg)
     {        
-        if(gameManager.instance.playerScript.fireOn)
+        if(gameManager.instance.playerScript.fireOn && !setOnFire)
         {
+            setOnFire = true;
             StartCoroutine(onFire());
         }
-        hitPoints -= dmg;
+        if (dmg > 0)
+        {
+            hitPoints -= dmg;
+        }
         if (hitPoints <= 0)
         {
+            if(setOnFire)
+            {
+                model.material.color = Color.black;
+            }
             GetComponent<Collider>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
             aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);            
@@ -64,7 +72,10 @@ public class enemyOneAI : enemyAI
         else
         {
             anim.SetTrigger("Damage");
-            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            if (dmg > 0)
+            {
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            }
             // melee add a function for turning off the weapon collider.
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());
@@ -72,10 +83,15 @@ public class enemyOneAI : enemyAI
     }
     IEnumerator onFire()
     {
-        setOnFire = true;
-        fireEffect.SetActive(true);        
-        yield return new WaitForSeconds(5);
-        model.material.color = Color.black;
-        fireEffect.SetActive(false);        
+        yield return new WaitForSeconds(.5f);
+        fireEffect.SetActive(true);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        yield return new WaitForSeconds(2);
+        fireEffect.SetActive(false);
+        setOnFire = false;
     }
 }
