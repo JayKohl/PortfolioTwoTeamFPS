@@ -231,12 +231,10 @@ public class friendlyAI : MonoBehaviour
     IEnumerator doorOne()
     {
 
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        
         gameManager.instance.cameraTwo.openDoorOne();       
         yield return new WaitForSecondsRealtime(3);
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
+       
         gameManager.instance.cameraTwo.doorOne.SetActive(false);
         yield return new WaitForSecondsRealtime(3);
         Cursor.visible = false;
@@ -246,6 +244,7 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.playerScript.controller.enabled = true;
         gameManager.instance.playerCamera.SetActive(true);
         gameManager.instance.cam2.SetActive(false);
+        
         Time.timeScale = 1;
 
         isGivenQuest = true;
