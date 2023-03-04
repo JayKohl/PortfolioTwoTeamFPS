@@ -27,7 +27,11 @@ public class gameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI fuelCellsRemainingText;
     [SerializeField] public GameObject enemiesRemainingObject;
     [SerializeField] TextMeshProUGUI enemiesRemainingText;
-    [SerializeField] public openingDoors doorsEvents;
+
+    [SerializeField] GameObject npc;
+    public friendlyAI friendNPC;
+    public secondCamera cameraTwo;
+
     public GameObject infoTextBackground;
     public TextMeshProUGUI infoText;
 
@@ -86,6 +90,9 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
+
+        cameraTwo = cam2.GetComponent<secondCamera>();
+        friendNPC = npc.GetComponent<friendlyAI>();
 
         ability = playerScript.abilityOneActive;
         AbilityOneS = AbilityOne.GetComponent<AbilitiesColdown>();
@@ -157,7 +164,11 @@ public class gameManager : MonoBehaviour
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        activeMenu.SetActive(false);
+        if(activeMenu != null)
+        {
+            activeMenu.SetActive(false);
+        }
+        
         activeMenu = null;
     }
     public void updateGameGoal(int amount)
