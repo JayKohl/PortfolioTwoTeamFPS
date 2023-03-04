@@ -34,6 +34,7 @@ public class playerController : MonoBehaviour
     Vector3 muzzleFlashPosition;
     [SerializeField] public GameObject shieldOnPlayer;
     [SerializeField] public GameObject fireOnPlayer;
+    [SerializeField] public GameObject iceOnPlayer;
     [SerializeField] GameObject crosshair;
     Sprite crosshairTexture;
     [SerializeField] GameObject weaponIcon;
@@ -95,6 +96,7 @@ public class playerController : MonoBehaviour
     public bool abilityFourActive = false;
     Rigidbody rig;
     public bool fireOn;
+    public bool iceOn;
 
     int currentLevel = 0;
 
