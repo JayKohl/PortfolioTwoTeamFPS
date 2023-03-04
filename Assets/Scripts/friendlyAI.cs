@@ -55,11 +55,8 @@ public class friendlyAI : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.X) && isTalking)
-        {
-
-            
+        { 
             StartCoroutine(doorOne());
- 
         }
 
         if (agent.isActiveAndEnabled)
@@ -234,7 +231,7 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.cameraTwo.doorOne.SetActive(false);
         yield return new WaitForSecondsRealtime(3);
         new WaitForSeconds(2);
-        gameManager.instance.unPause();
+        
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         transform.position = orgPos.position;
@@ -244,6 +241,27 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.cam2.SetActive(false);
         gameManager.instance.unPause();
         
+        isGivenQuest = true;
+        isTalking = false;
+    }
+
+    IEnumerator doorTwo()
+    {
+        gameManager.instance.cameraTwo.openDoorTwo();
+        yield return new WaitForSecondsRealtime(3);
+        gameManager.instance.cameraTwo.doorOne.SetActive(false);
+        yield return new WaitForSecondsRealtime(3);
+        new WaitForSeconds(2);
+        
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        transform.position = orgPos.position;
+        transform.localRotation = orgPos.localRotation;
+        gameManager.instance.playerScript.controller.enabled = true;
+        gameManager.instance.playerCamera.SetActive(true);
+        gameManager.instance.cam2.SetActive(false);
+        gameManager.instance.unPause();
+
         isGivenQuest = true;
         isTalking = false;
     }
