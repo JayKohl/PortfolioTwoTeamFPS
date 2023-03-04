@@ -123,6 +123,16 @@ public class activateAbility : MonoBehaviour
                     gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
                     StartCoroutine(abilityCoolIce(3));
                 }
+                else if (stats.abilityName == "Confusion")
+                {
+                    abilityAudio = stats.abilityAudio;
+                    abilityAudioVol = stats.abilityAudioVol;
+                    RaycastHit hit;
+                    if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 25))
+                    {
+                        hit.collider.GetComponent<IDamage>().takeDamage(0);
+                    }
+                }
             }
         }
     }
