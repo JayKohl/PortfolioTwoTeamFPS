@@ -57,21 +57,9 @@ public class friendlyAI : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.X) && isTalking)
         {
 
-            gameManager.instance.cameraTwo.openDoorOne();
-            gameManager.instance.unPause();
-            //doorOutOfCell.SetActive(false);                    
-            //gameManager.instance.playerCamera.SetActive(true);
-            //gameManager.instance.cam2.SetActive(false);
-            //Cursor.visible = false;
-            //Cursor.lockState = CursorLockMode.Locked;
-            //transform.position = orgPos.position;
-            //transform.localRotation = orgPos.localRotation;
-            //gameManager.instance.playerScript.controller.enabled = true;
-
-            //isGivenQuest = true;
-            //isTalking = false;
-            //gameManager.instance.unPause();
-
+            
+            StartCoroutine(doorOne());
+ 
         }
 
         if (agent.isActiveAndEnabled)
@@ -237,5 +225,26 @@ public class friendlyAI : MonoBehaviour
             isPlayerInRange = false;
             agent.stoppingDistance = 0;
         }
+    }
+
+    IEnumerator doorOne()
+    {
+        gameManager.instance.cameraTwo.openDoorOne();       
+        yield return new WaitForSecondsRealtime(3);       
+        gameManager.instance.cameraTwo.doorOne.SetActive(false);
+        yield return new WaitForSecondsRealtime(3);
+        new WaitForSeconds(2);
+        gameManager.instance.unPause();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        transform.position = orgPos.position;
+        transform.localRotation = orgPos.localRotation;
+        gameManager.instance.playerScript.controller.enabled = true;
+        gameManager.instance.playerCamera.SetActive(true);
+        gameManager.instance.cam2.SetActive(false);
+        gameManager.instance.unPause();
+        
+        isGivenQuest = true;
+        isTalking = false;
     }
 }
