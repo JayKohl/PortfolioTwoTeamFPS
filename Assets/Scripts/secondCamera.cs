@@ -7,9 +7,9 @@ public class secondCamera : MonoBehaviour
     [SerializeField] public Transform locDoorOne;
     [SerializeField] public Transform locDoorTwo;
     [SerializeField] public GameObject doorOne;
-    [SerializeField] GameObject doorTwo;
+    [SerializeField] public GameObject doorTwo;
     // Start is called before the first frame update
-    Camera cam;
+   
 
     public void openDoorOne()
     {       
@@ -19,7 +19,7 @@ public class secondCamera : MonoBehaviour
     public void openDoorTwo()
     {
         transform.position = locDoorTwo.transform.position;
-        transform.Rotate(0, 90, 0);
+        transform.Rotate(0, 0, 0);
     }
 
 }

@@ -55,7 +55,9 @@ public class friendlyAI : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.X) && isTalking)
-        { 
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
             StartCoroutine(doorOne());
         }
 
@@ -64,6 +66,9 @@ public class friendlyAI : MonoBehaviour
             Debug.Log(gameManager.instance.enemiesRemaining);
             if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == false)
             {
+                gameManager.instance.cam2.SetActive(true);
+                gameManager.instance.playerCamera.SetActive(false);
+                gameManager.instance.pause();
                 //anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
 
                 agent.enabled = false;
@@ -74,8 +79,7 @@ public class friendlyAI : MonoBehaviour
                 //agent.enabled = false;
                 //agent.enabled = false;
                 //agent.enabled = true;
-
-                Destroy(doorToBoss);
+                StartCoroutine(doorTwo());              
                 isDoorOpen = true;
                 gameManager.instance.displayNpcText("Hurry to the flight deck to secure your ship... I will hold off the reinforcements.");
                 StartCoroutine(setGoal("Get to the flight deck"));
@@ -181,8 +185,8 @@ public class friendlyAI : MonoBehaviour
                     transform.localRotation = npcTransportPos.localRotation;
                     gameManager.instance.playerScript.controller.enabled = false;
                     gameManager.instance.cam2.SetActive(true);
-                    gameManager.instance.playerCamera.SetActive(false);                
-                    
+                    gameManager.instance.playerCamera.SetActive(false);
+
                     anim.SetTrigger("Talk");
                     gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. \n\n" +
                                                         "If by chance you can survive I will help you escape. Now go away before anyone notices us talking.");
@@ -226,14 +230,15 @@ public class friendlyAI : MonoBehaviour
 
     IEnumerator doorOne()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         gameManager.instance.cameraTwo.openDoorOne();       
         yield return new WaitForSecondsRealtime(3);       
         gameManager.instance.cameraTwo.doorOne.SetActive(false);
         yield return new WaitForSecondsRealtime(3);
         new WaitForSeconds(2);
         
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        
         transform.position = orgPos.position;
         transform.localRotation = orgPos.localRotation;
         gameManager.instance.playerScript.controller.enabled = true;
@@ -242,21 +247,20 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.unPause();
         
         isGivenQuest = true;
-        isTalking = false;
+        
     }
 
     IEnumerator doorTwo()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         gameManager.instance.cameraTwo.openDoorTwo();
         yield return new WaitForSecondsRealtime(3);
-        gameManager.instance.cameraTwo.doorOne.SetActive(false);
+        gameManager.instance.cameraTwo.doorTwo.SetActive(false);
         yield return new WaitForSecondsRealtime(3);
         new WaitForSeconds(2);
         
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        transform.position = orgPos.position;
-        transform.localRotation = orgPos.localRotation;
+            
         gameManager.instance.playerScript.controller.enabled = true;
         gameManager.instance.playerCamera.SetActive(true);
         gameManager.instance.cam2.SetActive(false);
