@@ -6,6 +6,11 @@ using UnityEngine.UI;
 
 public class enemyBugAI : enemyAI
 {
+    [SerializeField] GameObject fireEffect;
+    bool setOnFire;
+    [SerializeField] GameObject iceEffect;
+    bool chilled;
+    bool chilledOnce;
     [SerializeField] protected Collider meleeColliderTwo;
     [SerializeField] Collider meleeColliderRam;
 
@@ -30,6 +35,12 @@ public class enemyBugAI : enemyAI
     {
         if (agent.isActiveAndEnabled)
         {
+            if (!chilled)
+            {
+                agent.speed = speedOrig;
+                shootRate = shootRateOrig;
+                speedChase = speedChaseOrig;
+            }
             anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
             if (isPlayerInRange)
             {
@@ -133,7 +144,21 @@ public class enemyBugAI : enemyAI
     }
     public override void takeDamage(int dmg)
     {
-        hitPoints -= dmg;
+        if (gameManager.instance.playerScript.fireOn && !setOnFire)
+        {
+            setOnFire = true;
+            StartCoroutine(onFire());
+        }
+        else if (gameManager.instance.playerScript.iceOn && !chilled)
+        {
+            chilled = true;
+            chilledOnce = true;
+            StartCoroutine(iced());
+        }
+        if (dmg > 0)
+        {
+            hitPoints -= dmg;
+        }
         if (hitPoints <= 0)
         {
 
@@ -146,10 +171,44 @@ public class enemyBugAI : enemyAI
         else
         {
             anim.SetTrigger("Damage");
-            aud.PlayOneShot(audTakeDamage[UnityEngine.Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            if (dmg > 0)
+            {
+                aud.PlayOneShot(audTakeDamage[UnityEngine.Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            }
             // melee add a function for turning off the weapon collider.
+            if (chilled && chilledOnce)
+            {
+                chilledOnce = false;
+                agent.speed = speedOrig / 4;
+                speedChase = speedChase / 4;
+                shootRate = shootRate * 8;
+            }
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());
         }
+    }
+    IEnumerator onFire()
+    {
+        yield return new WaitForSeconds(.5f);
+        fireEffect.SetActive(true);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        yield return new WaitForSeconds(2);
+        fireEffect.SetActive(false);
+        setOnFire = false;
+    }
+    IEnumerator iced()
+    {
+        yield return new WaitForSeconds(.5f);
+        iceEffect.SetActive(true);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        yield return new WaitForSeconds(6);
+        iceEffect.SetActive(false);
+        chilled = false;
     }
 }

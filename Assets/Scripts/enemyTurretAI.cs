@@ -12,7 +12,10 @@ public class enemyTurretAI : enemyAI
     [SerializeField] GameObject explosion;
     [SerializeField] GameObject plasmaExplosion;
     [SerializeField] GameObject deathFlames;
+    [SerializeField] GameObject iceEffect;
     bool setOnFire;
+    bool chilled;
+    bool chilledOnce;
     // Make sure the NavMesh stopping distance is the same as the sphere collider trigger radius.    
 
     bool alive;
@@ -26,9 +29,13 @@ public class enemyTurretAI : enemyAI
 
     //// Update is called once per frame
     void Update()
-    {
+    {        
         if (isPlayerInRange && alive)
         {
+            if (!chilled)
+            {
+                shootRate = shootRateOrig;
+            }
             canSeePlayer();
         }
     }
@@ -102,9 +109,20 @@ public class enemyTurretAI : enemyAI
             setOnFire = true;
             StartCoroutine(onFire());
         }
+        else if (gameManager.instance.playerScript.iceOn && !chilled)
+        {
+            chilled = true;
+            chilledOnce = true;
+            StartCoroutine(iced());
+        }
         if (dmg > 0)
         {
             hitPoints -= dmg;
+        }
+        if (chilled && chilledOnce)
+        {
+            chilledOnce = false;
+            shootRate = shootRate * 8;
         }
         StartCoroutine(flashDamage());
         if (hitPoints <= 0)
@@ -121,7 +139,10 @@ public class enemyTurretAI : enemyAI
         }
         else
         {
-            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            if (dmg > 0)
+            {
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            }
         }
     }
     IEnumerator die()
@@ -142,5 +163,16 @@ public class enemyTurretAI : enemyAI
         yield return new WaitForSeconds(1);
         takeDamage(1);
         setOnFire = false;
+    }
+    IEnumerator iced()
+    {
+        yield return new WaitForSeconds(.5f);
+        iceEffect.SetActive(true);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        yield return new WaitForSeconds(6);
+        iceEffect.SetActive(false);
+        chilled = false;
     }
 }

@@ -21,7 +21,8 @@ public class gameManager : MonoBehaviour
     public GameObject winMenu;
     public GameObject loseMenu;
     public GameObject playerDamageFlashScreen;
-    public Image playerHPBar;
+    [SerializeField] public Image playerHPBar;
+    [SerializeField] public Image playerXPBar;
     [SerializeField] public GameObject fuelCellsRemainingObject;
     [SerializeField] TextMeshProUGUI fuelCellsRemainingText;
     [SerializeField] public GameObject enemiesRemainingObject;

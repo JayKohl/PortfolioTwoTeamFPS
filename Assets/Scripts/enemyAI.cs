@@ -18,6 +18,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [SerializeField] protected Transform headPos;
     [SerializeField] public int hitPoints;
     [SerializeField] protected int playerFaceSpeed;
+    [SerializeField] protected int speedChaseOrig;
     [SerializeField] protected int speedChase;
     [SerializeField] protected int viewAngle;
     [SerializeField] protected int shootAngle;
@@ -28,10 +29,12 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [SerializeField] protected Transform shootPosition;
     [SerializeField] protected GameObject bullet;
     [SerializeField] protected int bulletSpeed;
+    [SerializeField] protected float shootRateOrig;
     [SerializeField] protected float shootRate;
 
     [Header("----- Melee -----")]
     [SerializeField] protected Collider meleeCollider;
+    [SerializeField] protected float meleeRateOrig;
     [SerializeField] protected float meleeRate;
 
     [Header("----- Audio -----")]
@@ -122,7 +125,10 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         else
         {
             anim.SetTrigger("Damage");
-            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            if (dmg > 0)
+            {
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+            }
             // melee add a function for turning off the weapon collider.
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());

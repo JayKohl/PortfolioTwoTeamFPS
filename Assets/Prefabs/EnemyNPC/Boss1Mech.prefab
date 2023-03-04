@@ -1701,7 +1701,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4872947410899261872
 Transform:
   m_ObjectHideFlags: 0
@@ -1727,6 +1727,7 @@ Transform:
   - {fileID: 4000011932358859}
   - {fileID: 4000011754350707}
   - {fileID: 4755678041434184}
+  - {fileID: 3047350315767383834}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1750,6 +1751,7 @@ MonoBehaviour:
   headPos: {fileID: 9149088866178157363}
   hitPoints: 250
   playerFaceSpeed: 50
+  speedChaseOrig: 0
   speedChase: 8
   viewAngle: 180
   shootAngle: 90
@@ -1758,8 +1760,10 @@ MonoBehaviour:
   shootPosition: {fileID: 9149088866541473396}
   bullet: {fileID: 8475010341257784611, guid: 9372fc5d1cf62584cb4129c921ae5bcd, type: 3}
   bulletSpeed: 30
+  shootRateOrig: 0.17
   shootRate: 0.17
   meleeCollider: {fileID: 0}
+  meleeRateOrig: 0
   meleeRate: 0
   audTakeDamage:
   - {fileID: 8300000, guid: 75adfe9a619833445a701305b983e548, type: 3}
@@ -1786,6 +1790,7 @@ MonoBehaviour:
   explosion: {fileID: 1000012824520625}
   plasmaExplosion: {fileID: 1000011189205289}
   deathFlames: {fileID: 1995348203704194}
+  iceEffect: {fileID: 0}
   audMissile:
   - {fileID: 8300000, guid: b22bd28e0d69a2a4497b081d68ed1353, type: 3}
   audMissileVol: 0.5
@@ -3100,4 +3105,78 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000011428506136, guid: ecdd96beb7f93494880c052dfccf9dc1, type: 3}
   m_PrefabInstance: {fileID: 1712878291}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8843845541917421572
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4872947410899261872}
+    m_Modifications:
+    - target: {fileID: 5832718276523046686, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832718276523046686, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832718276523046686, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832718276523046686, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832718276523046686, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832718276523046686, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832718276523046686, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832718276523046686, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832718276523046686, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832718276523046686, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832718276523046686, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832718276523046687, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832718276523046687, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832718276523046753, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+      propertyPath: m_Name
+      value: Ice Effect On Body
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832718276523046753, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+--- !u!4 &3047350315767383834 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5832718276523046686, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+  m_PrefabInstance: {fileID: 8843845541917421572}
   m_PrefabAsset: {fileID: 0}
