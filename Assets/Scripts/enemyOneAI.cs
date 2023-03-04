@@ -94,7 +94,7 @@ public class enemyOneAI : enemyAI
             if (chilled && chilledOnce)
             {
                 chilledOnce = false;
-                agent.speed = speedOrig / 3;
+                agent.speed = speedOrig / 4;
                 shootRate = shootRate * 8;
             }
             agent.SetDestination(gameManager.instance.player.transform.position);
