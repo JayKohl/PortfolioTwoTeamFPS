@@ -16,9 +16,12 @@ public class secondCamera : MonoBehaviour
         
         transform.position = locDoorOne.transform.position;        
         transform.Rotate(0,90,0);
-        
-        doorOne.transform.Translate(0, 10, 0);
-        
-        
+        StartCoroutine(doorTimer());
+    }
+
+    IEnumerator doorTimer()
+    {
+        yield return new WaitForSeconds(5);
+        doorOne.SetActive(false);
     }
 }
