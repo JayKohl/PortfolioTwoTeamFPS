@@ -68,11 +68,11 @@ public class friendlyAI : MonoBehaviour
             transform.position = orgPos.position;
             transform.localRotation = orgPos.localRotation;
             gameManager.instance.playerScript.controller.enabled = true;
-            gameManager.instance.unPause();
             
-
+            isGivenQuest = true;
             isTalking = false;
-            
+            gameManager.instance.unPause();
+
         }
 
         if (agent.isActiveAndEnabled)
@@ -97,6 +97,7 @@ public class friendlyAI : MonoBehaviour
                 StartCoroutine(setGoal("Get to the flight deck"));
                 StartCoroutine(gameManager.instance.deleteTextNpc(8));
                 //exitArena();
+                
             }
             //if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == true)
             //{
@@ -196,15 +197,14 @@ public class friendlyAI : MonoBehaviour
                     transform.localRotation = npcTransportPos.localRotation;
                     gameManager.instance.playerScript.controller.enabled = false;
                     gameManager.instance.cam2.SetActive(true);
-                    gameManager.instance.playerCamera.SetActive(false);
-                    gameManager.instance.pause();
-                    isGivenQuest = true;
+                    gameManager.instance.playerCamera.SetActive(false);                
+                    
                     anim.SetTrigger("Talk");
                     gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. \n\n" +
                                                         "If by chance you can survive I will help you escape. Now go away before anyone notices us talking.");
- 
-                    StartCoroutine(gameManager.instance.deleteTextNpc(8));
-                                      
+                    gameManager.instance.pause();
+
+
                 }
                 return true;
             }
