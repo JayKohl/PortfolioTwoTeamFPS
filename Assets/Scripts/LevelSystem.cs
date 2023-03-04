@@ -12,51 +12,61 @@ public class LevelSystem : MonoBehaviour
     public int tokenAmount;
     [Header("Calculations")]
     [Range(0.01f, 0.6f)] public float VarX;
-    [Range(1.0f,3.5f)]public float VarY;
+    [Range(1.0f, 3.5f)] public float VarY;
 
-    float lerpTimer;
-    float delayTimer;
+    //float lerpTimer;
+    //float delayTimer;
 
-   // [SerializeField] public Image frontXPbar;
-   // [SerializeField] public Image backXPbar;
-   // [SerializeField] public Image tokenImage;
+    [SerializeField] public Image frontXPbar;
+    // [SerializeField] public Image backXPbar;
+    // [SerializeField] public Image tokenImage;
 
     // Start is called before the first frame update
     void Start()
     {
-        //frontXPbar.fillAmount = currentXP / NeededXP;
+        frontXPbar = gameManager.instance.playerXPBar;
+        frontXPbar.fillAmount = currentXP / NeededXP;
         //backXPbar.fillAmount = currentXP / NeededXP;
         //LevelUp();
-        
-        
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        //UpdateXPBar();
+        UpdateXPBar();
         if (Input.GetKeyDown(KeyCode.Equals))
             GainExperiance(120);
         if (currentXP > NeededXP)
             LevelUp();
     }
 
-    //public void UpdateXPBar()
-    //{
-    //    float xpFraction = currentXP / NeededXP;
-    //    float Fxp = frontXPbar.fillAmount;
-    //    if (Fxp < xpFraction)
-    //    {
-    //        delayTimer += Time.deltaTime;
-    //        backXPbar.fillAmount = xpFraction;
-    //        if (delayTimer > 3)
-    //        {
-    //            lerpTimer += Time.deltaTime;
-    //            float percentComplete = lerpTimer / 4;
-    //            frontXPbar.fillAmount = Mathf.Lerp(Fxp, backXPbar.fillAmount, percentComplete);
-    //        }
-    //    }
-    //}
+    public void UpdateXPBar()
+    {
+        if (playerLevel < LevelMax)
+        {
+            gameManager.instance.playerXPBar.fillAmount = currentXP / NeededXP;
+        }
+        else
+        {
+            gameManager.instance.playerXPBar.fillAmount = 1;
+        }
+        
+        //float xpFraction = currentXP / NeededXP;
+        //float Fxp = frontXPbar.fillAmount;
+        //if (Fxp < xpFraction)
+        //{
+        //    delayTimer += Time.deltaTime;
+        //    backXPbar.fillAmount = xpFraction;
+        //    if (delayTimer > 3)
+        //    {
+        //        lerpTimer += Time.deltaTime;
+        //        float percentComplete = lerpTimer / 4;
+        //        frontXPbar.fillAmount = Mathf.Lerp(Fxp, backXPbar.fillAmount, percentComplete);
+        //    }
+        //}
+    }
 
     public void GainExperiance(float gainedXP)
     {
@@ -64,17 +74,15 @@ public class LevelSystem : MonoBehaviour
         {
             currentXP += gainedXP;
         }
-        
-        
-        
-        lerpTimer = 0f;
-        delayTimer = 0f;
+
+        //lerpTimer = 0f;
+        //delayTimer = 0f;
     }
 
     public void LevelUp()
     {
         playerLevel++;
-        //frontXPbar.fillAmount = 0f;
+        frontXPbar.fillAmount = 0f;
         //backXPbar.fillAmount = 0f;
         currentXP = Mathf.RoundToInt(currentXP - NeededXP);
         tokenAmount += playerLevel;
@@ -84,12 +92,8 @@ public class LevelSystem : MonoBehaviour
 
     private int CalculateXP()
     {
-        
-            int requiredxp = 0;
-            return requiredxp = (int)Mathf.Floor(Mathf.Pow((playerLevel / VarX), VarY));
-        
-        
-        
-        
+
+        int requiredxp = 0;
+        return requiredxp = (int)Mathf.Floor(Mathf.Pow((playerLevel / VarX), VarY));
     }
 }
