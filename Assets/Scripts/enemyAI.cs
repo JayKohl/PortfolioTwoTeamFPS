@@ -189,6 +189,16 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         {
             isPlayerInRange = true;
         }
+        else if (other.CompareTag("Swarm"))
+        {
+            gameObject.tag = "Player";
+            StartCoroutine(swarmEnd());
+        }
+    }
+    IEnumerator swarmEnd()
+    {
+        yield return new WaitForSeconds(15);
+        gameObject.transform.tag = "Enemy";
     }
     public void OnTriggerExit(Collider other)
     {
