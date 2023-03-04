@@ -66,9 +66,9 @@ public class friendlyAI : MonoBehaviour
             Debug.Log(gameManager.instance.enemiesRemaining);
             if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == false)
             {
-                gameManager.instance.cam2.SetActive(true);
-                gameManager.instance.playerCamera.SetActive(false);
-                gameManager.instance.pause();
+                
+                
+                
                 //anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
 
                 agent.enabled = false;
@@ -230,41 +230,42 @@ public class friendlyAI : MonoBehaviour
 
     IEnumerator doorOne()
     {
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         gameManager.instance.cameraTwo.openDoorOne();       
-        yield return new WaitForSecondsRealtime(3);       
+        yield return new WaitForSecondsRealtime(3);
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
         gameManager.instance.cameraTwo.doorOne.SetActive(false);
         yield return new WaitForSecondsRealtime(3);
-        new WaitForSeconds(2);
-        
-        
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         transform.position = orgPos.position;
         transform.localRotation = orgPos.localRotation;
         gameManager.instance.playerScript.controller.enabled = true;
         gameManager.instance.playerCamera.SetActive(true);
         gameManager.instance.cam2.SetActive(false);
-        gameManager.instance.unPause();
-        
+        Time.timeScale = 1;
+
         isGivenQuest = true;
         
     }
 
     IEnumerator doorTwo()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        yield return new WaitForSecondsRealtime(1);
+        gameManager.instance.cam2.SetActive(true);
+        gameManager.instance.playerCamera.SetActive(false);
+        Time.timeScale = 0;
         gameManager.instance.cameraTwo.openDoorTwo();
         yield return new WaitForSecondsRealtime(3);
         gameManager.instance.cameraTwo.doorTwo.SetActive(false);
         yield return new WaitForSecondsRealtime(3);
-        new WaitForSeconds(2);
-        
-            
         gameManager.instance.playerScript.controller.enabled = true;
         gameManager.instance.playerCamera.SetActive(true);
         gameManager.instance.cam2.SetActive(false);
-        gameManager.instance.unPause();
+        Time.timeScale = 1;
 
         isGivenQuest = true;
         isTalking = false;
