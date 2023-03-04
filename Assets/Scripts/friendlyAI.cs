@@ -56,11 +56,7 @@ public class friendlyAI : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.X) && isTalking)
         {
-            doorOutOfCell.SetActive(false);
-            //doorOutOfCell.transform.localPosition = Vector3.Lerp(doorOutOfCell.transform.localPosition, doorOutOfCell.transform.localPosition + new Vector3(0, -4, 0), 5 * Time.deltaTime);
-            //gameManager.instance.transform.position = gameManager.instance.doorsEvents.doorCamOne.transform.position;
-            //StartCoroutine(gameManager.instance.doorsEvents.OpenDoorOne(doorOutOfCell));
-            //gameManager.instance.cam2.transform.position = gameManager.instance.doorsEvents.doorCamOne.transform.position;             
+            doorOutOfCell.SetActive(false);                    
             gameManager.instance.playerCamera.SetActive(true);
             gameManager.instance.cam2.SetActive(false);
             Cursor.visible = false;
