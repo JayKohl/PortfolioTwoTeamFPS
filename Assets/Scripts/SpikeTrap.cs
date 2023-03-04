@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class SpikeTrap : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] AudioSource aud;
+    [SerializeField] AudioClip[] spikeAud;
+    [Range(0, 1)] [SerializeField] float audspikeVol;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Player"))
+        {
+            gameManager.instance.playerScript.takeDamage(10);
+            aud.PlayOneShot(spikeAud[Random.Range(0, spikeAud.Length)], audspikeVol);
+        }
     }
 }
