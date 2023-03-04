@@ -50,6 +50,19 @@ public class enemyOneAI : enemyAI
         }
 
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Swarm"))
+        {
+            gameObject.transform.tag = "Player";
+            StartCoroutine(swarmEnd());
+        }
+    }
+    IEnumerator swarmEnd()
+    {
+        yield return new WaitForSeconds(5);
+        gameObject.transform.tag = "Enemy";
+    }
     public override void takeDamage(int dmg)
     {
         if (gameManager.instance.playerScript.fireOn && !setOnFire)

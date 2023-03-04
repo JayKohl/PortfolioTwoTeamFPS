@@ -40,19 +40,26 @@ public class activateAbility : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && gameManager.instance.AbilityOneS.wasSpellUsed())
         {
             abilityTexture = abilityOne.GetComponent<Image>().sprite;
-            abilityActivation(abilityTexture);
-            foreach (abilities stats in abilityBar)
+            if (abilityOne.GetComponent<Image>().sprite.name != "None2")
             {
-                if (stats.abilityImage == abilityTexture)
+                abilityActivation(abilityTexture);
+                foreach (abilities stats in abilityBar)
                 {
-                    gameManager.instance.AbilityOneS.wasSpellUsed();
-                    gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
+                    if (stats.abilityImage == abilityTexture)
+                    {
+                        gameManager.instance.AbilityOneS.wasSpellUsed();
+                        gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
+                    }
                 }
             }
         }
         else if (Input.GetKeyDown(KeyCode.R) && gameManager.instance.AbilityTwoS.wasSpellUsed())
         {
             abilityTexture = abilityTwo.GetComponent<Image>().sprite;
+            if (abilityTexture.name == "None2")
+            {
+                return;
+            }
             abilityActivation(abilityTexture);
             foreach (abilities stats in abilityBar)
             {
@@ -67,6 +74,10 @@ public class activateAbility : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.F) && gameManager.instance.AbilityThreeS.wasSpellUsed())
         {
             abilityTexture = abilityThree.GetComponent<Image>().sprite;
+            if (abilityTexture.name == "None2")
+            {
+                return;
+            }
             abilityActivation(abilityTexture);
             foreach (abilities stats in abilityBar)
             {
@@ -81,6 +92,10 @@ public class activateAbility : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.E) && gameManager.instance.AbilityFourS.wasSpellUsed())
         {
             abilityTexture = abilityFour.GetComponent<Image>().sprite;
+            if (abilityTexture.name == "None2")
+            {
+                return;
+            }
             abilityActivation(abilityTexture);
             foreach (abilities stats in abilityBar)
             {
@@ -123,15 +138,11 @@ public class activateAbility : MonoBehaviour
                     gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
                     StartCoroutine(abilityCoolIce(3));
                 }
-                else if (stats.abilityName == "Confusion")
+                else if (stats.abilityName == "Swarm")
                 {
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
-                    RaycastHit hit;
-                    if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 25))
-                    {
-                        hit.collider.GetComponent<IDamage>().takeDamage(0);
-                    }
+                    gameManager.instance.playerScript.swarm();
                 }
             }
         }
