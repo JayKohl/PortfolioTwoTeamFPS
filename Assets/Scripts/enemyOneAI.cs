@@ -7,6 +7,9 @@ public class enemyOneAI : enemyAI
 {
     [SerializeField] GameObject fireEffect;
     bool setOnFire;
+    [SerializeField] GameObject iceEffect;
+    bool chilled;
+    bool chilledOnce;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +27,12 @@ public class enemyOneAI : enemyAI
     void Update()
     {
         if (agent.isActiveAndEnabled)
-        {
+        {            
+            if(!chilled)
+            {
+                agent.speed = speedOrig;
+                shootRate = shootRateOrig;
+            }
             anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
 
             if (isPlayerInRange)
@@ -37,16 +45,22 @@ public class enemyOneAI : enemyAI
             else if (agent.destination != gameManager.instance.player.transform.position)
             {
                 StartCoroutine(roam());
-            }
+            }            
         }
 
     }
     public override void takeDamage(int dmg)
-    {        
-        if(gameManager.instance.playerScript.fireOn && !setOnFire)
+    {
+        if (gameManager.instance.playerScript.fireOn && !setOnFire)
         {
             setOnFire = true;
             StartCoroutine(onFire());
+        }
+        else if (gameManager.instance.playerScript.iceOn && !chilled)
+        {
+            chilled = true;
+            chilledOnce = true;
+            StartCoroutine(iced());
         }
         if (dmg > 0)
         {
@@ -54,15 +68,15 @@ public class enemyOneAI : enemyAI
         }
         if (hitPoints <= 0)
         {
-            if(setOnFire)
+            if (setOnFire)
             {
                 model.material.color = Color.black;
             }
             GetComponent<Collider>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
-            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);            
+            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
             anim.SetBool("Dead", true);
-            agent.enabled = false;            
+            agent.enabled = false;
             if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
             {
                 gameManager.instance.updateGameGoalLvl2(-1);
@@ -77,6 +91,12 @@ public class enemyOneAI : enemyAI
                 aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
             }
             // melee add a function for turning off the weapon collider.
+            if (chilled && chilledOnce)
+            {
+                chilledOnce = false;
+                agent.speed = speedOrig / 3;
+                shootRate = shootRate * 8;
+            }
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());
         }
@@ -86,12 +106,23 @@ public class enemyOneAI : enemyAI
         yield return new WaitForSeconds(.5f);
         fireEffect.SetActive(true);
         takeDamage(1);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1);        
         takeDamage(1);
         yield return new WaitForSeconds(1);
         takeDamage(1);
         yield return new WaitForSeconds(2);
         fireEffect.SetActive(false);
         setOnFire = false;
+    }
+    IEnumerator iced()
+    {
+        yield return new WaitForSeconds(.5f);
+        iceEffect.SetActive(true);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        yield return new WaitForSeconds(6);
+        iceEffect.SetActive(false);
+        chilled = false;
     }
 }

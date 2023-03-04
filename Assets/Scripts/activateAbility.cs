@@ -29,7 +29,7 @@ public class activateAbility : MonoBehaviour
     }
     void Update()
     {
-        if (gameManager.instance.playerScript.fireOn)
+        if (gameManager.instance.playerScript.fireOn || gameManager.instance.playerScript.iceOn)
         {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 10))
@@ -116,6 +116,13 @@ public class activateAbility : MonoBehaviour
                     gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
                     StartCoroutine(abilityCoolFire(3));
                 }
+                else if (stats.abilityName == "Ice")
+                {
+                    abilityAudio = stats.abilityAudio;
+                    abilityAudioVol = stats.abilityAudioVol;
+                    gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    StartCoroutine(abilityCoolIce(3));
+                }
             }
         }
     }
@@ -174,5 +181,13 @@ public class activateAbility : MonoBehaviour
         yield return new WaitForSeconds(cooldown);
         gameManager.instance.playerScript.fireOnPlayer.SetActive(false);
         gameManager.instance.playerScript.fireOn = false;
+    }
+    public IEnumerator abilityCoolIce(float cooldown)
+    {
+        gameManager.instance.playerScript.iceOnPlayer.SetActive(true);
+        gameManager.instance.playerScript.iceOn = true;
+        yield return new WaitForSeconds(cooldown);
+        gameManager.instance.playerScript.iceOnPlayer.SetActive(false);
+        gameManager.instance.playerScript.iceOn = false;
     }
 }

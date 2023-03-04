@@ -28,6 +28,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [SerializeField] protected Transform shootPosition;
     [SerializeField] protected GameObject bullet;
     [SerializeField] protected int bulletSpeed;
+    [SerializeField] protected float shootRateOrig;
     [SerializeField] protected float shootRate;
 
     [Header("----- Melee -----")]
