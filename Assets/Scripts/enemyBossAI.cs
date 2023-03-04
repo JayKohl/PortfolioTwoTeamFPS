@@ -71,11 +71,15 @@ public class enemyBossAI : enemyAI
     // Update is called once per frame
     void Update()
     {
-        if (agent.isActiveAndEnabled && isInCoolDown == false)
+        if (!chilled)
         {
+            shootRate = shootRateOrig;
+        }
+        if (agent.isActiveAndEnabled && isInCoolDown == false)
+        {            
             anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
             if (isPlayerInRange)
-            {
+            {                
                 if (!canSeePlayer())
                 {
                     agent.destination = gameManager.instance.player.transform.position;
@@ -130,7 +134,7 @@ public class enemyBossAI : enemyAI
                 plasmaExplosion.SetActive(true);
             }
             anim.SetTrigger("Damage");
-            if (!setOnFire)
+            if (!setOnFire && !chilled)
             {
                 aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
             }

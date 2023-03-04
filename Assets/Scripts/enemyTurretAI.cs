@@ -29,7 +29,7 @@ public class enemyTurretAI : enemyAI
 
     //// Update is called once per frame
     void Update()
-    {
+    {        
         if (isPlayerInRange && alive)
         {
             if (!chilled)

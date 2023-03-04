@@ -1759,7 +1759,7 @@ MonoBehaviour:
   shootPosition: {fileID: 9149088866541473396}
   bullet: {fileID: 8475010341257784611, guid: 9372fc5d1cf62584cb4129c921ae5bcd, type: 3}
   bulletSpeed: 30
-  shootRateOrig: 0
+  shootRateOrig: 0.17
   shootRate: 0.17
   meleeCollider: {fileID: 0}
   meleeRate: 0
@@ -1788,6 +1788,7 @@ MonoBehaviour:
   explosion: {fileID: 1000012824520625}
   plasmaExplosion: {fileID: 1000011189205289}
   deathFlames: {fileID: 1995348203704194}
+  iceEffect: {fileID: 0}
   audMissile:
   - {fileID: 8300000, guid: b22bd28e0d69a2a4497b081d68ed1353, type: 3}
   audMissileVol: 0.5
@@ -3165,6 +3166,10 @@ PrefabInstance:
     - target: {fileID: 5832718276523046753, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
       propertyPath: m_Name
       value: Ice Effect On Body
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832718276523046753, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69d2f52a8c0e2354b9d9fd7ee7dfb5d5, type: 3}
