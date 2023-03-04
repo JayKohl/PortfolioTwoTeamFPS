@@ -1701,7 +1701,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4872947410899261872
 Transform:
   m_ObjectHideFlags: 0
@@ -1751,6 +1751,7 @@ MonoBehaviour:
   headPos: {fileID: 9149088866178157363}
   hitPoints: 250
   playerFaceSpeed: 50
+  speedChaseOrig: 0
   speedChase: 8
   viewAngle: 180
   shootAngle: 90
@@ -1762,6 +1763,7 @@ MonoBehaviour:
   shootRateOrig: 0.17
   shootRate: 0.17
   meleeCollider: {fileID: 0}
+  meleeRateOrig: 0
   meleeRate: 0
   audTakeDamage:
   - {fileID: 8300000, guid: 75adfe9a619833445a701305b983e548, type: 3}

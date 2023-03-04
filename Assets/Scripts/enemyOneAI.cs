@@ -31,6 +31,7 @@ public class enemyOneAI : enemyAI
             if(!chilled)
             {
                 agent.speed = speedOrig;
+                speedChase = speedChaseOrig;
                 shootRate = shootRateOrig;
             }
             anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
@@ -95,6 +96,7 @@ public class enemyOneAI : enemyAI
             {
                 chilledOnce = false;
                 agent.speed = speedOrig / 4;
+                speedChase = speedChase / 4;
                 shootRate = shootRate * 8;
             }
             agent.SetDestination(gameManager.instance.player.transform.position);

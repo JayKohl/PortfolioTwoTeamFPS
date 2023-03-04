@@ -74,6 +74,8 @@ public class enemyBossAI : enemyAI
         if (!chilled)
         {
             shootRate = shootRateOrig;
+            speedChase = speedChaseOrig;
+            agent.speed = speedOrig;
         }
         if (agent.isActiveAndEnabled && isInCoolDown == false)
         {            
@@ -114,6 +116,8 @@ public class enemyBossAI : enemyAI
         {
             chilledOnce = false;
             shootRate = shootRate * 8;
+            agent.speed = agent.speed / 4;
+            speedChase = speedChase / 4;
         }
         if (hitPoints <= 0)
         {
