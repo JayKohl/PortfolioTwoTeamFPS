@@ -24,6 +24,7 @@ public class enemyBossAI : enemyAI
     [SerializeField] GameObject explosion;
     [SerializeField] GameObject plasmaExplosion;
     [SerializeField] GameObject deathFlames;
+    [SerializeField] GameObject iceEffect;
 
     [Header("----- Audio Cont -----")]
     [SerializeField] protected AudioClip[] audMissile;
@@ -45,6 +46,8 @@ public class enemyBossAI : enemyAI
     //bool isHealFour;
     bool isInCoolDown;
     bool setOnFire;
+    bool chilled;
+    bool chilledOnce;
 
     // Start is called before the first frame update
     void Start()
@@ -93,9 +96,20 @@ public class enemyBossAI : enemyAI
             setOnFire = true;
             StartCoroutine(onFire());
         }
+        else if (gameManager.instance.playerScript.iceOn && !chilled)
+        {
+            chilled = true;
+            chilledOnce = true;
+            StartCoroutine(iced());
+        }
         if (dmg > 0)
         {
             hitPoints -= dmg;
+        }
+        if (chilled && chilledOnce)
+        {
+            chilledOnce = false;
+            shootRate = shootRate * 8;
         }
         if (hitPoints <= 0)
         {
@@ -134,6 +148,17 @@ public class enemyBossAI : enemyAI
         yield return new WaitForSeconds(1);
         takeDamage(1);
         setOnFire = false;
+    }
+    IEnumerator iced()
+    {
+        yield return new WaitForSeconds(.5f);
+        iceEffect.SetActive(true);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        yield return new WaitForSeconds(6);
+        iceEffect.SetActive(false);
+        chilled = false;
     }
     IEnumerator explosionTimer()
     {
