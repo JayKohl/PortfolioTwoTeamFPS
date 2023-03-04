@@ -6,6 +6,9 @@ public class enemyShredder : enemyAI
 {
     [SerializeField] GameObject fireEffect;
     bool setOnFire;
+    [SerializeField] GameObject iceEffect;
+    bool chilled;
+    bool chilledOnce;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,9 +19,15 @@ public class enemyShredder : enemyAI
 
     // Update is called once per frame
     void Update()
-    {
+    {        
         if (agent.isActiveAndEnabled)
         {
+            if (!chilled)
+            {
+                meleeRate = meleeRateOrig;
+                agent.speed = speedOrig;
+                speedChase = speedChaseOrig;
+            }
             anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
             if (isPlayerInRange)
             {
@@ -74,9 +83,22 @@ public class enemyShredder : enemyAI
             setOnFire = true;
             StartCoroutine(onFire());
         }
+        else if (gameManager.instance.playerScript.iceOn && !chilled)
+        {
+            chilled = true;
+            chilledOnce = true;
+            StartCoroutine(iced());
+        }
         if (dmg > 0)
         {
             hitPoints -= dmg;
+        }
+        if (chilled && chilledOnce)
+        {
+            chilledOnce = false;
+            agent.speed = speedOrig / 4;
+            meleeRate = meleeRate * 8;
+            speedChase = speedChase / 4;
         }
         if (hitPoints <= 0)
         {
@@ -85,7 +107,7 @@ public class enemyShredder : enemyAI
                 model.material.color = Color.black;
             }
             GetComponent<Collider>().enabled = false;
-            GetComponentInChildren<Canvas>().enabled = false;            
+            GetComponentInChildren<Canvas>().enabled = false;
             aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
             anim.SetBool("Dead", true);
             agent.enabled = false;
@@ -115,5 +137,16 @@ public class enemyShredder : enemyAI
         yield return new WaitForSeconds(2);
         fireEffect.SetActive(false);
         setOnFire = false;
+    }
+    IEnumerator iced()
+    {
+        yield return new WaitForSeconds(.5f);
+        iceEffect.SetActive(true);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        yield return new WaitForSeconds(6);
+        iceEffect.SetActive(false);
+        chilled = false;
     }
 }

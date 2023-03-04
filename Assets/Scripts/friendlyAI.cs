@@ -41,7 +41,7 @@ public class friendlyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        
         gameManager.instance.cam2.SetActive(false);
         isGivenQuest = false;
         startingPos = transform.position;
@@ -56,23 +56,9 @@ public class friendlyAI : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.X) && isTalking)
         {
-            doorOutOfCell.SetActive(false);
-            //doorOutOfCell.transform.localPosition = Vector3.Lerp(doorOutOfCell.transform.localPosition, doorOutOfCell.transform.localPosition + new Vector3(0, -4, 0), 5 * Time.deltaTime);
-            //gameManager.instance.transform.position = gameManager.instance.doorsEvents.doorCamOne.transform.position;
-            //StartCoroutine(gameManager.instance.doorsEvents.OpenDoorOne(doorOutOfCell));
-            //gameManager.instance.cam2.transform.position = gameManager.instance.doorsEvents.doorCamOne.transform.position;             
-            gameManager.instance.playerCamera.SetActive(true);
-            gameManager.instance.cam2.SetActive(false);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-            transform.position = orgPos.position;
-            transform.localRotation = orgPos.localRotation;
-            gameManager.instance.playerScript.controller.enabled = true;
-            gameManager.instance.unPause();
-            
-
-            isTalking = false;
-            
+            StartCoroutine(doorOne());
         }
 
         if (agent.isActiveAndEnabled)
@@ -80,6 +66,9 @@ public class friendlyAI : MonoBehaviour
             Debug.Log(gameManager.instance.enemiesRemaining);
             if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == false)
             {
+                
+                
+                
                 //anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
 
                 agent.enabled = false;
@@ -90,13 +79,13 @@ public class friendlyAI : MonoBehaviour
                 //agent.enabled = false;
                 //agent.enabled = false;
                 //agent.enabled = true;
-
-                Destroy(doorToBoss);
+                StartCoroutine(doorTwo());              
                 isDoorOpen = true;
                 gameManager.instance.displayNpcText("Hurry to the flight deck to secure your ship... I will hold off the reinforcements.");
                 StartCoroutine(setGoal("Get to the flight deck"));
                 StartCoroutine(gameManager.instance.deleteTextNpc(8));
                 //exitArena();
+                
             }
             //if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == true)
             //{
@@ -197,14 +186,13 @@ public class friendlyAI : MonoBehaviour
                     gameManager.instance.playerScript.controller.enabled = false;
                     gameManager.instance.cam2.SetActive(true);
                     gameManager.instance.playerCamera.SetActive(false);
-                    gameManager.instance.pause();
-                    isGivenQuest = true;
+
                     anim.SetTrigger("Talk");
                     gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. \n\n" +
                                                         "If by chance you can survive I will help you escape. Now go away before anyone notices us talking.");
- 
-                    StartCoroutine(gameManager.instance.deleteTextNpc(8));
-                                      
+                    gameManager.instance.pause();
+
+
                 }
                 return true;
             }
@@ -238,5 +226,47 @@ public class friendlyAI : MonoBehaviour
             isPlayerInRange = false;
             agent.stoppingDistance = 0;
         }
+    }
+
+    IEnumerator doorOne()
+    {
+
+        
+        gameManager.instance.cameraTwo.openDoorOne();       
+        yield return new WaitForSecondsRealtime(3);
+       
+        gameManager.instance.cameraTwo.doorOne.SetActive(false);
+        yield return new WaitForSecondsRealtime(3);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        transform.position = orgPos.position;
+        transform.localRotation = orgPos.localRotation;
+        gameManager.instance.playerScript.controller.enabled = true;
+        gameManager.instance.playerCamera.SetActive(true);
+        gameManager.instance.cam2.SetActive(false);
+        
+        Time.timeScale = 1;
+
+        isGivenQuest = true;
+        
+    }
+
+    IEnumerator doorTwo()
+    {
+        yield return new WaitForSecondsRealtime(1);
+        gameManager.instance.cam2.SetActive(true);
+        gameManager.instance.playerCamera.SetActive(false);
+        Time.timeScale = 0;
+        gameManager.instance.cameraTwo.openDoorTwo();
+        yield return new WaitForSecondsRealtime(3);
+        gameManager.instance.cameraTwo.doorTwo.SetActive(false);
+        yield return new WaitForSecondsRealtime(3);
+        gameManager.instance.playerScript.controller.enabled = true;
+        gameManager.instance.playerCamera.SetActive(true);
+        gameManager.instance.cam2.SetActive(false);
+        Time.timeScale = 1;
+
+        isGivenQuest = true;
+        isTalking = false;
     }
 }

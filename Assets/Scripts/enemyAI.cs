@@ -18,6 +18,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [SerializeField] protected Transform headPos;
     [SerializeField] public int hitPoints;
     [SerializeField] protected int playerFaceSpeed;
+    [SerializeField] protected int speedChaseOrig;
     [SerializeField] protected int speedChase;
     [SerializeField] protected int viewAngle;
     [SerializeField] protected int shootAngle;
@@ -33,6 +34,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
 
     [Header("----- Melee -----")]
     [SerializeField] protected Collider meleeCollider;
+    [SerializeField] protected float meleeRateOrig;
     [SerializeField] protected float meleeRate;
 
     [Header("----- Audio -----")]
@@ -187,6 +189,16 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         {
             isPlayerInRange = true;
         }
+        else if (other.CompareTag("Swarm"))
+        {
+            gameObject.tag = "Player";
+            StartCoroutine(swarmEnd());
+        }
+    }
+    IEnumerator swarmEnd()
+    {
+        yield return new WaitForSeconds(15);
+        gameObject.transform.tag = "Enemy";
     }
     public void OnTriggerExit(Collider other)
     {
