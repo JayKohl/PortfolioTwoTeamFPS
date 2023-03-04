@@ -411,6 +411,7 @@ GameObject:
   m_Component:
   - component: {fileID: 868414252815463532}
   - component: {fileID: 6551918312896228884}
+  - component: {fileID: 7508967223444994235}
   - component: {fileID: 6551918312896228886}
   - component: {fileID: 1037604126}
   - component: {fileID: 924665730}
@@ -482,6 +483,8 @@ MonoBehaviour:
   gravity: 15
   runSpeed: 9
   pushbackResTime: 1
+  crouchSpeed: 1
+  crouchHeight: 1
   weaponList: []
   weaponModel: {fileID: 2929723904278486435}
   shootRate: 0
@@ -554,10 +557,32 @@ MonoBehaviour:
   speedOriginal: 0
   gunSelection: 0
   baseFOV: 0
+  isCrouched: 0
+  startY: 0
   abilityOneActive: 0
   abilityTwoActive: 0
   abilityThreeActive: 0
   abilityFourActive: 0
+  fireOn: 0
+--- !u!114 &7508967223444994235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524364267517112022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c35353b350a60241980021c9b550ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLevel: 1
+  LevelMax: 10
+  currentXP: 0
+  NeededXP: 26
+  tokenAmount: 0
+  VarX: 0.199
+  VarY: 2.03
 --- !u!95 &6551918312896228886
 Animator:
   serializedVersion: 5
