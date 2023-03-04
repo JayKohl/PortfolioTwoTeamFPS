@@ -43,6 +43,9 @@ public class playerController : MonoBehaviour
     [SerializeField] float grenadeYVel;
     [SerializeField] int grenadeSpeed;
     [SerializeField] GameObject grenade;
+    [SerializeField] float firefliesYVel;
+    [SerializeField] int firefliesSpeed;
+    [SerializeField] GameObject fireflies;
     [SerializeField] string weaponName;
     [SerializeField] AudioClip weaponAudio;
     [Range(0, 1)] [SerializeField] float weaponAudioVol;
@@ -297,6 +300,11 @@ public class playerController : MonoBehaviour
     public void throwGrenade()
     {
         GameObject bulletClone = Instantiate(grenade, shootPositionPlayer.position, grenade.transform.rotation);
+        bulletClone.GetComponent<Rigidbody>().velocity = (transform.forward + new Vector3(0, grenadeYVel, 0)) * grenadeSpeed;
+    }
+    public void swarm()
+    {
+        GameObject bulletClone = Instantiate(fireflies, shootPositionPlayer.position, grenade.transform.rotation);
         bulletClone.GetComponent<Rigidbody>().velocity = (transform.forward + new Vector3(0, grenadeYVel, 0)) * grenadeSpeed;
     }
     public void takeDamage(int dmg)
