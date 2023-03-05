@@ -29,8 +29,6 @@ public class gameManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI enemiesRemainingText;
 
     [SerializeField] GameObject npc;
-    public friendlyAI friendNPC;
-    public secondCamera cameraTwo;
 
     public GameObject infoTextBackground;
     public TextMeshProUGUI infoText;
@@ -90,9 +88,7 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
-
-        cameraTwo = cam2.transform.GetChild(0).gameObject.GetComponent<secondCamera>();
-        friendNPC = npc.GetComponent<friendlyAI>();
+        npcChat = GameObject.FindGameObjectWithTag("NPCChat").GetComponentInChildren<TextMeshProUGUI>();
 
         ability = playerScript.abilityOneActive;
         AbilityOneS = AbilityOne.GetComponent<AbilitiesColdown>();

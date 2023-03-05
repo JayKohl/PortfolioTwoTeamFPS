@@ -233,10 +233,10 @@ public class friendlyAI : MonoBehaviour
     {
 
         
-        gameManager.instance.cameraTwo.openDoorOne();       
+        gameManager.instance.cam2.transform.GetChild(0).gameObject.GetComponent<secondCamera>().openDoorOne();       
         yield return new WaitForSecondsRealtime(3);
        
-        gameManager.instance.cameraTwo.doorOne.SetActive(false);
+        gameManager.instance.cam2.transform.GetChild(0).gameObject.GetComponent<secondCamera>().doorOne.SetActive(false);
         yield return new WaitForSecondsRealtime(3);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -269,9 +269,9 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.cam2.SetActive(true);
         gameManager.instance.playerCamera.SetActive(false);
         Time.timeScale = 0;
-        gameManager.instance.cameraTwo.openDoorTwo();
+        gameManager.instance.cam2.transform.GetChild(0).gameObject.GetComponent<secondCamera>().openDoorTwo();
         yield return new WaitForSecondsRealtime(3);
-        gameManager.instance.cameraTwo.doorTwo.SetActive(false);
+        gameManager.instance.cam2.transform.GetChild(0).gameObject.GetComponent<secondCamera>().doorTwo.SetActive(false);
         yield return new WaitForSecondsRealtime(3);
         gameManager.instance.playerScript.controller.enabled = true;
         gameManager.instance.playerCamera.SetActive(true);

@@ -277,7 +277,7 @@ public class playerController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
         {
-            Debug.Log(hit.collider.name);
+            //Debug.Log(hit.collider.name);
            
 
             // Deactivated temp
