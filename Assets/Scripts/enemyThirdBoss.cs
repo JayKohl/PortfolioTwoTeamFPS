@@ -23,6 +23,7 @@ public class enemyThirdBoss : enemyAI
     {
         if (!isFlip && !isSpawnEvent)
         {
+            canSeePlayer();
             topPiece.transform.Rotate(0f, 1f, 0f, Space.Self);
         }
         else if (isFlip)
