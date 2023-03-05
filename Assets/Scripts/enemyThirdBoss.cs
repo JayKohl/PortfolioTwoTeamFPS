@@ -13,6 +13,7 @@ public class enemyThirdBoss : enemyAI
     bool isSpawnEvent;
     int hitPointsOrig;
     int fullFlip;
+    int fullDrop;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,11 +38,16 @@ public class enemyThirdBoss : enemyAI
             activeFX.SetActive(false);
             topPiece.transform.Rotate(.5f, 0f, 0f);
             fullFlip++;
-            if (fullFlip >= 360)
+        }
+        if (fullFlip >= 360)
+        {
+            topPiece.transform.Translate(0f, -.01f, 0f);
+            fullDrop++;
+            isFlip = false;
+            if (fullDrop >= 360)
             {
-                topPiece.transform.Translate(0f, -4f, 0f);
-                isFlip = false;
                 fullFlip = 0;
+                fullDrop = 0;
             }
         }
     }
