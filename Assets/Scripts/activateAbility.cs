@@ -20,6 +20,8 @@ public class activateAbility : MonoBehaviour
     GameObject abilityFour;
     Sprite abilityTexture;
 
+    bool gainedIceOrFire;
+
     private void Start()
     {
         abilityOne = gameManager.instance.AbilityOne;
@@ -29,7 +31,7 @@ public class activateAbility : MonoBehaviour
     }
     void Update()
     {
-        if (gameManager.instance.playerScript.fireOn || gameManager.instance.playerScript.iceOn)
+        if (gainedIceOrFire && gameManager.instance.playerScript.fireOn || gameManager.instance.playerScript.iceOn)
         {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 10))
@@ -40,7 +42,7 @@ public class activateAbility : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && gameManager.instance.AbilityOneS.wasSpellUsed())
         {
             abilityTexture = abilityOne.GetComponent<Image>().sprite;
-            if (abilityOne.GetComponent<Image>().sprite.name != "None2")
+            if(abilityBar.Count > 0)
             {
                 abilityActivation(abilityTexture);
                 foreach (abilities stats in abilityBar)
@@ -56,53 +58,48 @@ public class activateAbility : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.R) && gameManager.instance.AbilityTwoS.wasSpellUsed())
         {
             abilityTexture = abilityTwo.GetComponent<Image>().sprite;
-            if (abilityTexture.name == "None2")
+            if (abilityBar.Count > 0)
             {
-                return;
-            }
-            abilityActivation(abilityTexture);
-            foreach (abilities stats in abilityBar)
-            {
-                if (stats.abilityImage == abilityTexture)
+                abilityActivation(abilityTexture);
+                foreach (abilities stats in abilityBar)
                 {
-                    Debug.Log("cooldownTime: " + stats.cooldownTime);
-                    gameManager.instance.AbilityTwoS.wasSpellUsed();
-                    gameManager.instance.AbilityTwoS.coolDownStart(stats.cooldownTime);
+                    if (stats.abilityImage == abilityTexture)
+                    {
+                        gameManager.instance.AbilityTwoS.wasSpellUsed();
+                        gameManager.instance.AbilityTwoS.coolDownStart(stats.cooldownTime);
+                    }
                 }
             }
         }
         else if (Input.GetKeyDown(KeyCode.F) && gameManager.instance.AbilityThreeS.wasSpellUsed())
         {
             abilityTexture = abilityThree.GetComponent<Image>().sprite;
-            if (abilityTexture.name == "None2")
+            if (abilityBar.Count > 0)
             {
-                return;
-            }
-            abilityActivation(abilityTexture);
-            foreach (abilities stats in abilityBar)
-            {
-                if (stats.abilityImage == abilityTexture)
+                abilityActivation(abilityTexture);
+                foreach (abilities stats in abilityBar)
                 {
-                    Debug.Log("cooldownTime: " + stats.cooldownTime);
-                    gameManager.instance.AbilityThreeS.wasSpellUsed();
-                    gameManager.instance.AbilityThreeS.coolDownStart(stats.cooldownTime);
+                    if (stats.abilityImage == abilityTexture)
+                    {
+                        gameManager.instance.AbilityThreeS.wasSpellUsed();
+                        gameManager.instance.AbilityThreeS.coolDownStart(stats.cooldownTime);
+                    }
                 }
             }
         }
         else if (Input.GetKeyDown(KeyCode.E) && gameManager.instance.AbilityFourS.wasSpellUsed())
         {
             abilityTexture = abilityFour.GetComponent<Image>().sprite;
-            if (abilityTexture.name == "None2")
+            if (abilityBar.Count > 0)
             {
-                return;
-            }
-            abilityActivation(abilityTexture);
-            foreach (abilities stats in abilityBar)
-            {
-                if (stats.abilityImage == abilityTexture)
+                abilityActivation(abilityTexture);
+                foreach (abilities stats in abilityBar)
                 {
-                    gameManager.instance.AbilityFourS.wasSpellUsed();
-                    gameManager.instance.AbilityFourS.coolDownStart(stats.cooldownTime);
+                    if (stats.abilityImage == abilityTexture)
+                    {
+                        gameManager.instance.AbilityFourS.wasSpellUsed();
+                        gameManager.instance.AbilityFourS.coolDownStart(stats.cooldownTime);
+                    }
                 }
             }
         }
@@ -158,6 +155,10 @@ public class activateAbility : MonoBehaviour
             abilityName = stats.abilityName;
             abilityInfo = stats.abilityInfo;
 
+            if(abilityName == "Fire" || abilityName == "Ice")
+            {
+                gainedIceOrFire = true;
+            }
             abilityBar.Add(stats);
 
             gameManager.instance.displayAbility(abilityInfo);
