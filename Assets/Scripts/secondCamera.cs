@@ -8,20 +8,20 @@ public class secondCamera : MonoBehaviour
     [SerializeField] public Transform locDoorTwo;
     [SerializeField] public GameObject doorOne;
     [SerializeField] public GameObject doorTwo;
-    // Start is called before the first frame update
-   
-
+    
     public void openDoorOne()
     {       
         transform.position = locDoorOne.transform.position;
         transform.eulerAngles = locDoorOne.transform.eulerAngles;
-        //transform.Rotate(0,90,0);
+        //gameManager.instance.cam2.fieldOfView = Mathf.Lerp(gameManager.instance.cam2.fieldOfView, 80, 4 * Time.unscaledDeltaTime);
+        
     }
     public void openDoorTwo()
     {
         transform.position = locDoorTwo.transform.position;
         transform.eulerAngles = locDoorTwo.transform.eulerAngles;
-        //transform.Rotate(0, 0, 0);
+        //gameManager.instance.cam2.fieldOfView = Mathf.Lerp(gameManager.instance.cam2.fieldOfView, 80, 4 * Time.unscaledDeltaTime);
+        
     }
 
 }

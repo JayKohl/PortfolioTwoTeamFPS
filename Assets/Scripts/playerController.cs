@@ -14,7 +14,7 @@ public class playerController : MonoBehaviour
     [Range(0, 1)] [SerializeField] float medPickupVol;
     [SerializeField] AudioClip weaponPickupSound;
     [Range(0, 1)] [SerializeField] float weaponPickupVol;
-
+    [SerializeField] public GameObject minimap;
     [Header("----- Player Stats -----")]
     [Range(5, 10)] [SerializeField] public int HP;
     [Range(1, 50)] [SerializeField] int playerSpeed;

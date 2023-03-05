@@ -26,7 +26,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] public GameObject fuelCellsRemainingObject;
     [SerializeField] TextMeshProUGUI fuelCellsRemainingText;
     [SerializeField] public GameObject enemiesRemainingObject;
-    [SerializeField] TextMeshProUGUI enemiesRemainingText;
+    [SerializeField] public TextMeshProUGUI enemiesRemainingText;
 
     [SerializeField] GameObject npc;
     public friendlyAI friendNPC;
@@ -91,7 +91,7 @@ public class gameManager : MonoBehaviour
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
 
-        cameraTwo = cam2.GetComponent<secondCamera>();
+        cameraTwo = cam2.transform.GetChild(0).gameObject.GetComponent<secondCamera>();
         friendNPC = npc.GetComponent<friendlyAI>();
 
         ability = playerScript.abilityOneActive;
