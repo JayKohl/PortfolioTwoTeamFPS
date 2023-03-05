@@ -7,11 +7,11 @@ using TMPro;
 public class activateAbility : MonoBehaviour
 {
     [SerializeField] public List<abilities> abilityBar;
+    [SerializeField] public List<abilities> abilitiesInventory;
     float cooldownTime;
     Sprite abilityImage;
     AudioClip abilityAudio;
     float abilityAudioVol;
-    string abilityName;
     Sprite abilityInfo;
 
     GameObject abilityOne;
@@ -152,15 +152,14 @@ public class activateAbility : MonoBehaviour
     }
     public void abilityPickup(abilities stats)
     {
+        cooldownTime = stats.cooldownTime;
+        abilityImage = stats.abilityImage;
+        abilityAudio = stats.abilityAudio;
+        abilityAudioVol = stats.abilityAudioVol;
+        abilityInfo = stats.abilityInfo;
+
         if (abilityBar.Count < 4)
         {
-            cooldownTime = stats.cooldownTime;
-            abilityImage = stats.abilityImage;
-            abilityAudio = stats.abilityAudio;
-            abilityAudioVol = stats.abilityAudioVol;
-            abilityName = stats.abilityName;
-            abilityInfo = stats.abilityInfo;
-
             abilityBar.Add(stats);
 
             gameManager.instance.displayAbility(abilityInfo);
@@ -184,6 +183,8 @@ public class activateAbility : MonoBehaviour
         }
         else
         {
+            abilitiesInventory.Add(stats);
+            gameManager.instance.displayAbility(abilityInfo);
             //replace ability window
             //OR
             //send new ability to inventory to replace later
