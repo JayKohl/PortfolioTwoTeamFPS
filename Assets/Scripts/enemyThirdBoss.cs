@@ -6,9 +6,13 @@ public class enemyThirdBoss : enemyAI
 {
     [SerializeField] GameObject topPiece;
     bool isFlip;
+    bool isSpawnEvent;
+    int hitPointsOrig;
+    int fullFlip;
     // Start is called before the first frame update
     void Start()
     {
+        hitPointsOrig = hitPoints;
         agentStop();
         isFlip = false;
         Vector3 StartingPos = topPiece.transform.rotation.eulerAngles;
@@ -17,18 +21,26 @@ public class enemyThirdBoss : enemyAI
     // Update is called once per frame
     void Update()
     {
-
-        topPiece.transform.Rotate(0f, 1f, 0f, Space.Self);
-        if (!isFlip)
+        if (!isFlip && !isSpawnEvent)
         {
-            flipObject();
+            topPiece.transform.Rotate(0f, 1f, 0f, Space.Self);
+        }
+        else if (isFlip)
+        {
+            topPiece.transform.Rotate(.5f, 0f, 0f);
+            fullFlip++;
+            if (fullFlip >= 360)
+            {
+                isFlip = false;
+                fullFlip = 0;
+            }
         }
     }
-    private void flipObject()
-    {
-        isFlip = true;
-        topPiece.transform.Rotate(180f, 0f, 0f, Space.Self);
-    }
+    //private void flipObject()
+    //{
+    //    isFlip = true;
+    //    topPiece.transform.Rotate(180f, 0f, 0f, Space.Self);
+    //}
     public override void takeDamage(int dmg)
     {
         hitPoints -= dmg;
@@ -37,20 +49,22 @@ public class enemyThirdBoss : enemyAI
             GetComponent<Collider>().enabled = false;
             //GetComponentInChildren<Canvas>().enabled = false;
             //aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
-            //anim.SetBool("Dead", true);
             agent.enabled = false;
             Destroy(gameObject);
         }
         else
         {
-            anim.SetTrigger("Damage");
+            //anim.SetTrigger("Damage");
             if (dmg > 0)
             {
                 aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
             }
-            // melee add a function for turning off the weapon collider.
-            //agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());
+        }
+        if (hitPoints <= hitPointsOrig / 2)
+        {
+            isSpawnEvent = true;
+            isFlip = true;
         }
     }
     protected override bool canSeePlayer()
@@ -67,7 +81,7 @@ public class enemyThirdBoss : enemyAI
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
-            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
+            if (hit.collider.CompareTag("Player"))// && angleToPlayer <= viewAngle)
             {
                 //agent.stoppingDistance = stoppingDistOrig;
                 //agent.speed = speedChase;
