@@ -6,7 +6,7 @@ using TMPro;
 
 public class activateAbility : MonoBehaviour
 {
-    [SerializeField] List<abilities> abilityBar = new List<abilities>();
+    [SerializeField] public List<abilities> abilityBar;
     float cooldownTime;
     Sprite abilityImage;
     AudioClip abilityAudio;
@@ -20,10 +20,9 @@ public class activateAbility : MonoBehaviour
     GameObject abilityFour;
     Sprite abilityTexture;
 
-    bool gainedIceOrFire;
-
     private void Start()
     {
+        abilityBar = new List<abilities>();
         abilityOne = gameManager.instance.AbilityOne;
         abilityTwo = gameManager.instance.AbilityTwo;
         abilityThree = gameManager.instance.AbilityThree;
@@ -31,75 +30,66 @@ public class activateAbility : MonoBehaviour
     }
     void Update()
     {
-        if (gainedIceOrFire && gameManager.instance.playerScript.fireOn || gameManager.instance.playerScript.iceOn)
+        if (gameManager.instance.playerScript.fireOn || gameManager.instance.playerScript.iceOn)
         {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 10))
             {
-                hit.collider.GetComponent<IDamage>().takeDamage(0);
+                if (hit.collider.GetComponent<IDamage>() != null)
+                {
+                    hit.collider.GetComponent<IDamage>().takeDamage(0);
+                }
             }
         }
         if (Input.GetKeyDown(KeyCode.Q) && gameManager.instance.AbilityOneS.wasSpellUsed())
         {
             abilityTexture = abilityOne.GetComponent<Image>().sprite;
-            if(abilityBar.Count > 0)
+            abilityActivation(abilityTexture);
+            foreach (abilities stats in abilityBar)
             {
-                abilityActivation(abilityTexture);
-                foreach (abilities stats in abilityBar)
+                if (stats.abilityImage == abilityTexture)
                 {
-                    if (stats.abilityImage == abilityTexture)
-                    {
-                        gameManager.instance.AbilityOneS.wasSpellUsed();
-                        gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
-                    }
+                    gameManager.instance.AbilityOneS.wasSpellUsed();
+                    gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
                 }
             }
         }
         else if (Input.GetKeyDown(KeyCode.R) && gameManager.instance.AbilityTwoS.wasSpellUsed())
         {
             abilityTexture = abilityTwo.GetComponent<Image>().sprite;
-            if (abilityBar.Count > 0)
+            abilityActivation(abilityTexture);
+            foreach (abilities stats in abilityBar)
             {
-                abilityActivation(abilityTexture);
-                foreach (abilities stats in abilityBar)
+                if (stats.abilityImage == abilityTexture)
                 {
-                    if (stats.abilityImage == abilityTexture)
-                    {
-                        gameManager.instance.AbilityTwoS.wasSpellUsed();
-                        gameManager.instance.AbilityTwoS.coolDownStart(stats.cooldownTime);
-                    }
+                    gameManager.instance.AbilityTwoS.wasSpellUsed();
+                    gameManager.instance.AbilityTwoS.coolDownStart(stats.cooldownTime);
                 }
             }
         }
         else if (Input.GetKeyDown(KeyCode.F) && gameManager.instance.AbilityThreeS.wasSpellUsed())
         {
             abilityTexture = abilityThree.GetComponent<Image>().sprite;
-            if (abilityBar.Count > 0)
+            abilityActivation(abilityTexture);
+            foreach (abilities stats in abilityBar)
             {
-                abilityActivation(abilityTexture);
-                foreach (abilities stats in abilityBar)
+                if (stats.abilityImage == abilityTexture)
                 {
-                    if (stats.abilityImage == abilityTexture)
-                    {
-                        gameManager.instance.AbilityThreeS.wasSpellUsed();
-                        gameManager.instance.AbilityThreeS.coolDownStart(stats.cooldownTime);
-                    }
+                    gameManager.instance.AbilityThreeS.wasSpellUsed();
+                    gameManager.instance.AbilityThreeS.coolDownStart(stats.cooldownTime);
                 }
             }
         }
         else if (Input.GetKeyDown(KeyCode.E) && gameManager.instance.AbilityFourS.wasSpellUsed())
         {
             abilityTexture = abilityFour.GetComponent<Image>().sprite;
-            if (abilityBar.Count > 0)
+            abilityActivation(abilityTexture);
+            foreach (abilities stats in abilityBar)
             {
-                abilityActivation(abilityTexture);
-                foreach (abilities stats in abilityBar)
+                if (stats.abilityImage == abilityTexture)
                 {
-                    if (stats.abilityImage == abilityTexture)
-                    {
-                        gameManager.instance.AbilityFourS.wasSpellUsed();
-                        gameManager.instance.AbilityFourS.coolDownStart(stats.cooldownTime);
-                    }
+                    gameManager.instance.AbilityFourS.wasSpellUsed();
+                    gameManager.instance.AbilityFourS.coolDownStart(stats.cooldownTime);
                 }
             }
         }
@@ -155,10 +145,6 @@ public class activateAbility : MonoBehaviour
             abilityName = stats.abilityName;
             abilityInfo = stats.abilityInfo;
 
-            if(abilityName == "Fire" || abilityName == "Ice")
-            {
-                gainedIceOrFire = true;
-            }
             abilityBar.Add(stats);
 
             gameManager.instance.displayAbility(abilityInfo);
@@ -199,7 +185,7 @@ public class activateAbility : MonoBehaviour
     public IEnumerator abilityCoolFire(float cooldown)
     {
         gameManager.instance.playerScript.fireOnPlayer.SetActive(true);
-        gameManager.instance.playerScript.fireOn = true;        
+        gameManager.instance.playerScript.fireOn = true;
         yield return new WaitForSeconds(cooldown);
         gameManager.instance.playerScript.fireOnPlayer.SetActive(false);
         gameManager.instance.playerScript.fireOn = false;
