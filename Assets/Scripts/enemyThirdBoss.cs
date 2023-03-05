@@ -28,7 +28,7 @@ public class enemyThirdBoss : enemyAI
             canSeePlayer();
             topPiece.transform.Rotate(0f, 1f, 0f, Space.Self);
         }
-        else if (isFlip)
+        else if (isFlip && isSpawnEvent)
         {
             topPiece.transform.Rotate(.5f, 0f, 0f);
             fullFlip++;
@@ -62,7 +62,7 @@ public class enemyThirdBoss : enemyAI
             StartCoroutine(onDamageFX());
             StartCoroutine(flashDamage());
         }
-        if (hitPoints <= hitPointsOrig / 2)
+        if (hitPoints <= hitPointsOrig / 2 && isSpawnEvent == false)
         {
             isSpawnEvent = true;
             isFlip = true;
