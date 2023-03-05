@@ -58,9 +58,12 @@ public class enemyThirdBoss : enemyAI
             {
                 aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
             }
-            takeDamFX.SetActive(true);
-            StartCoroutine(onDamageFX());
-            StartCoroutine(flashDamage());
+            if (!isSpawnEvent)
+            {
+                takeDamFX.SetActive(true);
+                StartCoroutine(onDamageFX());
+                StartCoroutine(flashDamage());
+            }
         }
         if (hitPoints <= hitPointsOrig / 2 && isSpawnEvent == false)
         {
