@@ -41,55 +41,71 @@ public class activateAbility : MonoBehaviour
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.Q) && gameManager.instance.AbilityOneS.wasSpellUsed())
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            abilityTexture = abilityOne.GetComponent<Image>().sprite;
-            abilityActivation(abilityTexture);
-            foreach (abilities stats in abilityBar)
+            if(abilityBar.Count < 1) { return; }
+            if (gameManager.instance.AbilityOneS.wasSpellUsed())
             {
-                if (stats.abilityImage == abilityTexture)
+                abilityTexture = abilityOne.GetComponent<Image>().sprite;
+                abilityActivation(abilityTexture);
+                foreach (abilities stats in abilityBar)
                 {
-                    gameManager.instance.AbilityOneS.wasSpellUsed();
-                    gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
+                    if (stats.abilityImage == abilityTexture)
+                    {
+                        gameManager.instance.AbilityOneS.wasSpellUsed();
+                        gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
+                    }
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.R) && gameManager.instance.AbilityTwoS.wasSpellUsed())
+        else if (Input.GetKeyDown(KeyCode.R))
         {
-            abilityTexture = abilityTwo.GetComponent<Image>().sprite;
-            abilityActivation(abilityTexture);
-            foreach (abilities stats in abilityBar)
+            if (abilityBar.Count < 2) { return; }
+            if (gameManager.instance.AbilityTwoS.wasSpellUsed())
             {
-                if (stats.abilityImage == abilityTexture)
+                abilityTexture = abilityTwo.GetComponent<Image>().sprite;
+                abilityActivation(abilityTexture);
+                foreach (abilities stats in abilityBar)
                 {
-                    gameManager.instance.AbilityTwoS.wasSpellUsed();
-                    gameManager.instance.AbilityTwoS.coolDownStart(stats.cooldownTime);
+                    if (stats.abilityImage == abilityTexture)
+                    {
+                        gameManager.instance.AbilityTwoS.wasSpellUsed();
+                        gameManager.instance.AbilityTwoS.coolDownStart(stats.cooldownTime);
+                    }
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.F) && gameManager.instance.AbilityThreeS.wasSpellUsed())
+        else if (Input.GetKeyDown(KeyCode.F))
         {
-            abilityTexture = abilityThree.GetComponent<Image>().sprite;
-            abilityActivation(abilityTexture);
-            foreach (abilities stats in abilityBar)
+            if (abilityBar.Count < 3) { return; }
+            if (gameManager.instance.AbilityThreeS.wasSpellUsed())
             {
-                if (stats.abilityImage == abilityTexture)
+                abilityTexture = abilityThree.GetComponent<Image>().sprite;
+                abilityActivation(abilityTexture);
+                foreach (abilities stats in abilityBar)
                 {
-                    gameManager.instance.AbilityThreeS.wasSpellUsed();
-                    gameManager.instance.AbilityThreeS.coolDownStart(stats.cooldownTime);
+                    if (stats.abilityImage == abilityTexture)
+                    {
+                        gameManager.instance.AbilityThreeS.wasSpellUsed();
+                        gameManager.instance.AbilityThreeS.coolDownStart(stats.cooldownTime);
+                    }
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.E) && gameManager.instance.AbilityFourS.wasSpellUsed())
+        else if (Input.GetKeyDown(KeyCode.E))
         {
-            abilityTexture = abilityFour.GetComponent<Image>().sprite;
-            abilityActivation(abilityTexture);
-            foreach (abilities stats in abilityBar)
+            if (abilityBar.Count < 4) { return; }
+            if (gameManager.instance.AbilityFourS.wasSpellUsed())
             {
-                if (stats.abilityImage == abilityTexture)
+                abilityTexture = abilityFour.GetComponent<Image>().sprite;
+                abilityActivation(abilityTexture);
+                foreach (abilities stats in abilityBar)
                 {
-                    gameManager.instance.AbilityFourS.wasSpellUsed();
-                    gameManager.instance.AbilityFourS.coolDownStart(stats.cooldownTime);
+                    if (stats.abilityImage == abilityTexture)
+                    {
+                        gameManager.instance.AbilityFourS.wasSpellUsed();
+                        gameManager.instance.AbilityFourS.coolDownStart(stats.cooldownTime);
+                    }
                 }
             }
         }
