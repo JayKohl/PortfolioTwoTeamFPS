@@ -10,9 +10,10 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 /[Uu]serSettings/
-[Pp]rojectSettings/
-[Uu]serSettings/
+/[Pp]rojectSettings/
 git rm --cached UserSettings/Layouts/default-2021.dwlt
+git rm --cached -r /UserSettings/
+git rm --cached -r /[Uu]serSettings/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
