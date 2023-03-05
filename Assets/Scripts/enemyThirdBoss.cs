@@ -39,6 +39,7 @@ public class enemyThirdBoss : enemyAI
             //aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
             //anim.SetBool("Dead", true);
             agent.enabled = false;
+            Destroy(gameObject);
         }
         else
         {
