@@ -106,11 +106,22 @@ public class enemyShredder : enemyAI
             {
                 model.material.color = Color.black;
             }
-            GetComponent<Collider>().enabled = false;
-            GetComponentInChildren<Canvas>().enabled = false;
-            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
-            anim.SetBool("Dead", true);
-            agent.enabled = false;
+            if (chilled)
+            {
+                model.material.color = new Color(0, 0.5509f, 1);
+                agent.enabled = false;
+                GetComponent<Collider>().enabled = false;
+                GetComponentInChildren<Canvas>().enabled = false;
+                anim.enabled = false;
+            }
+            else
+            {
+                GetComponent<Collider>().enabled = false;
+                GetComponentInChildren<Canvas>().enabled = false;
+                aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
+                anim.SetBool("Dead", true);
+                agent.enabled = false;
+            }
             //Destroy(gameObject); Create a IEnumerator for destroyObject
         }
         else

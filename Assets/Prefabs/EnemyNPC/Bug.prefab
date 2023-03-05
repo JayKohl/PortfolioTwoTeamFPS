@@ -35311,7 +35311,7 @@ GameObject:
   - component: {fileID: 5185461797762847018}
   m_Layer: 6
   m_Name: Bug
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35368,10 +35368,10 @@ MonoBehaviour:
   shootPosition: {fileID: 1431171391024706924}
   bullet: {fileID: 8475010341257784611, guid: 9372fc5d1cf62584cb4129c921ae5bcd, type: 3}
   bulletSpeed: 30
-  shootRateOrig: 0
+  shootRateOrig: 0.25
   shootRate: 0.25
   meleeCollider: {fileID: 3199029646176018780}
-  meleeRateOrig: 0
+  meleeRateOrig: 1
   meleeRate: 1
   audTakeDamage:
   - {fileID: 8300000, guid: 130b646586a4b37478da3f57802ef130, type: 3}
@@ -35384,7 +35384,7 @@ MonoBehaviour:
   audBasicAttackVol: 0
   isPlayerInRange: 0
   fireEffect: {fileID: 2047429369610355534}
-  iceEffect: {fileID: 0}
+  iceEffect: {fileID: 1902205557091402910}
   meleeColliderTwo: {fileID: 6962894599491422069}
   meleeColliderRam: {fileID: 9050482240483129576}
 --- !u!95 &222724365605584684

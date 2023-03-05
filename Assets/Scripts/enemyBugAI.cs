@@ -161,12 +161,26 @@ public class enemyBugAI : enemyAI
         }
         if (hitPoints <= 0)
         {
-
-            GetComponent<Collider>().enabled = false;
-            //GetComponentInChildren<Canvas>().enabled = false;
-            aud.PlayOneShot(audDeath[UnityEngine.Random.Range(0, audDeath.Length)], audDeathVol);
-            anim.SetBool("Dead", true);
-            agent.enabled = false;
+            if (setOnFire)
+            {
+                model.material.color = Color.black;
+            }
+            if (chilled)
+            {
+                model.material.color = new Color(0, 0.5509f, 1);
+                agent.enabled = false;
+                GetComponent<Collider>().enabled = false;
+                GetComponentInChildren<Canvas>().enabled = false;
+                anim.enabled = false;
+            }
+            else
+            {
+                GetComponent<Collider>().enabled = false;
+                //GetComponentInChildren<Canvas>().enabled = false;
+                aud.PlayOneShot(audDeath[UnityEngine.Random.Range(0, audDeath.Length)], audDeathVol);
+                anim.SetBool("Dead", true);
+                agent.enabled = false;
+            }            
         }
         else
         {
