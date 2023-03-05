@@ -6,6 +6,7 @@ public class enemyThirdBoss : enemyAI
 {
     [SerializeField] GameObject topPiece;
     [SerializeField] GameObject takeDamFX;
+    [SerializeField] GameObject activeFX;
     bool takeDamFXDelay;
     [SerializeField] GameObject deathFX;
     bool isFlip;
@@ -27,15 +28,18 @@ public class enemyThirdBoss : enemyAI
     {
         if (!isFlip && !isSpawnEvent)
         {
+            activeFX.SetActive(true);
             canSeePlayer();
             topPiece.transform.Rotate(0f, 1f, 0f, Space.Self);
         }
         else if (isFlip && isSpawnEvent)
         {
+            activeFX.SetActive(false);
             topPiece.transform.Rotate(.5f, 0f, 0f);
             fullFlip++;
             if (fullFlip >= 360)
             {
+                topPiece.transform.Translate(0f, -4f, 0f);
                 isFlip = false;
                 fullFlip = 0;
             }
@@ -73,6 +77,7 @@ public class enemyThirdBoss : enemyAI
             GetComponent<Collider>().enabled = false; // enable this when event is over.
             isSpawnEvent = true;
             isFlip = true;
+            topPiece.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
         }
     }
     IEnumerator deathDestroy()
@@ -82,7 +87,7 @@ public class enemyThirdBoss : enemyAI
     }
     IEnumerator onDamageFX()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.5f);
         takeDamFX.SetActive(false);
         takeDamFXDelay = false;
     }
