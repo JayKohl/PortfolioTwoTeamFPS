@@ -6,6 +6,7 @@ public class enemyThirdBoss : enemyAI
 {
     [SerializeField] GameObject topPiece;
     [SerializeField] GameObject takeDamFX;
+    [SerializeField] GameObject deathFX;
     bool isFlip;
     bool isSpawnEvent;
     int hitPointsOrig;
@@ -47,7 +48,8 @@ public class enemyThirdBoss : enemyAI
             //GetComponentInChildren<Canvas>().enabled = false;
             //aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
             agent.enabled = false;
-            Destroy(gameObject);
+            deathFX.SetActive(true);
+            StartCoroutine(deathDestroy());
         }
         else
         {
@@ -66,9 +68,14 @@ public class enemyThirdBoss : enemyAI
             isFlip = true;
         }
     }
+    IEnumerator deathDestroy()
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
+    }
     IEnumerator onDamageFX()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         takeDamFX.SetActive(false);
     }
     protected override bool canSeePlayer()
