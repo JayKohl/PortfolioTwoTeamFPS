@@ -11,14 +11,14 @@ public class secondCamera : MonoBehaviour
     public Camera cam;
     public void Awake()
     {
-        cam = gameManager.instance.cam2.transform.GetChild(0).gameObject.GetComponent<Camera>();
+        //cam = gameManager.instance.cam2.transform.GetChild(0).gameObject.GetComponent<Camera>();
     }
 
     public void openDoorOne()
     {
         transform.position = locDoorOne.transform.position;
         transform.eulerAngles = locDoorOne.transform.eulerAngles;
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 50, 40);
+        //cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 50, 40);
         
         //gameManager.instance.cam2.fieldOfView = Mathf.Lerp(gameManager.instance.cam2.fieldOfView, 80, 4 * Time.unscaledDeltaTime);
     }
@@ -27,7 +27,7 @@ public class secondCamera : MonoBehaviour
         {
             transform.position = locDoorTwo.transform.position;
             transform.eulerAngles = locDoorTwo.transform.eulerAngles;
-            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 50, 40 * Time.deltaTime);
+            //cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 50, 40 * Time.deltaTime);
         //gameManager.instance.cam2.fieldOfView = Mathf.Lerp(gameManager.instance.cam2.fieldOfView, 80, 4 * Time.unscaledDeltaTime);
 
     }

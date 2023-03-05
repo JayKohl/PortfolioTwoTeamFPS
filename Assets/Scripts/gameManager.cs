@@ -89,6 +89,7 @@ public class gameManager : MonoBehaviour
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
         npcChat = GameObject.FindGameObjectWithTag("NPCChat").GetComponentInChildren<TextMeshProUGUI>();
+        //cam2 = GameObject.FindGameObjectWithTag("Camera2");
 
         ability = playerScript.abilityOneActive;
         AbilityOneS = AbilityOne.GetComponent<AbilitiesColdown>();
