@@ -126,32 +126,7 @@ public class gameManager : MonoBehaviour
             abilityDisplay.SetActive(false);
             unPause();
         }
-        /*if (Input.GetKeyDown(KeyCode.F) && AbilityThreeS.wasSpellUsed())
-        {
-            if (AbilityThree.activeSelf)
-            {
-                aud.PlayOneShot(invisOnAud, invisOnVol);
-                gameManager.instance.playerScript.invisibility();
-                AbilityThreeS.wasSpellUsed();
-                AbilityThreeS.coolDownAbility();
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.E) && AbilityFourS.wasSpellUsed())
-        {
-            if (AbilityFour.activeSelf)
-            {                
-                aud.PlayOneShot(dashAud, dashVol);
-                playerScript.StartCoroutine(playerScript.abilityCoolDash(12));
-                AbilityFourS.wasSpellUsed();
-                AbilityFourS.coolDownAbility();
-            }
-        }*/
     }
-    //public void shieldCoolDown()
-    //{
-    //    AbilityTwoS.wasSpellUsed();
-    //    AbilityTwoS.coolDownAbility();
-    //}
 
     public void pause()
     {

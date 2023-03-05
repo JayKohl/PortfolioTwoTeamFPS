@@ -54,6 +54,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     protected Vector3 startingPos;
     bool destinationChosen;
     protected float stoppingDistOrig;
+    bool blind;
 
 
     protected IEnumerator roam()
@@ -87,7 +88,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         Debug.Log(angleToPlayer);
         Debug.DrawRay(headPos.position, playerDirection);
 
-        RaycastHit hit;
+        RaycastHit hit;        
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
@@ -163,9 +164,17 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     }
     public virtual void createBullet()
     {
-        GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
-        bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
+        if (!blind)
+        {
+            GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
+            bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
+        }
+        else
+        {
+            GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
+            bulletClone.GetComponent<Rigidbody>().velocity = new Vector3 (Random.Range(0, 0.5f), Random.Range(0,0.5f), Random.Range(0, 0.5f)) * bulletSpeed;
+        }
+        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);        
     }
     public void meleeColliderOn()
     {
@@ -191,14 +200,14 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         }
         else if (other.CompareTag("Swarm"))
         {
-            gameObject.tag = "Player";
+            blind = true;
             StartCoroutine(swarmEnd());
         }
     }
     IEnumerator swarmEnd()
     {
-        yield return new WaitForSeconds(15);
-        gameObject.transform.tag = "Enemy";
+        yield return new WaitForSeconds(5);
+        blind = false;
     }
     public void OnTriggerExit(Collider other)
     {
