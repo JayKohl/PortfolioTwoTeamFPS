@@ -6,6 +6,7 @@ public class enemyThirdBoss : enemyAI
 {
     [SerializeField] GameObject topPiece;
     [SerializeField] GameObject takeDamFX;
+    bool takeDamFXDelay;
     [SerializeField] GameObject deathFX;
     bool isFlip;
     bool isSpawnEvent;
@@ -17,6 +18,7 @@ public class enemyThirdBoss : enemyAI
         hitPointsOrig = hitPoints;
         agentStop();
         isFlip = false;
+        takeDamFXDelay = false;
         Vector3 StartingPos = topPiece.transform.rotation.eulerAngles;
     }
 
@@ -58,8 +60,9 @@ public class enemyThirdBoss : enemyAI
             {
                 aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
             }
-            if (!isSpawnEvent)
+            if (!isSpawnEvent && takeDamFXDelay == false)
             {
+                takeDamFXDelay = true;
                 takeDamFX.SetActive(true);
                 StartCoroutine(onDamageFX());
                 StartCoroutine(flashDamage());
@@ -67,6 +70,7 @@ public class enemyThirdBoss : enemyAI
         }
         if (hitPoints <= hitPointsOrig / 2 && isSpawnEvent == false)
         {
+            GetComponent<Collider>().enabled = false; // enable this when event is over.
             isSpawnEvent = true;
             isFlip = true;
         }
@@ -80,6 +84,7 @@ public class enemyThirdBoss : enemyAI
     {
         yield return new WaitForSeconds(1f);
         takeDamFX.SetActive(false);
+        takeDamFXDelay = false;
     }
     protected override bool canSeePlayer()
     {
