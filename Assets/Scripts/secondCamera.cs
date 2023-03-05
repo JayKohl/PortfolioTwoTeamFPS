@@ -13,13 +13,15 @@ public class secondCamera : MonoBehaviour
 
     public void openDoorOne()
     {       
-        transform.position = locDoorOne.transform.position;        
-        transform.Rotate(0,90,0);
+        transform.position = locDoorOne.transform.position;
+        transform.eulerAngles = locDoorOne.transform.eulerAngles;
+        //transform.Rotate(0,90,0);
     }
     public void openDoorTwo()
     {
         transform.position = locDoorTwo.transform.position;
-        transform.Rotate(0, 0, 0);
+        transform.eulerAngles = locDoorTwo.transform.eulerAngles;
+        //transform.Rotate(0, 0, 0);
     }
 
 }
