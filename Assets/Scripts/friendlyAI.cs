@@ -267,7 +267,7 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.enemiesRemainingText.enabled = false;
         gameManager.instance.crosshair.SetActive(false);
         gameManager.instance.cam2.SetActive(true);
-        gameManager.instance.playerCamera.SetActive(false);
+        gameManager.instance.playerCamera.SetActive(false);        
         Time.timeScale = 0;
 
         gameManager.instance.cam2.GetComponentInChildren<secondCamera>().openDoorTwo();
