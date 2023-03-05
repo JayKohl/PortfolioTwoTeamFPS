@@ -8,20 +8,29 @@ public class secondCamera : MonoBehaviour
     [SerializeField] public Transform locDoorTwo;
     [SerializeField] public GameObject doorOne;
     [SerializeField] public GameObject doorTwo;
-    
-    public void openDoorOne()
-    {       
-        transform.position = locDoorOne.transform.position;
-        transform.eulerAngles = locDoorOne.transform.eulerAngles;
-        //gameManager.instance.cam2.fieldOfView = Mathf.Lerp(gameManager.instance.cam2.fieldOfView, 80, 4 * Time.unscaledDeltaTime);
-        
-    }
-    public void openDoorTwo()
+    public Camera cam;
+    public void Awake()
     {
-        transform.position = locDoorTwo.transform.position;
-        transform.eulerAngles = locDoorTwo.transform.eulerAngles;
-        //gameManager.instance.cam2.fieldOfView = Mathf.Lerp(gameManager.instance.cam2.fieldOfView, 80, 4 * Time.unscaledDeltaTime);
-        
+        cam = gameManager.instance.cam2.transform.GetChild(0).gameObject.GetComponent<Camera>();
     }
 
-}
+    public void openDoorOne()
+    {
+        transform.position = locDoorOne.transform.position;
+        transform.eulerAngles = locDoorOne.transform.eulerAngles;
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 50, 40);
+        
+        //gameManager.instance.cam2.fieldOfView = Mathf.Lerp(gameManager.instance.cam2.fieldOfView, 80, 4 * Time.unscaledDeltaTime);
+    }
+
+        public void openDoorTwo()
+        {
+            transform.position = locDoorTwo.transform.position;
+            transform.eulerAngles = locDoorTwo.transform.eulerAngles;
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 50, 40 * Time.deltaTime);
+        //gameManager.instance.cam2.fieldOfView = Mathf.Lerp(gameManager.instance.cam2.fieldOfView, 80, 4 * Time.unscaledDeltaTime);
+
+    }
+
+
+    }
