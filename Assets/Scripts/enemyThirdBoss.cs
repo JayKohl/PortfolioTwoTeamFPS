@@ -5,6 +5,7 @@ using UnityEngine;
 public class enemyThirdBoss : enemyAI
 {
     [SerializeField] GameObject topPiece;
+    [SerializeField] GameObject takeDamFX;
     bool isFlip;
     bool isSpawnEvent;
     int hitPointsOrig;
@@ -37,11 +38,6 @@ public class enemyThirdBoss : enemyAI
             }
         }
     }
-    //private void flipObject()
-    //{
-    //    isFlip = true;
-    //    topPiece.transform.Rotate(180f, 0f, 0f, Space.Self);
-    //}
     public override void takeDamage(int dmg)
     {
         hitPoints -= dmg;
@@ -60,6 +56,8 @@ public class enemyThirdBoss : enemyAI
             {
                 aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
             }
+            takeDamFX.SetActive(true);
+            StartCoroutine(onDamageFX());
             StartCoroutine(flashDamage());
         }
         if (hitPoints <= hitPointsOrig / 2)
@@ -67,6 +65,11 @@ public class enemyThirdBoss : enemyAI
             isSpawnEvent = true;
             isFlip = true;
         }
+    }
+    IEnumerator onDamageFX()
+    {
+        yield return new WaitForSeconds(2f);
+        takeDamFX.SetActive(false);
     }
     protected override bool canSeePlayer()
     {
