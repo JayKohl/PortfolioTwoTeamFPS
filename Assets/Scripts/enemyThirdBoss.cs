@@ -8,6 +8,11 @@ public class enemyThirdBoss : enemyAI
     [SerializeField] GameObject takeDamFX;
     [SerializeField] GameObject activeFX;
     [SerializeField] GameObject lockDownFX;
+    [SerializeField] GameObject pyramidBase;
+
+    [SerializeField] GameObject[] spawnEnemyType;
+    [SerializeField] Transform[] spawnPos;
+
     bool takeDamFXDelay;
     [SerializeField] GameObject deathFX;
     bool isFlip;
@@ -28,12 +33,14 @@ public class enemyThirdBoss : enemyAI
     // Update is called once per frame
     void Update()
     {
+        // hit phase
         if (!isFlip && !isSpawnEvent)
         {
             activeFX.SetActive(true);
             canSeePlayer();
             topPiece.transform.Rotate(0f, 1f, 0f, Space.Self);
         }
+        // No hit and spawn phase
         else if (isFlip && isSpawnEvent)
         {
             activeFX.SetActive(false);
@@ -48,6 +55,8 @@ public class enemyThirdBoss : enemyAI
             if (fullDrop >= 360)
             {
                 lockDownFX.SetActive(true);
+                //model.material.color = Color.blue;
+                spawnWave();
                 fullFlip = 0;
                 fullDrop = 0;
             }
@@ -153,5 +162,13 @@ public class enemyThirdBoss : enemyAI
             bulletClone.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(0, 0.5f), Random.Range(0, 0.5f), Random.Range(0, 0.5f)) * bulletSpeed;
         }
         //aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
+    }
+    protected void spawnWave()
+    {
+        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length + 1)], spawnPos[0].position, spawnPos[0].rotation);
+        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length + 1)], spawnPos[1].position, spawnPos[1].rotation);
+        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length + 1)], spawnPos[2].position, spawnPos[2].rotation);
+        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length + 1)], spawnPos[3].position, spawnPos[3].rotation);
+        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length + 1)], spawnPos[4].position, spawnPos[4].rotation);
     }
 }
