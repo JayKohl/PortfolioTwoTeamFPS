@@ -233,11 +233,12 @@ public class friendlyAI : MonoBehaviour
     {
 
         
-        gameManager.instance.cameraTwo.openDoorOne();       
-        yield return new WaitForSecondsRealtime(3);
-       
+        gameManager.instance.cameraTwo.openDoorOne();
+        
+        yield return new WaitForSecondsRealtime(3);      
         gameManager.instance.cameraTwo.doorOne.SetActive(false);
         yield return new WaitForSecondsRealtime(3);
+        
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         transform.position = orgPos.position;
