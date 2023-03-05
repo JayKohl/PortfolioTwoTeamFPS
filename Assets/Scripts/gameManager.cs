@@ -121,6 +121,7 @@ public class gameManager : MonoBehaviour
         {
             displayingAbility = false;
             abilityDisplay.SetActive(false);
+            crosshair.SetActive(true);
             unPause();
         }
     }
@@ -201,6 +202,7 @@ public class gameManager : MonoBehaviour
     }
     public void displayAbility(Sprite abilityTexture)
     {
+        crosshair.SetActive(false);
         abilityDisplay.GetComponent<Image>().sprite = abilityTexture;
         abilityDisplay.SetActive(true);
         displayingAbility = true;
