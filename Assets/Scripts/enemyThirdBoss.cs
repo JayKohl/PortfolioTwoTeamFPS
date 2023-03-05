@@ -7,6 +7,7 @@ public class enemyThirdBoss : enemyAI
     [SerializeField] GameObject topPiece;
     [SerializeField] GameObject takeDamFX;
     [SerializeField] GameObject activeFX;
+    [SerializeField] GameObject lockDownFX;
     bool takeDamFXDelay;
     [SerializeField] GameObject deathFX;
     bool isFlip;
@@ -46,6 +47,7 @@ public class enemyThirdBoss : enemyAI
             isFlip = false;
             if (fullDrop >= 360)
             {
+                lockDownFX.SetActive(true);
                 fullFlip = 0;
                 fullDrop = 0;
             }
