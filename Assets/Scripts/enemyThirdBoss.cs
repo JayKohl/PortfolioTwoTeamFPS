@@ -106,6 +106,8 @@ public class enemyThirdBoss : enemyAI
                         isReFlip = true;
                         fullReFlip = 0;
                         isGoingBackUp = false;
+                        topPiece.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+                        GetComponent<Collider>().enabled = true;
 
                         //re set to normal non event behavior.
                         lockDownFX.SetActive(false);
