@@ -356,6 +356,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf8e26f8d6541cf4aad916c160e25568, type: 3}
+--- !u!1 &1107305455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1107305456}
+  m_Layer: 0
+  m_Name: shootPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1107305456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107305455}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 6.54, z: 0.39}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 292841833217849812}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1128888830
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -897,6 +928,7 @@ Transform:
   - {fileID: 6781616919814938399}
   - {fileID: 4841434407515572385}
   - {fileID: 8591039422876909680}
+  - {fileID: 1107305456}
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1479,7 +1511,6 @@ GameObject:
   - component: {fileID: 292841833217849812}
   - component: {fileID: 5976363343620809651}
   - component: {fileID: 5976363343620809646}
-  - component: {fileID: 5976363343620809650}
   - component: {fileID: 5976363343620809649}
   - component: {fileID: 5976363343620809648}
   - component: {fileID: 5976363343620809647}
@@ -97423,22 +97454,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &5976363343620809650
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1106674620131615598}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &5976363343620809651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97457,7 +97472,7 @@ MonoBehaviour:
   aud: {fileID: 5976363343620809647}
   xp: 0
   playerYOffset: 0
-  headPos: {fileID: 0}
+  headPos: {fileID: 7388727748151108656}
   hitPoints: 0
   playerFaceSpeed: 0
   speedChaseOrig: 0
@@ -97466,20 +97481,23 @@ MonoBehaviour:
   shootAngle: 0
   waitTime: 0
   roamDist: 0
-  shootPosition: {fileID: 0}
-  bullet: {fileID: 0}
-  bulletSpeed: 0
+  shootPosition: {fileID: 1107305456}
+  bullet: {fileID: 8475010341257784611, guid: 19cf9a694f339d244983c6ca198c98b2, type: 3}
+  bulletSpeed: 25
   shootRateOrig: 0
-  shootRate: 0
-  meleeCollider: {fileID: 0}
+  shootRate: 0.25
+  meleeCollider: {fileID: 5976363343620809652}
   meleeRateOrig: 0
-  meleeRate: 0
-  audTakeDamage: []
-  audTakeDamageVol: 0
-  audDeath: []
-  audDeathVol: 0
-  audBasicAttack: []
-  audBasicAttackVol: 0
+  meleeRate: 1
+  audTakeDamage:
+  - {fileID: 8300000, guid: 45b61947bdd5d584786950bd123c7032, type: 3}
+  audTakeDamageVol: 0.5
+  audDeath:
+  - {fileID: 8300000, guid: 45b61947bdd5d584786950bd123c7032, type: 3}
+  audDeathVol: 0.5
+  audBasicAttack:
+  - {fileID: 8300000, guid: 45b61947bdd5d584786950bd123c7032, type: 3}
+  audBasicAttackVol: 0.5
   isPlayerInRange: 0
 --- !u!136 &5976363343620809652
 CapsuleCollider:
@@ -97490,7 +97508,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1106674620131615598}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 7
   m_Direction: 1
