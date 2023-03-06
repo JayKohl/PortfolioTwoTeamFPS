@@ -128,8 +128,10 @@ public class gameManager : MonoBehaviour
                 unPause();
         }
 
-        if (Input.GetKeyDown(KeyCode.X) && displayingAbility)
+        if (Input.GetKeyDown(KeyCode.X))
         {
+            gameManager.instance.inventory.SetActive(false);
+            gameManager.instance.inventoryMessageBox.SetActive(false);
             inventoryMessageBox.SetActive(false);
             displayingAbility = false;
             abilityDisplay.SetActive(false);

@@ -32,7 +32,6 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
     public void OnBeginDrag(PointerEventData eventData)
     {
         image = gameObject.GetComponent<Image>();
-        //transform.SetAsLastSibling();
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -57,7 +56,7 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                 transform.position = origPosition;
                 return;
             }
-            else if (distanceX > 190f && distanceY < 10f && distanceY > -10f)
+            else if (distanceX > 180f && distanceY < 10f && distanceY > -10f)
             {
                 Sprite temp1 = image.sprite;
                 Sprite temp2 = gameManager.instance.AbilityThree.GetComponent<Image>().sprite;
@@ -66,7 +65,7 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                 transform.position = origPosition;
                 return;
             }
-            else if (distanceX > 90f && distanceY < 10f && distanceY > -10f)
+            else if (distanceX > 80f && distanceY < 10f && distanceY > -10f)
             {
                 Sprite temp1 = image.sprite;
                 Sprite temp2 = gameManager.instance.AbilityTwo.GetComponent<Image>().sprite;
