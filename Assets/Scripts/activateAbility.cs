@@ -6,8 +6,8 @@ using TMPro;
 
 public class activateAbility : MonoBehaviour
 {
-    [SerializeField] public List<abilities> abilityBar;
-    [SerializeField] public List<abilities> abilitiesInventory;
+    [SerializeField] public List<abilities> abilityBar = new List<abilities>();
+    [SerializeField] public List<abilities> abilitiesInventory = new List<abilities>();
     float cooldownTime;
     Sprite abilityImage;
     AudioClip abilityAudio;
@@ -22,7 +22,6 @@ public class activateAbility : MonoBehaviour
 
     private void Start()
     {
-        abilityBar = new List<abilities>();
         abilityOne = gameManager.instance.AbilityOne;
         abilityTwo = gameManager.instance.AbilityTwo;
         abilityThree = gameManager.instance.AbilityThree;

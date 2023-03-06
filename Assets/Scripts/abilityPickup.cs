@@ -8,17 +8,19 @@ public class abilityPickup : MonoBehaviour
     bool playerIn;
     [SerializeField] abilities stats;
 
-    void Update()
+    private void Start()
     {
-        //StartCoroutine(bounce());
+        StartCoroutine(rotate());
     }
-    IEnumerator bounce()
+    private IEnumerator rotate()
     {
-        if (!gameManager.instance.isPaused)
+        while (true)
         {
-            transform.Translate(0, 0.002f, 0, Space.World);
-            yield return new WaitForSeconds(time);
-            transform.Translate(0, -0.002f, 0, Space.World);
+            if (!gameManager.instance.isPaused)
+            {
+                transform.Rotate(0f, 0.5f, 0f, Space.Self);
+            }
+            yield return new WaitForSeconds(1f / 60);
         }
     }
     private void OnTriggerEnter(Collider other)
