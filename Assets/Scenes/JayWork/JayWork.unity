@@ -1540,6 +1540,7 @@ GameObject:
   - component: {fileID: 5976363343620809649}
   - component: {fileID: 5976363343620809648}
   - component: {fileID: 5976363343620809647}
+  - component: {fileID: 5976363343620809652}
   m_Layer: 0
   m_Name: Serpmare
   m_TagString: Untagged
@@ -97475,7 +97476,7 @@ BoxCollider:
   m_GameObject: {fileID: 1106674620131615598}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -97536,6 +97537,20 @@ MonoBehaviour:
   audBasicAttack: []
   audBasicAttackVol: 0
   isPlayerInRange: 0
+--- !u!136 &5976363343620809652
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106674620131615598}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 7
+  m_Direction: 1
+  m_Center: {x: 0, y: 5, z: 0}
 --- !u!1 &5998008418463895232
 GameObject:
   m_ObjectHideFlags: 0
