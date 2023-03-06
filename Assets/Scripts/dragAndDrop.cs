@@ -31,8 +31,8 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        image = gameObject.GetComponent<Image>();        
-        transform.SetAsLastSibling();
+        image = gameObject.GetComponent<Image>();
+        //transform.SetAsLastSibling();
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -54,7 +54,6 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                 Sprite temp2 = gameManager.instance.AbilityFour.GetComponent<Image>().sprite;
                 gameManager.instance.AbilityFour.GetComponent<Image>().sprite = temp1;
                 gameObject.GetComponent<Image>().sprite = temp2;
-                image.raycastTarget = true;
                 transform.position = origPosition;
                 return;
             }
@@ -64,7 +63,6 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                 Sprite temp2 = gameManager.instance.AbilityThree.GetComponent<Image>().sprite;
                 gameManager.instance.AbilityThree.GetComponent<Image>().sprite = temp1;
                 gameObject.GetComponent<Image>().sprite = temp2;
-                image.raycastTarget = true;
                 transform.position = origPosition;
                 return;
             }
@@ -74,7 +72,6 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                 Sprite temp2 = gameManager.instance.AbilityTwo.GetComponent<Image>().sprite;
                 gameManager.instance.AbilityTwo.GetComponent<Image>().sprite = temp1;
                 gameObject.GetComponent<Image>().sprite = temp2;
-                image.raycastTarget = true;
                 transform.position = origPosition;
                 return;
             }
