@@ -11,6 +11,7 @@ public class enemyThirdBoss : enemyAI
     [SerializeField] GameObject pyramidBase;
 
     [SerializeField] protected GameObject bulletSecond;
+    [SerializeField] protected GameObject bulletThird;
     [SerializeField] GameObject shield;
 
     [SerializeField] GameObject[] spawnEnemyType;
@@ -294,11 +295,15 @@ public class enemyThirdBoss : enemyAI
     protected override IEnumerator shoot()
     {
         isShooting = true;
-        if (waveOne)
+        if (waveCount == 1)
         {
             bullet = bulletSecond;
             //bulletSpeed = (bulletSpeed + (bulletSpeed / 2));
             //shootRate = (shootRate - .05f);
+        }
+        else if (waveCount == 2)
+        {
+            bullet = bulletThird;
         }
         createBullet();
         //anim.SetTrigger("Shoot");
