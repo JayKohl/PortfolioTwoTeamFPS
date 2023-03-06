@@ -16,14 +16,24 @@ public class enemyThirdBoss : enemyAI
     bool takeDamFXDelay;
     [SerializeField] GameObject deathFX;
     bool isFlip;
+    bool isReFlip;
+    bool isReDrop;
     bool isSpawnEvent;
     int hitPointsOrig;
     int fullFlip;
+    int fullReFlip;
     int fullDrop;
+    int fullReDrop;
     bool isUpdateGameGoal;
+    bool isGoingBackUp;
+
     // Start is called before the first frame update
     void Start()
     {
+        isReFlip = false;
+        isReDrop = false;
+
+        isGoingBackUp = false;
         isUpdateGameGoal = false;
         hitPointsOrig = hitPoints;
         agentStop();
@@ -49,26 +59,74 @@ public class enemyThirdBoss : enemyAI
             topPiece.transform.Rotate(.5f, 0f, 0f);
             fullFlip++;
         }
-        if (fullFlip >= 360)
+        if (isSpawnEvent)
         {
-            topPiece.transform.Translate(0f, -.01f, 0f);
-            fullDrop++;
-            isFlip = false;
-            if (fullDrop >= 360)
+
+            // Full flip of object
+            if (fullFlip >= 360)
             {
-                lockDownFX.SetActive(true);
-                //model.material.color = Color.blue;
-                spawnWave();
-                fullFlip = 0;
-                fullDrop = 0;
-                isUpdateGameGoal = true;
+                topPiece.transform.Translate(0f, -.01f, 0f);
+                fullDrop++;
+                isFlip = false;
+                // Moved all the way down.
+                if (fullDrop >= 360)
+                {
+                    lockDownFX.SetActive(true);
+                    //model.material.color = Color.blue;
+                    spawnWave();
+                    fullFlip = 0;
+                    fullDrop = 0;
+                    isUpdateGameGoal = true;
+                    isGoingBackUp = true;
+                }
+            }
+            else if (isGoingBackUp)
+            {
+                if (gameManager.instance.enemiesRemaining <= 0 && isReDrop == false)
+                {
+                    topPiece.transform.Translate(0f, 0.01f, 0f);
+                    fullReDrop++;
+                    if (fullReDrop >= 350)
+                    {
+                        isReDrop = true;
+                        fullReDrop = 0;
+                    }
+                }
+                    //topPiece.transform.Rotate(-.5f, 0f, 0f);
+                    //fullReFlip++;
+                    //if (fullReFlip >= 350)
+                    //{
+                    //    isReFlip = true;
+                    //    fullReFlip = 0;
+                    //}
             }
         }
-        if (gameManager.instance.enemiesRemaining <= 0 && isSpawnEvent && isUpdateGameGoal == true)
-        {
-            isSpawnEvent = false;
-            model.material.color = Color.blue;
-        }
+
+
+
+
+
+
+        //else if (gameManager.instance.enemiesRemaining <= 0 && isGoingBackUp)
+        //{
+        //    topPiece.transform.Translate(0f, .01f, 0f);
+        //    fullDrop++;
+        //    if (fullDrop >= 360)
+        //    {
+        //        isGoingBackUp = false;
+        //        fullDrop = 0;
+        //    }
+        //}
+
+
+        //if (gameManager.instance.enemiesRemaining <= 0 && isSpawnEvent && isUpdateGameGoal == true && isGoingBackUp == false)
+        //{
+        //}
+        //if (isSpawnEvent)
+        //{
+        //    isSpawnEvent = false;
+        //    model.material.color = Color.blue;
+        //}
     }
     public override void takeDamage(int dmg)
     {
