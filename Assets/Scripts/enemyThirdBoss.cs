@@ -103,9 +103,11 @@ public class enemyThirdBoss : enemyAI
                     fullReFlip++;
                     if (fullReFlip >= 350)
                     {
-                        isReFlip = true;
+                        //isReFlip = true;
+                        isReDrop = false;
                         fullReFlip = 0;
                         isGoingBackUp = false;
+                        isUpdateGameGoal = false;
                         topPiece.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
                         GetComponent<Collider>().enabled = true;
 
