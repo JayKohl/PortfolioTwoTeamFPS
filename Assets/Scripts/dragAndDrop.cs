@@ -43,8 +43,8 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
             float distanceX = transform.position.x - abilityPositions[i].x;
             float distanceY = abilityPositions[i].y - transform.position.y;
 
-            Debug.Log("x: " + distanceX + ", y: " + distanceY);
-            if (distanceX > 300f && distanceY < 10f)
+            //Debug.Log("x: " + distanceX + ", y: " + distanceY);
+            if (distanceX > 290f && distanceY < 10f && distanceY > -10f)
             {
                 Sprite temp1 = image.sprite;
                 Sprite temp2 = gameManager.instance.AbilityFour.GetComponent<Image>().sprite;
@@ -54,7 +54,7 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                 transform.position = origPosition;
                 return;
             }
-            else if (distanceX > 200f && distanceY < 10f)
+            else if (distanceX > 190f && distanceY < 10f && distanceY > -10f)
             {
                 Sprite temp1 = image.sprite;
                 Sprite temp2 = gameManager.instance.AbilityThree.GetComponent<Image>().sprite;
@@ -64,7 +64,7 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                 transform.position = origPosition;
                 return;
             }
-            else if (distanceX > 100f && distanceY < 10f)
+            else if (distanceX > 90f && distanceY < 10f && distanceY > -10f)
             {
                 Sprite temp1 = image.sprite;
                 Sprite temp2 = gameManager.instance.AbilityTwo.GetComponent<Image>().sprite;
@@ -74,7 +74,7 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                 transform.position = origPosition;
                 return;
             }
-            else if (distanceX > -10f && distanceY < 10f)
+            else if (distanceX > -10f && distanceY < 10f && distanceY > -10f)
             {
                 Sprite temp1 = image.sprite;
                 Sprite temp2 = gameManager.instance.AbilityOne.GetComponent<Image>().sprite;
