@@ -27,6 +27,7 @@ public class enemyThirdBoss : enemyAI
     bool isUpdateGameGoal;
     bool isGoingBackUp;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +35,8 @@ public class enemyThirdBoss : enemyAI
         isReDrop = false;
 
         isGoingBackUp = false;
+
+
         isUpdateGameGoal = false;
         hitPointsOrig = hitPoints;
         agentStop();
@@ -80,7 +83,8 @@ public class enemyThirdBoss : enemyAI
                     isGoingBackUp = true;
                 }
             }
-            else if (isGoingBackUp)
+
+            if (isGoingBackUp)
             {
                 if (gameManager.instance.enemiesRemaining <= 0 && isReDrop == false)
                 {
@@ -90,16 +94,41 @@ public class enemyThirdBoss : enemyAI
                     {
                         isReDrop = true;
                         fullReDrop = 0;
+                        //isGoingBackUp = false;
                     }
                 }
-                    //topPiece.transform.Rotate(-.5f, 0f, 0f);
-                    //fullReFlip++;
-                    //if (fullReFlip >= 350)
-                    //{
-                    //    isReFlip = true;
-                    //    fullReFlip = 0;
-                    //}
+                else if (isReFlip == false && isReDrop == true)
+                {
+                    topPiece.transform.Rotate(-.5f, 0f, 0f);
+                    fullReFlip++;
+                    if (fullReFlip >= 350)
+                    {
+                        isReFlip = true;
+                        fullReFlip = 0;
+                        isGoingBackUp = false;
+                    }
+                }
             }
+            //else if (isGoingBackUp == false && isReFlip == false)
+            //{
+            //    topPiece.transform.Rotate(-.5f, 0f, 0f);
+            //    fullReFlip++;
+            //    if (fullReFlip >= 350)
+            //    {
+            //        isReFlip = true;
+            //        fullReFlip = 0;
+            //        //isReFlip = true;
+            //    }
+            //}
+
+
+            //topPiece.transform.Rotate(-.5f, 0f, 0f);
+            //fullReFlip++;
+            //if (fullReFlip >= 350)
+            //{
+            //    isReFlip = true;
+            //    fullReFlip = 0;
+            //}
         }
 
 
