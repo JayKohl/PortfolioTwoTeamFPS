@@ -13,6 +13,7 @@ public class enemyOneAI : enemyAI
     // Start is called before the first frame update
     void Start()
     {
+        speedChaseOrig = speedChase;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
