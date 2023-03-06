@@ -54,7 +54,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     protected Vector3 startingPos;
     bool destinationChosen;
     protected float stoppingDistOrig;
-    bool blind;
+    protected bool blind;
 
 
     protected IEnumerator roam()
