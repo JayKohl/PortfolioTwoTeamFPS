@@ -12,7 +12,7 @@ public class SpikeTrap : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            gameManager.instance.playerScript.takeDamage(10);
+            gameManager.instance.playerScript.takeDamage(50);
             aud.PlayOneShot(spikeAud[Random.Range(0, spikeAud.Length)], audspikeVol);
         }
     }
