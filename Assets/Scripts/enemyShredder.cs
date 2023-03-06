@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class enemyShredder : enemyAI
 {
@@ -116,6 +117,10 @@ public class enemyShredder : enemyAI
             }
             else
             {
+                if (SceneManager.GetActiveScene().name == "LvlThreeTheworld")
+                {
+                    gameManager.instance.updateGameGoalLvl3(-1);
+                }
                 GetComponent<Collider>().enabled = false;
                 GetComponentInChildren<Canvas>().enabled = false;
                 aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);

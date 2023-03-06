@@ -20,9 +20,11 @@ public class enemyThirdBoss : enemyAI
     int hitPointsOrig;
     int fullFlip;
     int fullDrop;
+    bool isUpdateGameGoal;
     // Start is called before the first frame update
     void Start()
     {
+        isUpdateGameGoal = false;
         hitPointsOrig = hitPoints;
         agentStop();
         isFlip = false;
@@ -59,7 +61,13 @@ public class enemyThirdBoss : enemyAI
                 spawnWave();
                 fullFlip = 0;
                 fullDrop = 0;
+                isUpdateGameGoal = true;
             }
+        }
+        if (gameManager.instance.enemiesRemaining <= 0 && isSpawnEvent && isUpdateGameGoal == true)
+        {
+            isSpawnEvent = false;
+            model.material.color = Color.blue;
         }
     }
     public override void takeDamage(int dmg)
@@ -170,5 +178,6 @@ public class enemyThirdBoss : enemyAI
         Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[2].position, spawnPos[2].rotation);
         Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[3].position, spawnPos[3].rotation);
         Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[4].position, spawnPos[4].rotation);
+        gameManager.instance.updateGameGoalLvl3(5);
     }
 }
