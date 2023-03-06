@@ -165,10 +165,10 @@ public class enemyThirdBoss : enemyAI
     }
     protected void spawnWave()
     {
-        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length + 1)], spawnPos[0].position, spawnPos[0].rotation);
-        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length + 1)], spawnPos[1].position, spawnPos[1].rotation);
-        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length + 1)], spawnPos[2].position, spawnPos[2].rotation);
-        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length + 1)], spawnPos[3].position, spawnPos[3].rotation);
-        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length + 1)], spawnPos[4].position, spawnPos[4].rotation);
+        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[0].position, spawnPos[0].rotation);
+        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[1].position, spawnPos[1].rotation);
+        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[2].position, spawnPos[2].rotation);
+        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[3].position, spawnPos[3].rotation);
+        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[4].position, spawnPos[4].rotation);
     }
 }
