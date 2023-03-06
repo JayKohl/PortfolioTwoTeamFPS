@@ -57,6 +57,7 @@ public class endBossAI : enemyAI
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
+        speedChaseOrig = speedChase;
 
         isPowerUp = false;
         isEventActive = false;

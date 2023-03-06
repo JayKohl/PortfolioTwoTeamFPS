@@ -66,6 +66,7 @@ public class enemyBossAI : enemyAI
         isInCoolDown = false;
 
         speedOrig = agent.speed;
+        speedChaseOrig = speedChase;
     }
 
     // Update is called once per frame
