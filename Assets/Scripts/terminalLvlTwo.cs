@@ -34,22 +34,38 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
         hitPoints -= dmg;
         if (hitPoints <= 0)
         {
-            blowUp.SetActive(true);
+            StartCoroutine(terminalDead());
 
+            gameManager.instance.playerScript.minimap.SetActive(false);
+            gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(false);
+            gameManager.instance.enemiesRemainingObject.SetActive(false);
+            gameManager.instance.enemiesRemainingText.enabled = false;
+            gameManager.instance.crosshair.SetActive(false);
+            gameManager.instance.cam2.SetActive(true);
+            gameManager.instance.playerCamera.SetActive(false);
+            Time.timeScale = 0;
+            gameManager.instance.cam2.GetComponentInChildren<secondCamera>().openDoorThree();
+
+
+            blowUp.SetActive(true);
             screenOne.SetActive(false);
             screenTwo.SetActive(false);
-            screenThree.SetActive(false);
-
-            laserOne.SetActive(false);
-            laserTwo.SetActive(false);
-            laserThree.SetActive(false);
-            laserFour.SetActive(false);
-            laserFive.SetActive(false);
-            laserSix.SetActive(false);
-            laserSeven.SetActive(false);
-            laserEight.SetActive(false);
+            screenThree.SetActive(false);          
             GetComponent<Collider>().enabled = false;
-            StartCoroutine(terminalDead());
+            
+            StartCoroutine(turnOffLasers());
+            StartCoroutine(gameManager.instance.cam2.GetComponentInChildren<secondCamera>().doorThreeStop());
+
+
+
+            //laserOne.SetActive(false);
+            //laserTwo.SetActive(false);
+            //laserThree.SetActive(false);
+            //laserFour.SetActive(false);
+            //laserFive.SetActive(false);
+            //laserSix.SetActive(false);
+            //laserSeven.SetActive(false);
+            //laserEight.SetActive(false);
         }
         else
         {
@@ -68,5 +84,19 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
         yield return new WaitForSeconds(2);
         brokenEffect.SetActive(true);
         alarmTrigger.SetActive(false);
+    }
+    IEnumerator turnOffLasers()
+    {
+        yield return new WaitForSeconds(1);
+        laserOne.SetActive(false);
+        laserTwo.SetActive(false);
+        laserThree.SetActive(false);
+        laserFour.SetActive(false);
+        laserFive.SetActive(false);
+        laserSix.SetActive(false);
+        laserSeven.SetActive(false);
+        laserEight.SetActive(false);
+       
+
     }
 }
