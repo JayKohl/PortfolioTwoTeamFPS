@@ -31,13 +31,17 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        image = gameObject.GetComponent<Image>();
+        image = gameObject.GetComponent<Image>();        
         transform.SetAsLastSibling();
-        image.raycastTarget = true;
     }
 
     public void OnEndDrag(PointerEventData eventData)
-    {        
+    {
+        if (image.name == "None2")
+        {
+            transform.position = origPosition;
+            return;
+        }
         for (int i = 0; i < abilityPositions.Count; i++)
         {
             float distanceX = transform.position.x - abilityPositions[i].x;
@@ -80,13 +84,11 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                 Sprite temp2 = gameManager.instance.AbilityOne.GetComponent<Image>().sprite;
                 gameManager.instance.AbilityOne.GetComponent<Image>().sprite = temp1;
                 gameObject.GetComponent<Image>().sprite = temp2;
-                image.raycastTarget = true;
                 transform.position = origPosition;
                 return;
             }
             else
             {
-                image.raycastTarget = true;
                 transform.position = origPosition;
                 return;
             }
