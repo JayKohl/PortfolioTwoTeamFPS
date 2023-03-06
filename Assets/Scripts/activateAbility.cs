@@ -13,6 +13,7 @@ public class activateAbility : MonoBehaviour
     AudioClip abilityAudio;
     float abilityAudioVol;
     Sprite abilityInfo;
+    Sprite abilityName;
 
     GameObject abilityOne;
     GameObject abilityTwo;
@@ -20,12 +21,20 @@ public class activateAbility : MonoBehaviour
     GameObject abilityFour;
     Sprite abilityTexture;
 
+    Image inventorySlot1;
+    Image inventorySlot2;
+    Image inventorySlot3;
+    Image inventorySlot4;
+    Image inventorySlot5;
+    Image inventorySlot6;
+
     private void Start()
     {
         abilityOne = gameManager.instance.AbilityOne;
         abilityTwo = gameManager.instance.AbilityTwo;
         abilityThree = gameManager.instance.AbilityThree;
         abilityFour = gameManager.instance.AbilityFour;
+        setupAbilities();
     }
     void Update()
     {
@@ -159,7 +168,16 @@ public class activateAbility : MonoBehaviour
 
         if (abilityBar.Count < 4)
         {
+            for(int i = 0; i < abilityBar.Count; i++)
+            {
+                if(stats == abilityBar[i])
+                {
+                    gameManager.instance.displayAbility(abilityInfo);
+                    return;
+                }
+            }
             abilityBar.Add(stats);
+            abilitiesInventory.Add(stats);
 
             gameManager.instance.displayAbility(abilityInfo);
 
@@ -182,11 +200,57 @@ public class activateAbility : MonoBehaviour
         }
         else
         {
+            for (int i = 0; i < abilitiesInventory.Count; i++)
+            {
+                if (stats == abilitiesInventory[i])
+                {
+                    gameManager.instance.displayAbility(abilityInfo);
+                    return;
+                }
+            }
             abilitiesInventory.Add(stats);
             gameManager.instance.displayAbility(abilityInfo);
-            //replace ability window
-            //OR
-            //send new ability to inventory to replace later
+
+            //do Else If statements similar to lines 184 - 198
+        }
+    }
+    public void replaceAbility(int num, Sprite abilityTexture)
+    {
+        foreach (abilities stats in abilitiesInventory)
+        {
+            if (stats.abilityImage == abilityTexture)
+            {
+                abilityBar[num].abilityName = stats.abilityName;
+                abilityBar[num].cooldownTime = stats.cooldownTime;
+                abilityBar[num].abilityImage = stats.abilityImage;
+                abilityBar[num].abilityAudio = stats.abilityAudio;
+                abilityBar[num].abilityAudioVol = stats.abilityAudioVol;
+                abilityBar[num].abilityInfo = stats.abilityInfo;                
+            }
+        }
+    }
+    public void setupAbilities()
+    {
+        for (int i = 0; i < abilityBar.Count; i++)
+        {
+            abilityImage = abilityBar[i].abilityImage;
+
+            if (abilityOne.GetComponent<Image>().sprite.name == "None2")
+            {
+                abilityOne.GetComponent<Image>().sprite = abilityImage;
+            }
+            else if (abilityTwo.GetComponent<Image>().sprite.name == "None2")
+            {
+                abilityTwo.GetComponent<Image>().sprite = abilityImage;
+            }
+            else if (abilityThree.GetComponent<Image>().sprite.name == "None2")
+            {
+                abilityThree.GetComponent<Image>().sprite = abilityImage;
+            }
+            else if (abilityFour.GetComponent<Image>().sprite.name == "None2")
+            {
+                abilityFour.GetComponent<Image>().sprite = abilityImage;
+            }
         }
     }
     public IEnumerator abilityCoolShield(float cooldown)
