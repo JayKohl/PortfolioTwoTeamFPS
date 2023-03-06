@@ -15,6 +15,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [SerializeField] protected AudioSource aud;
 
     [Header("----- Enemy Stats -----")]
+    [SerializeField] public int xp;
     [SerializeField] protected float playerYOffset;
     [SerializeField] protected Transform headPos;
     [SerializeField] public int hitPoints;
