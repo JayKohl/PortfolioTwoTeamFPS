@@ -26,6 +26,7 @@ public class activateAbility : MonoBehaviour
         abilityTwo = gameManager.instance.AbilityTwo;
         abilityThree = gameManager.instance.AbilityThree;
         abilityFour = gameManager.instance.AbilityFour;
+        setupAbilities();
     }
     void Update()
     {
@@ -184,9 +185,30 @@ public class activateAbility : MonoBehaviour
         {
             abilitiesInventory.Add(stats);
             gameManager.instance.displayAbility(abilityInfo);
-            //replace ability window
-            //OR
-            //send new ability to inventory to replace later
+        }
+    }
+    public void setupAbilities()
+    {
+        for (int i = 0; i < abilityBar.Count; i++)
+        {
+            abilityImage = abilityBar[i].abilityImage;
+
+            if (abilityOne.GetComponent<Image>().sprite.name == "None2")
+            {
+                abilityOne.GetComponent<Image>().sprite = abilityImage;
+            }
+            else if (abilityTwo.GetComponent<Image>().sprite.name == "None2")
+            {
+                abilityTwo.GetComponent<Image>().sprite = abilityImage;
+            }
+            else if (abilityThree.GetComponent<Image>().sprite.name == "None2")
+            {
+                abilityThree.GetComponent<Image>().sprite = abilityImage;
+            }
+            else if (abilityFour.GetComponent<Image>().sprite.name == "None2")
+            {
+                abilityFour.GetComponent<Image>().sprite = abilityImage;
+            }
         }
     }
     public IEnumerator abilityCoolShield(float cooldown)
