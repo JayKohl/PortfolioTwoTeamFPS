@@ -106,6 +106,11 @@ public class enemyThirdBoss : enemyAI
                         isReFlip = true;
                         fullReFlip = 0;
                         isGoingBackUp = false;
+
+                        //re set to normal non event behavior.
+                        lockDownFX.SetActive(false);
+                        isFlip = false;
+                        isSpawnEvent = false;
                     }
                 }
             }
