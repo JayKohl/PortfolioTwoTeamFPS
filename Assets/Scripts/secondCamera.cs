@@ -34,23 +34,9 @@ public class secondCamera : MonoBehaviour
         transform.eulerAngles = locDoorThree.transform.eulerAngles;
         //cam2.fieldOfView = Mathf.Lerp(cam2.fieldOfView, 50, 40 * Time.deltaTime);
         //gameManager.instance.cam2.fieldOfView = Mathf.Lerp(gameManager.instance.cam2.fieldOfView, 80, 4 * Time.unscaledDeltaTime);
-
     }
-    public IEnumerator doorThreeStart()
-    {
-        gameManager.instance.playerScript.minimap.SetActive(false);
-        gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(false);
-        gameManager.instance.enemiesRemainingObject.SetActive(false);
-        gameManager.instance.enemiesRemainingText.enabled = false;
-        gameManager.instance.crosshair.SetActive(false);
-        gameManager.instance.cam2.SetActive(true);
-        gameManager.instance.playerCamera.SetActive(false);
-        Time.timeScale = 0;
-        openDoorThree();
-        yield return new WaitForSecondsRealtime(3);
-           
-    }
-
+  
+    
     public IEnumerator doorThreeStop()
     {
         yield return new WaitForSecondsRealtime(3);
@@ -63,5 +49,6 @@ public class secondCamera : MonoBehaviour
         gameManager.instance.enemiesRemainingText.enabled = true;
         gameManager.instance.crosshair.SetActive(true);
         gameManager.instance.unPause();
+       
     }
 }
