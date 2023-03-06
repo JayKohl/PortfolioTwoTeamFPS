@@ -10,6 +10,8 @@ public class enemyThirdBoss : enemyAI
     [SerializeField] GameObject lockDownFX;
     [SerializeField] GameObject pyramidBase;
 
+    [SerializeField] GameObject shield;
+
     [SerializeField] GameObject[] spawnEnemyType;
     [SerializeField] GameObject[] mechanicalTypeEnemies;
     [SerializeField] GameObject[] bugTypeEnemies;
@@ -60,7 +62,15 @@ public class enemyThirdBoss : enemyAI
         if (!isFlip && !isSpawnEvent)
         {
             activeFX.SetActive(true);
-            canSeePlayer();
+            if (!canSeePlayer())
+            {
+                shield.SetActive(true);
+            }
+            else
+            {
+                shield.SetActive(false);
+            }
+            //canSeePlayer();
             topPiece.transform.Rotate(0f, 1f, 0f, Space.Self);
         }
         // No hit and spawn phase
