@@ -84,7 +84,7 @@ public class enemyOneAI : enemyAI
             }
             else
             {
-                if (SceneManager.GetActiveScene().name == "LvlThreeTheworld")
+                if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
                 {
                     gameManager.instance.updateGameGoalLvl3(-1);
                 }
