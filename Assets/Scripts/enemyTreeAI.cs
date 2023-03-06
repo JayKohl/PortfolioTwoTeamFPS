@@ -5,10 +5,12 @@ using UnityEngine;
 public class enemyTreeAI : enemyAI
 {
     int hitPointsOrig;
+    bool firstTime;
 
     // Start is called before the first frame update
     void Start()
     {
+        firstTime = true;
         hitPointsOrig = hitPoints;
         agentStop();
         anim.SetTrigger("Hide");
@@ -20,7 +22,7 @@ public class enemyTreeAI : enemyAI
         anim.SetFloat("IdleSpeed", 1f);
         if (canSeePlayer())
         {
-            anim.SetBool("IsNotInGround", true);
+            //anim.SetBool("IsNotInGround", true);
             //anim.SetTrigger("Idle");
             // first attack
         }
@@ -32,6 +34,11 @@ public class enemyTreeAI : enemyAI
     }
     protected override bool canSeePlayer()
     {
+        if (firstTime)
+        {
+            firstTime = false;
+            anim.SetTrigger("OutOfGround");
+        }
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
