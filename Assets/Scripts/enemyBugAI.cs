@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class enemyBugAI : enemyAI
 {
@@ -167,6 +168,10 @@ public class enemyBugAI : enemyAI
             }
             if (chilled)
             {
+                if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
+                {
+                    gameManager.instance.updateGameGoalLvl3(-1);
+                }
                 model.material.color = new Color(0, 0.5509f, 1);
                 agent.enabled = false;
                 GetComponent<Collider>().enabled = false;
@@ -175,6 +180,10 @@ public class enemyBugAI : enemyAI
             }
             else
             {
+                if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
+                {
+                    gameManager.instance.updateGameGoalLvl3(-1);
+                }
                 GetComponent<Collider>().enabled = false;
                 //GetComponentInChildren<Canvas>().enabled = false;
                 aud.PlayOneShot(audDeath[UnityEngine.Random.Range(0, audDeath.Length)], audDeathVol);

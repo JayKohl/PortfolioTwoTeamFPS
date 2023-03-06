@@ -11,6 +11,8 @@ public class enemyThirdBoss : enemyAI
     [SerializeField] GameObject pyramidBase;
 
     [SerializeField] GameObject[] spawnEnemyType;
+    [SerializeField] GameObject[] mechanicalTypeEnemies;
+    [SerializeField] GameObject[] bugTypeEnemies;
     [SerializeField] Transform[] spawnPos;
 
     bool takeDamFXDelay;
@@ -27,6 +29,13 @@ public class enemyThirdBoss : enemyAI
     bool isUpdateGameGoal;
     bool isGoingBackUp;
 
+    bool waveOne;
+    bool waveTwoBoss;
+    bool waveThree;
+    bool waveFourBoss;
+    bool waveFive;
+    int waveCount;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +43,8 @@ public class enemyThirdBoss : enemyAI
         isReDrop = false;
 
         isGoingBackUp = false;
+
+
         isUpdateGameGoal = false;
         hitPointsOrig = hitPoints;
         agentStop();
@@ -80,7 +91,8 @@ public class enemyThirdBoss : enemyAI
                     isGoingBackUp = true;
                 }
             }
-            else if (isGoingBackUp)
+
+            if (isGoingBackUp)
             {
                 if (gameManager.instance.enemiesRemaining <= 0 && isReDrop == false)
                 {
@@ -90,16 +102,50 @@ public class enemyThirdBoss : enemyAI
                     {
                         isReDrop = true;
                         fullReDrop = 0;
+                        //isGoingBackUp = false;
                     }
                 }
-                    //topPiece.transform.Rotate(-.5f, 0f, 0f);
-                    //fullReFlip++;
-                    //if (fullReFlip >= 350)
-                    //{
-                    //    isReFlip = true;
-                    //    fullReFlip = 0;
-                    //}
+                else if (isReFlip == false && isReDrop == true)
+                {
+                    topPiece.transform.Rotate(-.5f, 0f, 0f);
+                    fullReFlip++;
+                    if (fullReFlip >= 350)
+                    {
+                        //isReFlip = true;
+                        isReDrop = false;
+                        fullReFlip = 0;
+                        isGoingBackUp = false;
+                        isUpdateGameGoal = false;
+                        topPiece.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+                        GetComponent<Collider>().enabled = true;
+
+                        //re set to normal non event behavior.
+                        lockDownFX.SetActive(false);
+                        isFlip = false;
+                        isSpawnEvent = false;
+                    }
+                }
             }
+            //else if (isGoingBackUp == false && isReFlip == false)
+            //{
+            //    topPiece.transform.Rotate(-.5f, 0f, 0f);
+            //    fullReFlip++;
+            //    if (fullReFlip >= 350)
+            //    {
+            //        isReFlip = true;
+            //        fullReFlip = 0;
+            //        //isReFlip = true;
+            //    }
+            //}
+
+
+            //topPiece.transform.Rotate(-.5f, 0f, 0f);
+            //fullReFlip++;
+            //if (fullReFlip >= 350)
+            //{
+            //    isReFlip = true;
+            //    fullReFlip = 0;
+            //}
         }
 
 
@@ -155,13 +201,40 @@ public class enemyThirdBoss : enemyAI
                 StartCoroutine(flashDamage());
             }
         }
-        if (hitPoints <= hitPointsOrig / 2 && isSpawnEvent == false)
+        // events
+        if (isSpawnEvent == false && waveOne == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .1)))
         {
-            GetComponent<Collider>().enabled = false; // enable this when event is over.
-            isSpawnEvent = true;
-            isFlip = true;
-            topPiece.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+            startingEvent();
+            waveOne = !waveOne;
         }
+        else if (isSpawnEvent == false && waveTwoBoss == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .3)))
+        {
+            startingEvent();
+            waveTwoBoss = !waveTwoBoss;
+        }
+        else if (isSpawnEvent == false && waveThree == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .5)))
+        {
+            startingEvent();
+            waveThree = !waveThree;
+        }
+        else if (isSpawnEvent == false && waveFourBoss == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
+        {
+            startingEvent();
+            waveFourBoss = !waveFourBoss;
+        }
+        else if (isSpawnEvent == false && waveFive == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .9)))
+        {
+            startingEvent();
+            waveFive = !waveFive;
+        }
+    }
+    private void startingEvent()
+    {
+        waveCount++;
+        GetComponent<Collider>().enabled = false;
+        isSpawnEvent = true;
+        isFlip = true;
+        topPiece.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
     }
     IEnumerator deathDestroy()
     {
@@ -231,11 +304,30 @@ public class enemyThirdBoss : enemyAI
     }
     protected void spawnWave()
     {
-        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[0].position, spawnPos[0].rotation);
-        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[1].position, spawnPos[1].rotation);
-        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[2].position, spawnPos[2].rotation);
-        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[3].position, spawnPos[3].rotation);
-        Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[4].position, spawnPos[4].rotation);
+        if (waveCount == 1 || waveCount == 3 || waveCount == 5)
+        {
+            Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[0].position, spawnPos[0].rotation);
+            Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[1].position, spawnPos[1].rotation);
+            Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[2].position, spawnPos[2].rotation);
+            Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[3].position, spawnPos[3].rotation);
+            Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[4].position, spawnPos[4].rotation);
+        }
+        else if (waveCount == 2)
+        {
+            Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[0].position, spawnPos[0].rotation);
+            Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[1].position, spawnPos[1].rotation);
+            Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[2].position, spawnPos[2].rotation);
+            Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[3].position, spawnPos[3].rotation);
+            Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[4].position, spawnPos[4].rotation);
+        }
+        else if (waveCount == 4)
+        {
+            Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[0].position, spawnPos[0].rotation);
+            Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[1].position, spawnPos[1].rotation);
+            Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[2].position, spawnPos[2].rotation);
+            Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[3].position, spawnPos[3].rotation);
+            Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[4].position, spawnPos[4].rotation);
+        }
         gameManager.instance.updateGameGoalLvl3(5);
     }
 }
