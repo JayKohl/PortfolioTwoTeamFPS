@@ -13,12 +13,20 @@ public class activateAbility : MonoBehaviour
     AudioClip abilityAudio;
     float abilityAudioVol;
     Sprite abilityInfo;
+    Sprite abilityName;
 
     GameObject abilityOne;
     GameObject abilityTwo;
     GameObject abilityThree;
     GameObject abilityFour;
     Sprite abilityTexture;
+
+    Image inventorySlot1;
+    Image inventorySlot2;
+    Image inventorySlot3;
+    Image inventorySlot4;
+    Image inventorySlot5;
+    Image inventorySlot6;
 
     private void Start()
     {
@@ -160,7 +168,16 @@ public class activateAbility : MonoBehaviour
 
         if (abilityBar.Count < 4)
         {
+            for(int i = 0; i < abilityBar.Count; i++)
+            {
+                if(stats == abilityBar[i])
+                {
+                    gameManager.instance.displayAbility(abilityInfo);
+                    return;
+                }
+            }
             abilityBar.Add(stats);
+            abilitiesInventory.Add(stats);
 
             gameManager.instance.displayAbility(abilityInfo);
 
@@ -183,8 +200,33 @@ public class activateAbility : MonoBehaviour
         }
         else
         {
+            for (int i = 0; i < abilitiesInventory.Count; i++)
+            {
+                if (stats == abilitiesInventory[i])
+                {
+                    gameManager.instance.displayAbility(abilityInfo);
+                    return;
+                }
+            }
             abilitiesInventory.Add(stats);
             gameManager.instance.displayAbility(abilityInfo);
+
+            //do Else If statements similar to lines 184 - 198
+        }
+    }
+    public void replaceAbility(int num, Sprite abilityTexture)
+    {
+        foreach (abilities stats in abilitiesInventory)
+        {
+            if (stats.abilityImage == abilityTexture)
+            {
+                abilityBar[num].abilityName = stats.abilityName;
+                abilityBar[num].cooldownTime = stats.cooldownTime;
+                abilityBar[num].abilityImage = stats.abilityImage;
+                abilityBar[num].abilityAudio = stats.abilityAudio;
+                abilityBar[num].abilityAudioVol = stats.abilityAudioVol;
+                abilityBar[num].abilityInfo = stats.abilityInfo;                
+            }
         }
     }
     public void setupAbilities()
