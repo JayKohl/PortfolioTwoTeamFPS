@@ -27,6 +27,12 @@ public class enemyThirdBoss : enemyAI
     bool isUpdateGameGoal;
     bool isGoingBackUp;
 
+    bool waveOne;
+    bool waveTwoBoss;
+    bool waveThree;
+    bool waveFourBoss;
+    bool waveFive;
+
 
     // Start is called before the first frame update
     void Start()
@@ -193,13 +199,39 @@ public class enemyThirdBoss : enemyAI
                 StartCoroutine(flashDamage());
             }
         }
-        if (hitPoints <= hitPointsOrig / 2 && isSpawnEvent == false)
+        // events
+        if (isSpawnEvent == false && waveOne == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .1)))
         {
-            GetComponent<Collider>().enabled = false; // enable this when event is over.
-            isSpawnEvent = true;
-            isFlip = true;
-            topPiece.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+            startingEvent();
+            waveOne = !waveOne;
         }
+        else if (isSpawnEvent == false && waveTwoBoss == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .3)))
+        {
+            startingEvent();
+            waveTwoBoss = !waveTwoBoss;
+        }
+        else if (isSpawnEvent == false && waveThree == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .5)))
+        {
+            startingEvent();
+            waveThree = !waveThree;
+        }
+        else if (isSpawnEvent == false && waveFourBoss == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
+        {
+            startingEvent();
+            waveFourBoss = !waveFourBoss;
+        }
+        else if (isSpawnEvent == false && waveFive == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .9)))
+        {
+            startingEvent();
+            waveFive = !waveFive;
+        }
+    }
+    private void startingEvent()
+    {
+        GetComponent<Collider>().enabled = false;
+        isSpawnEvent = true;
+        isFlip = true;
+        topPiece.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
     }
     IEnumerator deathDestroy()
     {
