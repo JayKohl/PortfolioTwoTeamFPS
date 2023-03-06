@@ -72,8 +72,9 @@ public class gameManager : MonoBehaviour
 
     public bool isPaused;
     public bool bossDead;
-    public bool boss2Dead = false;
+    public bool boss2Dead = false;    
     public bool flightDeck = false;
+    public bool boss3Dead = false;
 
     string goalsText;
     [SerializeField] public GameObject endGameTrigger;
@@ -184,6 +185,10 @@ public class gameManager : MonoBehaviour
         //change winMenu text for level 2
         activeMenu = winMenu;
         activeMenu.SetActive(true);
+    }
+    public void updateGameGoalLvl3(int amount)
+    {
+        enemiesRemaining += amount;
     }
     public void playerDead()
     {
