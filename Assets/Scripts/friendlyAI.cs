@@ -68,6 +68,7 @@ public class friendlyAI : MonoBehaviour
             Debug.Log(gameManager.instance.enemiesRemaining);
             if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == false)
             {
+                gameManager.instance.playerScript.canShoot = false;
                 gameManager.instance.cam2.transform.GetChild(1).gameObject.SetActive(true);
                 //anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
                 agent.enabled = false;
@@ -196,6 +197,7 @@ public class friendlyAI : MonoBehaviour
                     gameManager.instance.enemiesRemainingObject.SetActive(false);
                     gameManager.instance.enemiesRemainingText.enabled = false;
                     gameManager.instance.crosshair.SetActive(false);
+                    gameManager.instance.playerScript.canShoot = false;
                     gameManager.instance.pause();
                 }
                 return true;
@@ -254,6 +256,7 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.crosshair.SetActive(true);
         gameManager.instance.cam2.transform.GetChild(1).gameObject.SetActive(false);
         gameManager.instance.unPause();
+        gameManager.instance.playerScript.canShoot = true;
 
         isGivenQuest = true;
         
@@ -285,6 +288,7 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.enemiesRemainingText.enabled = true;
         gameManager.instance.crosshair.SetActive(true);
         gameManager.instance.unPause();
+        gameManager.instance.playerScript.canShoot = true;
 
         isGivenQuest = true;
         isTalking = false;
