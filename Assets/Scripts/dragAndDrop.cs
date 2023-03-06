@@ -42,15 +42,15 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         {
             Vector3 distance = abilityPositions[i] - transform.position;
 
-            if (distance.x < 10f && distance.y < 10f)
+            if (distance.x < 20f && distance.y < 20f)
             {
+                Debug.Log("Found: "+i);
                 if(i==0)
                 {
                     Sprite temp1 = image.sprite;
                     Sprite temp2 = gameManager.instance.AbilityOne.GetComponent<Image>().sprite;
                     gameManager.instance.AbilityOne.GetComponent<Image>().sprite = temp1;
                     gameObject.GetComponent<Image>().sprite = temp2;
-                    gameManager.instance.playerScript.GetComponent<activateAbility>().replaceAbility(i, temp2);
                 }
                 else if (i == 1)
                 {
@@ -58,7 +58,6 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                     Sprite temp2 = gameManager.instance.AbilityTwo.GetComponent<Image>().sprite;
                     gameManager.instance.AbilityTwo.GetComponent<Image>().sprite = temp1;
                     gameObject.GetComponent<Image>().sprite = temp2;
-                    gameManager.instance.playerScript.GetComponent<activateAbility>().replaceAbility(i, temp2);
                 }
                 else if (i == 2)
                 {
@@ -66,7 +65,6 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                     Sprite temp2 = gameManager.instance.AbilityThree.GetComponent<Image>().sprite;
                     gameManager.instance.AbilityThree.GetComponent<Image>().sprite = temp1;
                     gameObject.GetComponent<Image>().sprite = temp2;
-                    gameManager.instance.playerScript.GetComponent<activateAbility>().replaceAbility(i, temp2);
                 }
                 else if (i == 3)
                 {
@@ -74,7 +72,6 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                     Sprite temp2 = gameManager.instance.AbilityFour.GetComponent<Image>().sprite;
                     gameManager.instance.AbilityFour.GetComponent<Image>().sprite = temp1;
                     gameObject.GetComponent<Image>().sprite = temp2;
-                    gameManager.instance.playerScript.GetComponent<activateAbility>().replaceAbility(i, temp2);
                 }
             }
         }

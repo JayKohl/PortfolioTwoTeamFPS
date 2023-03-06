@@ -13,7 +13,7 @@ public class activateAbility : MonoBehaviour
     AudioClip abilityAudio;
     float abilityAudioVol;
     Sprite abilityInfo;
-    Sprite abilityName;
+    string abilityName;
 
     GameObject abilityOne;
     GameObject abilityTwo;
@@ -21,12 +21,14 @@ public class activateAbility : MonoBehaviour
     GameObject abilityFour;
     Sprite abilityTexture;
 
-    Image inventorySlot1;
-    Image inventorySlot2;
-    Image inventorySlot3;
-    Image inventorySlot4;
-    Image inventorySlot5;
-    Image inventorySlot6;
+    GameObject inventorySlot1;
+    GameObject inventorySlot2;
+    GameObject inventorySlot3;
+    GameObject inventorySlot4;
+    GameObject inventorySlot5;
+    GameObject inventorySlot6;
+
+    public bool inventoryScreenOn;
 
     private void Start()
     {
@@ -34,6 +36,14 @@ public class activateAbility : MonoBehaviour
         abilityTwo = gameManager.instance.AbilityTwo;
         abilityThree = gameManager.instance.AbilityThree;
         abilityFour = gameManager.instance.AbilityFour;
+
+        inventorySlot1 = gameManager.instance.inventorySlot1;
+        inventorySlot2 = gameManager.instance.inventorySlot2;
+        inventorySlot3 = gameManager.instance.inventorySlot3;
+        inventorySlot4 = gameManager.instance.inventorySlot4;
+        inventorySlot5 = gameManager.instance.inventorySlot5;
+        inventorySlot6 = gameManager.instance.inventorySlot6;
+
         setupAbilities();
     }
     void Update()
@@ -51,7 +61,7 @@ public class activateAbility : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if(abilityBar.Count < 1) { return; }
+            if (abilityBar.Count < 1) { return; }
             if (gameManager.instance.AbilityOneS.wasSpellUsed())
             {
                 abilityTexture = abilityOne.GetComponent<Image>().sprite;
@@ -117,6 +127,25 @@ public class activateAbility : MonoBehaviour
                 }
             }
         }
+        else if (Input.GetKeyDown(KeyCode.I))
+        {
+            if(inventoryScreenOn)
+            {
+                inventoryScreenOn = false;
+                Time.timeScale = 1;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                gameManager.instance.inventory.SetActive(false);
+            }
+            else
+            {
+                inventoryScreenOn = true;
+                Time.timeScale = 0;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.Confined;
+                gameManager.instance.inventory.SetActive(true);
+            }
+        }
     }
     public void abilityActivation(Sprite abilityTexture)
     {
@@ -165,6 +194,7 @@ public class activateAbility : MonoBehaviour
         abilityAudio = stats.abilityAudio;
         abilityAudioVol = stats.abilityAudioVol;
         abilityInfo = stats.abilityInfo;
+        abilityName = stats.abilityName;
 
         if (abilityBar.Count < 4)
         {
@@ -177,8 +207,6 @@ public class activateAbility : MonoBehaviour
                 }
             }
             abilityBar.Add(stats);
-            abilitiesInventory.Add(stats);
-
             gameManager.instance.displayAbility(abilityInfo);
 
             if (abilityOne.GetComponent<Image>().sprite.name == "None2")
@@ -200,32 +228,40 @@ public class activateAbility : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < abilitiesInventory.Count; i++)
+            for (int i = 0; i < abilityBar.Count; i++)
             {
-                if (stats == abilitiesInventory[i])
+                if (stats == abilityBar[i])
                 {
                     gameManager.instance.displayAbility(abilityInfo);
                     return;
                 }
             }
-            abilitiesInventory.Add(stats);
+            abilityBar.Add(stats);
             gameManager.instance.displayAbility(abilityInfo);
 
-            //do Else If statements similar to lines 184 - 198
-        }
-    }
-    public void replaceAbility(int num, Sprite abilityTexture)
-    {
-        foreach (abilities stats in abilitiesInventory)
-        {
-            if (stats.abilityImage == abilityTexture)
+            if(inventorySlot1.GetComponent<Image>().sprite.name == "None2")
             {
-                abilityBar[num].abilityName = stats.abilityName;
-                abilityBar[num].cooldownTime = stats.cooldownTime;
-                abilityBar[num].abilityImage = stats.abilityImage;
-                abilityBar[num].abilityAudio = stats.abilityAudio;
-                abilityBar[num].abilityAudioVol = stats.abilityAudioVol;
-                abilityBar[num].abilityInfo = stats.abilityInfo;                
+                inventorySlot1.GetComponent<Image>().sprite = abilityImage;
+            }
+            else if (inventorySlot2.GetComponent<Image>().sprite.name == "None2")
+            {
+                inventorySlot2.GetComponent<Image>().sprite = abilityImage;
+            }
+            else if (inventorySlot3.GetComponent<Image>().sprite.name == "None2")
+            {
+                inventorySlot3.GetComponent<Image>().sprite = abilityImage;
+            }
+            else if (inventorySlot4.GetComponent<Image>().sprite.name == "None2")
+            {
+                inventorySlot4.GetComponent<Image>().sprite = abilityImage;
+            }
+            else if (inventorySlot5.GetComponent<Image>().sprite.name == "None2")
+            {
+                inventorySlot5.GetComponent<Image>().sprite = abilityImage;
+            }
+            else if (inventorySlot6.GetComponent<Image>().sprite.name == "None2")
+            {
+                inventorySlot6.GetComponent<Image>().sprite = abilityImage;
             }
         }
     }
