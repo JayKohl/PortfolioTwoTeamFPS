@@ -50,6 +50,8 @@ public class gameManager : MonoBehaviour
     public bool ability;
 
     public GameObject inventory;
+    public GameObject inventoryMessageBox;
+    public TextMeshProUGUI inventoryMessages;
     public GameObject inventorySlot1;
     public GameObject inventorySlot2;
     public GameObject inventorySlot3;
@@ -128,6 +130,7 @@ public class gameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.X) && displayingAbility)
         {
+            inventoryMessageBox.SetActive(false);
             displayingAbility = false;
             abilityDisplay.SetActive(false);
             crosshair.SetActive(true);

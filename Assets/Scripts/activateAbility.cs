@@ -28,6 +28,12 @@ public class activateAbility : MonoBehaviour
     GameObject inventorySlot5;
     GameObject inventorySlot6;
 
+    TextMeshProUGUI inventoryMessageUpdate;
+    string defaultMsg = "Drag and drop abilities from your Inventory window to your Abilities Bar.";
+    string pickUpMsg_New = "You have found a new ability!";
+    string pickUpMsg_Inventory = "A new ability was added to your inventory! Press {I} to open your Inventory.";
+    string pickUpMsg_Own = "You already own this ability.";
+
     public bool inventoryScreenOn;
 
     private void Start()
@@ -43,6 +49,8 @@ public class activateAbility : MonoBehaviour
         inventorySlot4 = gameManager.instance.inventorySlot4;
         inventorySlot5 = gameManager.instance.inventorySlot5;
         inventorySlot6 = gameManager.instance.inventorySlot6;
+
+        inventoryMessageUpdate = gameManager.instance.inventoryMessages;
 
         setupAbilities();
     }
@@ -131,6 +139,7 @@ public class activateAbility : MonoBehaviour
         {
             if(inventoryScreenOn)
             {
+                gameManager.instance.inventoryMessageBox.SetActive(false);
                 inventoryScreenOn = false;
                 Time.timeScale = 1;
                 Cursor.visible = false;
@@ -143,6 +152,8 @@ public class activateAbility : MonoBehaviour
                 Time.timeScale = 0;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.Confined;
+                inventoryMessageUpdate.text = defaultMsg;
+                gameManager.instance.inventoryMessageBox.SetActive(true);
                 gameManager.instance.inventory.SetActive(true);
             }
         }
@@ -203,11 +214,16 @@ public class activateAbility : MonoBehaviour
                 if(stats == abilityBar[i])
                 {
                     gameManager.instance.displayAbility(abilityInfo);
+                    inventoryMessageUpdate.text = pickUpMsg_Own;
+                    gameManager.instance.inventoryMessageBox.SetActive(true);
                     return;
                 }
             }
             abilityBar.Add(stats);
             gameManager.instance.displayAbility(abilityInfo);
+
+            inventoryMessageUpdate.text = pickUpMsg_New;
+            gameManager.instance.inventoryMessageBox.SetActive(true);
 
             if (abilityOne.GetComponent<Image>().sprite.name == "None2")
             {
@@ -231,15 +247,20 @@ public class activateAbility : MonoBehaviour
             for (int i = 0; i < abilityBar.Count; i++)
             {
                 if (stats == abilityBar[i])
-                {
+                {                    
                     gameManager.instance.displayAbility(abilityInfo);
+                    inventoryMessageUpdate.text = pickUpMsg_Own;
+                    gameManager.instance.inventoryMessageBox.SetActive(true);
                     return;
                 }
             }
             abilityBar.Add(stats);
             gameManager.instance.displayAbility(abilityInfo);
 
-            if(inventorySlot1.GetComponent<Image>().sprite.name == "None2")
+            inventoryMessageUpdate.text = pickUpMsg_Inventory;
+            gameManager.instance.inventoryMessageBox.SetActive(true);
+
+            if (inventorySlot1.GetComponent<Image>().sprite.name == "None2")
             {
                 inventorySlot1.GetComponent<Image>().sprite = abilityImage;
             }
