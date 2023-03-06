@@ -17,14 +17,16 @@ public class enemyTreeAI : enemyAI
     // Update is called once per frame
     void Update()
     {
+        anim.SetFloat("IdleSpeed", 1f);
         if (canSeePlayer())
         {
-            anim.SetTrigger("Idle");
+            anim.SetBool("IsNotInGround", true);
+            //anim.SetTrigger("Idle");
             // first attack
         }
         else if (!canSeePlayer() && isPlayerInRange)
         {
-            anim.SetTrigger("Idle");
+            //anim.SetTrigger("Idle");
             // round attack
         }
     }
