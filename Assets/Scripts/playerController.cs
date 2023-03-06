@@ -14,7 +14,7 @@ public class playerController : MonoBehaviour
     [Range(0, 1)] [SerializeField] float medPickupVol;
     [SerializeField] AudioClip weaponPickupSound;
     [Range(0, 1)] [SerializeField] float weaponPickupVol;
-
+    [SerializeField] public GameObject minimap;
     [Header("----- Player Stats -----")]
     [Range(5, 10)] [SerializeField] public int HP;
     [Range(1, 50)] [SerializeField] int playerSpeed;
@@ -277,7 +277,7 @@ public class playerController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
         {
-            Debug.Log(hit.collider.name);
+            //Debug.Log(hit.collider.name);
            
 
             // Deactivated temp
@@ -474,15 +474,18 @@ public class playerController : MonoBehaviour
 
     public void zoomCamera()
     {
-        if (weaponList.Count > 0)
+        if (!gameManager.instance.cam2.GetComponentInChildren<Camera>().enabled)
         {
-            if (Input.GetButton("Zoom"))
+            if (weaponList.Count > 0)
             {
-                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * 3);
-            }
-            else if (Camera.main.fieldOfView <= baseFOV)
-            {
-                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, baseFOV, Time.deltaTime * 6);
+                if (Input.GetButton("Zoom"))
+                {
+                    Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * 3);
+                }
+                else if (Camera.main.fieldOfView <= baseFOV)
+                {
+                    Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, baseFOV, Time.deltaTime * 6);
+                }
             }
         }
     }

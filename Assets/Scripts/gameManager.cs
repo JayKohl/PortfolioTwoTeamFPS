@@ -26,11 +26,9 @@ public class gameManager : MonoBehaviour
     [SerializeField] public GameObject fuelCellsRemainingObject;
     [SerializeField] TextMeshProUGUI fuelCellsRemainingText;
     [SerializeField] public GameObject enemiesRemainingObject;
-    [SerializeField] TextMeshProUGUI enemiesRemainingText;
+    [SerializeField] public TextMeshProUGUI enemiesRemainingText;
 
     [SerializeField] GameObject npc;
-    public friendlyAI friendNPC;
-    public secondCamera cameraTwo;
 
     public GameObject infoTextBackground;
     public TextMeshProUGUI infoText;
@@ -90,9 +88,8 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
-
-        cameraTwo = cam2.GetComponent<secondCamera>();
-        friendNPC = npc.GetComponent<friendlyAI>();
+        npcChat = GameObject.FindGameObjectWithTag("NPCChat").GetComponentInChildren<TextMeshProUGUI>();
+        //cam2 = GameObject.FindGameObjectWithTag("Camera2");
 
         ability = playerScript.abilityOneActive;
         AbilityOneS = AbilityOne.GetComponent<AbilitiesColdown>();
@@ -124,6 +121,7 @@ public class gameManager : MonoBehaviour
         {
             displayingAbility = false;
             abilityDisplay.SetActive(false);
+            crosshair.SetActive(true);
             unPause();
         }
     }
@@ -204,6 +202,7 @@ public class gameManager : MonoBehaviour
     }
     public void displayAbility(Sprite abilityTexture)
     {
+        crosshair.SetActive(false);
         abilityDisplay.GetComponent<Image>().sprite = abilityTexture;
         abilityDisplay.SetActive(true);
         displayingAbility = true;

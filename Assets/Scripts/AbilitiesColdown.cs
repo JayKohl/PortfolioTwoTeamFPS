@@ -60,9 +60,12 @@ public class AbilitiesColdown : MonoBehaviour
         }
         else
         {
-            used = true;
-            cooldownText.gameObject.SetActive(true);
-            cooldownTimer = cooldownTime;
+            if (gameManager.instance.abilityHub.GetComponent<activateAbility>().abilityBar.Count > 0)
+            {
+                used = true;
+                cooldownText.gameObject.SetActive(true);
+                cooldownTimer = cooldownTime;
+            }
             return true;
         }
           

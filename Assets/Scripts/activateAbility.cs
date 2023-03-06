@@ -6,12 +6,12 @@ using TMPro;
 
 public class activateAbility : MonoBehaviour
 {
-    [SerializeField] List<abilities> abilityBar = new List<abilities>();
+    [SerializeField] public List<abilities> abilityBar = new List<abilities>();
+    [SerializeField] public List<abilities> abilitiesInventory = new List<abilities>();
     float cooldownTime;
     Sprite abilityImage;
     AudioClip abilityAudio;
     float abilityAudioVol;
-    string abilityName;
     Sprite abilityInfo;
 
     GameObject abilityOne;
@@ -19,8 +19,6 @@ public class activateAbility : MonoBehaviour
     GameObject abilityThree;
     GameObject abilityFour;
     Sprite abilityTexture;
-
-    bool gainedIceOrFire;
 
     private void Start()
     {
@@ -31,19 +29,23 @@ public class activateAbility : MonoBehaviour
     }
     void Update()
     {
-        if (gainedIceOrFire && gameManager.instance.playerScript.fireOn || gameManager.instance.playerScript.iceOn)
+        if (gameManager.instance.playerScript.fireOn || gameManager.instance.playerScript.iceOn)
         {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 10))
             {
-                hit.collider.GetComponent<IDamage>().takeDamage(0);
+                if (hit.collider.GetComponent<IDamage>() != null)
+                {
+                    hit.collider.GetComponent<IDamage>().takeDamage(0);
+                }
             }
         }
-        if (Input.GetKeyDown(KeyCode.Q) && gameManager.instance.AbilityOneS.wasSpellUsed())
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            abilityTexture = abilityOne.GetComponent<Image>().sprite;
-            if(abilityBar.Count > 0)
+            if(abilityBar.Count < 1) { return; }
+            if (gameManager.instance.AbilityOneS.wasSpellUsed())
             {
+                abilityTexture = abilityOne.GetComponent<Image>().sprite;
                 abilityActivation(abilityTexture);
                 foreach (abilities stats in abilityBar)
                 {
@@ -55,11 +57,12 @@ public class activateAbility : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.R) && gameManager.instance.AbilityTwoS.wasSpellUsed())
+        else if (Input.GetKeyDown(KeyCode.R))
         {
-            abilityTexture = abilityTwo.GetComponent<Image>().sprite;
-            if (abilityBar.Count > 0)
+            if (abilityBar.Count < 2) { return; }
+            if (gameManager.instance.AbilityTwoS.wasSpellUsed())
             {
+                abilityTexture = abilityTwo.GetComponent<Image>().sprite;
                 abilityActivation(abilityTexture);
                 foreach (abilities stats in abilityBar)
                 {
@@ -71,11 +74,12 @@ public class activateAbility : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.F) && gameManager.instance.AbilityThreeS.wasSpellUsed())
+        else if (Input.GetKeyDown(KeyCode.F))
         {
-            abilityTexture = abilityThree.GetComponent<Image>().sprite;
-            if (abilityBar.Count > 0)
+            if (abilityBar.Count < 3) { return; }
+            if (gameManager.instance.AbilityThreeS.wasSpellUsed())
             {
+                abilityTexture = abilityThree.GetComponent<Image>().sprite;
                 abilityActivation(abilityTexture);
                 foreach (abilities stats in abilityBar)
                 {
@@ -87,11 +91,12 @@ public class activateAbility : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.E) && gameManager.instance.AbilityFourS.wasSpellUsed())
+        else if (Input.GetKeyDown(KeyCode.E))
         {
-            abilityTexture = abilityFour.GetComponent<Image>().sprite;
-            if (abilityBar.Count > 0)
+            if (abilityBar.Count < 4) { return; }
+            if (gameManager.instance.AbilityFourS.wasSpellUsed())
             {
+                abilityTexture = abilityFour.GetComponent<Image>().sprite;
                 abilityActivation(abilityTexture);
                 foreach (abilities stats in abilityBar)
                 {
@@ -146,19 +151,14 @@ public class activateAbility : MonoBehaviour
     }
     public void abilityPickup(abilities stats)
     {
+        cooldownTime = stats.cooldownTime;
+        abilityImage = stats.abilityImage;
+        abilityAudio = stats.abilityAudio;
+        abilityAudioVol = stats.abilityAudioVol;
+        abilityInfo = stats.abilityInfo;
+
         if (abilityBar.Count < 4)
         {
-            cooldownTime = stats.cooldownTime;
-            abilityImage = stats.abilityImage;
-            abilityAudio = stats.abilityAudio;
-            abilityAudioVol = stats.abilityAudioVol;
-            abilityName = stats.abilityName;
-            abilityInfo = stats.abilityInfo;
-
-            if(abilityName == "Fire" || abilityName == "Ice")
-            {
-                gainedIceOrFire = true;
-            }
             abilityBar.Add(stats);
 
             gameManager.instance.displayAbility(abilityInfo);
@@ -182,6 +182,8 @@ public class activateAbility : MonoBehaviour
         }
         else
         {
+            abilitiesInventory.Add(stats);
+            gameManager.instance.displayAbility(abilityInfo);
             //replace ability window
             //OR
             //send new ability to inventory to replace later
@@ -199,7 +201,7 @@ public class activateAbility : MonoBehaviour
     public IEnumerator abilityCoolFire(float cooldown)
     {
         gameManager.instance.playerScript.fireOnPlayer.SetActive(true);
-        gameManager.instance.playerScript.fireOn = true;        
+        gameManager.instance.playerScript.fireOn = true;
         yield return new WaitForSeconds(cooldown);
         gameManager.instance.playerScript.fireOnPlayer.SetActive(false);
         gameManager.instance.playerScript.fireOn = false;

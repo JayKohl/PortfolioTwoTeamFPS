@@ -67,14 +67,10 @@ public class friendlyAI : MonoBehaviour
             if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == false)
             {
                 
-                
-                
                 //anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
-
                 agent.enabled = false;
                 transform.position = moveToTerminal.transform.position;
                 //StartCoroutine(setAgentOn());
-
                 anim.SetTrigger("Idle");
                 //agent.enabled = false;
                 //agent.enabled = false;
@@ -85,7 +81,6 @@ public class friendlyAI : MonoBehaviour
                 StartCoroutine(setGoal("Get to the flight deck"));
                 StartCoroutine(gameManager.instance.deleteTextNpc(8));
                 //exitArena();
-                
             }
             //if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == true)
             //{
@@ -190,9 +185,15 @@ public class friendlyAI : MonoBehaviour
                     anim.SetTrigger("Talk");
                     gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. \n\n" +
                                                         "If by chance you can survive I will help you escape. Now go away before anyone notices us talking.");
+                    
+
+
+                    gameManager.instance.playerScript.minimap.SetActive(false);                   
+                    gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(false);
+                    gameManager.instance.enemiesRemainingObject.SetActive(false);
+                    gameManager.instance.enemiesRemainingText.enabled = false;
+                    gameManager.instance.crosshair.SetActive(false);
                     gameManager.instance.pause();
-
-
                 }
                 return true;
             }
@@ -232,10 +233,10 @@ public class friendlyAI : MonoBehaviour
     {
 
         
-        gameManager.instance.cameraTwo.openDoorOne();       
+        gameManager.instance.cam2.GetComponentInChildren<secondCamera>().openDoorOne();
         yield return new WaitForSecondsRealtime(3);
-       
-        gameManager.instance.cameraTwo.doorOne.SetActive(false);
+
+        gameManager.instance.cam2.GetComponentInChildren<secondCamera>().doorOne.SetActive(false);
         yield return new WaitForSecondsRealtime(3);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -244,8 +245,13 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.playerScript.controller.enabled = true;
         gameManager.instance.playerCamera.SetActive(true);
         gameManager.instance.cam2.SetActive(false);
-        
-        Time.timeScale = 1;
+
+        gameManager.instance.playerScript.minimap.SetActive(true);
+        gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(true);
+        gameManager.instance.enemiesRemainingObject.SetActive(true);
+        gameManager.instance.enemiesRemainingText.enabled = true;
+        gameManager.instance.crosshair.SetActive(true);
+        gameManager.instance.unPause();
 
         isGivenQuest = true;
         
@@ -253,18 +259,30 @@ public class friendlyAI : MonoBehaviour
 
     IEnumerator doorTwo()
     {
+        
         yield return new WaitForSecondsRealtime(1);
+        gameManager.instance.playerScript.minimap.SetActive(false);
+        gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(false);
+        gameManager.instance.enemiesRemainingObject.SetActive(false);
+        gameManager.instance.enemiesRemainingText.enabled = false;
+        gameManager.instance.crosshair.SetActive(false);
         gameManager.instance.cam2.SetActive(true);
-        gameManager.instance.playerCamera.SetActive(false);
+        gameManager.instance.playerCamera.SetActive(false);        
         Time.timeScale = 0;
-        gameManager.instance.cameraTwo.openDoorTwo();
+
+        gameManager.instance.cam2.GetComponentInChildren<secondCamera>().openDoorTwo();
         yield return new WaitForSecondsRealtime(3);
-        gameManager.instance.cameraTwo.doorTwo.SetActive(false);
+        gameManager.instance.cam2.GetComponentInChildren<secondCamera>().doorTwo.SetActive(false);
         yield return new WaitForSecondsRealtime(3);
         gameManager.instance.playerScript.controller.enabled = true;
         gameManager.instance.playerCamera.SetActive(true);
         gameManager.instance.cam2.SetActive(false);
-        Time.timeScale = 1;
+        gameManager.instance.playerScript.minimap.SetActive(true);
+        gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(true);
+        gameManager.instance.enemiesRemainingObject.SetActive(true);
+        gameManager.instance.enemiesRemainingText.enabled = true;
+        gameManager.instance.crosshair.SetActive(true);
+        gameManager.instance.unPause();
 
         isGivenQuest = true;
         isTalking = false;
