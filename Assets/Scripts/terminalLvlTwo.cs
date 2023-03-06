@@ -34,8 +34,9 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
         hitPoints -= dmg;
         if (hitPoints <= 0)
         {
-            blowUp.SetActive(true);
+            StartCoroutine(gameManager.instance.cam2.GetComponentInChildren<secondCamera>().doorThreeStart());
 
+            blowUp.SetActive(true);
             screenOne.SetActive(false);
             screenTwo.SetActive(false);
             screenThree.SetActive(false);
@@ -50,6 +51,7 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
             laserEight.SetActive(false);
             GetComponent<Collider>().enabled = false;
             StartCoroutine(terminalDead());
+            StartCoroutine(gameManager.instance.cam2.GetComponentInChildren<secondCamera>().doorThreeStop());
         }
         else
         {

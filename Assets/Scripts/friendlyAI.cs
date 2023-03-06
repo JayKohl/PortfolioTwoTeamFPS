@@ -289,4 +289,5 @@ public class friendlyAI : MonoBehaviour
         isGivenQuest = true;
         isTalking = false;
     }
+    
 }

@@ -6,6 +6,8 @@ public class secondCamera : MonoBehaviour
 {
     [SerializeField] public Transform locDoorOne;
     [SerializeField] public Transform locDoorTwo;
+    [SerializeField] public Transform locDoorThree;
+
     [SerializeField] public GameObject doorOne;
     [SerializeField] public GameObject doorTwo;
     public Camera cam2;
@@ -14,7 +16,7 @@ public class secondCamera : MonoBehaviour
     {
         transform.position = locDoorOne.transform.position;
         transform.eulerAngles = locDoorOne.transform.eulerAngles;
-        cam2.fieldOfView = Mathf.Lerp(cam2.fieldOfView, 50, 40);
+        //cam2.fieldOfView = Mathf.Lerp(cam2.fieldOfView, 50, 40);
 
         //gameManager.instance.cam2.fieldOfView = Mathf.Lerp(gameManager.instance.cam2.fieldOfView, 80, 4 * Time.unscaledDeltaTime);
     }
@@ -23,8 +25,43 @@ public class secondCamera : MonoBehaviour
     {
         transform.position = locDoorTwo.transform.position;
         transform.eulerAngles = locDoorTwo.transform.eulerAngles;
-        cam2.fieldOfView = Mathf.Lerp(cam2.fieldOfView, 50, 40 * Time.deltaTime);
+        //cam2.fieldOfView = Mathf.Lerp(cam2.fieldOfView, 50, 40 * Time.deltaTime);
+        //gameManager.instance.cam2.fieldOfView = Mathf.Lerp(gameManager.instance.cam2.fieldOfView, 80, 4 * Time.unscaledDeltaTime);
+    }
+    public void openDoorThree()
+    {
+        transform.position = locDoorThree.transform.position;
+        transform.eulerAngles = locDoorThree.transform.eulerAngles;
+        //cam2.fieldOfView = Mathf.Lerp(cam2.fieldOfView, 50, 40 * Time.deltaTime);
         //gameManager.instance.cam2.fieldOfView = Mathf.Lerp(gameManager.instance.cam2.fieldOfView, 80, 4 * Time.unscaledDeltaTime);
 
+    }
+    public IEnumerator doorThreeStart()
+    {
+        gameManager.instance.playerScript.minimap.SetActive(false);
+        gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(false);
+        gameManager.instance.enemiesRemainingObject.SetActive(false);
+        gameManager.instance.enemiesRemainingText.enabled = false;
+        gameManager.instance.crosshair.SetActive(false);
+        gameManager.instance.cam2.SetActive(true);
+        gameManager.instance.playerCamera.SetActive(false);
+        Time.timeScale = 0;
+        openDoorThree();
+        yield return new WaitForSecondsRealtime(3);
+           
+    }
+
+    public IEnumerator doorThreeStop()
+    {
+        yield return new WaitForSecondsRealtime(3);
+        gameManager.instance.playerScript.controller.enabled = true;
+        gameManager.instance.playerCamera.SetActive(true);
+        gameManager.instance.cam2.SetActive(false);
+        gameManager.instance.playerScript.minimap.SetActive(true);
+        gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(true);
+        gameManager.instance.enemiesRemainingObject.SetActive(true);
+        gameManager.instance.enemiesRemainingText.enabled = true;
+        gameManager.instance.crosshair.SetActive(true);
+        gameManager.instance.unPause();
     }
 }
