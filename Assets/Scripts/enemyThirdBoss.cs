@@ -12,6 +12,7 @@ public class enemyThirdBoss : enemyAI
 
     [SerializeField] protected GameObject bulletSecond;
     [SerializeField] protected GameObject bulletThird;
+    [SerializeField] protected GameObject bulletFourth;
     [SerializeField] GameObject shield;
 
     [SerializeField] GameObject[] spawnEnemyType;
@@ -304,6 +305,10 @@ public class enemyThirdBoss : enemyAI
         else if (waveCount == 2)
         {
             bullet = bulletThird;
+        }
+        else if (waveCount == 3)
+        {
+            bullet = bulletFourth;
         }
         createBullet();
         //anim.SetTrigger("Shoot");
