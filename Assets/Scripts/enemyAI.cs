@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 // getting access to the nav mesh.
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 // I added this class to be abstract for use with childeren.
 public abstract class enemyAI : MonoBehaviour, IDamage
@@ -116,6 +117,10 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         hitPoints -= dmg;
         if (hitPoints <= 0)
         {
+            if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
+            {
+                gameManager.instance.updateGameGoalLvl3(-1);
+            }
             GetComponent<Collider>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
             aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
