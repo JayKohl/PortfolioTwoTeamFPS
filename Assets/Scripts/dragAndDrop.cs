@@ -33,49 +33,63 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
     {
         image = gameObject.GetComponent<Image>();
         transform.SetAsLastSibling();
-        image.raycastTarget = false;
+        image.raycastTarget = true;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {        
         for (int i = 0; i < abilityPositions.Count; i++)
         {
-            Vector3 distance = abilityPositions[i] - transform.position;
+            float distanceX = transform.position.x - abilityPositions[i].x;
+            float distanceY = abilityPositions[i].y - transform.position.y;
 
-            if (distance.x < 20f && distance.y < 20f)
+            Debug.Log("x: " + distanceX + ", y: " + distanceY);
+            if (distanceX > 300f && distanceY < 10f)
             {
-                Debug.Log("Found: "+i);
-                if(i==0)
-                {
-                    Sprite temp1 = image.sprite;
-                    Sprite temp2 = gameManager.instance.AbilityOne.GetComponent<Image>().sprite;
-                    gameManager.instance.AbilityOne.GetComponent<Image>().sprite = temp1;
-                    gameObject.GetComponent<Image>().sprite = temp2;
-                }
-                else if (i == 1)
-                {
-                    Sprite temp1 = image.sprite;
-                    Sprite temp2 = gameManager.instance.AbilityTwo.GetComponent<Image>().sprite;
-                    gameManager.instance.AbilityTwo.GetComponent<Image>().sprite = temp1;
-                    gameObject.GetComponent<Image>().sprite = temp2;
-                }
-                else if (i == 2)
-                {
-                    Sprite temp1 = image.sprite;
-                    Sprite temp2 = gameManager.instance.AbilityThree.GetComponent<Image>().sprite;
-                    gameManager.instance.AbilityThree.GetComponent<Image>().sprite = temp1;
-                    gameObject.GetComponent<Image>().sprite = temp2;
-                }
-                else if (i == 3)
-                {
-                    Sprite temp1 = image.sprite;
-                    Sprite temp2 = gameManager.instance.AbilityFour.GetComponent<Image>().sprite;
-                    gameManager.instance.AbilityFour.GetComponent<Image>().sprite = temp1;
-                    gameObject.GetComponent<Image>().sprite = temp2;
-                }
+                Sprite temp1 = image.sprite;
+                Sprite temp2 = gameManager.instance.AbilityFour.GetComponent<Image>().sprite;
+                gameManager.instance.AbilityFour.GetComponent<Image>().sprite = temp1;
+                gameObject.GetComponent<Image>().sprite = temp2;
+                image.raycastTarget = true;
+                transform.position = origPosition;
+                return;
+            }
+            else if (distanceX > 200f && distanceY < 10f)
+            {
+                Sprite temp1 = image.sprite;
+                Sprite temp2 = gameManager.instance.AbilityThree.GetComponent<Image>().sprite;
+                gameManager.instance.AbilityThree.GetComponent<Image>().sprite = temp1;
+                gameObject.GetComponent<Image>().sprite = temp2;
+                image.raycastTarget = true;
+                transform.position = origPosition;
+                return;
+            }
+            else if (distanceX > 100f && distanceY < 10f)
+            {
+                Sprite temp1 = image.sprite;
+                Sprite temp2 = gameManager.instance.AbilityTwo.GetComponent<Image>().sprite;
+                gameManager.instance.AbilityTwo.GetComponent<Image>().sprite = temp1;
+                gameObject.GetComponent<Image>().sprite = temp2;
+                image.raycastTarget = true;
+                transform.position = origPosition;
+                return;
+            }
+            else if (distanceX > -10f && distanceY < 10f)
+            {
+                Sprite temp1 = image.sprite;
+                Sprite temp2 = gameManager.instance.AbilityOne.GetComponent<Image>().sprite;
+                gameManager.instance.AbilityOne.GetComponent<Image>().sprite = temp1;
+                gameObject.GetComponent<Image>().sprite = temp2;
+                image.raycastTarget = true;
+                transform.position = origPosition;
+                return;
+            }
+            else
+            {
+                image.raycastTarget = true;
+                transform.position = origPosition;
+                return;
             }
         }
-        image.raycastTarget = true;
-        transform.position = origPosition;
     }
 }
