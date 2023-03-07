@@ -216,6 +216,7 @@ public class gameManager : MonoBehaviour
     }
     public void playerDead()
     {
+        hackUI.SetActive(false);
         pause();
         activeMenu = loseMenu;
         activeMenu.SetActive(true);
