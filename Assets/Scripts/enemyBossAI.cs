@@ -148,6 +148,18 @@ public class enemyBossAI : enemyAI
             StartCoroutine(flashDamage());
         }
     }
+    public IEnumerator hacking(GameObject target)
+    {
+        if(target == gameObject)
+        {
+            isInCoolDown = true;
+            anim.SetTrigger("CoolDown");            
+            shield.SetActive(false);
+            yield return new WaitForSeconds(10);
+            agentStart();
+            isInCoolDown = false;
+        }
+    }
     IEnumerator onFire()
     {
         yield return new WaitForSeconds(.5f);

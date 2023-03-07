@@ -67,6 +67,9 @@ public class gameManager : MonoBehaviour
     [SerializeField] public GameObject shieldUI;
     [SerializeField] public GameObject invisUI;
     [SerializeField] public GameObject dashUI;
+    [SerializeField] public GameObject hackUI;
+    [SerializeField] public GameObject hackInterface;
+    [SerializeField] public GameObject hackError;
 
     [SerializeField] public AudioSource aud;
     [SerializeField] public AudioClip invisOnAud;

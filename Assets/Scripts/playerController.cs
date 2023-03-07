@@ -316,6 +316,7 @@ public class playerController : MonoBehaviour
         }
         else
         {
+            StartCoroutine(gameManager.instance.abilityHub.GetComponent<activateAbility>().beginHack(5));
             HP -= dmg;
             updatePlayerHPBar();
             StartCoroutine(flashDamage());            

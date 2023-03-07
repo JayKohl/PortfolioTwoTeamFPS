@@ -7,7 +7,7 @@ using TMPro;
 public class activateAbility : MonoBehaviour
 {
     [SerializeField] public List<abilities> abilityBar = new List<abilities>();
-    [SerializeField] public List<abilities> abilitiesInventory = new List<abilities>();
+    [SerializeField] List<Sprite> hackAnimation = new List<Sprite>();
     float cooldownTime;
     Sprite abilityImage;
     AudioClip abilityAudio;
@@ -35,6 +35,9 @@ public class activateAbility : MonoBehaviour
     string pickUpMsg_Own = "You already own this ability.";
 
     public bool inventoryScreenOn;
+    int hackCounter;
+    private GameObject hackTarget;
+    bool cancelHack;
 
     private void Start()
     {
@@ -195,9 +198,16 @@ public class activateAbility : MonoBehaviour
                     abilityAudioVol = stats.abilityAudioVol;
                     gameManager.instance.playerScript.swarm();
                 }
+                else if(stats.abilityName == "Hack")
+                {
+                    abilityAudio = stats.abilityAudio;
+                    abilityAudioVol = stats.abilityAudioVol;
+                    gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    hack();
+                }
             }
         }
-    }
+    }    
     public void abilityPickup(abilities stats)
     {
         cooldownTime = stats.cooldownTime;
@@ -334,5 +344,49 @@ public class activateAbility : MonoBehaviour
         yield return new WaitForSeconds(cooldown);
         gameManager.instance.playerScript.iceOnPlayer.SetActive(false);
         gameManager.instance.playerScript.iceOn = false;
+    }
+    public void hack()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 100))
+        {
+            if (hit.collider.GetComponent<IDamage>() != null)
+            {
+                hackTarget = hit.collider.gameObject;
+                gameManager.instance.hackUI.SetActive(true);
+                hackCounter = 0;
+                StartCoroutine(beginHack(hackCounter));
+            }
+        }
+    }
+    public IEnumerator beginHack(int i)
+    {
+        if (i == 0)
+        {
+            gameManager.instance.hackInterface.GetComponent<Image>().sprite = hackAnimation[0];
+            gameManager.instance.hackInterface.GetComponent<Image>().color = Color.white;
+            gameManager.instance.hackError.SetActive(false);
+            for (i = 1; i < hackAnimation.Count; i++)
+            {
+                yield return new WaitForSeconds(.33f);
+                gameManager.instance.hackInterface.GetComponent<Image>().sprite = hackAnimation[i];
+            }
+            if (!cancelHack)
+            {
+                gameManager.instance.hackInterface.GetComponent<Image>().color = Color.green;
+                StartCoroutine(hackTarget.GetComponent<enemyBossAI>().hacking(hackTarget));
+                yield return new WaitForSeconds(2);
+                gameManager.instance.hackUI.SetActive(false);
+            }
+        }
+        else
+        {
+            cancelHack = true;
+            gameManager.instance.hackError.SetActive(true);
+            gameManager.instance.hackInterface.GetComponent<Image>().color = Color.red;
+            yield return new WaitForSeconds(i);
+            gameManager.instance.hackError.SetActive(false);
+            gameManager.instance.hackUI.SetActive(false);
+        }
     }
 }
