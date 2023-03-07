@@ -46,8 +46,20 @@ public class gameManager : MonoBehaviour
     public AbilitiesColdown AbilityOneS;
     public AbilitiesColdown AbilityTwoS;
     public AbilitiesColdown AbilityThreeS;
-    public AbilitiesColdown AbilityFourS;
+    public AbilitiesColdown AbilityFourS;    
     public bool ability;
+
+    public GameObject inventory;
+    public GameObject inventoryMessageBox;
+    public TextMeshProUGUI inventoryMessages;
+    public GameObject inventorySlot1;
+    public GameObject inventorySlot2;
+    public GameObject inventorySlot3;
+    public GameObject inventorySlot4;
+    public GameObject inventorySlot5;
+    public GameObject inventorySlot6;
+
+    public GameObject lvlMenu;
 
     public GameObject muzzleFlash;
     public GameObject quickTexts;
@@ -57,6 +69,9 @@ public class gameManager : MonoBehaviour
     [SerializeField] public GameObject shieldUI;
     [SerializeField] public GameObject invisUI;
     [SerializeField] public GameObject dashUI;
+    [SerializeField] public GameObject hackUI;
+    [SerializeField] public GameObject hackInterface;
+    [SerializeField] public GameObject hackError;
 
     [SerializeField] public AudioSource aud;
     [SerializeField] public AudioClip invisOnAud;
@@ -118,8 +133,12 @@ public class gameManager : MonoBehaviour
                 unPause();
         }
 
-        if (Input.GetKeyDown(KeyCode.X) && displayingAbility)
+        if (Input.GetKeyDown(KeyCode.X))
         {
+            gameManager.instance.inventory.SetActive(false);
+            gameManager.instance.lvlMenu.SetActive(false);
+            gameManager.instance.inventoryMessageBox.SetActive(false);
+            inventoryMessageBox.SetActive(false);
             displayingAbility = false;
             abilityDisplay.SetActive(false);
             crosshair.SetActive(true);
@@ -129,6 +148,9 @@ public class gameManager : MonoBehaviour
 
     public void pause()
     {
+        gameManager.instance.abilityHub.GetComponent<activateAbility>().inventoryScreenOn = false;
+        gameManager.instance.inventory.SetActive(false);
+        gameManager.instance.lvlMenu.SetActive(false);
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
