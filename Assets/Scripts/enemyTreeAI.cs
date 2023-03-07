@@ -67,13 +67,13 @@ public class enemyTreeAI : enemyAI
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
-                int randomAttack = Random.Range(1, 2);
-                if (!isMelee && angleToPlayer <= shootAngle && randomAttack == 1)
+                int randomAttack = Random.Range(0, 2);
+                if (!isMelee && angleToPlayer <= shootAngle && randomAttack == 0)
                 {
                     // single melee attack
                     StartCoroutine(melee());
                 }
-                else if (!isMelee && angleToPlayer <= shootAngle && randomAttack == 2)
+                else if (!isMelee && angleToPlayer <= shootAngle && randomAttack == 1)
                 {
                     StartCoroutine(meleeMulti());
                 }
