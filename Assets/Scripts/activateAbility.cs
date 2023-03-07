@@ -383,10 +383,10 @@ public class activateAbility : MonoBehaviour
         int layerMask = LayerMask.GetMask("Enemy");
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 100, layerMask))
         {
-            if (hit.transform.gameObject.tag == "EnemyBoss")
+            if (hit.transform.gameObject.tag == "EnemyBoss" || hit.transform.gameObject.tag == "Turret")
             {
+                //Debug.Log("test");
                 gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
-                Debug.Log("Name2: "+hit.transform.tag);
                 hackTarget = hit.collider.gameObject;
                 gameManager.instance.hackUI.SetActive(true);
                 hackCounter = 0;
@@ -413,10 +413,16 @@ public class activateAbility : MonoBehaviour
             }
             if (!cancelHack)
             {
-                gameObject.GetComponent<AudioSource>().Stop();
                 aud.PlayOneShot(gameManager.instance.notify, abilityAudioVol);
                 gameManager.instance.hackInterface.GetComponent<Image>().color = Color.green;
-                StartCoroutine(hackTarget.GetComponent<enemyBossAI>().hacking(hackTarget));
+                if (hackTarget.GetComponent<enemyBossAI>() != null)
+                {
+                    StartCoroutine(hackTarget.GetComponent<enemyBossAI>().hacking(hackTarget));
+                }
+                else if (hackTarget.GetComponent<enemyTurretAI>() != null)
+                {
+                    StartCoroutine(hackTarget.GetComponent<enemyTurretAI>().hacking(hackTarget));
+                }
                 yield return new WaitForSeconds(2);
                 gameManager.instance.hackUI.SetActive(false);
             }
@@ -425,7 +431,6 @@ public class activateAbility : MonoBehaviour
         {
             if (!cancelHack)
             {
-                gameObject.GetComponent<AudioSource>().Stop();
                 aud.PlayOneShot(gameManager.instance.error, abilityAudioVol);
                 cancelHack = true;
                 gameManager.instance.hackError.SetActive(true);

@@ -17,6 +17,7 @@ public class enemyTurretAI : enemyAI
     bool setOnFire;
     bool chilled;
     bool chilledOnce;
+    bool isInCoolDown;
     // Make sure the NavMesh stopping distance is the same as the sphere collider trigger radius.    
 
     bool alive;
@@ -26,6 +27,7 @@ public class enemyTurretAI : enemyAI
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
+        isInCoolDown = false;
     }
 
     //// Update is called once per frame
@@ -71,37 +73,43 @@ public class enemyTurretAI : enemyAI
 
     protected override void facePlayer()
     {
-        Quaternion rotate = Quaternion.LookRotation(playerDirection);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * playerFaceSpeed);
+        if (!isInCoolDown)
+        {
+            Quaternion rotate = Quaternion.LookRotation(playerDirection);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * playerFaceSpeed);
+        }
     }
     protected override IEnumerator shoot()
     {
-        isShooting = true;
-
-        GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
-        Vector3 shootingVector = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
-        bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
-        if (shootPositionTwo != null)
+        if (!isInCoolDown)
         {
-            GameObject bulletCloneTwo = Instantiate(bullet, shootPositionTwo.position, bullet.transform.rotation);
-            aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
-            Vector3 shootingVectorTwo = (gameManager.instance.player.transform.position - shootPositionTwo.position).normalized;
-            bulletCloneTwo.GetComponent<Rigidbody>().velocity = shootingVectorTwo * bulletSpeed;
+            isShooting = true;
 
-            GameObject bulletCloneThree = Instantiate(bullet, shootPositionThree.position, bullet.transform.rotation);
+            GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
             aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
-            Vector3 shootingVectorThree = (gameManager.instance.player.transform.position - shootPositionThree.position).normalized;
-            bulletCloneThree.GetComponent<Rigidbody>().velocity = shootingVectorThree * bulletSpeed;
+            Vector3 shootingVector = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
+            bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
+            if (shootPositionTwo != null)
+            {
+                GameObject bulletCloneTwo = Instantiate(bullet, shootPositionTwo.position, bullet.transform.rotation);
+                aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
+                Vector3 shootingVectorTwo = (gameManager.instance.player.transform.position - shootPositionTwo.position).normalized;
+                bulletCloneTwo.GetComponent<Rigidbody>().velocity = shootingVectorTwo * bulletSpeed;
 
-            GameObject bulletCloneFour = Instantiate(bullet, shootPositionFour.position, bullet.transform.rotation);
-            aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
-            Vector3 shootingVectorFour = (gameManager.instance.player.transform.position - shootPositionFour.position).normalized;
-            bulletCloneFour.GetComponent<Rigidbody>().velocity = shootingVectorFour * bulletSpeed;
+                GameObject bulletCloneThree = Instantiate(bullet, shootPositionThree.position, bullet.transform.rotation);
+                aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
+                Vector3 shootingVectorThree = (gameManager.instance.player.transform.position - shootPositionThree.position).normalized;
+                bulletCloneThree.GetComponent<Rigidbody>().velocity = shootingVectorThree * bulletSpeed;
+
+                GameObject bulletCloneFour = Instantiate(bullet, shootPositionFour.position, bullet.transform.rotation);
+                aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
+                Vector3 shootingVectorFour = (gameManager.instance.player.transform.position - shootPositionFour.position).normalized;
+                bulletCloneFour.GetComponent<Rigidbody>().velocity = shootingVectorFour * bulletSpeed;
+            }
+
+            yield return new WaitForSeconds(shootRate);
+            isShooting = false;
         }
-
-        yield return new WaitForSeconds(shootRate);
-        isShooting = false;
     }
     public override void takeDamage(int dmg)
     {
@@ -158,6 +166,15 @@ public class enemyTurretAI : enemyAI
         yield return new WaitForSeconds(2);
         explosion.SetActive(false);
         plasmaExplosion.SetActive(false);        
+    }
+    public IEnumerator hacking(GameObject target)
+    {
+        if (target == gameObject)
+        {
+            isInCoolDown = true;
+            yield return new WaitForSeconds(10);
+            isInCoolDown = false;
+        }
     }
     IEnumerator onFire()
     {
