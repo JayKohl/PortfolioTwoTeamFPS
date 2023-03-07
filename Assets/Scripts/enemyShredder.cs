@@ -8,6 +8,7 @@ public class enemyShredder : enemyAI
     [SerializeField] GameObject fireEffect;
     bool setOnFire;
     [SerializeField] GameObject iceEffect;
+    [SerializeField] float distanceToHit;
     bool chilled;
     bool chilledOnce;
     // Start is called before the first frame update
@@ -68,7 +69,7 @@ public class enemyShredder : enemyAI
                 {
                     facePlayer();
                 }
-                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 2)
+                if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= distanceToHit)
                 {
                     StartCoroutine(melee());
                 }
