@@ -16,7 +16,7 @@ public class playerController : MonoBehaviour
     [Range(0, 1)] [SerializeField] float weaponPickupVol;
     [SerializeField] public GameObject minimap;
     [Header("----- Player Stats -----")]
-    [Range(5, 10)] [SerializeField] public int HP;
+    [Range(5, 30)] [SerializeField] public int HP;
     [Range(1, 50)] [SerializeField] public float playerSpeed;
     [Range(1, 3)] [SerializeField] int jumpTimes;
     [Range(10, 25)] [SerializeField] int jumpSpeed;

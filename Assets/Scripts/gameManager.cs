@@ -59,6 +59,8 @@ public class gameManager : MonoBehaviour
     public GameObject inventorySlot5;
     public GameObject inventorySlot6;
 
+    public GameObject lvlMenu;
+
     public GameObject muzzleFlash;
     public GameObject quickTexts;
     public GameObject crosshair;
@@ -134,6 +136,7 @@ public class gameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
         {
             gameManager.instance.inventory.SetActive(false);
+            gameManager.instance.lvlMenu.SetActive(false);
             gameManager.instance.inventoryMessageBox.SetActive(false);
             inventoryMessageBox.SetActive(false);
             displayingAbility = false;
@@ -147,6 +150,7 @@ public class gameManager : MonoBehaviour
     {
         gameManager.instance.abilityHub.GetComponent<activateAbility>().inventoryScreenOn = false;
         gameManager.instance.inventory.SetActive(false);
+        gameManager.instance.lvlMenu.SetActive(false);
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
