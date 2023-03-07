@@ -6,10 +6,12 @@ public class enemyTreeAI : enemyAI
 {
     int hitPointsOrig;
     bool isFirstTime;
+    bool isSprouting;
 
     // Start is called before the first frame update
     void Start()
     {
+        isSprouting = true;
         hitPointsOrig = hitPoints;
         isFirstTime = true;
         hitPointsOrig = hitPoints;
@@ -26,7 +28,7 @@ public class enemyTreeAI : enemyAI
             anim.SetTrigger("sprout");
             StartCoroutine(sprout());
         }
-        else
+        else if (isPlayerInRange == true && isFirstTime == false && isSprouting == false)
         {
             canSeePlayer();
         }
@@ -48,8 +50,8 @@ public class enemyTreeAI : enemyAI
     IEnumerator sprout()
     {
         anim.SetTrigger("OutOfGround");
-        yield return new WaitForSeconds(1.1f);
-
+        yield return new WaitForSeconds(2f);
+        isSprouting = false;
     }
     protected override bool canSeePlayer()
     {
