@@ -4,15 +4,43 @@ using UnityEngine;
 
 public class LVLButtons : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void AttackUp()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DamageUp()
     {
         
+    }
+
+    public void SpeedUp()
+    {
+        gameManager.instance.playerScript.speedOriginal = gameManager.instance.playerScript.playerSpeed + (gameManager.instance.playerScript.playerSpeed * 0.3f);
+        gameManager.instance.playerScript.playerSpeed = gameManager.instance.playerScript.playerSpeed + (gameManager.instance.playerScript.playerSpeed * 0.3f);
+    }
+
+    public void JumpUp()
+    {
+
+    }
+
+    public void DefenseUp()
+    {
+
+    }
+    public void AbilityAttackUp()
+    {
+
+    }
+
+    public void XPUp()
+    {
+
+    }
+
+    public void CooldownDown()
+    {
+
     }
 }

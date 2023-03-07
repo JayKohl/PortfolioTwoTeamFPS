@@ -17,7 +17,7 @@ public class playerController : MonoBehaviour
     [SerializeField] public GameObject minimap;
     [Header("----- Player Stats -----")]
     [Range(5, 10)] [SerializeField] public int HP;
-    [Range(1, 50)] [SerializeField] int playerSpeed;
+    [Range(1, 50)] [SerializeField] public float playerSpeed;
     [Range(1, 3)] [SerializeField] int jumpTimes;
     [Range(10, 25)] [SerializeField] int jumpSpeed;
     [Range(15, 45)] [SerializeField] int gravity;
@@ -88,7 +88,7 @@ public class playerController : MonoBehaviour
     bool isShooting;
     bool isRunning;
     public int hpOriginal;
-    public int speedOriginal;
+    public float speedOriginal;
     public int gunSelection;
     public float baseFOV;
     Vector3 pushback;
