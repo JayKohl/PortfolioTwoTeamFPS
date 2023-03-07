@@ -237,6 +237,12 @@ public class activateAbility : MonoBehaviour
                     abilityAudioVol = stats.abilityAudioVol;
                     hack();
                 }
+                else if (stats.abilityName == "Gravity Bomb")
+                {
+                    abilityAudio = stats.abilityAudio;
+                    abilityAudioVol = stats.abilityAudioVol;
+                    gameManager.instance.playerScript.gravBomb();
+                }
             }
         }
     }    

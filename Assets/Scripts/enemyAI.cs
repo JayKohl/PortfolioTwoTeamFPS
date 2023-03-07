@@ -57,6 +57,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     bool destinationChosen;
     protected float stoppingDistOrig;
     protected bool blind;
+    protected bool stopMove;
 
 
     protected IEnumerator roam()
@@ -87,10 +88,10 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         //playerDirection = gameManager.instance.player.transform.position - transform.position;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
-        Debug.Log(angleToPlayer);
+        //Debug.Log(angleToPlayer);
         Debug.DrawRay(headPos.position, playerDirection);
 
-        RaycastHit hit;        
+        RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
@@ -166,10 +167,13 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     }
     protected virtual IEnumerator shoot()
     {
-        isShooting = true;
-        anim.SetTrigger("Shoot");
-        yield return new WaitForSeconds(shootRate);
-        isShooting = false;
+        if (!stopMove)
+        {
+            isShooting = true;
+            anim.SetTrigger("Shoot");
+            yield return new WaitForSeconds(shootRate);
+            isShooting = false;
+        }
     }
     public virtual void createBullet()
     {
@@ -181,9 +185,9 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         else
         {
             GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-            bulletClone.GetComponent<Rigidbody>().velocity = new Vector3 (Random.Range(0, 0.5f), Random.Range(0,0.5f), Random.Range(0, 0.5f)) * bulletSpeed;
+            bulletClone.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(0, 0.5f), Random.Range(0, 0.5f), Random.Range(0, 0.5f)) * bulletSpeed;
         }
-        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);        
+        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
     }
     public void meleeColliderOn()
     {
