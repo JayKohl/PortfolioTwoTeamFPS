@@ -10,32 +10,28 @@ public class enemyTreeAI : enemyAI
     // Start is called before the first frame update
     void Start()
     {
-        //gameObject.SetActive(false);
-        //gameObject.transform.Translate(0f, -7f, 0f, Space.Self);
+        hitPointsOrig = hitPoints;
         isFirstTime = true;
         hitPointsOrig = hitPoints;
         anim.SetTrigger("UnderGround");
         //agentStop();
-        //anim.SetTrigger("Hide");
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (!isPlayerInRange && !isFirstTime)
-        //{
-        //}
         if (isPlayerInRange == true && isFirstTime == true)
         {
-            //gameObject.SetActive(true);
             isFirstTime = false;
             anim.SetTrigger("sprout");
             StartCoroutine(sprout());
         }
+        else
+        {
+            canSeePlayer();
+        }
         //else if (isFirstTime == false)
         //{
-
-        //    //anim.SetFloat("IdleSpeed", 1f);
         //    if (canSeePlayer())
         //    {
         //        //anim.SetBool("IsNotInGround", true);
@@ -69,18 +65,40 @@ public class enemyTreeAI : enemyAI
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
-                if (agent.remainingDistance < agent.stoppingDistance)
+                int randomAttack = Random.Range(1, 2);
+                if (!isMelee && angleToPlayer <= shootAngle && randomAttack == 1)
                 {
-                    //spin attack
+                    // single melee attack
+                    StartCoroutine(melee());
                 }
-                if (!isMelee && angleToPlayer <= shootAngle)
+                else if (!isMelee && angleToPlayer <= shootAngle && randomAttack == 2)
                 {
-                    //StartCoroutine(melee());
+                    StartCoroutine(meleeMulti());
                 }
                 return true;
             }
         }
+        if (!isMelee && angleToPlayer > shootAngle)
+        {
+            StartCoroutine(meleeSpin());
+        }
         agent.stoppingDistance = 0;
         return false;
+    }
+    protected IEnumerator meleeMulti()
+    {
+        isMelee = true;
+        anim.SetTrigger("MultiMelee");
+        //aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
+        yield return new WaitForSeconds(meleeRate);
+        isMelee = false;
+    }
+    protected IEnumerator meleeSpin()
+    {
+        isMelee = true;
+        anim.SetTrigger("SpinMelee");
+        //aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
+        yield return new WaitForSeconds(meleeRate);
+        isMelee = false;
     }
 }
