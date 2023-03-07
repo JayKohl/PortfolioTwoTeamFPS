@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class enemyTreeAI : enemyAI
 {
+    [SerializeField] protected Renderer modelNoHit;
     int hitPointsOrig;
     bool isFirstTime;
     bool isSprouting;
 
+
     // Start is called before the first frame update
     void Start()
     {
+        agentStop();
         isSprouting = true;
         hitPointsOrig = hitPoints;
         isFirstTime = true;
@@ -22,15 +25,19 @@ public class enemyTreeAI : enemyAI
     // Update is called once per frame
     void Update()
     {
-        if (isPlayerInRange == true && isFirstTime == true)
+        if (anim.GetBool("Dead") == false)
         {
-            isFirstTime = false;
-            anim.SetTrigger("sprout");
-            StartCoroutine(sprout());
-        }
-        else if (isPlayerInRange == true && isFirstTime == false && isSprouting == false)
-        {
-            canSeePlayer();
+
+            if (isPlayerInRange == true && isFirstTime == true)
+            {
+                isFirstTime = false;
+                anim.SetTrigger("sprout");
+                StartCoroutine(sprout());
+            }
+            else if (isPlayerInRange == true && isFirstTime == false && isSprouting == false)
+            {
+                canSeePlayer();
+            }
         }
         //else if (isFirstTime == false)
         //{
@@ -70,7 +77,6 @@ public class enemyTreeAI : enemyAI
                 int randomAttack = Random.Range(0, 2);
                 if (!isMelee && angleToPlayer <= shootAngle && randomAttack == 0)
                 {
-                    // single melee attack
                     StartCoroutine(melee());
                 }
                 else if (!isMelee && angleToPlayer <= shootAngle && randomAttack == 1)
