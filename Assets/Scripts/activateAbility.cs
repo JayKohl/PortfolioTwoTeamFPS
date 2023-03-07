@@ -7,13 +7,13 @@ using TMPro;
 public class activateAbility : MonoBehaviour
 {
     [SerializeField] public List<abilities> abilityBar = new List<abilities>();
-    [SerializeField] public List<abilities> abilitiesInventory = new List<abilities>();
+    [SerializeField] List<Sprite> hackAnimation = new List<Sprite>();
     float cooldownTime;
     Sprite abilityImage;
     AudioClip abilityAudio;
     float abilityAudioVol;
     Sprite abilityInfo;
-    Sprite abilityName;
+    string abilityName;
 
     GameObject abilityOne;
     GameObject abilityTwo;
@@ -21,12 +21,23 @@ public class activateAbility : MonoBehaviour
     GameObject abilityFour;
     Sprite abilityTexture;
 
-    Image inventorySlot1;
-    Image inventorySlot2;
-    Image inventorySlot3;
-    Image inventorySlot4;
-    Image inventorySlot5;
-    Image inventorySlot6;
+    GameObject inventorySlot1;
+    GameObject inventorySlot2;
+    GameObject inventorySlot3;
+    GameObject inventorySlot4;
+    GameObject inventorySlot5;
+    GameObject inventorySlot6;
+
+    TextMeshProUGUI inventoryMessageUpdate;
+    string defaultMsg = "Drag and drop abilities from your Inventory window to your Abilities Bar.";
+    string pickUpMsg_New = "You have found a new ability!";
+    string pickUpMsg_Inventory = "A new ability was added to your inventory! Press {I} to open your Inventory.";
+    string pickUpMsg_Own = "You already own this ability.";
+
+    public bool inventoryScreenOn;
+    int hackCounter;
+    private GameObject hackTarget;
+    bool cancelHack;
 
     private void Start()
     {
@@ -34,6 +45,16 @@ public class activateAbility : MonoBehaviour
         abilityTwo = gameManager.instance.AbilityTwo;
         abilityThree = gameManager.instance.AbilityThree;
         abilityFour = gameManager.instance.AbilityFour;
+
+        inventorySlot1 = gameManager.instance.inventorySlot1;
+        inventorySlot2 = gameManager.instance.inventorySlot2;
+        inventorySlot3 = gameManager.instance.inventorySlot3;
+        inventorySlot4 = gameManager.instance.inventorySlot4;
+        inventorySlot5 = gameManager.instance.inventorySlot5;
+        inventorySlot6 = gameManager.instance.inventorySlot6;
+
+        inventoryMessageUpdate = gameManager.instance.inventoryMessages;
+
         setupAbilities();
     }
     void Update()
@@ -51,7 +72,7 @@ public class activateAbility : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if(abilityBar.Count < 1) { return; }
+            if (abilityBar.Count < 1) { return; }
             if (gameManager.instance.AbilityOneS.wasSpellUsed())
             {
                 abilityTexture = abilityOne.GetComponent<Image>().sprite;
@@ -117,6 +138,28 @@ public class activateAbility : MonoBehaviour
                 }
             }
         }
+        else if (Input.GetKeyDown(KeyCode.I))
+        {
+            if(inventoryScreenOn)
+            {
+                gameManager.instance.inventoryMessageBox.SetActive(false);
+                inventoryScreenOn = false;
+                Time.timeScale = 1;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                gameManager.instance.inventory.SetActive(false);
+            }
+            else
+            {
+                inventoryScreenOn = true;
+                Time.timeScale = 0;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.Confined;
+                inventoryMessageUpdate.text = defaultMsg;
+                gameManager.instance.inventoryMessageBox.SetActive(true);
+                gameManager.instance.inventory.SetActive(true);
+            }
+        }
     }
     public void abilityActivation(Sprite abilityTexture)
     {
@@ -155,9 +198,16 @@ public class activateAbility : MonoBehaviour
                     abilityAudioVol = stats.abilityAudioVol;
                     gameManager.instance.playerScript.swarm();
                 }
+                else if(stats.abilityName == "Hack")
+                {
+                    abilityAudio = stats.abilityAudio;
+                    abilityAudioVol = stats.abilityAudioVol;
+                    gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    hack();
+                }
             }
         }
-    }
+    }    
     public void abilityPickup(abilities stats)
     {
         cooldownTime = stats.cooldownTime;
@@ -165,6 +215,7 @@ public class activateAbility : MonoBehaviour
         abilityAudio = stats.abilityAudio;
         abilityAudioVol = stats.abilityAudioVol;
         abilityInfo = stats.abilityInfo;
+        abilityName = stats.abilityName;
 
         if (abilityBar.Count < 4)
         {
@@ -173,13 +224,16 @@ public class activateAbility : MonoBehaviour
                 if(stats == abilityBar[i])
                 {
                     gameManager.instance.displayAbility(abilityInfo);
+                    inventoryMessageUpdate.text = pickUpMsg_Own;
+                    gameManager.instance.inventoryMessageBox.SetActive(true);
                     return;
                 }
             }
             abilityBar.Add(stats);
-            abilitiesInventory.Add(stats);
-
             gameManager.instance.displayAbility(abilityInfo);
+
+            inventoryMessageUpdate.text = pickUpMsg_New;
+            gameManager.instance.inventoryMessageBox.SetActive(true);
 
             if (abilityOne.GetComponent<Image>().sprite.name == "None2")
             {
@@ -200,32 +254,45 @@ public class activateAbility : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < abilitiesInventory.Count; i++)
+            for (int i = 0; i < abilityBar.Count; i++)
             {
-                if (stats == abilitiesInventory[i])
-                {
+                if (stats == abilityBar[i])
+                {                    
                     gameManager.instance.displayAbility(abilityInfo);
+                    inventoryMessageUpdate.text = pickUpMsg_Own;
+                    gameManager.instance.inventoryMessageBox.SetActive(true);
                     return;
                 }
             }
-            abilitiesInventory.Add(stats);
+            abilityBar.Add(stats);
             gameManager.instance.displayAbility(abilityInfo);
 
-            //do Else If statements similar to lines 184 - 198
-        }
-    }
-    public void replaceAbility(int num, Sprite abilityTexture)
-    {
-        foreach (abilities stats in abilitiesInventory)
-        {
-            if (stats.abilityImage == abilityTexture)
+            inventoryMessageUpdate.text = pickUpMsg_Inventory;
+            gameManager.instance.inventoryMessageBox.SetActive(true);
+
+            if (inventorySlot1.GetComponent<Image>().sprite.name == "None2")
             {
-                abilityBar[num].abilityName = stats.abilityName;
-                abilityBar[num].cooldownTime = stats.cooldownTime;
-                abilityBar[num].abilityImage = stats.abilityImage;
-                abilityBar[num].abilityAudio = stats.abilityAudio;
-                abilityBar[num].abilityAudioVol = stats.abilityAudioVol;
-                abilityBar[num].abilityInfo = stats.abilityInfo;                
+                inventorySlot1.GetComponent<Image>().sprite = abilityImage;
+            }
+            else if (inventorySlot2.GetComponent<Image>().sprite.name == "None2")
+            {
+                inventorySlot2.GetComponent<Image>().sprite = abilityImage;
+            }
+            else if (inventorySlot3.GetComponent<Image>().sprite.name == "None2")
+            {
+                inventorySlot3.GetComponent<Image>().sprite = abilityImage;
+            }
+            else if (inventorySlot4.GetComponent<Image>().sprite.name == "None2")
+            {
+                inventorySlot4.GetComponent<Image>().sprite = abilityImage;
+            }
+            else if (inventorySlot5.GetComponent<Image>().sprite.name == "None2")
+            {
+                inventorySlot5.GetComponent<Image>().sprite = abilityImage;
+            }
+            else if (inventorySlot6.GetComponent<Image>().sprite.name == "None2")
+            {
+                inventorySlot6.GetComponent<Image>().sprite = abilityImage;
             }
         }
     }
@@ -277,5 +344,49 @@ public class activateAbility : MonoBehaviour
         yield return new WaitForSeconds(cooldown);
         gameManager.instance.playerScript.iceOnPlayer.SetActive(false);
         gameManager.instance.playerScript.iceOn = false;
+    }
+    public void hack()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 100))
+        {
+            if (hit.collider.GetComponent<IDamage>() != null)
+            {
+                hackTarget = hit.collider.gameObject;
+                gameManager.instance.hackUI.SetActive(true);
+                hackCounter = 0;
+                StartCoroutine(beginHack(hackCounter));
+            }
+        }
+    }
+    public IEnumerator beginHack(int i)
+    {
+        if (i == 0)
+        {
+            gameManager.instance.hackInterface.GetComponent<Image>().sprite = hackAnimation[0];
+            gameManager.instance.hackInterface.GetComponent<Image>().color = Color.white;
+            gameManager.instance.hackError.SetActive(false);
+            for (i = 1; i < hackAnimation.Count; i++)
+            {
+                yield return new WaitForSeconds(.33f);
+                gameManager.instance.hackInterface.GetComponent<Image>().sprite = hackAnimation[i];
+            }
+            if (!cancelHack)
+            {
+                gameManager.instance.hackInterface.GetComponent<Image>().color = Color.green;
+                StartCoroutine(hackTarget.GetComponent<enemyBossAI>().hacking(hackTarget));
+                yield return new WaitForSeconds(2);
+                gameManager.instance.hackUI.SetActive(false);
+            }
+        }
+        else
+        {
+            cancelHack = true;
+            gameManager.instance.hackError.SetActive(true);
+            gameManager.instance.hackInterface.GetComponent<Image>().color = Color.red;
+            yield return new WaitForSeconds(i);
+            gameManager.instance.hackError.SetActive(false);
+            gameManager.instance.hackUI.SetActive(false);
+        }
     }
 }

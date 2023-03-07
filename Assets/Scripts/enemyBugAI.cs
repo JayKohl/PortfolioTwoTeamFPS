@@ -26,6 +26,7 @@ public class enemyBugAI : enemyAI
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
+        speedChaseOrig = speedChase;
         isAgro = false;
 
         randomAttack = new System.Random();

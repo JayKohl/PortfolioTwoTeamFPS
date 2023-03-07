@@ -92921,6 +92921,7 @@ GameObject:
   - component: {fileID: 8357720061366726804}
   - component: {fileID: 8324796942034804030}
   - component: {fileID: 8332527390875406734}
+  - component: {fileID: 1865864522}
   m_Layer: 6
   m_Name: Pyramid_Thin_Base
   m_TagString: Untagged
@@ -92993,6 +92994,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1865864522
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8354509779705986866}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300016, guid: 48dc4c6cddf48a943bf7251f1ba06c05, type: 3}
 --- !u!1 &8354509780238265998
 GameObject:
   m_ObjectHideFlags: 0
@@ -93010,6 +93025,7 @@ GameObject:
   - component: {fileID: 8324796941062610308}
   - component: {fileID: 8324796941062610311}
   - component: {fileID: 8324796941062610312}
+  - component: {fileID: 969797492}
   m_Layer: 6
   m_Name: Pyramid_Thin_Tip
   m_TagString: EnemyBoss
@@ -93085,6 +93101,8 @@ MonoBehaviour:
   bulletSecond: {fileID: 8475010341257784611, guid: 9c907584e009e6940a6680cc2a6f88b4, type: 3}
   bulletThird: {fileID: 5121451946341453906, guid: ca99857bda6a6ca4db7f3a3e4f244658, type: 3}
   bulletFourth: {fileID: 7344593810491656863, guid: 5c2759c20058d4f4591af48f43cb795b, type: 3}
+  bulletFifth: {fileID: 8475010341257784611, guid: 0b64d2f65d5365c45b2dd469058629c4, type: 3}
+  bulletSixth: {fileID: 5121451946341453906, guid: 5289c3b7f27e615408d4c3f6c17ba668, type: 3}
   shield: {fileID: 4352882884824761441}
   spawnEnemyType:
   - {fileID: 3181655038206450799, guid: 051d74f482a534b439bc8fdd5ab17fc9, type: 3}
@@ -93320,6 +93338,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!64 &969797492
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8354509780238265998}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300018, guid: 48dc4c6cddf48a943bf7251f1ba06c05, type: 3}
 --- !u!1 &8354920441639841436
 GameObject:
   m_ObjectHideFlags: 0

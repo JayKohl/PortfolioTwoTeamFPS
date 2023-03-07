@@ -66,6 +66,7 @@ public class enemyBossAI : enemyAI
         isInCoolDown = false;
 
         speedOrig = agent.speed;
+        speedChaseOrig = speedChase;
     }
 
     // Update is called once per frame
@@ -145,6 +146,18 @@ public class enemyBossAI : enemyAI
             // meleeColliderOff();
             agent.SetDestination(gameManager.instance.player.transform.position);
             StartCoroutine(flashDamage());
+        }
+    }
+    public IEnumerator hacking(GameObject target)
+    {
+        if(target == gameObject)
+        {
+            isInCoolDown = true;
+            anim.SetTrigger("CoolDown");            
+            shield.SetActive(false);
+            yield return new WaitForSeconds(10);
+            agentStart();
+            isInCoolDown = false;
         }
     }
     IEnumerator onFire()

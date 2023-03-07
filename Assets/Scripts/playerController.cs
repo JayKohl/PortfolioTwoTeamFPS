@@ -156,7 +156,7 @@ public class playerController : MonoBehaviour
         //playeranim.SetFloat("Speed", controller.velocity.normalized.magnitude);
 
 
-        if (!isShooting && Input.GetButton("Shoot") && canShoot && gameManager.instance.activeMenu == null)
+        if (!isShooting && Input.GetButton("Shoot") && gameManager.instance.activeMenu == null)
         {
             if (weaponList.Count > 0)
             {
@@ -316,6 +316,7 @@ public class playerController : MonoBehaviour
         }
         else
         {
+            StartCoroutine(gameManager.instance.abilityHub.GetComponent<activateAbility>().beginHack(5));
             HP -= dmg;
             updatePlayerHPBar();
             StartCoroutine(flashDamage());            
