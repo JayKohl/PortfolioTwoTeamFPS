@@ -42,10 +42,9 @@ public class playerController : MonoBehaviour
     [SerializeField] GameObject weaponIcon;
     [SerializeField] float grenadeYVel;
     [SerializeField] int grenadeSpeed;
-    [SerializeField] GameObject grenade;
-    [SerializeField] float firefliesYVel;
-    [SerializeField] int firefliesSpeed;
-    [SerializeField] GameObject fireflies;
+    [SerializeField] GameObject grenade;    
+    [SerializeField] GameObject fireflies;    
+    [SerializeField] GameObject gravityBomb;
     [SerializeField] string weaponName;
     [SerializeField] AudioClip weaponAudio;
     [Range(0, 1)] [SerializeField] float weaponAudioVol;
@@ -306,6 +305,11 @@ public class playerController : MonoBehaviour
     public void swarm()
     {
         GameObject bulletClone = Instantiate(fireflies, shootPositionPlayer.position, grenade.transform.rotation);
+        bulletClone.GetComponent<Rigidbody>().velocity = (transform.forward + new Vector3(0, grenadeYVel, 0)) * grenadeSpeed;
+    }
+    public void gravBomb()
+    {
+        GameObject bulletClone = Instantiate(gravityBomb, shootPositionPlayer.position, grenade.transform.rotation);
         bulletClone.GetComponent<Rigidbody>().velocity = (transform.forward + new Vector3(0, grenadeYVel, 0)) * grenadeSpeed;
     }
     public void takeDamage(int dmg)

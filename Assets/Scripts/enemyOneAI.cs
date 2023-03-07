@@ -10,6 +10,8 @@ public class enemyOneAI : enemyAI
     [SerializeField] GameObject iceEffect;
     bool chilled;
     bool chilledOnce;
+    Vector3 gravDirection;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,8 +30,8 @@ public class enemyOneAI : enemyAI
     void Update()
     {
         if (agent.isActiveAndEnabled)
-        {            
-            if(!chilled)
+        {
+            if (!chilled)
             {
                 agent.speed = speedOrig;
                 speedChase = speedChaseOrig;
@@ -51,7 +53,20 @@ public class enemyOneAI : enemyAI
         }
 
     }
-    
+    public IEnumerator pushedbackDir(Vector3 dir)
+    {
+        Vector3 positionHere = transform.position;
+        gravDirection = dir;
+        for (int i = 0; i < 40; i++)
+        {
+            stopMove = true;
+            anim.SetTrigger("Damage");
+            yield return new WaitForSeconds(.2f);
+            transform.position = new Vector3(gravDirection.x, positionHere.y, gravDirection.z);
+        }
+        stopMove = false;
+    }
+
     public override void takeDamage(int dmg)
     {
         if (gameManager.instance.playerScript.fireOn && !setOnFire)

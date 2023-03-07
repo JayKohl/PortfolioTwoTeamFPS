@@ -477,6 +477,7 @@ MonoBehaviour:
   medPickupVol: 0.5
   weaponPickupSound: {fileID: 8300000, guid: e7632c6401c09437e83de45d33c5858e, type: 3}
   weaponPickupVol: 0.5
+  minimap: {fileID: 0}
   HP: 10
   playerSpeed: 5
   jumpTimes: 2
@@ -500,9 +501,8 @@ MonoBehaviour:
   grenadeYVel: 0.5
   grenadeSpeed: 10
   grenade: {fileID: 7061225462723478300, guid: 0ebbab8ec242f5943b8a68674ce09c6c, type: 3}
-  firefliesYVel: 0.5
-  firefliesSpeed: 10
   fireflies: {fileID: 7840317485648855339, guid: 770799b11af58344081ccd04ea1aeb5e, type: 3}
+  gravityBomb: {fileID: 8666001026043696936, guid: 547a85c8dec0c5e4a9d77d3a27cf47e5, type: 3}
   weaponName: 
   weaponAudio: {fileID: 8300000, guid: 6739c01659ad96d47987f4ddee226b36, type: 3}
   weaponAudioVol: 0.5
@@ -570,6 +570,7 @@ MonoBehaviour:
   abilityFourActive: 0
   fireOn: 0
   iceOn: 0
+  canShoot: 0
 --- !u!114 &7508967223444994235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,6 +588,7 @@ MonoBehaviour:
   currentXP: 0
   NeededXP: 26
   tokenAmount: 0
+  lvlScreenOn: 0
   VarX: 0.199
   VarY: 2.03
   frontXPbar: {fileID: 0}
