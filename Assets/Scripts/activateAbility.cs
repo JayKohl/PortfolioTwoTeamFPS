@@ -6,6 +6,7 @@ using TMPro;
 
 public class activateAbility : MonoBehaviour
 {
+    [SerializeField] public AudioSource aud;
     [SerializeField] public List<abilities> abilityBar = new List<abilities>();
     [SerializeField] List<Sprite> hackAnimation = new List<Sprite>();
     float cooldownTime;
@@ -73,9 +74,17 @@ public class activateAbility : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (abilityBar.Count < 1) { return; }
-            if (gameManager.instance.AbilityOneS.wasSpellUsed())
+            abilityTexture = abilityOne.GetComponent<Image>().sprite;
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 100) && abilityTexture.name == "183")
             {
-                abilityTexture = abilityOne.GetComponent<Image>().sprite;
+                if (hit.collider.GetComponent<IDamage>() == null)
+                {
+                    return;
+                }
+            }
+            if (gameManager.instance.AbilityOneS.wasSpellUsed())
+            {                
                 abilityActivation(abilityTexture);
                 foreach (abilities stats in abilityBar)
                 {
@@ -90,9 +99,17 @@ public class activateAbility : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.R))
         {
             if (abilityBar.Count < 2) { return; }
+            abilityTexture = abilityTwo.GetComponent<Image>().sprite;
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 100) && abilityTexture.name == "183")
+            {
+                if (hit.collider.GetComponent<IDamage>() == null)
+                {
+                    return;
+                }
+            }
             if (gameManager.instance.AbilityTwoS.wasSpellUsed())
             {
-                abilityTexture = abilityTwo.GetComponent<Image>().sprite;
                 abilityActivation(abilityTexture);
                 foreach (abilities stats in abilityBar)
                 {
@@ -107,9 +124,17 @@ public class activateAbility : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.F))
         {
             if (abilityBar.Count < 3) { return; }
+            abilityTexture = abilityThree.GetComponent<Image>().sprite;
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 100) && abilityTexture.name == "183")
+            {
+                if (hit.collider.GetComponent<IDamage>() == null)
+                {
+                    return;
+                }
+            }
             if (gameManager.instance.AbilityThreeS.wasSpellUsed())
             {
-                abilityTexture = abilityThree.GetComponent<Image>().sprite;
                 abilityActivation(abilityTexture);
                 foreach (abilities stats in abilityBar)
                 {
@@ -124,9 +149,17 @@ public class activateAbility : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.E))
         {
             if (abilityBar.Count < 4) { return; }
+            abilityTexture = abilityFour.GetComponent<Image>().sprite;
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 100) && abilityTexture.name == "183")
+            {
+                if (hit.collider.GetComponent<IDamage>() == null)
+                {
+                    return;
+                }
+            }
             if (gameManager.instance.AbilityFourS.wasSpellUsed())
             {
-                abilityTexture = abilityFour.GetComponent<Image>().sprite;
                 abilityActivation(abilityTexture);
                 foreach (abilities stats in abilityBar)
                 {
@@ -202,7 +235,6 @@ public class activateAbility : MonoBehaviour
                 {
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
-                    gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
                     hack();
                 }
             }
@@ -348,14 +380,21 @@ public class activateAbility : MonoBehaviour
     public void hack()
     {
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 100))
+        int layerMask = LayerMask.GetMask("Enemy");
+        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 100, layerMask))
         {
-            if (hit.collider.GetComponent<IDamage>() != null)
+            if (hit.transform.gameObject.tag == "EnemyBoss")
             {
+                gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                Debug.Log("Name2: "+hit.transform.tag);
                 hackTarget = hit.collider.gameObject;
                 gameManager.instance.hackUI.SetActive(true);
                 hackCounter = 0;
                 StartCoroutine(beginHack(hackCounter));
+            }
+            else
+            {
+                return;
             }
         }
     }
@@ -363,6 +402,7 @@ public class activateAbility : MonoBehaviour
     {
         if (i == 0)
         {
+            aud.PlayOneShot(abilityAudio, abilityAudioVol);
             gameManager.instance.hackInterface.GetComponent<Image>().sprite = hackAnimation[0];
             gameManager.instance.hackInterface.GetComponent<Image>().color = Color.white;
             gameManager.instance.hackError.SetActive(false);
@@ -373,6 +413,8 @@ public class activateAbility : MonoBehaviour
             }
             if (!cancelHack)
             {
+                gameObject.GetComponent<AudioSource>().Stop();
+                aud.PlayOneShot(gameManager.instance.notify, abilityAudioVol);
                 gameManager.instance.hackInterface.GetComponent<Image>().color = Color.green;
                 StartCoroutine(hackTarget.GetComponent<enemyBossAI>().hacking(hackTarget));
                 yield return new WaitForSeconds(2);
@@ -381,12 +423,17 @@ public class activateAbility : MonoBehaviour
         }
         else
         {
-            cancelHack = true;
-            gameManager.instance.hackError.SetActive(true);
-            gameManager.instance.hackInterface.GetComponent<Image>().color = Color.red;
-            yield return new WaitForSeconds(i);
-            gameManager.instance.hackError.SetActive(false);
-            gameManager.instance.hackUI.SetActive(false);
+            if (!cancelHack)
+            {
+                gameObject.GetComponent<AudioSource>().Stop();
+                aud.PlayOneShot(gameManager.instance.error, abilityAudioVol);
+                cancelHack = true;
+                gameManager.instance.hackError.SetActive(true);
+                gameManager.instance.hackInterface.GetComponent<Image>().color = Color.red;
+                yield return new WaitForSeconds(i);
+                gameManager.instance.hackError.SetActive(false);
+                gameManager.instance.hackUI.SetActive(false);
+            }
         }
     }
 }
