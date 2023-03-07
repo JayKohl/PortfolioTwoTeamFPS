@@ -10,6 +10,7 @@ public class LevelSystem : MonoBehaviour
     public float currentXP;
     public float NeededXP;
     public int tokenAmount;
+    public bool lvlScreenOn;
     [Header("Calculations")]
     [Range(0.01f, 0.6f)] public float VarX;
     [Range(1.0f, 3.5f)] public float VarY;
@@ -40,6 +41,28 @@ public class LevelSystem : MonoBehaviour
             GainExperiance(120);
         if (currentXP > NeededXP)
             LevelUp();
+        if (Input.GetKeyDown("tab"))
+        {
+            if (lvlScreenOn)
+            {
+                //gameManager.instance.inventoryMessageBox.SetActive(false);
+                lvlScreenOn = false;
+                Time.timeScale = 1;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                gameManager.instance.lvlMenu.SetActive(false);
+            }
+            else
+            {
+                lvlScreenOn = true;
+                Time.timeScale = 0;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.Confined;
+                //inventoryMessageUpdate.text = defaultMsg;
+                //gameManager.instance.inventoryMessageBox.SetActive(true);
+                gameManager.instance.lvlMenu.SetActive(true);
+            }
+        }
     }
 
     public void UpdateXPBar()

@@ -15,6 +15,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [SerializeField] protected AudioSource aud;
 
     [Header("----- Enemy Stats -----")]
+    [SerializeField] public int xp;
     [SerializeField] protected float playerYOffset;
     [SerializeField] protected Transform headPos;
     [SerializeField] public int hitPoints;
@@ -136,7 +137,10 @@ public abstract class enemyAI : MonoBehaviour, IDamage
                 aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
             }
             // melee add a function for turning off the weapon collider.
-            agent.SetDestination(gameManager.instance.player.transform.position);
+            if (agent.isActiveAndEnabled)
+            {
+                agent.SetDestination(gameManager.instance.player.transform.position);
+            }
             StartCoroutine(flashDamage());
         }
     }
