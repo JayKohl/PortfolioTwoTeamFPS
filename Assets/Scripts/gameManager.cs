@@ -80,6 +80,8 @@ public class gameManager : MonoBehaviour
     [Range(0, 1)] [SerializeField] public float invisOffVol;
     [SerializeField] public AudioClip dashAud;
     [Range(0, 1)] [SerializeField] public float dashVol;
+    [SerializeField] public AudioClip error;
+    [SerializeField] public AudioClip notify;
 
     [Header("Goals")]
     public int fuelCellsRemaining;
@@ -214,6 +216,7 @@ public class gameManager : MonoBehaviour
     }
     public void playerDead()
     {
+        hackUI.SetActive(false);
         pause();
         activeMenu = loseMenu;
         activeMenu.SetActive(true);
