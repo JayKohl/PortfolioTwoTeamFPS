@@ -55,6 +55,11 @@ public class buttonFunctions : MonoBehaviour
         SceneManager.LoadScene("LvlTwoTheArena");
         resume();
     }
+    public void startLevel3()
+    {
+        SceneManager.LoadScene("LvlThreeTheWorld");
+        resume();
+    }
 
     //public void closeQuestOne()
     //{

@@ -65,7 +65,7 @@ public class friendlyAI : MonoBehaviour
 
         if (agent.isActiveAndEnabled)
         {
-            Debug.Log(gameManager.instance.enemiesRemaining);
+            //Debug.Log(gameManager.instance.enemiesRemaining);
             if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == false)
             {
                 gameManager.instance.playerScript.canShoot = false;

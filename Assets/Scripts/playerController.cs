@@ -109,7 +109,7 @@ public class playerController : MonoBehaviour
     Rigidbody rig;
     public bool fireOn;
     public bool iceOn;
-    public bool canShoot;
+    public bool canShoot = true;
 
     int currentLevel = 0;
 
@@ -117,6 +117,7 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        canShoot = true;
         if (SceneManager.GetActiveScene().name == "LvlOneArena" && currentLevel < 1)
         {
             dirt = true;
@@ -161,7 +162,7 @@ public class playerController : MonoBehaviour
         //playeranim.SetFloat("Speed", controller.velocity.normalized.magnitude);
 
 
-        if (!isShooting && Input.GetButton("Shoot") && gameManager.instance.activeMenu == null)
+        if (!isShooting && Input.GetButton("Shoot") && canShoot && gameManager.instance.activeMenu == null)
         {
             if (weaponList.Count > 0)
             {

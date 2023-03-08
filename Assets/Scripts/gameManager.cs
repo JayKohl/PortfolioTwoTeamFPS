@@ -29,13 +29,13 @@ public class gameManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI enemiesRemainingText;
 
     [SerializeField] GameObject npc;
+    [SerializeField] GameObject minimap;
 
     public GameObject infoTextBackground;
     public TextMeshProUGUI infoText;
 
     public TextMeshProUGUI npcChat;
     public GameObject playerChatBackground;
-    bool displayingAbility;
     [SerializeField] public GameObject abilityHub;
     [SerializeField] public GameObject abilityDisplay;
     public GameObject AbilitiesBackground;
@@ -123,9 +123,9 @@ public class gameManager : MonoBehaviour
         AbilityOneS.cooldownTime = 10f;
         AbilityTwoS.cooldownTime = 10f;
         AbilityFourS.cooldownTime = 12f;
+        minimap = GameObject.FindGameObjectWithTag("Minimap");
 
 
-        
     }
     void Update()
     {
@@ -142,11 +142,10 @@ public class gameManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.X))
-        {            
+        {
             lvlMenu.SetActive(false);
             inventory.SetActive(false);
             inventoryMessageBox.SetActive(false);
-            displayingAbility = false;
             abilityDisplay.SetActive(false);
             crosshair.SetActive(true);
             unPause();
@@ -155,6 +154,7 @@ public class gameManager : MonoBehaviour
 
     public void pause()
     {
+        minimap.SetActive(false);
         abilityHub.GetComponent<activateAbility>().inventoryScreenOn = false;
         inventory.SetActive(false);
         inventoryMessageBox.SetActive(false);
@@ -165,6 +165,7 @@ public class gameManager : MonoBehaviour
     }
     public void unPause()
     {
+        minimap.SetActive(true);
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -194,7 +195,7 @@ public class gameManager : MonoBehaviour
         SceneManager.LoadScene("Part2Scene");
     }
     public void updateGameGoalLvl2(int amount)
-    {
+    {        
         enemiesRemaining += amount;
         enemiesRemainingText.text = enemiesRemaining.ToString("F0");
         if(enemiesRemaining <= 0)
@@ -205,16 +206,16 @@ public class gameManager : MonoBehaviour
         if(boss2Dead && flightDeck && enemiesRemaining <= 0)
         {
             gameManager.instance.infoText.text = "<s>Get to the flight deck</s>" + "\n<s>Kill the radiated bug</s>"+"\nEscape!";
-            gameManager.instance.infoTextBackground.SetActive(true);            
+            gameManager.instance.infoTextBackground.SetActive(true);
         }        
     }
     public IEnumerator endLevel2()
     {
         yield return new WaitForSeconds(2);
         pause();
-        //change winMenu text for level 2
-        activeMenu = winMenu;
-        activeMenu.SetActive(true);
+        SceneManager.LoadScene("Part3Scene");
+        //activeMenu = winMenu;
+        //activeMenu.SetActive(true);
     }
     public void updateGameGoalLvl3(int amount)
     {
@@ -222,6 +223,7 @@ public class gameManager : MonoBehaviour
     }
     public void playerDead()
     {
+        minimap.SetActive(false);
         hackUI.SetActive(false);
         pause();
         activeMenu = loseMenu;
@@ -241,7 +243,6 @@ public class gameManager : MonoBehaviour
         crosshair.SetActive(false);
         abilityDisplay.GetComponent<Image>().sprite = abilityTexture;
         abilityDisplay.SetActive(true);
-        displayingAbility = true;
     }
     public void displayText(string textToDisplay)
     {

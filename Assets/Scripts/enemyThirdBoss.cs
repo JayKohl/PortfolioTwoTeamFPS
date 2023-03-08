@@ -43,6 +43,10 @@ public class enemyThirdBoss : enemyAI
     bool waveFive;
     int waveCount;
 
+    [SerializeField] int enemyAmountWaveRegular;
+    [SerializeField] int enemyWaveRobot;
+    [SerializeField] int enemyWaveBug;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -343,28 +347,45 @@ public class enemyThirdBoss : enemyAI
     {
         if (waveCount == 1 || waveCount == 3 || waveCount == 5)
         {
-            Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[0].position, spawnPos[0].rotation);
-            Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[1].position, spawnPos[1].rotation);
-            Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[2].position, spawnPos[2].rotation);
-            Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[3].position, spawnPos[3].rotation);
-            Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[4].position, spawnPos[4].rotation);
+            for (int i = 0; i < enemyAmountWaveRegular; i++)
+            {
+                int randSpawnPos = Random.Range(0, spawnPos.Length);
+                Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[randSpawnPos].position, spawnPos[randSpawnPos].rotation);
+                gameManager.instance.updateGameGoalLvl3(1);
+            }
+            //Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[0].position, spawnPos[0].rotation);
+            //Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[1].position, spawnPos[1].rotation);
+            //Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[2].position, spawnPos[2].rotation);
+            //Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[3].position, spawnPos[3].rotation);
+            //Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[4].position, spawnPos[4].rotation);
         }
         else if (waveCount == 2)
         {
-            Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[0].position, spawnPos[0].rotation);
-            Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[1].position, spawnPos[1].rotation);
-            Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[2].position, spawnPos[2].rotation);
-            Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[3].position, spawnPos[3].rotation);
-            Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[4].position, spawnPos[4].rotation);
+            for (int i = 0; i < enemyWaveBug; i++)
+            {
+                int randSpawnPos = Random.Range(0, spawnPos.Length);
+                Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[randSpawnPos].position, spawnPos[randSpawnPos].rotation);
+                gameManager.instance.updateGameGoalLvl3(1);
+            }
+            //Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[0].position, spawnPos[0].rotation);
+            //Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[1].position, spawnPos[1].rotation);
+            //Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[2].position, spawnPos[2].rotation);
+            //Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[3].position, spawnPos[3].rotation);
+            //Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[4].position, spawnPos[4].rotation);
         }
         else if (waveCount == 4)
         {
-            Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[0].position, spawnPos[0].rotation);
-            Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[1].position, spawnPos[1].rotation);
-            Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[2].position, spawnPos[2].rotation);
-            Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[3].position, spawnPos[3].rotation);
-            Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[4].position, spawnPos[4].rotation);
+            for (int i = 0; i < enemyWaveRobot; i++)
+            {
+                int randSpawnPos = Random.Range(0, spawnPos.Length);
+                Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[randSpawnPos].position, spawnPos[randSpawnPos].rotation);
+                gameManager.instance.updateGameGoalLvl3(1);
+            }
+            //Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[0].position, spawnPos[0].rotation);
+            //Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[1].position, spawnPos[1].rotation);
+            //Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[2].position, spawnPos[2].rotation);
+            //Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[3].position, spawnPos[3].rotation);
+            //Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[4].position, spawnPos[4].rotation);
         }
-        gameManager.instance.updateGameGoalLvl3(5);
     }
 }
