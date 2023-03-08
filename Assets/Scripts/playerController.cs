@@ -130,8 +130,16 @@ public class playerController : MonoBehaviour
             dirt = false;
             currentLevel = 2;
             gameManager.instance.enemiesRemainingObject.SetActive(true);
-            gameManager.instance.fuelCellsRemainingObject.SetActive(false);            
+            gameManager.instance.fuelCellsRemainingObject.SetActive(false);
         }
+        else if (SceneManager.GetActiveScene().name == "LvlTwoTheArena" && currentLevel < 3)
+        {
+            dirt = true;
+            currentLevel = 3;
+            gameManager.instance.enemiesRemainingObject.SetActive(false);
+            gameManager.instance.fuelCellsRemainingObject.SetActive(false);
+        }
+
         gameManager.instance.infoTextBackground.SetActive(false);
         gameManager.instance.infoText.text = "";
         weaponIcon = GameObject.FindGameObjectWithTag("Weapon Icon");

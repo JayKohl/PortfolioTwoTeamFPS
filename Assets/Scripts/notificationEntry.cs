@@ -17,6 +17,7 @@ public class notificationEntry : MonoBehaviour
         {
             playerIn = true;
             StartCoroutine(gameManager.instance.notificationDisplay(texture));
+            gameManager.instance.playerSpawnPosition.transform.position = transform.position;
         }
     }
 }
