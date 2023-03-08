@@ -127,6 +127,7 @@ public class playerController : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "LvlTwoTheArena" && currentLevel < 2)
         {
+            DontDestroyOnLoad(this.gameObject);
             dirt = false;
             currentLevel = 2;
             gameManager.instance.enemiesRemainingObject.SetActive(true);

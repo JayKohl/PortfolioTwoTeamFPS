@@ -195,7 +195,7 @@ public class gameManager : MonoBehaviour
         SceneManager.LoadScene("Part2Scene");
     }
     public void updateGameGoalLvl2(int amount)
-    {
+    {        
         enemiesRemaining += amount;
         enemiesRemainingText.text = enemiesRemaining.ToString("F0");
         if(enemiesRemaining <= 0)
