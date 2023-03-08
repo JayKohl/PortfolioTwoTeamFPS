@@ -130,12 +130,7 @@ public class playerController : MonoBehaviour
             dirt = false;
             currentLevel = 2;
             gameManager.instance.enemiesRemainingObject.SetActive(true);
-            gameManager.instance.fuelCellsRemainingObject.SetActive(false);
-            gameManager.instance.AbilityOne.SetActive(false);
-            gameManager.instance.AbilityTwo.SetActive(false);
-            gameManager.instance.AbilityThree.SetActive(false);
-            gameManager.instance.AbilityFour.SetActive(false);
-            gameManager.instance.AbilitiesBackground.SetActive(false);
+            gameManager.instance.fuelCellsRemainingObject.SetActive(false);            
         }
         gameManager.instance.infoTextBackground.SetActive(false);
         gameManager.instance.infoText.text = "";
