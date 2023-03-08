@@ -17,7 +17,6 @@ public class notificationEntry : MonoBehaviour
         {
             playerIn = true;
             StartCoroutine(gameManager.instance.notificationDisplay(texture));
-            Destroy(gameObject);
         }
     }
 }
