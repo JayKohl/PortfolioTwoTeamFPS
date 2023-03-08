@@ -63,6 +63,7 @@ public class gameManager : MonoBehaviour
     public GameObject firstTimeText;
     public LevelSystem lvlscript;
     public LVLButtons lvlbuttons;
+    //need to add each skilltext script so I can control it
 
     public GameObject muzzleFlash;
     public GameObject quickTexts;
