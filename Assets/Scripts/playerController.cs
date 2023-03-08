@@ -9,7 +9,7 @@ public class playerController : MonoBehaviour
     [Header("----- Components -----")]
     [SerializeField] public CharacterController controller;
     [SerializeField] Animator playeranim;
-    [SerializeField] AudioSource aud;
+    [SerializeField] public AudioSource aud;
     [SerializeField] AudioClip medPickupSound;
     [Range(0, 1)] [SerializeField] float medPickupVol;
     [SerializeField] AudioClip weaponPickupSound;
@@ -18,7 +18,7 @@ public class playerController : MonoBehaviour
     [Header("----- Player Stats -----")]
     [Range(5, 30)] [SerializeField] public int HP;
     [Range(1, 50)] [SerializeField] public float playerSpeed;
-    [Range(1, 3)] [SerializeField] int jumpTimes;
+    [Range(1, 3)] [SerializeField] public int jumpTimes;
     [Range(10, 25)] [SerializeField] int jumpSpeed;
     [Range(15, 45)] [SerializeField] int gravity;
     [SerializeField] public float runSpeed;
@@ -31,7 +31,7 @@ public class playerController : MonoBehaviour
     [SerializeField] GameObject weaponModel;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
-    [SerializeField] int shootDamage;
+    [SerializeField] public int shootDamage;
     [SerializeField] float zoomMax;
     Vector3 muzzleFlashPosition;
     [SerializeField] public GameObject shieldOnPlayer;
@@ -45,10 +45,13 @@ public class playerController : MonoBehaviour
     [SerializeField] GameObject grenade;    
     [SerializeField] GameObject fireflies;    
     [SerializeField] GameObject gravityBomb;
+    [SerializeField] GameObject sentryGun;
     [SerializeField] string weaponName;
     [SerializeField] AudioClip weaponAudio;
     [Range(0, 1)] [SerializeField] float weaponAudioVol;
     public MeshRenderer visible;
+    public int weaponDamageMulti = 1;
+    public int dmgDivide = 1;
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] audGravelSteps;
@@ -69,6 +72,9 @@ public class playerController : MonoBehaviour
 
     [SerializeField] AudioClip[] audDead;
     [Range(0, 1)] [SerializeField] float audDeadVol;
+    
+    [SerializeField] public AudioClip lvlUp;
+    [Range(0, 1)] [SerializeField] public float lvlUpVol;
 
     public bool dirt;
 
@@ -312,6 +318,11 @@ public class playerController : MonoBehaviour
         GameObject bulletClone = Instantiate(gravityBomb, shootPositionPlayer.position, grenade.transform.rotation);
         bulletClone.GetComponent<Rigidbody>().velocity = (transform.forward + new Vector3(0, grenadeYVel, 0)) * grenadeSpeed;
     }
+    public void deploySentryGun()
+    {
+        GameObject bulletClone = Instantiate(sentryGun, shootPositionPlayer.position, sentryGun.transform.rotation);
+        bulletClone.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+    }
     public void takeDamage(int dmg)
     {
         if (gameManager.instance.shieldOn)
@@ -320,10 +331,20 @@ public class playerController : MonoBehaviour
         }
         else
         {
-            StartCoroutine(gameManager.instance.abilityHub.GetComponent<activateAbility>().beginHack(5));
-            HP -= dmg;
-            updatePlayerHPBar();
-            StartCoroutine(flashDamage());            
+            if (dmg / dmgDivide <= 0)
+            {
+                StartCoroutine(gameManager.instance.abilityHub.GetComponent<activateAbility>().beginHack(5));
+                HP -= dmg / dmgDivide;
+                updatePlayerHPBar();
+                StartCoroutine(flashDamage());
+            }
+            else
+            {
+                StartCoroutine(gameManager.instance.abilityHub.GetComponent<activateAbility>().beginHack(5));
+                HP -= 1;
+                updatePlayerHPBar();
+                StartCoroutine(flashDamage());
+            }
 
             if (HP <= 0)
             {
@@ -382,7 +403,7 @@ public class playerController : MonoBehaviour
         
         shootRate = weaponStat.shootRate;
         shootDist = weaponStat.shootDist;
-        shootDamage = weaponStat.shootDamage;
+        shootDamage = weaponStat.shootDamage * weaponDamageMulti;
         muzzleFlashPosition = weaponStat.muzzleFlashPosition;
         crosshairTexture = weaponStat.crosshairTexture;
         zoomMax = weaponStat.zoomAmount;
@@ -418,7 +439,7 @@ public class playerController : MonoBehaviour
     {
         shootRate = weaponList[gunSelection].shootRate;
         shootDist = weaponList[gunSelection].shootDist;
-        shootDamage = weaponList[gunSelection].shootDamage;
+        shootDamage = weaponList[gunSelection].shootDamage * weaponDamageMulti;
         muzzleFlashPosition = weaponList[gunSelection].muzzleFlashPosition;
         crosshairTexture = weaponList[gunSelection].crosshairTexture;
         zoomMax = weaponList[gunSelection].zoomAmount;

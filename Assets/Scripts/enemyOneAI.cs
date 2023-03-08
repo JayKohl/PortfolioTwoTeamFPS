@@ -93,9 +93,12 @@ public class enemyOneAI : enemyAI
                 }
                 GetComponent<Collider>().enabled = false;
                 GetComponentInChildren<Canvas>().enabled = false;
-                aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
-                anim.SetBool("Dead", true);
-                agent.enabled = false;
+                if (agent.enabled == true)
+                {
+                    aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
+                    anim.SetBool("Dead", true);
+                    agent.enabled = false;
+                }
             }
             if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
             {

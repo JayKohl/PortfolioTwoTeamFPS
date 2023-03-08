@@ -6,31 +6,41 @@ using TMPro;
 
 public class LevelSystem : MonoBehaviour
 {
-    public int firsttimecount;
+    public bool firsttime = true;
     public int playerLevel;
     public int LevelMax = 10;
     public float currentXP;
     public float NeededXP;
     public int tokenAmount;
     public bool lvlScreenOn;
+    public GameObject lvlUpText;
+    public float XPMod = 1;
+    //public Vector3 startPosition;
+    //[SerializeField] public Vector3 endPosition;
+    //[SerializeField] public float Timelength;
+    
+    [SerializeField] public TextMeshProUGUI tokentext;
     [Header("Calculations")]
     [Range(0.01f, 0.6f)] public float VarX;
     [Range(1.0f, 3.5f)] public float VarY;
 
 
     [SerializeField] public Image frontXPbar;
-    // [SerializeField] public Image tokenImage;
+    
 
     void Start()
     {
         frontXPbar = gameManager.instance.playerXPBar;
         frontXPbar.fillAmount = currentXP / NeededXP;
+        //startPosition = lvlUpText.transform.position;
+        
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         UpdateXPBar();
+        tokentext.text = tokenAmount.ToString("F0");
         if (Input.GetKeyDown(KeyCode.Equals))
             GainExperiance(120);
         if (currentXP > NeededXP)
@@ -39,28 +49,42 @@ public class LevelSystem : MonoBehaviour
         {
             if (lvlScreenOn)
             {
-                if (firsttimecount < 1)
-                {
-
-                    firsttimecount++;
-                }
                 lvlScreenOn = false;
                 Time.timeScale = 1;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 gameManager.instance.lvlMenu.SetActive(false);
+                
+                
             }
             else
             {
+                
                 lvlScreenOn = true;
+                if (firsttime)
+                {
+                    StartCoroutine(firstTimeInfo());
+                    firsttime = false;
+                }
                 Time.timeScale = 0;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.Confined;
-                //inventoryMessageUpdate.text = defaultMsg;
-                //gameManager.instance.inventoryMessageBox.SetActive(true);
                 gameManager.instance.lvlMenu.SetActive(true);
+
+               
             }
+
+            
         }
+    }
+
+    public int GetTokens()
+    {
+        return tokenAmount;
+    }
+    public void DecrementTokens(int used)
+    {
+        tokenAmount -= used;
     }
 
     public void UpdateXPBar()
@@ -73,48 +97,60 @@ public class LevelSystem : MonoBehaviour
         {
             gameManager.instance.playerXPBar.fillAmount = 1;
         }
-        
-        //float xpFraction = currentXP / NeededXP;
-        //float Fxp = frontXPbar.fillAmount;
-        //if (Fxp < xpFraction)
-        //{
-        //    delayTimer += Time.deltaTime;
-        //    backXPbar.fillAmount = xpFraction;
-        //    if (delayTimer > 3)
-        //    {
-        //        lerpTimer += Time.deltaTime;
-        //        float percentComplete = lerpTimer / 4;
-        //        frontXPbar.fillAmount = Mathf.Lerp(Fxp, backXPbar.fillAmount, percentComplete);
-        //    }
-        //}
     }
 
     public void GainExperiance(float gainedXP)
     {
         if (playerLevel < 10)
         {
-            currentXP += gainedXP;
+            currentXP += gainedXP * XPMod;
         }
-
-        //lerpTimer = 0f;
-        //delayTimer = 0f;
     }
 
     public void LevelUp()
     {
         playerLevel++;
         frontXPbar.fillAmount = 0f;
-        //backXPbar.fillAmount = 0f;
         currentXP = Mathf.RoundToInt(currentXP - NeededXP);
-        tokenAmount += playerLevel;
-        gameManager.instance.playerScript.giveHP(gameManager.instance.playerScript.hpOriginal);
+        tokenAmount += playerLevel/2;
+        //gameManager.instance.playerScript.giveHP(gameManager.instance.playerScript.hpOriginal);
+        gameManager.instance.playerScript.aud.PlayOneShot(gameManager.instance.playerScript.lvlUp, gameManager.instance.playerScript.lvlUpVol);
+        StartCoroutine(LevelText());
         NeededXP = CalculateXP();
     }
 
     private int CalculateXP()
     {
-
         int requiredxp = 0;
         return requiredxp = (int)Mathf.Floor(Mathf.Pow((playerLevel / VarX), VarY));
     }
+
+    IEnumerator firstTimeInfo()
+    {
+        gameManager.instance.firstTimeText.SetActive(true);
+
+        yield return new WaitForSecondsRealtime(2.5f);
+
+        gameManager.instance.firstTimeText.SetActive(false);
+    }
+
+    IEnumerator LevelText()
+    {
+        lvlUpText.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        lvlUpText.SetActive(false);
+    }
+
+    //IEnumerator TextMoveInFrame()
+    //{
+    //    float timer = 0;
+        
+    //    while (timer < Timelength)
+    //    {
+    //        transform.position = Vector3.Lerp(startPosition, endPosition, timer / Timelength);
+    //        timer += Time.deltaTime;
+    //        yield return null;
+    //    }
+    //    lvlUpText.transform.position = endPosition;
+    //}
 }
