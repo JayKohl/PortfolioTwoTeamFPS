@@ -43,6 +43,10 @@ public class enemyThirdBoss : enemyAI
     bool waveFive;
     int waveCount;
 
+    [SerializeField] int enemyAmountWaveRegular;
+    [SerializeField] int enemyAmountWaveRobot;
+    [SerializeField] int enemyAmountWaveBug;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -343,11 +347,16 @@ public class enemyThirdBoss : enemyAI
     {
         if (waveCount == 1 || waveCount == 3 || waveCount == 5)
         {
-            Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[0].position, spawnPos[0].rotation);
-            Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[1].position, spawnPos[1].rotation);
-            Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[2].position, spawnPos[2].rotation);
-            Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[3].position, spawnPos[3].rotation);
-            Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[4].position, spawnPos[4].rotation);
+            for (int i = 0; i < enemyAmountWaveRegular; i++)
+            {
+                int randSpawnPos = Random.Range(0, spawnPos.Length);
+                Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[randSpawnPos].position, spawnPos[randSpawnPos].rotation);
+            }
+            //Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[0].position, spawnPos[0].rotation);
+            //Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[1].position, spawnPos[1].rotation);
+            //Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[2].position, spawnPos[2].rotation);
+            //Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[3].position, spawnPos[3].rotation);
+            //Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[4].position, spawnPos[4].rotation);
         }
         else if (waveCount == 2)
         {
