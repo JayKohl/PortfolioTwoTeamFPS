@@ -18,13 +18,12 @@ public class physicsObj : MonoBehaviour
     {
         if (other.CompareTag("Player") && !playerIn)
         {
-            playerIn = true;
-            aud.PlayOneShot(audWindTunnel[Random.Range(0, audWindTunnel.Length)], audWindTunnelVol);
             if (!push)
                 gameManager.instance.playerScript.pushbackDir((transform.position - gameManager.instance.player.transform.position).normalized * pushbackAmount);
             else
                 gameManager.instance.playerScript.pushbackDir((gameManager.instance.player.transform.position - transform.position).normalized * pushbackAmount);
         }
-        
+        //playerIn = true;
+        aud.PlayOneShot(audWindTunnel[Random.Range(0, audWindTunnel.Length)], audWindTunnelVol);
     }
 }

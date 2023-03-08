@@ -60,6 +60,7 @@ public class gameManager : MonoBehaviour
     public GameObject inventorySlot6;
 
     public GameObject lvlMenu;
+    public GameObject firstTimeText;
 
     public GameObject muzzleFlash;
     public GameObject quickTexts;

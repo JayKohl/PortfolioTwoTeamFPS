@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class LevelSystem : MonoBehaviour
 {
+    public int firsttimecount;
     public int playerLevel;
     public int LevelMax = 10;
     public float currentXP;
@@ -15,22 +17,14 @@ public class LevelSystem : MonoBehaviour
     [Range(0.01f, 0.6f)] public float VarX;
     [Range(1.0f, 3.5f)] public float VarY;
 
-    //float lerpTimer;
-    //float delayTimer;
 
     [SerializeField] public Image frontXPbar;
-    // [SerializeField] public Image backXPbar;
     // [SerializeField] public Image tokenImage;
 
-    // Start is called before the first frame update
     void Start()
     {
         frontXPbar = gameManager.instance.playerXPBar;
         frontXPbar.fillAmount = currentXP / NeededXP;
-        //backXPbar.fillAmount = currentXP / NeededXP;
-        //LevelUp();
-
-
     }
 
     // Update is called once per frame
@@ -45,7 +39,11 @@ public class LevelSystem : MonoBehaviour
         {
             if (lvlScreenOn)
             {
-                //gameManager.instance.inventoryMessageBox.SetActive(false);
+                if (firsttimecount < 1)
+                {
+
+                    firsttimecount++;
+                }
                 lvlScreenOn = false;
                 Time.timeScale = 1;
                 Cursor.visible = false;

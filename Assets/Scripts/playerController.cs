@@ -21,7 +21,7 @@ public class playerController : MonoBehaviour
     [Range(1, 3)] [SerializeField] int jumpTimes;
     [Range(10, 25)] [SerializeField] int jumpSpeed;
     [Range(15, 45)] [SerializeField] int gravity;
-    [SerializeField] int runSpeed;
+    [SerializeField] public float runSpeed;
     [SerializeField] float pushbackResTime;
     [SerializeField] int crouchSpeed;
     [SerializeField] float crouchHeight;

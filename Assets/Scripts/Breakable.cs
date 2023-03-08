@@ -21,13 +21,15 @@ public class Breakable : MonoBehaviour, IDamage
     public void takeDamage(int dmg)
     {
         HP -= dmg;
+        Vector3 Yoffset = new Vector3(0, 2, 0);
 
         if (HP <= 0)
         {
             aud.PlayOneShot(audWallDie[Random.Range(0, audWallDie.Length)], audWallDieVol);
-            //Instantiate(destroyEffect, transform.position, destroyEffect.transform.rotation);
-            //Instantiate(destroyed, transform.position, destroyed.transform.rotation);
+            Instantiate(destroyEffect, transform.position, destroyEffect.transform.rotation);
             Destroy(gameObject);
+            Instantiate(destroyed, (transform.position - Yoffset), destroyed.transform.rotation);
+            
         }
         else
         {
