@@ -9,7 +9,7 @@ public class playerController : MonoBehaviour
     [Header("----- Components -----")]
     [SerializeField] public CharacterController controller;
     [SerializeField] Animator playeranim;
-    [SerializeField] AudioSource aud;
+    [SerializeField] public AudioSource aud;
     [SerializeField] AudioClip medPickupSound;
     [Range(0, 1)] [SerializeField] float medPickupVol;
     [SerializeField] AudioClip weaponPickupSound;
@@ -18,7 +18,7 @@ public class playerController : MonoBehaviour
     [Header("----- Player Stats -----")]
     [Range(5, 30)] [SerializeField] public int HP;
     [Range(1, 50)] [SerializeField] public float playerSpeed;
-    [Range(1, 3)] [SerializeField] int jumpTimes;
+    [Range(1, 3)] [SerializeField] public int jumpTimes;
     [Range(10, 25)] [SerializeField] int jumpSpeed;
     [Range(15, 45)] [SerializeField] int gravity;
     [SerializeField] public float runSpeed;
@@ -71,6 +71,9 @@ public class playerController : MonoBehaviour
 
     [SerializeField] AudioClip[] audDead;
     [Range(0, 1)] [SerializeField] float audDeadVol;
+    
+    [SerializeField] public AudioClip lvlUp;
+    [Range(0, 1)] [SerializeField] public float lvlUpVol;
 
     public bool dirt;
 
@@ -322,10 +325,20 @@ public class playerController : MonoBehaviour
         }
         else
         {
-            StartCoroutine(gameManager.instance.abilityHub.GetComponent<activateAbility>().beginHack(5));
-            HP -= dmg / dmgDivide;
-            updatePlayerHPBar();
-            StartCoroutine(flashDamage());            
+            if (dmg / dmgDivide <= 0)
+            {
+                StartCoroutine(gameManager.instance.abilityHub.GetComponent<activateAbility>().beginHack(5));
+                HP -= dmg / dmgDivide;
+                updatePlayerHPBar();
+                StartCoroutine(flashDamage());
+            }
+            else
+            {
+                StartCoroutine(gameManager.instance.abilityHub.GetComponent<activateAbility>().beginHack(5));
+                HP -= 1;
+                updatePlayerHPBar();
+                StartCoroutine(flashDamage());
+            }
 
             if (HP <= 0)
             {

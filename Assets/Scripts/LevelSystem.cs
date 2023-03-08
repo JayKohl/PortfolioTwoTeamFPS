@@ -13,6 +13,12 @@ public class LevelSystem : MonoBehaviour
     public float NeededXP;
     public int tokenAmount;
     public bool lvlScreenOn;
+    public GameObject lvlUpText;
+    //public float yOffset;
+    //public Vector3 startPosition;
+    //[SerializeField] public Vector3 endPosition;
+    //[SerializeField] public float Timelength;
+    
     [SerializeField] public TextMeshProUGUI tokentext;
     [Header("Calculations")]
     [Range(0.01f, 0.6f)] public float VarX;
@@ -20,12 +26,14 @@ public class LevelSystem : MonoBehaviour
 
 
     [SerializeField] public Image frontXPbar;
-    // [SerializeField] public Image tokenImage;
+    
 
     void Start()
     {
         frontXPbar = gameManager.instance.playerXPBar;
         frontXPbar.fillAmount = currentXP / NeededXP;
+        //startPosition = lvlUpText.transform.position;
+        
     }
 
     
@@ -105,7 +113,9 @@ public class LevelSystem : MonoBehaviour
         frontXPbar.fillAmount = 0f;
         currentXP = Mathf.RoundToInt(currentXP - NeededXP);
         tokenAmount += playerLevel;
-        gameManager.instance.playerScript.giveHP(gameManager.instance.playerScript.hpOriginal);
+        //gameManager.instance.playerScript.giveHP(gameManager.instance.playerScript.hpOriginal);
+        gameManager.instance.playerScript.aud.PlayOneShot(gameManager.instance.playerScript.lvlUp, gameManager.instance.playerScript.lvlUpVol);
+        StartCoroutine(LevelText());
         NeededXP = CalculateXP();
     }
 
@@ -124,5 +134,23 @@ public class LevelSystem : MonoBehaviour
         gameManager.instance.firstTimeText.SetActive(false);
     }
 
-  
+    IEnumerator LevelText()
+    {
+        lvlUpText.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        lvlUpText.SetActive(false);
+    }
+
+    //IEnumerator TextMoveInFrame()
+    //{
+    //    float timer = 0;
+        
+    //    while (timer < Timelength)
+    //    {
+    //        transform.position = Vector3.Lerp(startPosition, endPosition, timer / Timelength);
+    //        timer += Time.deltaTime;
+    //        yield return null;
+    //    }
+    //    lvlUpText.transform.position = endPosition;
+    //}
 }

@@ -10,12 +10,13 @@ public class LVLButtons : MonoBehaviour
     [SerializeField] public GameObject speedcover;
     [SerializeField] public GameObject damagecover;
     [SerializeField] public GameObject jumpcover;
-    [SerializeField] public GameObject defencecover;
+    [SerializeField] public GameObject defensecover;
     [SerializeField] public GameObject abilitycover;
     [SerializeField] public GameObject XPcover;
     [SerializeField] public GameObject cooldowncover;
     [SerializeField] public GameObject shortCoin;
     [SerializeField] public int tokensum;
+    
 
 
     void Update()
@@ -64,25 +65,47 @@ public class LVLButtons : MonoBehaviour
 
     public void JumpUp()
     {
-
+        if ((tokensum - 3) >= 0)
+        {
+            gameManager.instance.playerScript.jumpTimes = gameManager.instance.playerScript.jumpTimes + 1;
+            jumpcover.SetActive(true);
+            gameManager.instance.lvlscript.DecrementTokens(3);
+        }
     }
 
     public void DefenseUp()
     {
-
+        if ((tokensum - 3) >= 0)
+        {
+            gameManager.instance.playerScript.dmgDivide = 2;
+            defensecover.SetActive(true);
+            gameManager.instance.lvlscript.DecrementTokens(3);
+        }
     }
-    public void AbilityAttackUp()
+    public void AbilityAttackUp() // not finished
     {
-
+        if ((tokensum - 5) >= 0)
+        {
+            abilitycover.SetActive(true);
+            gameManager.instance.lvlscript.DecrementTokens(5);
+        }
     }
 
-    public void XPUp()
+    public void XPUp()  //not finished
     {
-
+        if ((tokensum - 5) >= 0)
+        {
+            XPcover.SetActive(true);
+            gameManager.instance.lvlscript.DecrementTokens(5);
+        }
     }
 
-    public void CooldownDown()
+    public void CooldownDown() //not finisheds
     {
-
+        if ((tokensum - 3) >= 0)
+        {
+            cooldowncover.SetActive(true);
+            gameManager.instance.lvlscript.DecrementTokens(3);
+        }
     }
 }

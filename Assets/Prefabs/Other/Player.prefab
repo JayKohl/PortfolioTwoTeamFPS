@@ -480,7 +480,7 @@ MonoBehaviour:
   minimap: {fileID: 0}
   HP: 10
   playerSpeed: 5
-  jumpTimes: 2
+  jumpTimes: 1
   jumpSpeed: 15
   gravity: 15
   runSpeed: 9
@@ -556,6 +556,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f325d26adff89d64cb93f78147635cf7, type: 3}
   - {fileID: 8300000, guid: 8f4f375ffa0090842aeb8c5e2df71b5f, type: 3}
   audDeadVol: 0.5
+  lvlUp: {fileID: 8300000, guid: 1f9a81d9d32ae01438f5a3adee4f5c6b, type: 3}
+  lvlUpVol: 0.27
   dirt: 0
   shootPositionPlayer: {fileID: 2929723904278214019}
   gunFlash: {fileID: 5501709145308778831, guid: d5b838e7e4f606a4ab356f28b4746021, type: 3}
@@ -592,6 +594,7 @@ MonoBehaviour:
   NeededXP: 26
   tokenAmount: 0
   lvlScreenOn: 0
+  lvlUpText: {fileID: 0}
   tokentext: {fileID: 0}
   VarX: 0.199
   VarY: 2.03
