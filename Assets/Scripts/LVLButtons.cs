@@ -120,6 +120,7 @@ public class LVLButtons : MonoBehaviour
     {
         if ((tokensum - 5) >= 0)
         {
+            gameManager.instance.lvlscript.XPMod = 1.8f;
             XPcover.SetActive(true);
             gameManager.instance.lvlscript.DecrementTokens(5);
         }

@@ -14,7 +14,7 @@ public class LevelSystem : MonoBehaviour
     public int tokenAmount;
     public bool lvlScreenOn;
     public GameObject lvlUpText;
-    //public float yOffset;
+    public float XPMod = 1;
     //public Vector3 startPosition;
     //[SerializeField] public Vector3 endPosition;
     //[SerializeField] public float Timelength;
@@ -103,7 +103,7 @@ public class LevelSystem : MonoBehaviour
     {
         if (playerLevel < 10)
         {
-            currentXP += gainedXP;
+            currentXP += gainedXP * XPMod;
         }
     }
 
