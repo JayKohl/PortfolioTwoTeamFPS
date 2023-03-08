@@ -142,7 +142,7 @@ public class gameManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.X))
-        {            
+        {
             lvlMenu.SetActive(false);
             inventory.SetActive(false);
             inventoryMessageBox.SetActive(false);
