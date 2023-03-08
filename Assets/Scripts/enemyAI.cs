@@ -57,7 +57,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     bool destinationChosen;
     protected float stoppingDistOrig;
     protected bool blind;
-    protected bool stopMove;
+    protected bool stopMove;    
 
 
     protected IEnumerator roam()
@@ -94,14 +94,21 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
-            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
+            if (hit.collider.CompareTag("Sentry Gun") || hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
                 agent.speed = speedChase;
                 agent.SetDestination(gameManager.instance.player.transform.position);
                 if (agent.remainingDistance < agent.stoppingDistance)
                 {
-                    facePlayer();
+                    if(hit.collider.CompareTag("Player"))
+                    {
+                        facePlayer();
+                    }
+                    else
+                    {
+                        faceTarget();
+                    }
                 }
                 if (!isShooting && angleToPlayer <= shootAngle)
                 {
@@ -125,9 +132,12 @@ public abstract class enemyAI : MonoBehaviour, IDamage
             }
             GetComponent<Collider>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
-            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
-            anim.SetBool("Dead", true);
-            agent.enabled = false;
+            if(agent.enabled == true)
+            {
+                aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
+                anim.SetBool("Dead", true);
+                agent.enabled = false;
+            }            
             //Destroy(gameObject); Create a IEnumerator for destroyObject
         }
         else
@@ -152,6 +162,12 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         model.material.color = Color.white;
     }
     protected virtual void facePlayer()
+    {
+        playerDirection.y = 0;
+        Quaternion rotate = Quaternion.LookRotation(playerDirection);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotate, Time.deltaTime * playerFaceSpeed);
+    }
+    protected virtual void faceTarget()
     {
         playerDirection.y = 0;
         Quaternion rotate = Quaternion.LookRotation(playerDirection);

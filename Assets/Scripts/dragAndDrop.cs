@@ -83,11 +83,6 @@ public class dragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                 transform.position = origPosition;
                 return;
             }
-            else
-            {
-                transform.position = origPosition;
-                return;
-            }
         }
     }
 }
