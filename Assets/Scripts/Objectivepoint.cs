@@ -9,6 +9,28 @@ public class Objectivepoint : MonoBehaviour
     public Transform location;
     void Update()
     {
-        locator.transform.position = Camera.main.WorldToScreenPoint(location.position);
+        float minX = locator.GetPixelAdjustedRect().width / 2;
+        float manX = Screen.width - minX;
+
+        float minY = locator.GetPixelAdjustedRect().width / 2;
+        float manY = Screen.height - minX;
+
+        Vector2 pos = Camera.main.WorldToScreenPoint(location.position);
+
+        if (Vector3.Dot((location.position - transform.position), transform.forward) < 0)
+        {
+            if (pos.x < Screen.width / 2)
+            {
+                pos.x = manX;
+            }
+            else
+            {
+                pos.x = minX;
+            }
+        }
+            )))
+        pos.x = Mathf.Clamp(pos.x, minX, manX);
+        pos.y = Mathf.Clamp(pos.y, minX, manX);
+        locator.transform.position = pos;
     }
 }
