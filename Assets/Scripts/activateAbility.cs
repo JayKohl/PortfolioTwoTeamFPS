@@ -206,6 +206,7 @@ public class activateAbility : MonoBehaviour
                 }
                 else if (stats.abilityName == "Shield")
                 {
+                    cooldownTime = stats.cooldownTime;
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
                     aud.PlayOneShot(abilityAudio, abilityAudioVol);

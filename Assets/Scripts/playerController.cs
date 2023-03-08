@@ -124,6 +124,8 @@ public class playerController : MonoBehaviour
             currentLevel = 1;
             gameManager.instance.fuelCellsRemainingObject.SetActive(true);
             gameManager.instance.enemiesRemainingObject.SetActive(false);
+            gameManager.instance.infoTextBackground.SetActive(false);
+            gameManager.instance.infoText.text = "";
         }
         else if (SceneManager.GetActiveScene().name == "LvlTwoTheArena" && currentLevel < 2)
         {
@@ -131,17 +133,18 @@ public class playerController : MonoBehaviour
             currentLevel = 2;
             gameManager.instance.enemiesRemainingObject.SetActive(true);
             gameManager.instance.fuelCellsRemainingObject.SetActive(false);
+            gameManager.instance.infoTextBackground.SetActive(false);
+            gameManager.instance.infoText.text = "";
         }
-        else if (SceneManager.GetActiveScene().name == "LvlTwoTheArena" && currentLevel < 3)
+        else if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld" && currentLevel < 3)
         {
             dirt = true;
             currentLevel = 3;
             gameManager.instance.enemiesRemainingObject.SetActive(false);
             gameManager.instance.fuelCellsRemainingObject.SetActive(false);
+            gameManager.instance.infoText.text = "Investigate the town to find the source of the distress signal.";
+            gameManager.instance.infoTextBackground.SetActive(true);
         }
-
-        gameManager.instance.infoTextBackground.SetActive(false);
-        gameManager.instance.infoText.text = "";
         weaponIcon = GameObject.FindGameObjectWithTag("Weapon Icon");
         crosshair = GameObject.FindGameObjectWithTag("Crosshair");
         if (weaponList.Count == 0)
@@ -243,6 +246,18 @@ public class playerController : MonoBehaviour
         }
     }
 
+    public void updateGoals(string goal)
+    {        
+        gameManager.instance.infoText.text = goal;
+        if (goal == "")
+        {
+            gameManager.instance.infoTextBackground.SetActive(false);
+        }
+        else
+        {
+            gameManager.instance.infoTextBackground.SetActive(true);
+        }
+    }
     IEnumerator playGravelSteps()
     {
         isPlayingSteps = true;
