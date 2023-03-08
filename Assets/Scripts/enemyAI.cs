@@ -167,13 +167,13 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     }
     protected virtual IEnumerator shoot()
     {
+        isShooting = true;
         if (!stopMove)
         {
-            isShooting = true;
             anim.SetTrigger("Shoot");
-            yield return new WaitForSeconds(shootRate);
-            isShooting = false;
         }
+        yield return new WaitForSeconds(shootRate);
+        isShooting = false;
     }
     public virtual void createBullet()
     {
@@ -181,13 +181,17 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         {
             GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
             bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
+            aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
         }
         else
         {
-            GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-            bulletClone.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(0, 0.5f), Random.Range(0, 0.5f), Random.Range(0, 0.5f)) * bulletSpeed;
+            if (!stopMove)
+            {
+                GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
+                bulletClone.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(0, 0.5f), Random.Range(0, 0.5f), Random.Range(0, 0.5f)) * bulletSpeed;
+                aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
+            }
         }
-        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
     }
     public void meleeColliderOn()
     {
@@ -221,6 +225,10 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     {
         yield return new WaitForSeconds(5);
         blind = false;
+    }
+    public void gravBombEnd()
+    {
+        stopMove = false;
     }
     public void OnTriggerExit(Collider other)
     {

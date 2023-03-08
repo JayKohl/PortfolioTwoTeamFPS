@@ -52,20 +52,7 @@ public class enemyOneAI : enemyAI
             }            
         }
 
-    }
-    public IEnumerator pushedbackDir(Vector3 dir)
-    {
-        Vector3 positionHere = transform.position;
-        gravDirection = dir;
-        for (int i = 0; i < 40; i++)
-        {
-            stopMove = true;
-            anim.SetTrigger("Damage");
-            yield return new WaitForSeconds(.2f);
-            transform.position = new Vector3(gravDirection.x, positionHere.y, gravDirection.z);
-        }
-        stopMove = false;
-    }
+    }    
 
     public override void takeDamage(int dmg)
     {
@@ -158,5 +145,26 @@ public class enemyOneAI : enemyAI
         yield return new WaitForSeconds(6);
         iceEffect.SetActive(false);
         chilled = false;
+    }
+    public IEnumerator pushedbackDir(Vector3 dir)
+    {
+        Vector3 positionHere = transform.position;
+        gravDirection = dir;
+        stopMove = true;
+        for (int i = 0; i < 40; i++)
+        {
+            if (hitPoints > 0)
+            {
+                anim.SetTrigger("Damage");
+            }
+            else
+            {
+                anim.SetTrigger("Dead");
+                transform.position = new Vector3(gravDirection.x, positionHere.y, gravDirection.z);
+                i = 40;
+            }
+            yield return new WaitForSeconds(.2f);
+            transform.position = new Vector3(gravDirection.x, positionHere.y, gravDirection.z);
+        }
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class abilityPickup : MonoBehaviour
 {
-    float time = 1;
     bool playerIn;
     [SerializeField] abilities stats;
 

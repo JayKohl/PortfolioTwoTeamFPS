@@ -9,8 +9,10 @@ public class explosionGravBomb : MonoBehaviour
 
     [SerializeField] AudioSource aud;
     [SerializeField] AudioClip explosion;
+    [SerializeField] AudioClip gravityEffect;
     [Range(0, 1)] [SerializeField] float explosionVol;
-    [SerializeField] int pushedBackAmount = 10;
+
+    GameObject target;
 
     void Start()
     {
@@ -20,14 +22,17 @@ public class explosionGravBomb : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
         {
-            other.gameObject.GetComponent<enemyAI>().takeDamage(0);
-            aud.PlayOneShot(explosion, explosionVol);
+            target = other.gameObject;
+            target.GetComponent<enemyAI>().takeDamage(0);
+            aud.PlayOneShot(explosion, 0.2f);
             StartCoroutine(other.gameObject.GetComponent<enemyOneAI>().pushedbackDir(transform.position));
+            aud.PlayOneShot(gravityEffect, explosionVol);
         }
     }
     IEnumerator timer(float time)
     {
         yield return new WaitForSeconds(time);
+        target.GetComponent<enemyAI>().gravBombEnd();
         Destroy(gameObject);
     }
 }
