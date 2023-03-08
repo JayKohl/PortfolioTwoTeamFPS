@@ -7,6 +7,14 @@ public class Objectivepoint : MonoBehaviour
 {
     public Image locator;
     public Transform location;
+    GameObject nullLoc;
+    public Transform objectiveOne;
+    private void Start()
+    {
+        locator.enabled = false;
+        nullLoc = GameObject.FindGameObjectWithTag("NullObjective");
+        location = nullLoc.transform;
+    }
     void Update()
     {
         float minX = locator.GetPixelAdjustedRect().width / 2;
