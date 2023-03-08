@@ -6,7 +6,7 @@ public class ExplosionBarrel : MonoBehaviour, IDamage
 {
     [SerializeField] Renderer model;
     [SerializeField] AudioSource aud;
-    [SerializeField] public int pushBackDamageGrenade;
+    [SerializeField] public int pushBackDamageEX;
     [SerializeField] GameObject BarrelExplosion;
     [Range(1, 5)] [SerializeField] int HP;
 
@@ -32,6 +32,7 @@ public class ExplosionBarrel : MonoBehaviour, IDamage
         }
     }
 
+    
     public void OnTriggerEnter(Collider other)
     {
          void OnTriggerEnter(Collider other)
@@ -40,7 +41,7 @@ public class ExplosionBarrel : MonoBehaviour, IDamage
             {
                 playerIn = true;
                 gameManager.instance.playerScript.takeDamage(25);
-                gameManager.instance.playerScript.pushbackDir((gameManager.instance.player.transform.position - transform.position).normalized * pushBackDamageGrenade);
+                gameManager.instance.playerScript.pushbackDir((gameManager.instance.player.transform.position - transform.position).normalized * pushBackDamageEX);
             }
             else if (other.CompareTag("EnemyAI"))
             {
