@@ -13,6 +13,7 @@ public class townNPC : MonoBehaviour
     [SerializeField] public GameObject doorToBoss;
     [SerializeField] Transform playerTransportPos;
     [SerializeField] Transform npcTransportPos;
+    [SerializeField] bool hasQuestToGive;
 
     [SerializeField] public GameObject doorOutOfCell;
 
@@ -59,25 +60,25 @@ public class townNPC : MonoBehaviour
             //{
             //    StartCoroutine(roam());
             //}
-                anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
-                if (isPlayerInRange)
-                {
-                    if (!canSeePlayer())
-                    {
-                        StartCoroutine(roam());
-                    }
-                    //else if (!isGivenQuest)
-                    //{
-                    //    isGivenQuest = true;
-                    //    anim.SetTrigger("Talk");
-                    //    gameManager.instance.displayNpcText("Chat Test");
-                    //    StartCoroutine(gameManager.instance.deleteTextNpc(8));
-                    //}
-                }
-                else if (agent.destination != gameManager.instance.player.transform.position)
+            anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
+            if (isPlayerInRange)
+            {
+                if (!canSeePlayer())
                 {
                     StartCoroutine(roam());
                 }
+                //else if (!isGivenQuest)
+                //{
+                //    isGivenQuest = true;
+                //    anim.SetTrigger("Talk");
+                //    gameManager.instance.displayNpcText("Chat Test");
+                //    StartCoroutine(gameManager.instance.deleteTextNpc(8));
+                //}
+            }
+            else if (agent.destination != gameManager.instance.player.transform.position)
+            {
+                StartCoroutine(roam());
+            }
             //else
             //{
             //    StartCoroutine(roam());
@@ -139,32 +140,36 @@ public class townNPC : MonoBehaviour
                 {
                     facePlayer();
                 }
-                if (!isGivenQuest)
+                if (hasQuestToGive = true)
                 {
-                    isTalking = true;
-                    orgPos = transform;
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.Confined;
-                    transform.position = npcTransportPos.position;
-                    transform.localRotation = npcTransportPos.localRotation;
-                    gameManager.instance.playerScript.controller.enabled = false;
-                    gameManager.instance.cam2.SetActive(true);
 
-                    gameManager.instance.playerCamera.SetActive(false);
+                    if (!isGivenQuest)
+                    {
+                        isTalking = true;
+                        orgPos = transform;
+                        Cursor.visible = true;
+                        Cursor.lockState = CursorLockMode.Confined;
+                        transform.position = npcTransportPos.position;
+                        transform.localRotation = npcTransportPos.localRotation;
+                        gameManager.instance.playerScript.controller.enabled = false;
+                        gameManager.instance.cam2.SetActive(true);
 
-                    anim.SetTrigger("Talk");
-                    gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. \n\n" +
-                                                        "If by chance you can survive I will help you escape. Now go away before anyone notices us talking.");
+                        gameManager.instance.playerCamera.SetActive(false);
+
+                        anim.SetTrigger("Talk");
+                        gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. \n\n" +
+                                                            "If by chance you can survive I will help you escape. Now go away before anyone notices us talking.");
 
 
 
-                    gameManager.instance.playerScript.minimap.SetActive(false);
-                    gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(false);
-                    gameManager.instance.enemiesRemainingObject.SetActive(false);
-                    gameManager.instance.enemiesRemainingText.enabled = false;
-                    gameManager.instance.crosshair.SetActive(false);
-                    gameManager.instance.playerScript.canShoot = false;
-                    gameManager.instance.pause();
+                        gameManager.instance.playerScript.minimap.SetActive(false);
+                        gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(false);
+                        gameManager.instance.enemiesRemainingObject.SetActive(false);
+                        gameManager.instance.enemiesRemainingText.enabled = false;
+                        gameManager.instance.crosshair.SetActive(false);
+                        gameManager.instance.playerScript.canShoot = false;
+                        gameManager.instance.pause();
+                    }
                 }
                 return true;
             }
