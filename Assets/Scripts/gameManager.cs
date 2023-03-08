@@ -29,6 +29,7 @@ public class gameManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI enemiesRemainingText;
 
     [SerializeField] GameObject npc;
+    [SerializeField] GameObject minimap;
 
     public GameObject infoTextBackground;
     public TextMeshProUGUI infoText;
@@ -123,9 +124,9 @@ public class gameManager : MonoBehaviour
         AbilityOneS.cooldownTime = 10f;
         AbilityTwoS.cooldownTime = 10f;
         AbilityFourS.cooldownTime = 12f;
+        minimap = GameObject.FindGameObjectWithTag("Minimap");
 
 
-        
     }
     void Update()
     {
@@ -155,6 +156,7 @@ public class gameManager : MonoBehaviour
 
     public void pause()
     {
+        minimap.SetActive(false);
         abilityHub.GetComponent<activateAbility>().inventoryScreenOn = false;
         inventory.SetActive(false);
         inventoryMessageBox.SetActive(false);
@@ -165,6 +167,7 @@ public class gameManager : MonoBehaviour
     }
     public void unPause()
     {
+        minimap.SetActive(true);
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -222,6 +225,7 @@ public class gameManager : MonoBehaviour
     }
     public void playerDead()
     {
+        minimap.SetActive(false);
         hackUI.SetActive(false);
         pause();
         activeMenu = loseMenu;
