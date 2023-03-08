@@ -25,6 +25,10 @@ public class bulletSentry : MonoBehaviour
         {
             target.GetComponent<enemyBossAI>().takeDamage(bulletDamage);
         }
+        else if (other.CompareTag("Turret"))
+        {
+            target.GetComponent<enemyTurretAI>().takeDamage(bulletDamage);
+        }
         Destroy(gameObject);
     }
 }

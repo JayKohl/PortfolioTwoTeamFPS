@@ -142,10 +142,9 @@ public class gameManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.X))
-        {
-            gameManager.instance.inventory.SetActive(false);
-            gameManager.instance.lvlMenu.SetActive(false);
-            gameManager.instance.inventoryMessageBox.SetActive(false);
+        {            
+            lvlMenu.SetActive(false);
+            inventory.SetActive(false);
             inventoryMessageBox.SetActive(false);
             displayingAbility = false;
             abilityDisplay.SetActive(false);
@@ -156,9 +155,10 @@ public class gameManager : MonoBehaviour
 
     public void pause()
     {
-        gameManager.instance.abilityHub.GetComponent<activateAbility>().inventoryScreenOn = false;
-        gameManager.instance.inventory.SetActive(false);
-        gameManager.instance.lvlMenu.SetActive(false);
+        abilityHub.GetComponent<activateAbility>().inventoryScreenOn = false;
+        inventory.SetActive(false);
+        inventoryMessageBox.SetActive(false);
+        lvlMenu.SetActive(false);
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;

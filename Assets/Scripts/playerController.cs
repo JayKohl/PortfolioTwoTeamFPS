@@ -321,7 +321,7 @@ public class playerController : MonoBehaviour
     public void deploySentryGun()
     {
         GameObject bulletClone = Instantiate(sentryGun, shootPositionPlayer.position, sentryGun.transform.rotation);
-        bulletClone.GetComponent<Rigidbody>().velocity = (transform.forward + new Vector3(0, grenadeYVel, 0)) * 1;
+        bulletClone.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
     }
     public void takeDamage(int dmg)
     {
