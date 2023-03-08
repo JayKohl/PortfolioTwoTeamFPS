@@ -208,21 +208,21 @@ public class activateAbility : MonoBehaviour
                 {
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
-                    gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    aud.PlayOneShot(abilityAudio, abilityAudioVol);
                     StartCoroutine(abilityCoolShield(cooldownTime));
                 }
                 else if (stats.abilityName == "Fire")
                 {
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
-                    gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    aud.PlayOneShot(abilityAudio, abilityAudioVol);
                     StartCoroutine(abilityCoolFire(3));
                 }
                 else if (stats.abilityName == "Ice")
                 {
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
-                    gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    aud.PlayOneShot(abilityAudio, abilityAudioVol);
                     StartCoroutine(abilityCoolIce(3));
                 }
                 else if (stats.abilityName == "Swarm")
@@ -231,7 +231,7 @@ public class activateAbility : MonoBehaviour
                     abilityAudioVol = stats.abilityAudioVol;
                     gameManager.instance.playerScript.swarm();
                 }
-                else if(stats.abilityName == "Hack")
+                else if (stats.abilityName == "Hack")
                 {
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
@@ -241,7 +241,14 @@ public class activateAbility : MonoBehaviour
                 {
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
-                    gameManager.instance.playerScript.gravBomb();                    
+                    gameManager.instance.playerScript.gravBomb();
+                }
+                else if (stats.abilityName == "Sentry Gun")
+                {
+                    abilityAudio = stats.abilityAudio;
+                    abilityAudioVol = stats.abilityAudioVol;
+                    aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    gameManager.instance.playerScript.deploySentryGun();
                 }
             }
         }
@@ -392,7 +399,7 @@ public class activateAbility : MonoBehaviour
             if (hit.transform.gameObject.tag == "EnemyBoss" || hit.transform.gameObject.tag == "Turret")
             {
                 //Debug.Log("test");
-                gameManager.instance.aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                aud.PlayOneShot(abilityAudio, abilityAudioVol);
                 hackTarget = hit.collider.gameObject;
                 gameManager.instance.hackUI.SetActive(true);
                 hackCounter = 0;
