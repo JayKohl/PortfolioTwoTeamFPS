@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class sentryGun : MonoBehaviour
 {
-    int viewAngle = 90;
+    //int viewAngle = 90;
     int shootAngle = 90;
     int enemyFaceSpeed = 60;
     [SerializeField] GameObject bullet;
@@ -16,7 +16,8 @@ public class sentryGun : MonoBehaviour
     [SerializeField] AudioClip startUpSound;
     [SerializeField] AudioClip audBasicAttack;
     [SerializeField] float audBasicAttackVol;
-    int bulletSpeed = 25;
+    float deleteTimer = 15;
+    //int bulletSpeed = 25;
     float shootRate = .3f;
 
     Vector3 enemyDirection;
@@ -33,6 +34,7 @@ public class sentryGun : MonoBehaviour
     {
         StartCoroutine(coolDownStart());
         muzzleFlash.GetComponent<ParticleSystem>().Stop();
+        StartCoroutine(deathTimer());
     }
 
     //// Update is called once per frame
@@ -49,7 +51,20 @@ public class sentryGun : MonoBehaviour
         yield return new WaitForSeconds(2);
         alive = true;
     }
+    IEnumerator deathTimer()
+    {
+        yield return new WaitForSeconds(deleteTimer);
+        Destroy(gameObject);
+    }
     public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
+        {
+            target = other.gameObject;
+            isEnemyInRange = true;
+        }
+    }
+    public void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
         {
@@ -115,10 +130,11 @@ public class sentryGun : MonoBehaviour
             muzzleFlash.GetComponent<ParticleSystem>().Play();
             isShooting = true;
 
-            GameObject bulletClone = Instantiate(bullet, headPos.position, bullet.transform.rotation);
+            target.GetComponent<enemyAI>().takeDamage(1);
+            //GameObject bulletClone = Instantiate(bullet, headPos.position, bullet.transform.rotation);
             aud.PlayOneShot(audBasicAttack, audBasicAttackVol);
             Vector3 shootingVector = (target.transform.position - headPos.position).normalized;
-            bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
+            //bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
 
             yield return new WaitForSeconds(shootRate);
             isShooting = false;

@@ -94,7 +94,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
-            if (hit.collider.CompareTag("Sentry Gun") || hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
                 agent.stoppingDistance = stoppingDistOrig;
                 agent.speed = speedChase;
