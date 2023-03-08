@@ -351,6 +351,7 @@ public class enemyThirdBoss : enemyAI
             {
                 int randSpawnPos = Random.Range(0, spawnPos.Length);
                 Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[randSpawnPos].position, spawnPos[randSpawnPos].rotation);
+                gameManager.instance.updateGameGoalLvl3(1);
             }
             //Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[0].position, spawnPos[0].rotation);
             //Instantiate(spawnEnemyType[Random.Range(0, spawnEnemyType.Length)], spawnPos[1].position, spawnPos[1].rotation);
@@ -364,6 +365,7 @@ public class enemyThirdBoss : enemyAI
             {
                 int randSpawnPos = Random.Range(0, spawnPos.Length);
                 Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[randSpawnPos].position, spawnPos[randSpawnPos].rotation);
+                gameManager.instance.updateGameGoalLvl3(1);
             }
             //Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[0].position, spawnPos[0].rotation);
             //Instantiate(bugTypeEnemies[Random.Range(0, bugTypeEnemies.Length)], spawnPos[1].position, spawnPos[1].rotation);
@@ -377,6 +379,7 @@ public class enemyThirdBoss : enemyAI
             {
                 int randSpawnPos = Random.Range(0, spawnPos.Length);
                 Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[randSpawnPos].position, spawnPos[randSpawnPos].rotation);
+                gameManager.instance.updateGameGoalLvl3(1);
             }
             //Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[0].position, spawnPos[0].rotation);
             //Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[1].position, spawnPos[1].rotation);
@@ -384,6 +387,5 @@ public class enemyThirdBoss : enemyAI
             //Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[3].position, spawnPos[3].rotation);
             //Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[4].position, spawnPos[4].rotation);
         }
-        gameManager.instance.updateGameGoalLvl3(5);
     }
 }
