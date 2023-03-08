@@ -31,7 +31,7 @@ public class playerController : MonoBehaviour
     [SerializeField] GameObject weaponModel;
     [SerializeField] float shootRate;
     [SerializeField] int shootDist;
-    [SerializeField] int shootDamage;
+    [SerializeField] public int shootDamage;
     [SerializeField] float zoomMax;
     Vector3 muzzleFlashPosition;
     [SerializeField] public GameObject shieldOnPlayer;
@@ -49,6 +49,8 @@ public class playerController : MonoBehaviour
     [SerializeField] AudioClip weaponAudio;
     [Range(0, 1)] [SerializeField] float weaponAudioVol;
     public MeshRenderer visible;
+    public int weaponDamageMulti = 1;
+    public int dmgDivide = 1;
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] audGravelSteps;
@@ -321,7 +323,7 @@ public class playerController : MonoBehaviour
         else
         {
             StartCoroutine(gameManager.instance.abilityHub.GetComponent<activateAbility>().beginHack(5));
-            HP -= dmg;
+            HP -= dmg / dmgDivide;
             updatePlayerHPBar();
             StartCoroutine(flashDamage());            
 
@@ -382,7 +384,7 @@ public class playerController : MonoBehaviour
         
         shootRate = weaponStat.shootRate;
         shootDist = weaponStat.shootDist;
-        shootDamage = weaponStat.shootDamage;
+        shootDamage = weaponStat.shootDamage * weaponDamageMulti;
         muzzleFlashPosition = weaponStat.muzzleFlashPosition;
         crosshairTexture = weaponStat.crosshairTexture;
         zoomMax = weaponStat.zoomAmount;
@@ -418,7 +420,7 @@ public class playerController : MonoBehaviour
     {
         shootRate = weaponList[gunSelection].shootRate;
         shootDist = weaponList[gunSelection].shootDist;
-        shootDamage = weaponList[gunSelection].shootDamage;
+        shootDamage = weaponList[gunSelection].shootDamage * weaponDamageMulti;
         muzzleFlashPosition = weaponList[gunSelection].muzzleFlashPosition;
         crosshairTexture = weaponList[gunSelection].crosshairTexture;
         zoomMax = weaponList[gunSelection].zoomAmount;

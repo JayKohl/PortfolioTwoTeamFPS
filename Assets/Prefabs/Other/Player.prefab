@@ -507,6 +507,8 @@ MonoBehaviour:
   weaponAudio: {fileID: 8300000, guid: 6739c01659ad96d47987f4ddee226b36, type: 3}
   weaponAudioVol: 0.5
   visible: {fileID: 0}
+  weaponDamageMulti: 1
+  dmgDivide: 1
   audGravelSteps:
   - {fileID: 8300000, guid: 5461cae585b64f64089805f0d313bc84, type: 3}
   - {fileID: 8300000, guid: 2b3fc7e56f2686b48b9445e48c7db2c9, type: 3}
@@ -583,12 +585,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c35353b350a60241980021c9b550ae9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firsttime: 1
   playerLevel: 1
   LevelMax: 10
   currentXP: 0
   NeededXP: 26
   tokenAmount: 0
   lvlScreenOn: 0
+  tokentext: {fileID: 0}
   VarX: 0.199
   VarY: 2.03
   frontXPbar: {fileID: 0}
@@ -26498,7 +26502,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6411400648981205055}
-  m_LocalRotation: {x: 0.010359716, y: 0.010519375, z: -0.09774821, w: 0.99510163}
+  m_LocalRotation: {x: 0.010359717, y: 0.010519375, z: -0.09774822, w: 0.99510163}
   m_LocalPosition: {x: -0.03570995, y: 0.00000015258789, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
