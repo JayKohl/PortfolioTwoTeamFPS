@@ -206,16 +206,16 @@ public class gameManager : MonoBehaviour
         if(boss2Dead && flightDeck && enemiesRemaining <= 0)
         {
             gameManager.instance.infoText.text = "<s>Get to the flight deck</s>" + "\n<s>Kill the radiated bug</s>"+"\nEscape!";
-            gameManager.instance.infoTextBackground.SetActive(true);            
+            gameManager.instance.infoTextBackground.SetActive(true);
         }        
     }
     public IEnumerator endLevel2()
     {
         yield return new WaitForSeconds(2);
         pause();
-        //change winMenu text for level 2
-        activeMenu = winMenu;
-        activeMenu.SetActive(true);
+        SceneManager.LoadScene("Part3Scene");
+        //activeMenu = winMenu;
+        //activeMenu.SetActive(true);
     }
     public void updateGameGoalLvl3(int amount)
     {
