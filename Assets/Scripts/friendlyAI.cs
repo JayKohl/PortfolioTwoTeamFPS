@@ -257,7 +257,7 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.cam2.transform.GetChild(1).gameObject.SetActive(false);
         gameManager.instance.unPause();
         gameManager.instance.playerScript.canShoot = true;
-
+        
         isGivenQuest = true;
         
     }
@@ -290,6 +290,8 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.unPause();
         gameManager.instance.playerScript.canShoot = true;
 
+        gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().location = gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().objectiveOne;
+        gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().locator.enabled = true;
         isGivenQuest = true;
         isTalking = false;
     }
