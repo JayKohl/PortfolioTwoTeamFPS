@@ -112,7 +112,7 @@ public class LevelSystem : MonoBehaviour
         playerLevel++;
         frontXPbar.fillAmount = 0f;
         currentXP = Mathf.RoundToInt(currentXP - NeededXP);
-        tokenAmount += playerLevel;
+        tokenAmount += playerLevel/2;
         //gameManager.instance.playerScript.giveHP(gameManager.instance.playerScript.hpOriginal);
         gameManager.instance.playerScript.aud.PlayOneShot(gameManager.instance.playerScript.lvlUp, gameManager.instance.playerScript.lvlUpVol);
         StartCoroutine(LevelText());
