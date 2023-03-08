@@ -16,10 +16,14 @@ public class bulletSentry : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        target = other.gameObject;        
+        target = other.gameObject;
         if (other.CompareTag("Enemy"))
-        {
+        {            
             target.GetComponent<enemyAI>().takeDamage(bulletDamage);
+        }
+        else if(other.CompareTag("EnemyBoss"))
+        {
+            target.GetComponent<enemyBossAI>().takeDamage(bulletDamage);
         }
         Destroy(gameObject);
     }

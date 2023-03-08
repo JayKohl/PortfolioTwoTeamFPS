@@ -37,15 +37,15 @@ public class sentryGun : MonoBehaviour
         }
     }
     public void OnTriggerEnter(Collider other)
-    {        
-        if (other.CompareTag("Enemy"))
+    {
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
         {
             target = other.gameObject;
             isEnemyInRange = true;
         }
     }
     public bool canSeeEnemy()
-    {        
+    {
         enemyDirection = (target.transform.position - headPos.position).normalized;
         angleToEnemy = Vector3.Angle(new Vector3(enemyDirection.x, 0, enemyDirection.z), transform.forward);
 
