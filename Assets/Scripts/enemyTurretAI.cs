@@ -47,7 +47,7 @@ public class enemyTurretAI : enemyAI
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
-        Debug.Log(angleToPlayer);
+        //Debug.Log(angleToPlayer);
         Debug.DrawRay(headPos.position, playerDirection);
 
         RaycastHit hit;
