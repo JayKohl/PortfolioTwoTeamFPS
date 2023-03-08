@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class item_pickup : MonoBehaviour
 {
-    float time = 1;
-
     [Header("Item Type")]
     [SerializeField] bool isHealth;
     [SerializeField] bool isWeapon;

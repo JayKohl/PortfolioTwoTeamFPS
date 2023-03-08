@@ -241,7 +241,7 @@ public class activateAbility : MonoBehaviour
                 {
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
-                    gameManager.instance.playerScript.gravBomb();
+                    gameManager.instance.playerScript.gravBomb();                    
                 }
             }
         }
