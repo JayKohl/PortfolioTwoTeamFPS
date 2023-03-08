@@ -36,7 +36,6 @@ public class gameManager : MonoBehaviour
 
     public TextMeshProUGUI npcChat;
     public GameObject playerChatBackground;
-    bool displayingAbility;
     [SerializeField] public GameObject abilityHub;
     [SerializeField] public GameObject abilityDisplay;
     public GameObject AbilitiesBackground;
@@ -143,11 +142,10 @@ public class gameManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.X))
-        {            
+        {
             lvlMenu.SetActive(false);
             inventory.SetActive(false);
             inventoryMessageBox.SetActive(false);
-            displayingAbility = false;
             abilityDisplay.SetActive(false);
             crosshair.SetActive(true);
             unPause();
@@ -245,7 +243,6 @@ public class gameManager : MonoBehaviour
         crosshair.SetActive(false);
         abilityDisplay.GetComponent<Image>().sprite = abilityTexture;
         abilityDisplay.SetActive(true);
-        displayingAbility = true;
     }
     public void displayText(string textToDisplay)
     {
