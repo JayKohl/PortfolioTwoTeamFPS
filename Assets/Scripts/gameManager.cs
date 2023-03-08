@@ -61,6 +61,8 @@ public class gameManager : MonoBehaviour
 
     public GameObject lvlMenu;
     public GameObject firstTimeText;
+    public LevelSystem lvlscript;
+    public LVLButtons lvlbuttons;
 
     public GameObject muzzleFlash;
     public GameObject quickTexts;
@@ -105,6 +107,8 @@ public class gameManager : MonoBehaviour
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
+        lvlscript = player.GetComponent<LevelSystem>();
+        lvlbuttons = player.GetComponent<LVLButtons>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
         npcChat = GameObject.FindGameObjectWithTag("NPCChat").GetComponentInChildren<TextMeshProUGUI>();
