@@ -14,7 +14,9 @@ public class LVLButtons : MonoBehaviour
     [SerializeField] public GameObject abilitycover;
     [SerializeField] public GameObject XPcover;
     [SerializeField] public GameObject cooldowncover;
-    [SerializeField] public GameObject shortCoin;
+    //[SerializeField] public GameObject shortCoin;
+
+    [SerializeField] public GameObject errorText;
     [SerializeField] public int tokensum;
     
 
@@ -36,6 +38,10 @@ public class LVLButtons : MonoBehaviour
             healthcover.SetActive(true);
             gameManager.instance.lvlscript.DecrementTokens(2);
         }
+        else
+        {
+            StartCoroutine(ErrorText());
+        }
 
     }
 
@@ -47,6 +53,10 @@ public class LVLButtons : MonoBehaviour
             gameManager.instance.playerScript.shootDamage = gameManager.instance.playerScript.shootDamage * 2;
             damagecover.SetActive(true);
             gameManager.instance.lvlscript.DecrementTokens(3);
+        }
+        else
+        {
+            StartCoroutine(ErrorText());
         }
     }
 
@@ -60,7 +70,10 @@ public class LVLButtons : MonoBehaviour
             speedcover.SetActive(true);
             gameManager.instance.lvlscript.DecrementTokens(1);
         }
-        
+        else
+        {
+            StartCoroutine(ErrorText());
+        }
     }
 
     public void JumpUp()
@@ -70,6 +83,10 @@ public class LVLButtons : MonoBehaviour
             gameManager.instance.playerScript.jumpTimes = gameManager.instance.playerScript.jumpTimes + 1;
             jumpcover.SetActive(true);
             gameManager.instance.lvlscript.DecrementTokens(3);
+        }
+        else
+        {
+            StartCoroutine(ErrorText());
         }
     }
 
@@ -81,6 +98,10 @@ public class LVLButtons : MonoBehaviour
             defensecover.SetActive(true);
             gameManager.instance.lvlscript.DecrementTokens(3);
         }
+        else
+        {
+            StartCoroutine(ErrorText());
+        }
     }
     public void AbilityAttackUp() // not finished
     {
@@ -88,6 +109,10 @@ public class LVLButtons : MonoBehaviour
         {
             abilitycover.SetActive(true);
             gameManager.instance.lvlscript.DecrementTokens(5);
+        }
+        else
+        {
+            StartCoroutine(ErrorText());
         }
     }
 
@@ -98,6 +123,10 @@ public class LVLButtons : MonoBehaviour
             XPcover.SetActive(true);
             gameManager.instance.lvlscript.DecrementTokens(5);
         }
+        else
+        {
+            StartCoroutine(ErrorText());
+        }
     }
 
     public void CooldownDown() //not finisheds
@@ -107,5 +136,16 @@ public class LVLButtons : MonoBehaviour
             cooldowncover.SetActive(true);
             gameManager.instance.lvlscript.DecrementTokens(3);
         }
+        else
+        {
+            StartCoroutine(ErrorText());
+        }
+    }
+
+    IEnumerator ErrorText()
+    {
+        errorText.SetActive(true);
+        yield return new WaitForSecondsRealtime(1.6f);
+        errorText.SetActive(false);
     }
 }
