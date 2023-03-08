@@ -15,14 +15,8 @@ public class LVLButtons : MonoBehaviour
     [SerializeField] public GameObject XPcover;
     [SerializeField] public GameObject cooldowncover;
     [SerializeField] public GameObject shortCoin;
-    public LevelSystem lvlscript;
     [SerializeField] public int tokensum;
 
-    
-    private void Start()
-    {
-        //lvlscript = gameManager.instance.lvlscript;
-    }
 
     void Update()
     {
