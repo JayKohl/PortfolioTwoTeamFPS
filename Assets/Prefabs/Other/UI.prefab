@@ -5925,7 +5925,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'You Win!
+  m_text: 'Congratulations!
 
 '
   m_isRightToLeft: 0
@@ -8125,7 +8125,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aud: {fileID: 1551325817}
-  abilityBar: []
+  abilityBar:
+  - {fileID: 11400000, guid: 0a66e3e9e1adf9841a57a453d2559890, type: 2}
+  - {fileID: 11400000, guid: b0ce1dcb19d17664190ea8d4435fcc6b, type: 2}
   hackAnimation:
   - {fileID: 21300000, guid: e11d39327ba0f9940af784d5a7dd72a0, type: 3}
   - {fileID: 21300000, guid: 22688e6f25a07da489c4f3f80b79ce12, type: 3}
@@ -12934,7 +12936,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You have collected enough fuel to leave the planet.
+  m_text: The alien threat has been eliminated and the planet survivors are now safe.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

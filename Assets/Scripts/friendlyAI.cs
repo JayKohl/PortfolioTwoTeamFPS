@@ -183,7 +183,13 @@ public class friendlyAI : MonoBehaviour
                     transform.localRotation = npcTransportPos.localRotation;
                     gameManager.instance.playerScript.controller.enabled = false;
                     gameManager.instance.cam2.SetActive(true);
-                    
+
+                    gameManager.instance.AbilityOne.SetActive(false);
+                    gameManager.instance.AbilityTwo.SetActive(false);
+                    gameManager.instance.AbilityThree.SetActive(false);
+                    gameManager.instance.AbilityFour.SetActive(false);
+                    gameManager.instance.AbilitiesBackground.SetActive(false);
+
                     gameManager.instance.playerCamera.SetActive(false);
 
                     anim.SetTrigger("Talk");
@@ -255,6 +261,11 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.enemiesRemainingText.enabled = true;
         gameManager.instance.crosshair.SetActive(true);
         gameManager.instance.cam2.transform.GetChild(1).gameObject.SetActive(false);
+        gameManager.instance.AbilityOne.SetActive(true);
+        gameManager.instance.AbilityTwo.SetActive(true);
+        gameManager.instance.AbilityThree.SetActive(true);
+        gameManager.instance.AbilityFour.SetActive(true);
+        gameManager.instance.AbilitiesBackground.SetActive(true);
         gameManager.instance.unPause();
         gameManager.instance.playerScript.canShoot = true;
         

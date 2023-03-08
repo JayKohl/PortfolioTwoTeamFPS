@@ -257,8 +257,10 @@ public class enemyThirdBoss : enemyAI
     }
     IEnumerator deathDestroy()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(15f);
         Destroy(gameObject);
+        gameManager.instance.boss3Dead = true;
+        gameManager.instance.updateGameGoalLvl3(0);
     }
     IEnumerator onDamageFX()
     {

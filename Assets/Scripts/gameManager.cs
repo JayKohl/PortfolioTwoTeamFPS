@@ -213,13 +213,17 @@ public class gameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         pause();
-        SceneManager.LoadScene("Part3Scene");
-        //activeMenu = winMenu;
-        //activeMenu.SetActive(true);
+        SceneManager.LoadScene("Part3Scene");        
     }
     public void updateGameGoalLvl3(int amount)
     {
         enemiesRemaining += amount;
+        if(boss3Dead)
+        {
+            pause();
+            activeMenu = winMenu;
+            activeMenu.SetActive(true);
+        }
     }
     public void playerDead()
     {
