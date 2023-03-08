@@ -28,7 +28,7 @@ public class Objectivepoint : MonoBehaviour
                 pos.x = minX;
             }
         }
-            )))
+            
         pos.x = Mathf.Clamp(pos.x, minX, manX);
         pos.y = Mathf.Clamp(pos.y, minX, manX);
         locator.transform.position = pos;
