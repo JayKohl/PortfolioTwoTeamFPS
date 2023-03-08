@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &518211863500947405
+--- !u!1 &6347656984339477204
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6277908543435002240}
-  - component: {fileID: 8690978669825008708}
-  - component: {fileID: 448854230338285213}
-  - component: {fileID: 5172003812943487528}
+  - component: {fileID: 592779815922982041}
+  - component: {fileID: 2862857357772433757}
+  - component: {fileID: 1792644326451277617}
+  - component: {fileID: 410860773232157959}
   m_Layer: 0
   m_Name: Arrived_ Traitor's Cave
   m_TagString: Untagged
@@ -19,52 +19,52 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6277908543435002240
+--- !u!4 &592779815922982041
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 518211863500947405}
+  m_GameObject: {fileID: 6347656984339477204}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.2172875, y: 0.08728191, z: 13.855722}
+  m_LocalPosition: {x: -56.74, y: 0.03623581, z: -6.614603}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8690978669825008708
+--- !u!33 &2862857357772433757
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 518211863500947405}
+  m_GameObject: {fileID: 6347656984339477204}
   m_Mesh: {fileID: 4300000, guid: 560f1caa2c38a3244b43e6e52d7b52cb, type: 3}
---- !u!114 &448854230338285213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 518211863500947405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86f583b0c52a1ff4baadec16844b667f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  texture: {fileID: 11400000, guid: f32811dcd9b56254f82208791cebc9a5, type: 2}
---- !u!135 &5172003812943487528
+--- !u!135 &1792644326451277617
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 518211863500947405}
+  m_GameObject: {fileID: 6347656984339477204}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 8.087549
   m_Center: {x: 0, y: -0.12549248, z: 0}
+--- !u!114 &410860773232157959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6347656984339477204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f5d941c197b64946875c9dfe255569f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texture: {fileID: 0}
