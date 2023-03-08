@@ -37,16 +37,16 @@ public class sentryGun : MonoBehaviour
         }
     }
     public void OnTriggerEnter(Collider other)
-    {        
-        if (other.CompareTag("Enemy"))
+    {
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
         {
             target = other.gameObject;
             isEnemyInRange = true;
         }
     }
     public bool canSeeEnemy()
-    {        
-        enemyDirection = (target.transform.position - transform.position).normalized;
+    {
+        enemyDirection = (target.transform.position - headPos.position).normalized;
         angleToEnemy = Vector3.Angle(new Vector3(enemyDirection.x, 0, enemyDirection.z), transform.forward);
 
         Debug.DrawRay(headPos.position, enemyDirection);
@@ -92,9 +92,9 @@ public class sentryGun : MonoBehaviour
         {
             isShooting = true;
 
-            GameObject bulletClone = Instantiate(bullet, transform.position, bullet.transform.rotation);
+            GameObject bulletClone = Instantiate(bullet, headPos.position, bullet.transform.rotation);
             //aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
-            Vector3 shootingVector = (gameManager.instance.player.transform.position - transform.position).normalized;
+            Vector3 shootingVector = (target.transform.position - headPos.position).normalized;
             bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
 
             yield return new WaitForSeconds(shootRate);
