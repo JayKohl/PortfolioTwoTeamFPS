@@ -227,12 +227,12 @@ public class gameManager : MonoBehaviour
         activeMenu = loseMenu;
         activeMenu.SetActive(true);
     }
-    public IEnumerator checkPointDisplay(notifications textureDisp)
+    public IEnumerator notificationDisplay(notifications textureDisp)
     {
         crosshair.SetActive(false);
         quickTexts.GetComponent<Image>().sprite = textureDisp.textureToDisplay;
         quickTexts.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         quickTexts.SetActive(false);
         crosshair.SetActive(true);
     }
