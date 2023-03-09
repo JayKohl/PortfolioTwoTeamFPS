@@ -147,8 +147,8 @@ public class townNPC : MonoBehaviour
                         orgPos = transform;
                         anim.SetTrigger("Talk");
 
-                        gameManager.instance.displayNpcText("Our patrol unit was expected back in town three hours ago... I fear what may have happend. " +
-                                 "We know of an encampment just past Crab Wood Forest. Please see if you can find them, there are not many of us remaining."); 
+                        gameManager.instance.displayNpcText("Our patrol was expected back in town three hours ago... I fear what may have happened. " +
+                            "We know of an encampment just past Crab Wood Forest. Please see if you can find them, there are not many of us remaining."); 
                         StartCoroutine(gameManager.instance.deleteTextNpc(12f));
 
                         gameManager.instance.infoText.text = "Find Missing Patrol";

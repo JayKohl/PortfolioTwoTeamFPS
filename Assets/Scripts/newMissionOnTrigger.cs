@@ -8,7 +8,10 @@ public class newMissionOnTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        gameManager.instance.infoText.text = "Patrol Not Found Proceed to Neighboring Crater";
-        gameManager.instance.infoTextBackground.SetActive(true);
+        if (other.CompareTag("Player"))
+        {
+            gameManager.instance.infoText.text = "Patrol Not Found \n Proceed to Neighboring Crater";
+            gameManager.instance.infoTextBackground.SetActive(true);
+        }
     }
 }
