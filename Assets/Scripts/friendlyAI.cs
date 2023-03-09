@@ -243,10 +243,10 @@ public class friendlyAI : MonoBehaviour
     IEnumerator doorOne()
     {       
         gameManager.instance.cam2.GetComponentInChildren<secondCamera>().openDoorOne();
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(1.5f);
 
         gameManager.instance.cam2.GetComponentInChildren<secondCamera>().doorOne.SetActive(false);
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(1.5f);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         transform.position = orgPos.position;
@@ -287,9 +287,9 @@ public class friendlyAI : MonoBehaviour
         Time.timeScale = 0;
 
         gameManager.instance.cam2.GetComponentInChildren<secondCamera>().openDoorTwo();
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(1.5f);
         gameManager.instance.cam2.GetComponentInChildren<secondCamera>().doorTwo.SetActive(false);
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(1.5f);
         gameManager.instance.playerScript.controller.enabled = true;
         gameManager.instance.playerCamera.SetActive(true);
         gameManager.instance.cam2.SetActive(false);
