@@ -19,7 +19,7 @@ public class lvl3bossTriggerEvent : MonoBehaviour
             {
                 playerIn = true;
                 laserField.SetActive(true);
-                gameManager.instance.infoText.text = "Kill the alien horde's energy source.";//"<s>Get to the flight deck</s>"+"\nKill the radiated bug";
+                gameManager.instance.infoText.text = "Kill the alien horde's energy source.";
                 gameManager.instance.infoTextBackground.SetActive(true);
             }
         }
