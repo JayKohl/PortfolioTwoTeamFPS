@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 
 public class notificationEntry : MonoBehaviour
@@ -18,6 +21,12 @@ public class notificationEntry : MonoBehaviour
             playerIn = true;
             StartCoroutine(gameManager.instance.notificationDisplay(texture));
             gameManager.instance.playerSpawnPosition.transform.position = transform.position;
+            StartCoroutine(delete());
         }
+    }
+    IEnumerator delete()
+    {
+        yield return new WaitForSeconds(2);
+        Destroy(gameObject);
     }
 }
