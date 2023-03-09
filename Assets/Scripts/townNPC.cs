@@ -9,13 +9,8 @@ public class townNPC : MonoBehaviour
     [SerializeField] Renderer model;
     public NavMeshAgent agent;
     [SerializeField] Animator anim;
-    [SerializeField] Transform moveToTerminal;
-    [SerializeField] public GameObject doorToBoss;
-    [SerializeField] Transform playerTransportPos;
     [SerializeField] Transform npcTransportPos;
     [SerializeField] bool hasQuestToGive;
-
-    [SerializeField] public GameObject doorOutOfCell;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -27,7 +22,6 @@ public class townNPC : MonoBehaviour
 
 
     public Transform orgPos;
-    bool isDoorOpen;
     bool isGivenQuest;
     bool isPlayerInRange;
     bool isTalking;
@@ -46,7 +40,6 @@ public class townNPC : MonoBehaviour
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
-        isDoorOpen = false;
 
     }
 
@@ -140,7 +133,7 @@ public class townNPC : MonoBehaviour
                 {
                     facePlayer();
                 }
-                if (hasQuestToGive = true)
+                if (hasQuestToGive == true)
                 {
 
                     if (!isGivenQuest)
