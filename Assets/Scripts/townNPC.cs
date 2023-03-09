@@ -32,6 +32,9 @@ public class townNPC : MonoBehaviour
     float stoppingDistOrig;
     float speedOrig;
 
+    [SerializeField] bool questOne;
+    [SerializeField] bool questTwo;
+
 
     // Start is called before the first frame update
     void Start()
@@ -135,6 +138,8 @@ public class townNPC : MonoBehaviour
                 }
                 if (hasQuestToGive == true)
                 {
+                    if (questOne)
+                    {
 
                     if (!isGivenQuest)
                     {
@@ -143,10 +148,29 @@ public class townNPC : MonoBehaviour
                         anim.SetTrigger("Talk");
 
                         gameManager.instance.displayNpcText("Our patrol unit was expected back in town three hours ago... I fear what may have happend. " +
-                                 "We know of a encampment just past Crab Wood Forest. Please see if you can find them, there are not many of us remaining.");
-                        gameManager.instance.playerScript.updateGoals("Find Missing Patrol");
+                                 "We know of an encampment just past Crab Wood Forest. Please see if you can find them, there are not many of us remaining."); 
+                        StartCoroutine(gameManager.instance.deleteTextNpc(12f));
+
+                        gameManager.instance.infoText.text = "Find Missing Patrol";
+                        gameManager.instance.infoTextBackground.SetActive(true);
+
                         hasQuestToGive = false;
-                        gameManager.instance.deleteTextNpc(1f);
+                    }
+                    }
+                    else if (questTwo)
+                    {
+                        isTalking = true;
+                        orgPos = transform;
+                        anim.SetTrigger("Talk");
+
+                        gameManager.instance.displayNpcText("That complex over there seems to have risen over night. They ambushed us and traped us in these cages. " +
+                                                                                         "Maybe there is a terminal inside the complex. Please find a way to free us");
+                        StartCoroutine(gameManager.instance.deleteTextNpc(12f));
+
+                        gameManager.instance.infoText.text = "Investigate The Enemy Complex";
+                        gameManager.instance.infoTextBackground.SetActive(true);
+
+                        hasQuestToGive = false;
                     }
                 }
                 return true;

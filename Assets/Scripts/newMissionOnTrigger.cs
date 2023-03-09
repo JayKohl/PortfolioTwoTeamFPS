@@ -8,6 +8,7 @@ public class newMissionOnTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        gameManager.instance.playerScript.updateGoals(newGoal);
+        gameManager.instance.infoText.text = "Patrol Not Found Proceed to Neighboring Crater";
+        gameManager.instance.infoTextBackground.SetActive(true);
     }
 }
