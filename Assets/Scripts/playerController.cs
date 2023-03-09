@@ -417,6 +417,14 @@ public class playerController : MonoBehaviour
     }
     public void weaponPickup(weaponStats weaponStat)
     {
+        for (int i = 0; i < weaponList.Count; i++)
+        {
+            if (weaponStat == weaponList[i])
+            {
+                aud.PlayOneShot(weaponPickupSound, weaponPickupVol);
+                return;
+            }
+        }
         aud.PlayOneShot(weaponPickupSound, weaponPickupVol);
         weaponList.Add(weaponStat);
         

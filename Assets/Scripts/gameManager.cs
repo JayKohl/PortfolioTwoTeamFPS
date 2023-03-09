@@ -262,10 +262,10 @@ public class gameManager : MonoBehaviour
     public void displayNpcText(string textToDisplay)
     {
         npcChat.SetText(textToDisplay);
-        //playerChatBackground.SetActive(true);
+        playerChatBackground.SetActive(true);
     }
 
-    IEnumerator deleteText(float banishTime)
+    public IEnumerator deleteText(float banishTime)
     {
         yield return new WaitForSeconds(banishTime);
         gameManager.instance.infoText.SetText(" ");
