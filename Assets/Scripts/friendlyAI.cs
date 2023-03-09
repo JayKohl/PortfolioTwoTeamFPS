@@ -193,7 +193,7 @@ public class friendlyAI : MonoBehaviour
                     gameManager.instance.playerCamera.SetActive(false);
 
                     anim.SetTrigger("Talk");
-                    gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. \n\n" +
+                    gameManager.instance.displayNpcText("Listen, we don't have much time. They have brought you here to be a combatant in the arena. \n\n" +
                                                         "If by chance you can survive I will help you escape. Now go away before anyone notices us talking.");
 
 
