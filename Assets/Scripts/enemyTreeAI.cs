@@ -39,20 +39,6 @@ public class enemyTreeAI : enemyAI
                 canSeePlayer();
             }
         }
-        //else if (isFirstTime == false)
-        //{
-        //    if (canSeePlayer())
-        //    {
-        //        //anim.SetBool("IsNotInGround", true);
-        //        //anim.SetTrigger("Idle");
-        //        // first attack
-        //    }
-        //    else if (!canSeePlayer() && isPlayerInRange)
-        //    {
-        //        //anim.SetTrigger("Idle");
-        //        // round attack
-        //    }
-        //}
     }
     IEnumerator sprout()
     {
