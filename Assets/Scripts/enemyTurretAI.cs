@@ -136,6 +136,7 @@ public class enemyTurretAI : enemyAI
         StartCoroutine(flashDamage());
         if (hitPoints <= 0)
         {
+            gameManager.instance.lvlscript.GainExperiance(xp);
             if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
             {
                 gameManager.instance.updateGameGoalLvl3(-1);

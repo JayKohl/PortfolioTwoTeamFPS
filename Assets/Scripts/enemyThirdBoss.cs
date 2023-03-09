@@ -198,6 +198,7 @@ public class enemyThirdBoss : enemyAI
         hitPoints -= dmg;
         if (hitPoints <= 0)
         {
+            gameManager.instance.lvlscript.GainExperiance(xp);
             GetComponent<Collider>().enabled = false;
             //GetComponentInChildren<Canvas>().enabled = false;
             //aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);

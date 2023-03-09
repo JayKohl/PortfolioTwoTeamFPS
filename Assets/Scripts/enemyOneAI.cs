@@ -73,6 +73,7 @@ public class enemyOneAI : enemyAI
         }
         if (hitPoints <= 0)
         {
+            gameManager.instance.lvlscript.GainExperiance(xp);
             if (setOnFire)
             {
                 model.material.color = Color.black;
