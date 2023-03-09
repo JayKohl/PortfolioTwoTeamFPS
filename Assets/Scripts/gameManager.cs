@@ -112,7 +112,8 @@ public class gameManager : MonoBehaviour
         lvlbuttons = player.GetComponent<LVLButtons>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
-        npcChat = GameObject.FindGameObjectWithTag("NPCChat").GetComponentInChildren<TextMeshProUGUI>();
+        //npcChat = GameObject.FindGameObjectWithTag("NPCChat").GetComponentInChildren<TextMeshProUGUI>();
+
         //cam2 = GameObject.FindGameObjectWithTag("Camera2");
 
         ability = playerScript.abilityOneActive;
