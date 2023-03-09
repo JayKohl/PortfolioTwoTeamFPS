@@ -171,7 +171,7 @@ public class enemyBossAI : enemyAI
         yield return new WaitForSeconds(1);
         takeDamage(1);
         yield return new WaitForSeconds(1);
-        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().abilityDamageUp)
+        if (gameManager.instance.lvlbuttons.abilityDamageUp)
         {
             takeDamage(3);
         }
@@ -185,7 +185,7 @@ public class enemyBossAI : enemyAI
         yield return new WaitForSeconds(1);
         takeDamage(1);
         yield return new WaitForSeconds(6);
-        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().abilityDamageUp)
+        if (gameManager.instance.lvlbuttons.abilityDamageUp)
         {
             takeDamage(2);
         }

@@ -154,7 +154,7 @@ public class enemyShredder : enemyAI
         yield return new WaitForSeconds(1);
         takeDamage(1);
         yield return new WaitForSeconds(2);
-        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().abilityDamageUp)
+        if (gameManager.instance.lvlbuttons.abilityDamageUp)
         {
             takeDamage(3);
         }
@@ -169,7 +169,10 @@ public class enemyShredder : enemyAI
         yield return new WaitForSeconds(1);
         takeDamage(1);
         yield return new WaitForSeconds(6);
-        takeDamage(2);
+        if (gameManager.instance.lvlbuttons.abilityDamageUp)
+        {
+            takeDamage(2);
+        }
         iceEffect.SetActive(false);
         chilled = false;
     }
