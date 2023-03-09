@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ExplosionBarrel : MonoBehaviour, IDamage
 {
+    [SerializeField] Renderer model;
     [SerializeField] AudioSource aud;    
     [SerializeField] GameObject BarrelExplosion;
     [Range(1, 5)] [SerializeField] int HP;
@@ -31,8 +32,8 @@ public class ExplosionBarrel : MonoBehaviour, IDamage
 
     IEnumerator flashBreakDamage()
     {
-        gameObject.GetComponent<Material>().color = Color.white;
+        model.GetComponent<Material>().color = Color.white;
         yield return new WaitForSeconds(0.15f);
-        gameObject.GetComponent<Material>().color = Color.white;
+        model.GetComponent<Material>().color = Color.white;
     }
 }
