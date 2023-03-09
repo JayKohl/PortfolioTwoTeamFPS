@@ -140,15 +140,6 @@ public class townNPC : MonoBehaviour
                     {
                         isTalking = true;
                         orgPos = transform;
-                        Cursor.visible = true;
-                        Cursor.lockState = CursorLockMode.Confined;
-                        transform.position = npcTransportPos.position;
-                        transform.localRotation = npcTransportPos.localRotation;
-                        gameManager.instance.playerScript.controller.enabled = false;
-                        gameManager.instance.cam2.SetActive(true);
-
-                        gameManager.instance.playerCamera.SetActive(false);
-
                         anim.SetTrigger("Talk");
                         gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. \n\n" +
                                                             "If by chance you can survive I will help you escape. Now go away before anyone notices us talking.");
