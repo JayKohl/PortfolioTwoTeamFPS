@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LVLButtons : MonoBehaviour
 {
-    
+
     [SerializeField] public GameObject healthcover;
     [SerializeField] public GameObject speedcover;
     [SerializeField] public GameObject damagecover;
@@ -19,6 +19,7 @@ public class LVLButtons : MonoBehaviour
     [SerializeField] public GameObject errorText;
     [SerializeField] public int tokensum;
     [SerializeField] public bool coolDownReduced = false;
+    [SerializeField] public bool abilityDamageUp = false;
     
 
 
@@ -108,7 +109,7 @@ public class LVLButtons : MonoBehaviour
     {
         if ((tokensum - 5) >= 0)
         {
-
+            abilityDamageUp = true;
             abilitycover.SetActive(true);
             gameManager.instance.lvlscript.DecrementTokens(5);
         }
