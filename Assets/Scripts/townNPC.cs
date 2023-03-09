@@ -144,6 +144,7 @@ public class townNPC : MonoBehaviour
 
                         gameManager.instance.displayNpcText("Hello I have a quest for you.");
                         gameManager.instance.playerScript.updateGoals("New Quest");
+                        hasQuestToGive = false;
                     }
                 }
                 return true;
