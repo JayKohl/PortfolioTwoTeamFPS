@@ -13,6 +13,10 @@ public class explosionGrenade : MonoBehaviour
 
     void Start()
     {
+        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().abilityDamageUp)
+        {
+            grenadeDamage += 3;
+        }
         StartCoroutine(timer(time));
     }
     void OnTriggerEnter(Collider other)

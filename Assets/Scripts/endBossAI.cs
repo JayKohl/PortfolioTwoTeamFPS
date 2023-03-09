@@ -349,7 +349,11 @@ public class endBossAI : enemyAI
         yield return new WaitForSeconds(1);
         takeDamage(1);
         yield return new WaitForSeconds(2);
-        fireEffect.SetActive(false);
+        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().abilityDamageUp)
+        {
+            takeDamage(3);
+        }
+            fireEffect.SetActive(false);
         setOnFire = false;
     }
     IEnumerator iced()
@@ -360,7 +364,11 @@ public class endBossAI : enemyAI
         yield return new WaitForSeconds(1);
         takeDamage(1);
         yield return new WaitForSeconds(6);
-        iceEffect.SetActive(false);
+        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().abilityDamageUp)
+        {
+            takeDamage(2);
+        }
+            iceEffect.SetActive(false);
         chilled = false;
     }
 }

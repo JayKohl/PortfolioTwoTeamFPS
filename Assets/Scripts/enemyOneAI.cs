@@ -134,7 +134,11 @@ public class enemyOneAI : enemyAI
         takeDamage(1);
         yield return new WaitForSeconds(1);
         takeDamage(1);
-        yield return new WaitForSeconds(2);
+        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().abilityDamageUp)
+        {
+            takeDamage(3);
+        }
+            yield return new WaitForSeconds(2);
         fireEffect.SetActive(false);
         setOnFire = false;
     }
@@ -146,6 +150,10 @@ public class enemyOneAI : enemyAI
         yield return new WaitForSeconds(1);
         takeDamage(1);
         yield return new WaitForSeconds(6);
+        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().abilityDamageUp)
+        {
+            takeDamage(2);
+        }
         iceEffect.SetActive(false);
         chilled = false;
     }

@@ -184,7 +184,11 @@ public class enemyTurretAI : enemyAI
         takeDamage(1);
         yield return new WaitForSeconds(1);
         takeDamage(1);
-        setOnFire = false;
+        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().abilityDamageUp)
+        {
+            takeDamage(3);
+        }
+            setOnFire = false;
     }
     IEnumerator iced()
     {
@@ -193,7 +197,11 @@ public class enemyTurretAI : enemyAI
         takeDamage(1);
         yield return new WaitForSeconds(1);
         takeDamage(1);
-        yield return new WaitForSeconds(6);
+        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().abilityDamageUp)
+        {
+            takeDamage(2);
+        }
+            yield return new WaitForSeconds(6);
         iceEffect.SetActive(false);
         chilled = false;
     }
