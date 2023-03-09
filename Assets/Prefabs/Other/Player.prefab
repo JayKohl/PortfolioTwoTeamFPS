@@ -426,6 +426,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 868414252815463532}
+  - component: {fileID: 7056010175192842770}
   - component: {fileID: 6551918312896228884}
   - component: {fileID: 7508967223444994235}
   - component: {fileID: 6551918312896228886}
@@ -474,6 +475,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7056010175192842770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524364267517112022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ce04a5fdf1e244c9a490ae920ffd63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthcover: {fileID: 0}
+  speedcover: {fileID: 0}
+  damagecover: {fileID: 0}
+  jumpcover: {fileID: 0}
+  defensecover: {fileID: 0}
+  abilitycover: {fileID: 0}
+  XPcover: {fileID: 0}
+  cooldowncover: {fileID: 0}
+  errorText: {fileID: 0}
+  tokensum: 0
+  coolDownReduced: 0
+  abilityDamageUp: 0
 --- !u!114 &6551918312896228884
 MonoBehaviour:
   m_ObjectHideFlags: 0

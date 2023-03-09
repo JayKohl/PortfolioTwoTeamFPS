@@ -17,7 +17,7 @@ public class explosionGrenade : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().abilityDamageUp)
+        if (gameManager.instance.lvlbuttons.abilityDamageUp)
         {
             grenadeDamage += 3;
         }

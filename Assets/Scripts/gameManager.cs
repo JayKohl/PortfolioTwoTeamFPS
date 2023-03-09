@@ -127,7 +127,6 @@ public class gameManager : MonoBehaviour
         AbilityFourS.cooldownTime = 12f;
         minimap = GameObject.FindGameObjectWithTag("Minimap");
 
-
     }
     void Update()
     {

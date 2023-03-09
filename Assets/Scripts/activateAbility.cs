@@ -90,9 +90,10 @@ public class activateAbility : MonoBehaviour
                 {
                     if (stats.abilityImage == abilityTexture)
                     {
-                        gameManager.instance.AbilityOneS.wasSpellUsed();                        
-                        if(gameManager.instance.lvlMenu.GetComponent<LVLButtons>().coolDownReduced)
+                        gameManager.instance.AbilityOneS.wasSpellUsed();
+                        if (gameManager.instance.lvlbuttons.coolDownReduced)
                         {
+                            cooldownTime = stats.cooldownTime;
                             cooldownTime -= 3;
                         }
                         gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
@@ -120,8 +121,9 @@ public class activateAbility : MonoBehaviour
                     if (stats.abilityImage == abilityTexture)
                     {
                         gameManager.instance.AbilityTwoS.wasSpellUsed();
-                        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().coolDownReduced)
+                        if (gameManager.instance.lvlbuttons.coolDownReduced)
                         {
+                            cooldownTime = stats.cooldownTime;
                             cooldownTime -= 3;
                         }
                         gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
@@ -149,8 +151,9 @@ public class activateAbility : MonoBehaviour
                     if (stats.abilityImage == abilityTexture)
                     {
                         gameManager.instance.AbilityThreeS.wasSpellUsed();
-                        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().coolDownReduced)
+                        if (gameManager.instance.lvlbuttons.coolDownReduced)
                         {
+                            cooldownTime = stats.cooldownTime;
                             cooldownTime -= 3;
                         }
                         gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
@@ -178,8 +181,9 @@ public class activateAbility : MonoBehaviour
                     if (stats.abilityImage == abilityTexture)
                     {
                         gameManager.instance.AbilityFourS.wasSpellUsed();
-                        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().coolDownReduced)
+                        if (gameManager.instance.lvlbuttons.coolDownReduced)
                         {
+                            cooldownTime = stats.cooldownTime;
                             cooldownTime -= 3;
                         }
                         gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
