@@ -311,7 +311,8 @@ public class endBossAI : enemyAI
         updateEnemyHPBar();
         if (hitPoints <= 0)
         {
-            
+            gameManager.instance.lvlscript.GainExperiance(xp);
+
             GetComponent<Collider>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
             gameManager.instance.endGameTrigger.GetComponent<endGame>().endGameColliderOn();
