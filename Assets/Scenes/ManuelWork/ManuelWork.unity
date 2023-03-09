@@ -4237,6 +4237,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1285192957, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_TagString
+      value: NPCChat
+      objectReference: {fileID: 0}
+    - target: {fileID: 1285192959, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1285192959, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 3657433087
+      objectReference: {fileID: 0}
+    - target: {fileID: 1799032857, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1799032858, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2121341315, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173593395911192685, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031378615518569575, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6111150019729176776, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
       propertyPath: m_Name
       value: UI
@@ -4338,11 +4370,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1291700156}
     - target: {fileID: 6111150021040916087, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: npcChat
+      value: 
+      objectReference: {fileID: 2131254347045424269}
+    - target: {fileID: 6111150021040916087, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 1181827056}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+--- !u!114 &2131254347045424269 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1285192959, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+  m_PrefabInstance: {fileID: 2131254347045424268}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2153171771032794252
 PrefabInstance:
   m_ObjectHideFlags: 0

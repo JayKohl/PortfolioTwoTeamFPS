@@ -35,6 +35,7 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI infoText;
 
     public TextMeshProUGUI npcChat;
+    public TextMeshProUGUI npcChat2;
     public GameObject playerChatBackground;
     [SerializeField] public GameObject abilityHub;
     [SerializeField] public GameObject abilityDisplay;
@@ -112,7 +113,8 @@ public class gameManager : MonoBehaviour
         lvlbuttons = player.GetComponent<LVLButtons>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
-        npcChat = GameObject.FindGameObjectWithTag("NPCChat").GetComponentInChildren<TextMeshProUGUI>();
+        npcChat2 = GameObject.FindGameObjectWithTag("NPCChat").GetComponentInChildren<TextMeshProUGUI>();
+
         //cam2 = GameObject.FindGameObjectWithTag("Camera2");
 
         ability = playerScript.abilityOneActive;
@@ -154,18 +156,16 @@ public class gameManager : MonoBehaviour
 
     public void pause()
     {
-        minimap.SetActive(false);
-        abilityHub.GetComponent<activateAbility>().inventoryScreenOn = false;
+        /*abilityHub.GetComponent<activateAbility>().inventoryScreenOn = false;
         inventory.SetActive(false);
         inventoryMessageBox.SetActive(false);
-        lvlMenu.SetActive(false);
+        lvlMenu.SetActive(false);*/
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
     }
     public void unPause()
     {
-        minimap.SetActive(true);
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -262,10 +262,15 @@ public class gameManager : MonoBehaviour
     public void displayNpcText(string textToDisplay)
     {
         npcChat.SetText(textToDisplay);
-        //playerChatBackground.SetActive(true);
+        playerChatBackground.SetActive(true);
+    }
+    public void displayNpcCinematic(string textToDisplay)
+    {
+        npcChat2.SetText(textToDisplay);
+        playerChatBackground.SetActive(false);
     }
 
-    IEnumerator deleteText(float banishTime)
+    public IEnumerator deleteText(float banishTime)
     {
         yield return new WaitForSeconds(banishTime);
         gameManager.instance.infoText.SetText(" ");
