@@ -154,7 +154,6 @@ public class gameManager : MonoBehaviour
 
     public void pause()
     {
-        minimap.SetActive(false);
         abilityHub.GetComponent<activateAbility>().inventoryScreenOn = false;
         inventory.SetActive(false);
         inventoryMessageBox.SetActive(false);
@@ -165,7 +164,6 @@ public class gameManager : MonoBehaviour
     }
     public void unPause()
     {
-        minimap.SetActive(true);
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
