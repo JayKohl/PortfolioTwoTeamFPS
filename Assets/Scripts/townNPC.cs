@@ -142,9 +142,11 @@ public class townNPC : MonoBehaviour
                         orgPos = transform;
                         anim.SetTrigger("Talk");
 
-                        gameManager.instance.displayNpcText("Hello I have a quest for you.");
-                        gameManager.instance.playerScript.updateGoals("New Quest");
+                        gameManager.instance.displayNpcText("Our patrol unit was expected back in town three hours ago... I fear what may have happend. " +
+                                 "We know of a encampment just past Crab Wood Forest. Please see if you can find them, there are not many of us remaining.");
+                        gameManager.instance.playerScript.updateGoals("Find Missing Patrol");
                         hasQuestToGive = false;
+                        gameManager.instance.deleteTextNpc(1f);
                     }
                 }
                 return true;
