@@ -42,8 +42,8 @@ public class LevelSystem : MonoBehaviour
     {
         UpdateXPBar();
         tokentext.text = tokenAmount.ToString("F0");
-        if (Input.GetKeyDown(KeyCode.Equals))
-            GainExperiance(120);
+        //if (Input.GetKeyDown(KeyCode.Equals))
+        //    GainExperiance(120);
         if (currentXP > NeededXP)
             LevelUp();
         if (Input.GetKeyDown("tab"))
