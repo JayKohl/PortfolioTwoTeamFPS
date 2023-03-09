@@ -528,7 +528,7 @@ public class playerController : MonoBehaviour
 
     public void zoomCamera()
     {
-        if (!gameManager.instance.cam2.GetComponentInChildren<Camera>().enabled)
+        if (gameManager.instance.cam2.GetComponentInChildren<Camera>().enabled)
         {
             if (weaponList.Count > 0)
             {
