@@ -141,18 +141,9 @@ public class townNPC : MonoBehaviour
                         isTalking = true;
                         orgPos = transform;
                         anim.SetTrigger("Talk");
-                        gameManager.instance.displayNpcText("Listen, we do not have much time. They have brought you here to be a combatant in the arena. \n\n" +
-                                                            "If by chance you can survive I will help you escape. Now go away before anyone notices us talking.");
 
-
-
-                        gameManager.instance.playerScript.minimap.SetActive(false);
-                        gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(false);
-                        gameManager.instance.enemiesRemainingObject.SetActive(false);
-                        gameManager.instance.enemiesRemainingText.enabled = false;
-                        gameManager.instance.crosshair.SetActive(false);
-                        gameManager.instance.playerScript.canShoot = false;
-                        gameManager.instance.pause();
+                        gameManager.instance.displayNpcText("Hello I have a quest for you.");
+                        gameManager.instance.playerScript.updateGoals("New Quest");
                     }
                 }
                 return true;
