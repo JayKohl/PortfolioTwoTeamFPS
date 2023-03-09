@@ -163,8 +163,8 @@ public class townNPC : MonoBehaviour
                         orgPos = transform;
                         anim.SetTrigger("Talk");
 
-                        gameManager.instance.displayNpcText("That complex over there seems to have risen over night. They ambushed us and traped us in these cages. " +
-                                                                                         "Maybe there is a terminal inside the complex. Please find a way to free us");
+                        gameManager.instance.displayNpcText("That complex over there seems to have risen over night. They ambushed us and trapped us " +
+                            "in these cages. Maybe there is a terminal inside the complex. Please find a way to free us.");
                         StartCoroutine(gameManager.instance.deleteTextNpc(12f));
 
                         gameManager.instance.infoText.text = "Investigate The Enemy Complex";
