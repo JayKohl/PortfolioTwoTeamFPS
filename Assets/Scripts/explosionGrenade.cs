@@ -12,15 +12,15 @@ public class explosionGrenade : MonoBehaviour
     [Range(0, 1)] [SerializeField] float explosionVol;
 
     void Start()
+    {        
+        StartCoroutine(timer(time));
+    }
+    void OnTriggerEnter(Collider other)
     {
         if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().abilityDamageUp)
         {
             grenadeDamage += 3;
         }
-        StartCoroutine(timer(time));
-    }
-    void OnTriggerEnter(Collider other)
-    {
         if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
         {
             other.gameObject.GetComponent<enemyAI>().takeDamage(grenadeDamage);

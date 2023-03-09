@@ -26,7 +26,7 @@ public class notificationEntry : MonoBehaviour
     }
     IEnumerator delete()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(10);
         Destroy(gameObject);
     }
 }
