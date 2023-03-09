@@ -14,7 +14,7 @@ public class activateAbility : MonoBehaviour
     AudioClip abilityAudio;
     float abilityAudioVol;
     Sprite abilityInfo;
-    string abilityName;
+    string abilityName;    
 
     GameObject abilityOne;
     GameObject abilityTwo;
@@ -90,7 +90,11 @@ public class activateAbility : MonoBehaviour
                 {
                     if (stats.abilityImage == abilityTexture)
                     {
-                        gameManager.instance.AbilityOneS.wasSpellUsed();
+                        gameManager.instance.AbilityOneS.wasSpellUsed();                        
+                        if(gameManager.instance.lvlMenu.GetComponent<LVLButtons>().coolDownReduced)
+                        {
+                            cooldownTime -= 3;
+                        }
                         gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
                     }
                 }
@@ -116,7 +120,11 @@ public class activateAbility : MonoBehaviour
                     if (stats.abilityImage == abilityTexture)
                     {
                         gameManager.instance.AbilityTwoS.wasSpellUsed();
-                        gameManager.instance.AbilityTwoS.coolDownStart(stats.cooldownTime);
+                        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().coolDownReduced)
+                        {
+                            cooldownTime -= 3;
+                        }
+                        gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
                     }
                 }
             }
@@ -141,7 +149,11 @@ public class activateAbility : MonoBehaviour
                     if (stats.abilityImage == abilityTexture)
                     {
                         gameManager.instance.AbilityThreeS.wasSpellUsed();
-                        gameManager.instance.AbilityThreeS.coolDownStart(stats.cooldownTime);
+                        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().coolDownReduced)
+                        {
+                            cooldownTime -= 3;
+                        }
+                        gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
                     }
                 }
             }
@@ -166,7 +178,11 @@ public class activateAbility : MonoBehaviour
                     if (stats.abilityImage == abilityTexture)
                     {
                         gameManager.instance.AbilityFourS.wasSpellUsed();
-                        gameManager.instance.AbilityFourS.coolDownStart(stats.cooldownTime);
+                        if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().coolDownReduced)
+                        {
+                            cooldownTime -= 3;
+                        }
+                        gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
                     }
                 }
             }
