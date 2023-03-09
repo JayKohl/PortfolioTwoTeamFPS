@@ -130,7 +130,14 @@ public class sentryGun : MonoBehaviour
             muzzleFlash.GetComponent<ParticleSystem>().Play();
             isShooting = true;
 
-            target.GetComponent<enemyAI>().takeDamage(1);
+            if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().abilityDamageUp)
+            {
+                target.GetComponent<enemyAI>().takeDamage(4);
+            }
+            else
+            {
+                target.GetComponent<enemyAI>().takeDamage(1);
+            }
             //GameObject bulletClone = Instantiate(bullet, headPos.position, bullet.transform.rotation);
             aud.PlayOneShot(audBasicAttack, audBasicAttackVol);
             Vector3 shootingVector = (target.transform.position - headPos.position).normalized;
