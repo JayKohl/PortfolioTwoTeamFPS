@@ -122,6 +122,8 @@ public class enemyBossAI : enemyAI
         }
         if (hitPoints <= 0)
         {
+            gameManager.instance.lvlscript.GainExperiance(xp);
+
             gameManager.instance.bossDead = true;
             GetComponent<Collider>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;

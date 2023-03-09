@@ -15,7 +15,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     [SerializeField] protected AudioSource aud;
 
     [Header("----- Enemy Stats -----")]
-    [SerializeField] public int xp;
+    [SerializeField] public float xp;
     [SerializeField] protected float playerYOffset;
     [SerializeField] protected Transform headPos;
     [SerializeField] public int hitPoints;
@@ -126,6 +126,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         hitPoints -= dmg;
         if (hitPoints <= 0)
         {
+            gameManager.instance.lvlscript.GainExperiance(xp);
             if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
             {
                 gameManager.instance.updateGameGoalLvl3(-1);
