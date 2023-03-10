@@ -126,7 +126,7 @@ public class activateAbility : MonoBehaviour
                             cooldownTime = stats.cooldownTime;
                             cooldownTime -= 3;
                         }
-                        gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
+                        gameManager.instance.AbilityTwoS.coolDownStart(stats.cooldownTime);
                     }
                 }
             }
@@ -156,7 +156,7 @@ public class activateAbility : MonoBehaviour
                             cooldownTime = stats.cooldownTime;
                             cooldownTime -= 3;
                         }
-                        gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
+                        gameManager.instance.AbilityThreeS.coolDownStart(stats.cooldownTime);
                     }
                 }
             }
@@ -186,7 +186,7 @@ public class activateAbility : MonoBehaviour
                             cooldownTime = stats.cooldownTime;
                             cooldownTime -= 3;
                         }
-                        gameManager.instance.AbilityOneS.coolDownStart(stats.cooldownTime);
+                        gameManager.instance.AbilityFourS.coolDownStart(stats.cooldownTime);
                     }
                 }
             }
@@ -237,6 +237,7 @@ public class activateAbility : MonoBehaviour
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
                     aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    gameManager.instance.playerScript.weaponModel.GetComponent<MeshRenderer>().enabled = false;
                     StartCoroutine(abilityCoolFire(3));
                 }
                 else if (stats.abilityName == "Ice")
@@ -402,6 +403,7 @@ public class activateAbility : MonoBehaviour
         yield return new WaitForSeconds(cooldown);
         gameManager.instance.playerScript.fireOnPlayer.SetActive(false);
         gameManager.instance.playerScript.fireOn = false;
+        gameManager.instance.playerScript.weaponModel.GetComponent<MeshRenderer>().enabled = true;
     }
     public IEnumerator abilityCoolIce(float cooldown)
     {
