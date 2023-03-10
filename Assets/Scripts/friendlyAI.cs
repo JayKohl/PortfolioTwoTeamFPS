@@ -178,8 +178,8 @@ public class friendlyAI : MonoBehaviour
                 {
                     isTalking = true;
                     orgPos = transform;
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.Confined;
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
                     transform.position = npcTransportPos.position;
                     transform.localRotation = npcTransportPos.localRotation;
                     gameManager.instance.playerScript.controller.enabled = false;
@@ -203,7 +203,7 @@ public class friendlyAI : MonoBehaviour
                     gameManager.instance.enemiesRemainingObject.SetActive(false);
                     gameManager.instance.enemiesRemainingText.enabled = false;                    
                     gameManager.instance.playerScript.canShoot = false;
-                    gameManager.instance.pause();
+                    Time.timeScale = 0;
                 }
                 return true;
             }
@@ -246,7 +246,7 @@ public class friendlyAI : MonoBehaviour
         yield return new WaitForSecondsRealtime(1.5f);
 
         gameManager.instance.cam2.GetComponentInChildren<secondCamera>().doorOne.SetActive(false);
-        yield return new WaitForSecondsRealtime(1.5f);        
+        yield return new WaitForSecondsRealtime(1.5f);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         transform.position = orgPos.position;
@@ -265,13 +265,14 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.AbilityThree.SetActive(true);
         gameManager.instance.AbilityFour.SetActive(true);
         gameManager.instance.AbilitiesBackground.SetActive(true);
-        gameManager.instance.unPause();
-        gameManager.instance.crosshair.SetActive(true);
+        gameManager.instance.unPause();        
         gameManager.instance.playerScript.canShoot = true;
         
         isGivenQuest = true;
         GameObject bulletClone = Instantiate(weapon, gameManager.instance.player.transform.position, weapon.transform.rotation);
         bulletClone.GetComponent<Rigidbody>().velocity = (transform.forward + new Vector3(0, 0, 0));
+        yield return new WaitForSecondsRealtime(1.5f);
+        gameManager.instance.crosshair.SetActive(true);
     }
 
     IEnumerator doorTwo()
