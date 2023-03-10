@@ -15,6 +15,7 @@ public class friendlyAI : MonoBehaviour
     [SerializeField] Transform npcTransportPos;
     
     [SerializeField] public GameObject doorOutOfCell;
+    [SerializeField] GameObject weapon;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -194,10 +195,9 @@ public class friendlyAI : MonoBehaviour
 
                     anim.SetTrigger("Talk");
                     gameManager.instance.displayNpcCinematic("Listen, we don't have much time. They have brought you here to be a combatant in the arena. \n\n" +
-                                                        "If by chance you can survive I will help you escape. Now go away before anyone notices us talking.");
+                                                        "If by chance you can survive I will help you escape. Now take this weapon and go away before anyone notices us talking.");
+                    
 
-
-                   
                     gameManager.instance.playerScript.minimap.SetActive(false);                   
                     gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(false);
                     gameManager.instance.enemiesRemainingObject.SetActive(false);
@@ -270,7 +270,8 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.playerScript.canShoot = true;
         
         isGivenQuest = true;
-        
+        GameObject bulletClone = Instantiate(weapon, gameManager.instance.player.transform.position, weapon.transform.rotation);
+        bulletClone.GetComponent<Rigidbody>().velocity = (transform.forward + new Vector3(0, 0, 0));
     }
 
     IEnumerator doorTwo()
