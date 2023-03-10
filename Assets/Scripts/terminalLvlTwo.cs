@@ -34,7 +34,7 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
         hitPoints -= dmg;
         if (hitPoints <= 0)
         {
-            StartCoroutine(terminalDead());
+            terminalDead();
 
             gameManager.instance.playerScript.minimap.SetActive(false);
             gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(false);
@@ -78,9 +78,9 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
         yield return new WaitForSeconds(0.15f);
         model.material.color = Color.white;
     }
-    IEnumerator terminalDead()
+    public void terminalDead()
     {
-        yield return new WaitForSeconds(2);
+        //yield return new WaitForSeconds(2);
         brokenEffect.SetActive(true);
         alarmTrigger.SetActive(false);
     }

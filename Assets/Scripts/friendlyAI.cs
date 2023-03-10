@@ -190,7 +190,7 @@ public class friendlyAI : MonoBehaviour
                     gameManager.instance.AbilityThree.SetActive(false);
                     gameManager.instance.AbilityFour.SetActive(false);
                     gameManager.instance.AbilitiesBackground.SetActive(false);
-
+                    gameManager.instance.crosshair.SetActive(false);
                     gameManager.instance.playerCamera.SetActive(false);
 
                     anim.SetTrigger("Talk");
@@ -201,8 +201,7 @@ public class friendlyAI : MonoBehaviour
                     gameManager.instance.playerScript.minimap.SetActive(false);                   
                     gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(false);
                     gameManager.instance.enemiesRemainingObject.SetActive(false);
-                    gameManager.instance.enemiesRemainingText.enabled = false;
-                    gameManager.instance.crosshair.SetActive(false);
+                    gameManager.instance.enemiesRemainingText.enabled = false;                    
                     gameManager.instance.playerScript.canShoot = false;
                     gameManager.instance.pause();
                 }
@@ -241,12 +240,13 @@ public class friendlyAI : MonoBehaviour
     }
 
     IEnumerator doorOne()
-    {       
+    {
+        gameManager.instance.crosshair.SetActive(false);
         gameManager.instance.cam2.GetComponentInChildren<secondCamera>().openDoorOne();
         yield return new WaitForSecondsRealtime(1.5f);
 
         gameManager.instance.cam2.GetComponentInChildren<secondCamera>().doorOne.SetActive(false);
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(1.5f);        
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         transform.position = orgPos.position;
@@ -258,8 +258,7 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.playerScript.minimap.SetActive(true);
         gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(true);
         gameManager.instance.enemiesRemainingObject.SetActive(true);
-        gameManager.instance.enemiesRemainingText.enabled = true;
-        gameManager.instance.crosshair.SetActive(true);
+        gameManager.instance.enemiesRemainingText.enabled = true;        
         gameManager.instance.cam2.transform.GetChild(1).gameObject.SetActive(false);
         gameManager.instance.AbilityOne.SetActive(true);
         gameManager.instance.AbilityTwo.SetActive(true);
@@ -267,6 +266,7 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.AbilityFour.SetActive(true);
         gameManager.instance.AbilitiesBackground.SetActive(true);
         gameManager.instance.unPause();
+        gameManager.instance.crosshair.SetActive(true);
         gameManager.instance.playerScript.canShoot = true;
         
         isGivenQuest = true;
