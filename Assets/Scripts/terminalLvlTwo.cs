@@ -40,11 +40,10 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
             gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(false);
             gameManager.instance.enemiesRemainingObject.SetActive(false);
             gameManager.instance.enemiesRemainingText.enabled = false;
-            gameManager.instance.crosshair.SetActive(false);
+            gameManager.instance.crosshair.SetActive(false);            
+            StartCoroutine(gameManager.instance.cam2.GetComponentInChildren<secondCamera>().openDoorThree());
             gameManager.instance.cam2.SetActive(true);
-            gameManager.instance.playerCamera.SetActive(false);
-            Time.timeScale = 0;
-            gameManager.instance.cam2.GetComponentInChildren<secondCamera>().openDoorThree();
+            gameManager.instance.playerCamera.SetActive(false);            
 
 
             blowUp.SetActive(true);

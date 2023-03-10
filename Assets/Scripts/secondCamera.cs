@@ -28,10 +28,12 @@ public class secondCamera : MonoBehaviour
         //cam2.fieldOfView = Mathf.Lerp(cam2.fieldOfView, 50, 40 * Time.deltaTime);
         //gameManager.instance.cam2.fieldOfView = Mathf.Lerp(gameManager.instance.cam2.fieldOfView, 80, 4 * Time.unscaledDeltaTime);
     }
-    public void openDoorThree()
+    public IEnumerator openDoorThree()
     {
         transform.position = locDoorThree.transform.position;
         transform.eulerAngles = locDoorThree.transform.eulerAngles;
+        yield return new WaitForSecondsRealtime(3);
+        Time.timeScale = 0;
         //cam2.fieldOfView = Mathf.Lerp(cam2.fieldOfView, 50, 40 * Time.deltaTime);
         //gameManager.instance.cam2.fieldOfView = Mathf.Lerp(gameManager.instance.cam2.fieldOfView, 80, 4 * Time.unscaledDeltaTime);
     }
