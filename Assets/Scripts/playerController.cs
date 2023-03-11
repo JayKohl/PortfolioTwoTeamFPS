@@ -654,7 +654,8 @@ public class playerController : MonoBehaviour
             takeDamage(trapDamage);
             new WaitForSeconds(1);
             StartCoroutine(flashDamage());
-            aud.PlayOneShot(effect);
+            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
+            effectTime--;
         }
     }
 

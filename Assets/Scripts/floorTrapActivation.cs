@@ -36,42 +36,41 @@ public class floorTrapActivation : MonoBehaviour
 		StartCoroutine(TrapCycle());
 
 	}
+    private void OnTriggerEnter(Collider other)
+    {
 
-	void ontrigerEnter(GameObject other)
-	{
-		if (other.CompareTag("player") && trapActive)
+		if (other.CompareTag("Player") && trapActive)
 		{
 
-			switch(effectType)
+			switch (effectType)
 			{
-			 case(1):
-				gameManager.instance.playerScript.Poisoned(effectTime, damage, soundEffect);
+				case (1):
+					gameManager.instance.playerScript.Poisoned(effectTime, damage, soundEffect);
 					break;
 				case (2):
-			    gameManager.instance.playerScript.Electrecuted(effectTime, damage, soundEffect);
+					gameManager.instance.playerScript.Electrecuted(effectTime, damage, soundEffect);
 					break;
 				case (3):
-			    gameManager.instance.playerScript.Burning(effectTime, damage, soundEffect);
+					gameManager.instance.playerScript.Burning(effectTime, damage, soundEffect);
 					break;
 				case (4):
-			    StartCoroutine(gameManager.instance.playerScript.Slowed(effectTime, damage));
+					StartCoroutine(gameManager.instance.playerScript.Slowed(effectTime, damage));
 					break;
 				default:
-				 break;
-			 
-
+					break;
 			}
 
 		}
 	}
 
+
 	IEnumerator TrapCycle()
 	{
+		transform.GetComponent<Renderer>().material.color = Color.red;
 		trapActive = true;
-		Instantiate(trapVisual);
 		yield return new WaitForSeconds(activeTime);
 		trapActive = false;
-		Destroy(trapVisual);
+		transform.GetComponent<Renderer>().material.color = Color.blue;
 	}
 
 

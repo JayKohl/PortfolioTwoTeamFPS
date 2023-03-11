@@ -11,7 +11,7 @@ public class floorTrap : ScriptableObject
 	public int activeTime;
 	public int effectTime;
 	public int damage;
-	bool trapActive;
+	public bool trapActive;
 
 	//Effecrt Type
 	// 1 = poison
