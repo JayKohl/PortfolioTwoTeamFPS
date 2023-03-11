@@ -79,9 +79,9 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
         model.material.color = Color.white;
     }
     IEnumerator terminalDead()
-    {        
+    {
+        alarmTrigger.GetComponent<alarmOnTrigger>().alarmOff();
         brokenEffect.SetActive(true);
-        alarmTrigger.SetActive(false);
         yield return new WaitForSeconds(2);
     }
     IEnumerator turnOffLasers()
