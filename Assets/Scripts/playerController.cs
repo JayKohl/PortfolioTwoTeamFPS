@@ -392,14 +392,25 @@ public class playerController : MonoBehaviour
             gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Stop();
         }
     }
-    IEnumerator flashDamage()
+    IEnumerator flashDamage(int type = 0)
+        
     {
-        if (!gameManager.instance.shieldOn)
+        switch(type)
         {
-            gameManager.instance.playerDamageFlashScreen.SetActive(true);
-            yield return new WaitForSeconds(0.1f);
-            gameManager.instance.playerDamageFlashScreen.SetActive(false);
+            case 0:
+                if (!gameManager.instance.shieldOn)
+                {
+                    gameManager.instance.playerDamageFlashScreen.SetActive(true);
+                    yield return new WaitForSeconds(0.1f);
+                    gameManager.instance.playerDamageFlashScreen.SetActive(false);
+                }
+                break;
+            default:
+                break;
         }
+        
+        
+        
     }
 
     public void giveHP(int amount)
@@ -547,7 +558,7 @@ public class playerController : MonoBehaviour
     public void animatePlayer()
     {
         // Control for isWalking animation bool
-        if(Input.GetKey("w") || Input.GetKey("s"))
+        if (Input.GetKey("w") || Input.GetKey("s"))
         {
             playeranim.SetBool("isWalking", true);
         }
@@ -568,7 +579,7 @@ public class playerController : MonoBehaviour
 
         // Control for isShooting animation bool
         if (weaponList.Count > 0 && gameManager.instance.activeMenu == null)
-       {
+        {
             if (weaponName == "Pistol")
             {
                 playeranim.SetBool("Pistol", true);
@@ -615,7 +626,7 @@ public class playerController : MonoBehaviour
         if (Input.GetKey("mouse 0"))
         {
             playeranim.SetBool("isShooting", true);
-            
+
 
         }
         if (!Input.GetKey("mouse 0"))
@@ -631,5 +642,51 @@ public class playerController : MonoBehaviour
         {
             playeranim.SetBool("isJummping", false);
         }
+
     }
+
+
+    //Added code
+    public void Poisoned(int effectTime, int trapDamage, AudioClip effect)
+    {
+        while (effectTime > 0)
+        {
+            takeDamage(trapDamage);
+            new WaitForSeconds(1);
+            StartCoroutine(flashDamage());
+            aud.PlayOneShot(effect);
+        }
+    }
+
+    public void Burning(int effectTime, int trapDamage, AudioClip effect)
+    {
+        while (effectTime > 0)
+        {
+            takeDamage(trapDamage);
+            new WaitForSeconds(1);
+            StartCoroutine(flashDamage());
+            aud.PlayOneShot(effect);
+        }
+    }
+
+    public IEnumerator Slowed(int effectTime, int trapDamage)
+    {
+
+        playerSpeed = trapDamage;
+        yield return new WaitForSeconds(effectTime);
+        playerSpeed = speedOriginal;
+    }
+
+    public void Electrecuted(int effectTime, int trapDamage, AudioClip effect)
+    {
+        while (effectTime > 0)
+        {
+            takeDamage(trapDamage);
+            new WaitForSeconds(1);
+            StartCoroutine(flashDamage());
+            aud.PlayOneShot(effect);
+        }
+    }
+
+
 }
