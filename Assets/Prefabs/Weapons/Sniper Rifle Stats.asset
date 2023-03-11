@@ -12,11 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33e6c02bf9ac34a4182139ac8b5faab7, type: 3}
   m_Name: Sniper Rifle Stats
   m_EditorClassIdentifier: 
-  shootRate: 1
+  shootRate: 2.5
   shootDist: 100
-  shootDamage: 10
+  shootDamage: 20
   weaponModel: {fileID: 100000, guid: de24d61d3469fa44ba5abf56b2c3b6cc, type: 3}
-  weaponAudio: {fileID: 8300000, guid: f9eb44b85c96be5429737d4dcadbfa3b, type: 3}
+  weaponAudio:
+  - {fileID: 8300000, guid: f03d2aae1c4537846b29bf80fb43e891, type: 3}
+  - {fileID: 8300000, guid: ed6757def1a12544e9397a3daeb93222, type: 3}
+  - {fileID: 8300000, guid: 9b4f44fde051a0c45af552375b9d2933, type: 3}
+  - {fileID: 8300000, guid: 11f169de1aee5e24aa89cf112d614fc9, type: 3}
+  - {fileID: 8300000, guid: 7ae405d642c15f04386148d49a5c044d, type: 3}
+  - {fileID: 8300000, guid: 4c6f428ed4130f34c8024d379d941175, type: 3}
+  - {fileID: 8300000, guid: 20e4bcbcdcaf44b48a0e44df99ed35c9, type: 3}
+  - {fileID: 8300000, guid: a72620cec8e0f814b9287065394bf00b, type: 3}
+  - {fileID: 8300000, guid: 5316cc6a6c1a6fe49b930476a3ae8b04, type: 3}
   weaponIcon: {fileID: 21300000, guid: 17638e08c8b03214ea91cb184834de35, type: 3}
   muzzleFlashPosition: {x: 0.003, y: 0.048, z: 0.589}
   crosshairTexture: {fileID: 21300000, guid: 2f954c03dd2a0bc488f7c4a147d60c57, type: 3}

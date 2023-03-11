@@ -47,7 +47,8 @@ public class playerController : MonoBehaviour
     [SerializeField] GameObject gravityBomb;
     [SerializeField] GameObject sentryGun;
     [SerializeField] string weaponName;
-    [SerializeField] AudioClip weaponAudio;
+    //[SerializeField] AudioClip weaponAudio;
+    [SerializeField] public List<AudioClip> weaponAudio = new List<AudioClip>();
     [Range(0, 1)] [SerializeField] float weaponAudioVol;
     public MeshRenderer visible;
     public int weaponDamageMulti = 1;
@@ -295,7 +296,8 @@ public class playerController : MonoBehaviour
 
     IEnumerator shoot()
     {
-        aud.PlayOneShot(weaponAudio, weaponAudioVol);
+        //aud.PlayOneShot(weaponAudio, weaponAudioVol);
+        aud.PlayOneShot(weaponAudio[Random.Range(0, weaponAudio.Count)], weaponAudioVol);
         isShooting = true;
         StartCoroutine(gunShootFlash());
         
