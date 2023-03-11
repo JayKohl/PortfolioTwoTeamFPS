@@ -73,6 +73,14 @@ public class enemyOneAI : enemyAI
         }
         if (hitPoints <= 0)
         {
+            if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
+            {
+                gameManager.instance.updateGameGoalLvl2(-1);
+            }
+            else if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
+            {
+                gameManager.instance.updateGameGoalLvl3(-1);
+            }
             gameManager.instance.lvlscript.GainExperiance(xp);
             if (setOnFire)
             {
@@ -88,10 +96,10 @@ public class enemyOneAI : enemyAI
             }
             else
             {
-                if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
-                {
-                    gameManager.instance.updateGameGoalLvl3(-1);
-                }
+                //if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
+                //{
+                //    gameManager.instance.updateGameGoalLvl3(-1);
+                //}
                 GetComponent<Collider>().enabled = false;
                 GetComponentInChildren<Canvas>().enabled = false;
                 if (agent.enabled == true)
@@ -100,10 +108,6 @@ public class enemyOneAI : enemyAI
                     anim.SetBool("Dead", true);
                     agent.enabled = false;
                 }
-            }
-            if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
-            {
-                gameManager.instance.updateGameGoalLvl2(-1);
             }
             //Destroy(gameObject); Create a IEnumerator for destroyObject
         }

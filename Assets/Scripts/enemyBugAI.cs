@@ -164,16 +164,16 @@ public class enemyBugAI : enemyAI
         if (hitPoints <= 0)
         {
             gameManager.instance.lvlscript.GainExperiance(xp);
+            if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
+            {
+                gameManager.instance.updateGameGoalLvl3(-1);
+            }
             if (setOnFire)
             {
                 model.material.color = Color.black;
             }
             if (chilled)
             {
-                if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
-                {
-                    gameManager.instance.updateGameGoalLvl3(-1);
-                }
                 model.material.color = new Color(0, 0.5509f, 1);
                 agent.enabled = false;
                 GetComponent<Collider>().enabled = false;
@@ -182,16 +182,12 @@ public class enemyBugAI : enemyAI
             }
             else
             {
-                if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
-                {
-                    gameManager.instance.updateGameGoalLvl3(-1);
-                }
                 GetComponent<Collider>().enabled = false;
                 GetComponentInChildren<Canvas>().enabled = false;
                 aud.PlayOneShot(audDeath[UnityEngine.Random.Range(0, audDeath.Length)], audDeathVol);
                 anim.SetBool("Dead", true);
                 agent.enabled = false;
-            }            
+            }
         }
         else
         {
@@ -226,7 +222,7 @@ public class enemyBugAI : enemyAI
         {
             takeDamage(3);
         }
-            fireEffect.SetActive(false);
+        fireEffect.SetActive(false);
         setOnFire = false;
     }
     IEnumerator iced()
