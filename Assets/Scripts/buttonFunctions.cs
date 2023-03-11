@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class buttonFunctions : MonoBehaviour
 {
+    [SerializeField] public AudioSource aud;
+    [SerializeField] AudioClip resumeButton;
+    [SerializeField] [Range(0, 1)] float buttonVol;
     //public bool click;
     //public friendlyAI friendNPC;
     //[SerializeField] Button theButton;
@@ -53,13 +56,12 @@ public class buttonFunctions : MonoBehaviour
     public void startLevel2()
     {
         SceneManager.LoadScene("LvlTwoTheArena");
-        gameManager.instance.pause();
         resume();
     }
     public void startLevel3()
     {
+        aud.PlayOneShot(resumeButton,buttonVol);
         SceneManager.LoadScene("LvlThreeTheWorld");
-        gameManager.instance.pause();
         resume();
     }
 
