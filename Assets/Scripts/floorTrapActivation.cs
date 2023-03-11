@@ -7,21 +7,22 @@ public class floorTrapActivation : MonoBehaviour
 
 	[SerializeField] floorTrap trapsType;
 
-	ParticleSystem trapVisual;
-    AudioClip soundEffect;
-	int activeTime;
-	int effectTime;
-	int damage;
-	bool trapActive;
+	public ParticleSystem trapVisual;
+	public AudioClip soundEffect;
+	public int activeTime;
+	public int effectTime;
+	public int damage;
+	public bool trapActive = false;
 
 	//Effecrt Type
 	// 1 = poison
 	// 2 = electrecuted
 	// 3 = burning
 	// 4 = slow
-	int effectType;
+	public int effectType;
     private void Start()
     {
+		
 		trapVisual = trapsType.trapVisual;
 		soundEffect = trapsType.soundEffect;
 		activeTime = trapsType.activeTime;
@@ -29,12 +30,16 @@ public class floorTrapActivation : MonoBehaviour
 		damage = trapsType.damage;
 		trapActive = trapsType.trapActive;
 		effectType = trapsType.effectType;
+		
 	}
     void Update()
 	{
-
-		StartCoroutine(TrapCycle());
-
+		
+	    if (trapActive == false)
+		{
+			StartCoroutine(TrapCycle());
+		}
+		
 	}
     private void OnTriggerEnter(Collider other)
     {
@@ -61,18 +66,23 @@ public class floorTrapActivation : MonoBehaviour
 			}
 
 		}
+		else
+			if (trapActive == false)
+		{
+			StartCoroutine(TrapCycle());
+		}
 	}
 
 
 	IEnumerator TrapCycle()
 	{
+		
 		transform.GetComponent<Renderer>().material.color = Color.red;
-		trapActive = true;
-		yield return new WaitForSeconds(activeTime);
-		trapActive = false;
+        trapActive = true;
+        yield return new WaitForSeconds(2);
 		transform.GetComponent<Renderer>().material.color = Color.blue;
+		
+
 	}
-
-
 
 }
