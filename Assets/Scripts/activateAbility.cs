@@ -195,6 +195,7 @@ public class activateAbility : MonoBehaviour
         {
             if(inventoryScreenOn)
             {
+                gameManager.instance.playerScript.canShoot = true;
                 gameManager.instance.inventoryMessageBox.SetActive(false);
                 inventoryScreenOn = false;
                 Time.timeScale = 1;
@@ -204,6 +205,7 @@ public class activateAbility : MonoBehaviour
             }
             else
             {
+                gameManager.instance.playerScript.canShoot = false;
                 inventoryScreenOn = true;
                 Time.timeScale = 0;
                 Cursor.visible = true;
