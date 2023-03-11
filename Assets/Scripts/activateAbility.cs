@@ -195,6 +195,7 @@ public class activateAbility : MonoBehaviour
         {
             if(inventoryScreenOn)
             {
+                gameManager.instance.playerScript.canShoot = true;
                 gameManager.instance.inventoryMessageBox.SetActive(false);
                 inventoryScreenOn = false;
                 Time.timeScale = 1;
@@ -204,6 +205,7 @@ public class activateAbility : MonoBehaviour
             }
             else
             {
+                gameManager.instance.playerScript.canShoot = false;
                 inventoryScreenOn = true;
                 Time.timeScale = 0;
                 Cursor.visible = true;
@@ -237,6 +239,7 @@ public class activateAbility : MonoBehaviour
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
                     aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    gameManager.instance.playerScript.canShoot = false;
                     gameManager.instance.playerScript.weaponModel.GetComponent<MeshRenderer>().enabled = false;
                     StartCoroutine(abilityCoolFire(3));
                 }
@@ -402,8 +405,9 @@ public class activateAbility : MonoBehaviour
         gameManager.instance.playerScript.fireOn = true;
         yield return new WaitForSeconds(cooldown);
         gameManager.instance.playerScript.fireOnPlayer.SetActive(false);
-        gameManager.instance.playerScript.fireOn = false;
+        gameManager.instance.playerScript.fireOn = false;        
         gameManager.instance.playerScript.weaponModel.GetComponent<MeshRenderer>().enabled = true;
+        gameManager.instance.playerScript.canShoot = true;
     }
     public IEnumerator abilityCoolIce(float cooldown)
     {

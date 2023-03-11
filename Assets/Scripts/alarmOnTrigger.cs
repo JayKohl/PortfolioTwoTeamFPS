@@ -30,6 +30,11 @@ public class alarmOnTrigger : MonoBehaviour
             }
         }
     }
+    public void alarmOff()
+    {
+        aud.Stop();
+        alarmLights.SetActive(false);
+    }
     private void Update()
     {
         if (!playerIn)

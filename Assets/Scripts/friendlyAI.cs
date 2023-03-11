@@ -192,6 +192,7 @@ public class friendlyAI : MonoBehaviour
                     gameManager.instance.AbilitiesBackground.SetActive(false);
                     gameManager.instance.crosshair.SetActive(false);
                     gameManager.instance.playerCamera.SetActive(false);
+                    gameManager.instance.playerXPBar.enabled = false;
 
                     anim.SetTrigger("Talk");
                     gameManager.instance.displayNpcCinematic("Listen, we don't have much time. They have brought you here to be a combatant in the arena. \n\n" +
@@ -267,7 +268,8 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.AbilitiesBackground.SetActive(true);
         gameManager.instance.unPause();        
         gameManager.instance.playerScript.canShoot = true;
-        
+        gameManager.instance.playerXPBar.enabled = true;
+
         isGivenQuest = true;
         GameObject bulletClone = Instantiate(weapon, gameManager.instance.player.transform.position, weapon.transform.rotation);
         bulletClone.GetComponent<Rigidbody>().velocity = (transform.forward + new Vector3(0, 0, 0));
