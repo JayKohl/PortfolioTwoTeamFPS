@@ -36,6 +36,7 @@ public class enemyThirdBoss : enemyAI
     bool isUpdateGameGoal;
     bool isGoingBackUp;
 
+    bool isDying;
     bool waveOne;
     bool waveTwoBoss;
     bool waveThree;
@@ -52,7 +53,7 @@ public class enemyThirdBoss : enemyAI
     {
         isReFlip = false;
         isReDrop = false;
-
+        isDying = false;
         isGoingBackUp = false;
 
 
@@ -67,81 +68,85 @@ public class enemyThirdBoss : enemyAI
     // Update is called once per frame
     void Update()
     {
-        // hit phase
-        if (!isFlip && !isSpawnEvent)
-        {
-            activeFX.SetActive(true);
-            if (!canSeePlayer())
-            {
-                shield.SetActive(true);
-            }
-            else
-            {
-                shield.SetActive(false);
-            }
-            //canSeePlayer();
-            topPiece.transform.Rotate(0f, 1f, 0f, Space.Self);
-        }
-        // No hit and spawn phase
-        else if (isFlip && isSpawnEvent)
-        {
-            activeFX.SetActive(false);
-            topPiece.transform.Rotate(.5f, 0f, 0f);
-            fullFlip++;
-        }
-        if (isSpawnEvent)
+        if (isDying == false)
         {
 
-            // Full flip of object
-            if (fullFlip >= 360)
+            // hit phase
+            if (!isFlip && !isSpawnEvent)
             {
-                topPiece.transform.Translate(0f, -.01f, 0f);
-                fullDrop++;
-                isFlip = false;
-                // Moved all the way down.
-                if (fullDrop >= 360)
+                activeFX.SetActive(true);
+                if (!canSeePlayer())
                 {
-                    lockDownFX.SetActive(true);
-                    //model.material.color = Color.blue;
-                    spawnWave();
-                    fullFlip = 0;
-                    fullDrop = 0;
-                    isUpdateGameGoal = true;
-                    isGoingBackUp = true;
+                    shield.SetActive(true);
                 }
-            }
-
-            if (isGoingBackUp)
-            {
-                if (gameManager.instance.enemiesRemaining <= 0 && isReDrop == false)
+                else
                 {
-                    topPiece.transform.Translate(0f, 0.01f, 0f);
-                    fullReDrop++;
-                    if (fullReDrop >= 350)
+                    shield.SetActive(false);
+                }
+                //canSeePlayer();
+                topPiece.transform.Rotate(0f, 1f, 0f, Space.Self);
+            }
+            // No hit and spawn phase
+            else if (isFlip && isSpawnEvent)
+            {
+                activeFX.SetActive(false);
+                topPiece.transform.Rotate(.5f, 0f, 0f);
+                fullFlip++;
+            }
+            if (isSpawnEvent)
+            {
+
+                // Full flip of object
+                if (fullFlip >= 360)
+                {
+                    topPiece.transform.Translate(0f, -.01f, 0f);
+                    fullDrop++;
+                    isFlip = false;
+                    // Moved all the way down.
+                    if (fullDrop >= 360)
                     {
-                        isReDrop = true;
-                        fullReDrop = 0;
-                        //isGoingBackUp = false;
+                        lockDownFX.SetActive(true);
+                        //model.material.color = Color.blue;
+                        spawnWave();
+                        fullFlip = 0;
+                        fullDrop = 0;
+                        isUpdateGameGoal = true;
+                        isGoingBackUp = true;
                     }
                 }
-                else if (isReFlip == false && isReDrop == true)
-                {
-                    topPiece.transform.Rotate(-.5f, 0f, 0f);
-                    fullReFlip++;
-                    if (fullReFlip >= 350)
-                    {
-                        //isReFlip = true;
-                        isReDrop = false;
-                        fullReFlip = 0;
-                        isGoingBackUp = false;
-                        isUpdateGameGoal = false;
-                        topPiece.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
-                        GetComponent<Collider>().enabled = true;
 
-                        //re set to normal non event behavior.
-                        lockDownFX.SetActive(false);
-                        isFlip = false;
-                        isSpawnEvent = false;
+                if (isGoingBackUp)
+                {
+                    if (gameManager.instance.enemiesRemaining <= 0 && isReDrop == false)
+                    {
+                        topPiece.transform.Translate(0f, 0.01f, 0f);
+                        fullReDrop++;
+                        if (fullReDrop >= 350)
+                        {
+                            isReDrop = true;
+                            fullReDrop = 0;
+                            //isGoingBackUp = false;
+                        }
+                    }
+                    else if (isReFlip == false && isReDrop == true)
+                    {
+                        topPiece.transform.Rotate(-.5f, 0f, 0f);
+                        fullReFlip++;
+                        if (fullReFlip >= 350)
+                        {
+                            //isReFlip = true;
+                            isReDrop = false;
+                            fullReFlip = 0;
+                            isGoingBackUp = false;
+                            isUpdateGameGoal = false;
+                            topPiece.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+                            GetComponent<Collider>().enabled = true;
+
+                            //re set to normal non event behavior.
+                            lockDownFX.SetActive(false);
+                            isFlip = false;
+                            isSpawnEvent = false;
+                        }
                     }
                 }
             }
@@ -258,6 +263,7 @@ public class enemyThirdBoss : enemyAI
     }
     IEnumerator deathDestroy()
     {
+        isDying = true;
         yield return new WaitForSeconds(10f);
         Destroy(gameObject);
         gameManager.instance.boss3Dead = true;
@@ -283,7 +289,7 @@ public class enemyThirdBoss : enemyAI
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
-            if (hit.collider.CompareTag("Player") && gameManager.instance.boss3Dead == false)// && angleToPlayer <= viewAngle)
+            if (hit.collider.CompareTag("Player"))// && angleToPlayer <= viewAngle)
             {
                 //agent.stoppingDistance = stoppingDistOrig;
                 //agent.speed = speedChase;
