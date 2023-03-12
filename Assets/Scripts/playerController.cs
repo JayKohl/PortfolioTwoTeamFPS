@@ -119,6 +119,10 @@ public class playerController : MonoBehaviour
     public bool poisoned;
     public bool burning;
 
+    Color poisonedColor = Color.green;
+    Color electrecutedColor = Color.blue;
+    Color slowedColor = Color.yellow;
+    Color burningColor = Color.yellow;
     public bool playerDied;
     // Start is called before the first frame update
     void Start()
@@ -457,6 +461,32 @@ public class playerController : MonoBehaviour
                     gameManager.instance.playerDamageFlashScreen.SetActive(false);
                 }
                 break;
+            case 1:
+                gameManager.instance.playerDamageFlashScreen.GetComponent<Image>().color = poisonedColor;
+                gameManager.instance.playerDamageFlashScreen.SetActive(true);
+                yield return new WaitForSeconds(0.1f);
+                gameManager.instance.playerDamageFlashScreen.SetActive(false);
+                
+                break;
+            case 2:
+                gameManager.instance.playerDamageFlashScreen.GetComponent<Image>().color = electrecutedColor;
+                gameManager.instance.playerDamageFlashScreen.SetActive(true);
+                yield return new WaitForSeconds(0.1f);
+                gameManager.instance.playerDamageFlashScreen.SetActive(false);
+                break;
+            case 3:
+                gameManager.instance.playerDamageFlashScreen.GetComponent<Image>().color = burningColor;
+                gameManager.instance.playerDamageFlashScreen.SetActive(true);
+                yield return new WaitForSeconds(0.1f);
+                gameManager.instance.playerDamageFlashScreen.SetActive(false);
+                break;
+            case 4:
+                gameManager.instance.playerDamageFlashScreen.GetComponent<Image>().color = slowedColor;
+                gameManager.instance.playerDamageFlashScreen.SetActive(true);
+                yield return new WaitForSeconds(0.1f);
+                gameManager.instance.playerDamageFlashScreen.SetActive(false);
+                break;
+
             default:
                 break;
         }
@@ -659,7 +689,7 @@ public class playerController : MonoBehaviour
         while (effectTime > 0 && !playerDied)
         {     
             takeDamage(trapDamage);
-            StartCoroutine(flashDamage());
+            StartCoroutine(flashDamage(1));
             aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
             effectTime--;
             if(playerDied)
@@ -673,15 +703,24 @@ public class playerController : MonoBehaviour
         poisoned = false;
     }
 
-    public void Burning(int effectTime, int trapDamage, AudioClip effect)
+    public IEnumerator Burning(int effectTime, int trapDamage, AudioClip effect)
     {
-        while (effectTime > 0)
+        while (effectTime > 0 && !playerDied)
         {
             takeDamage(trapDamage);
-            new WaitForSeconds(1);
-            StartCoroutine(flashDamage());
-            aud.PlayOneShot(effect);
+            StartCoroutine(flashDamage(3));
+            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
+            effectTime--;
+            if (playerDied)
+            {
+                poisoned = false;
+                yield break;
+            }
+
+            yield return new WaitForSeconds(1.5f);
         }
+
+        burning = false;
     }
 
     public IEnumerator Slowed(int effectTime, int trapDamage)
@@ -692,20 +731,23 @@ public class playerController : MonoBehaviour
         playerSpeed = speedOriginal;
     }
 
-    public void Electrecuted(int effectTime, int trapDamage, AudioClip effect)
+    public IEnumerator Electrecuted(int effectTime, int trapDamage, AudioClip effect)
     {
-        while (effectTime > 0)
+        while (effectTime > 0 && !playerDied)
         {
             takeDamage(trapDamage);
-            new WaitForSeconds(1);
-            StartCoroutine(flashDamage());
-            aud.PlayOneShot(effect);
-        }
-    }
+            StartCoroutine(flashDamage(2));
+            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
+            effectTime--;
+            if (playerDied)
+            {
+                yield break;
+            }
 
-    IEnumerator waitSeconds()
-    {
-        yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1.5f);
+        }
+
+        electrecuted = false;
     }
 
 
