@@ -118,10 +118,12 @@ public class playerController : MonoBehaviour
     public bool electrecuted;
     public bool poisoned;
     public bool burning;
+
+    public bool playerDied;
     // Start is called before the first frame update
     void Start()
     {
-        poisoned = false;
+       
         canShoot = true;
         if (SceneManager.GetActiveScene().name == "LvlOneArena" && currentLevel < 1)
         {
@@ -416,6 +418,7 @@ public class playerController : MonoBehaviour
 
             if (HP <= 0)
             {
+                playerDied = true;
                 aud.PlayOneShot(audDead[Random.Range(0, audDead.Length)], audDeadVol);
                 gameManager.instance.playerDead();
             }
@@ -653,15 +656,20 @@ public class playerController : MonoBehaviour
     public IEnumerator Poisoned(int effectTime, int trapDamage, AudioClip effect)
     {
        
-        while (effectTime > 0)
+        while (effectTime > 0 && !playerDied)
         {     
             takeDamage(trapDamage);
             StartCoroutine(flashDamage());
             aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
             effectTime--;
+            if(playerDied)
+            {
+                yield break;
+            }
          
             yield return new WaitForSeconds(1.5f);
         }
+        
         poisoned = false;
     }
 
