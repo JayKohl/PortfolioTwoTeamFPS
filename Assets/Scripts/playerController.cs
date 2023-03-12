@@ -127,7 +127,10 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        poisonedColor.a = 0.20f;
+        electrecutedColor.a = 0.20f;
+        slowedColor.a = 0.20f;
+        burningColor.a = 0.20f;
         canShoot = true;
         if (SceneManager.GetActiveScene().name == "LvlOneArena" && currentLevel < 1)
         {
@@ -694,6 +697,7 @@ public class playerController : MonoBehaviour
             effectTime--;
             if(playerDied)
             {
+                poisoned = false;
                 yield break;
             }
          
@@ -741,6 +745,7 @@ public class playerController : MonoBehaviour
             effectTime--;
             if (playerDied)
             {
+                electrecuted = false;
                 yield break;
             }
 
