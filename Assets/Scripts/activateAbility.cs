@@ -425,7 +425,6 @@ public class activateAbility : MonoBehaviour
         {
             if (hit.transform.gameObject.tag == "EnemyBoss" || hit.transform.gameObject.tag == "Turret")
             {
-                //Debug.Log("test");
                 aud.PlayOneShot(abilityAudio, abilityAudioVol);
                 hackTarget = hit.collider.gameObject;
                 gameManager.instance.hackUI.SetActive(true);
@@ -465,6 +464,10 @@ public class activateAbility : MonoBehaviour
                 }
                 yield return new WaitForSeconds(2);
                 gameManager.instance.hackUI.SetActive(false);
+            }
+            else
+            {
+                cancelHack = false;
             }
         }
         else

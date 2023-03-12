@@ -175,7 +175,7 @@ public class playerController : MonoBehaviour
 
         if (!isShooting && Input.GetButton("Shoot") && canShoot && gameManager.instance.activeMenu == null)
         {
-            Debug.Log("test1");
+            //Debug.Log("test1");
             if (weaponList.Count > 0)
             {
                 isShooting = true;
@@ -303,7 +303,7 @@ public class playerController : MonoBehaviour
 
     IEnumerator shoot()
     {
-        Debug.Log("test2");
+        //Debug.Log("test2");
         // Control for isShooting animation bool
         if (gameManager.instance.activeMenu == null)
         {
@@ -400,16 +400,15 @@ public class playerController : MonoBehaviour
         }
         else
         {
-            if (dmg / dmgDivide <= 0)
+            if (dmg / dmgDivide > 0)
             {
                 StartCoroutine(gameManager.instance.abilityHub.GetComponent<activateAbility>().beginHack(5));
-                HP -= dmg / dmgDivide;
+                HP -= (dmg / dmgDivide);
                 updatePlayerHPBar();
                 StartCoroutine(flashDamage());
             }
             else
             {
-                StartCoroutine(gameManager.instance.abilityHub.GetComponent<activateAbility>().beginHack(5));
                 HP -= 1;
                 updatePlayerHPBar();
                 StartCoroutine(flashDamage());
