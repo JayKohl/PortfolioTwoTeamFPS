@@ -283,7 +283,7 @@ public class enemyThirdBoss : enemyAI
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
-            if (hit.collider.CompareTag("Player"))// && angleToPlayer <= viewAngle)
+            if (hit.collider.CompareTag("Player") && gameManager.instance.boss3Dead == false)// && angleToPlayer <= viewAngle)
             {
                 //agent.stoppingDistance = stoppingDistOrig;
                 //agent.speed = speedChase;
