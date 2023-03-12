@@ -28,6 +28,7 @@ public class buttonFunctions : MonoBehaviour
     {
         gameManager.instance.unPause();
         gameManager.instance.playerScript.playerRespawn();
+        gameManager.instance.playerScript.playerDied = false;
     }
     
     public void restart()
@@ -35,6 +36,7 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.playerScript.poisoned = false;
         gameManager.instance.unPause();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
     }
 
     public void quit()
