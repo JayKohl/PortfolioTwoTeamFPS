@@ -111,7 +111,7 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         lvlscript = player.GetComponent<LevelSystem>();
         lvlbuttons = player.GetComponent<LVLButtons>();
-        modTextScript = pauseMenu.GetComponent<ModifyText>();
+        modTextScript = pauseMenu.GetComponentInChildren<ModifyText>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
         npcChat2 = GameObject.FindGameObjectWithTag("NPCChat").GetComponentInChildren<TextMeshProUGUI>();
@@ -170,11 +170,10 @@ public class gameManager : MonoBehaviour
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        if(activeMenu != null)
+        if (activeMenu != null)
         {
             activeMenu.SetActive(false);
         }
-        
         activeMenu = null;
     }
     public void updateGameGoal(int amount)

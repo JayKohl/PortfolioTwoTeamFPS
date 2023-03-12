@@ -24,26 +24,22 @@ public class ModifyText : MonoBehaviour
         allHints.Add(hint3);
         allHints.Add(hint4);
         allHints.Add(hint5);
+        
     }
 
 
     void Update()
     {
-        //if ((gameManager.instance.isPaused && gameManager.instance.activeMenu == gameManager.instance.pauseMenu) && !hintUp)
-        //{
-        //    hintUp = true;
-        //    HintSelect();
-        //}
-        //else if ((!gameManager.instance.isPaused || gameManager.instance.activeMenu != gameManager.instance.pauseMenu) && hintUp == true)
-        //{
-        //    hintUp = false;
-        //}
-        
+        if (!hintUp)
+        {
+            hintUp = true;
+            HintSelect();
+        }
     }
 
     public void HintSelect()
     {
-        
+
         if (allHints.Count <= 0)
         {
             ResetHintLists();
@@ -55,7 +51,6 @@ public class ModifyText : MonoBehaviour
         hintText.text = selectedHint;
         allHints.RemoveAt(position);
         usedHints.Add(selectedHint);
-        
     }
 
     private void ResetHintLists()
