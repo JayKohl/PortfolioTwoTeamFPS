@@ -400,16 +400,15 @@ public class playerController : MonoBehaviour
         }
         else
         {
-            if (dmg / dmgDivide <= 0)
+            if (dmg / dmgDivide > 0)
             {
                 StartCoroutine(gameManager.instance.abilityHub.GetComponent<activateAbility>().beginHack(5));
-                HP -= dmg / dmgDivide;
+                HP -= (dmg / dmgDivide);
                 updatePlayerHPBar();
                 StartCoroutine(flashDamage());
             }
             else
             {
-                StartCoroutine(gameManager.instance.abilityHub.GetComponent<activateAbility>().beginHack(5));
                 HP -= 1;
                 updatePlayerHPBar();
                 StartCoroutine(flashDamage());
