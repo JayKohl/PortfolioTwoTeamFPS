@@ -16,7 +16,8 @@ public class ModifyText : MonoBehaviour
     public List<string> usedHints;
     public string selectedHint;
     public bool hintUp;
-    
+    int position;
+
     void Start()
     {
         allHints.Add(hint1);
@@ -24,18 +25,18 @@ public class ModifyText : MonoBehaviour
         allHints.Add(hint3);
         allHints.Add(hint4);
         allHints.Add(hint5);
-        
+        HintSelect();
     }
 
-
-    void Update()
+    private void Update()
     {
-        if (!hintUp)
-        {
-            hintUp = true;
-            HintSelect();
-        }
+        //if (!hintUp)
+        //{
+        //    hintUp = true;
+        //    HintSelect();
+        //}
     }
+
 
     public void HintSelect()
     {
@@ -45,12 +46,14 @@ public class ModifyText : MonoBehaviour
             ResetHintLists();
         }
 
-        int position;
-        position = Random.Range(0, allHints.Count);
-        selectedHint = allHints[position];
-        hintText.text = selectedHint;
-        allHints.RemoveAt(position);
-        usedHints.Add(selectedHint);
+        if (allHints.Count > 0)
+        {
+            position = Random.Range(0, allHints.Count);
+            selectedHint = allHints[position];
+            hintText.text = selectedHint;
+            allHints.RemoveAt(position);
+            usedHints.Add(selectedHint);
+        }
     }
 
     private void ResetHintLists()
