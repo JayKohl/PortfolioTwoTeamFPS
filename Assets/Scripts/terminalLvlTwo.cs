@@ -78,11 +78,11 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
         yield return new WaitForSeconds(0.15f);
         model.material.color = Color.white;
     }
-    public void terminalDead()
+    IEnumerator terminalDead()
     {
-        //yield return new WaitForSeconds(2);
+        alarmTrigger.GetComponent<alarmOnTrigger>().alarmOff();
         brokenEffect.SetActive(true);
-        alarmTrigger.SetActive(false);
+        yield return new WaitForSeconds(2);
     }
     IEnumerator turnOffLasers()
     {

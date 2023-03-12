@@ -22,7 +22,7 @@ public class enemyShredder : enemyAI
 
     // Update is called once per frame
     void Update()
-    {        
+    {
         if (agent.isActiveAndEnabled)
         {
             if (!chilled)
@@ -106,6 +106,10 @@ public class enemyShredder : enemyAI
         if (hitPoints <= 0)
         {
             gameManager.instance.lvlscript.GainExperiance(xp);
+            if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
+            {
+                gameManager.instance.updateGameGoalLvl3(-1);
+            }
             if (setOnFire)
             {
                 model.material.color = Color.black;
@@ -120,10 +124,6 @@ public class enemyShredder : enemyAI
             }
             else
             {
-                if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
-                {
-                    gameManager.instance.updateGameGoalLvl3(-1);
-                }
                 GetComponent<Collider>().enabled = false;
                 GetComponentInChildren<Canvas>().enabled = false;
                 aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
@@ -158,7 +158,7 @@ public class enemyShredder : enemyAI
         {
             takeDamage(3);
         }
-            fireEffect.SetActive(false);
+        fireEffect.SetActive(false);
         setOnFire = false;
     }
     IEnumerator iced()

@@ -42,8 +42,8 @@ public class playerController : MonoBehaviour
     [SerializeField] GameObject weaponIcon;
     [SerializeField] float grenadeYVel;
     [SerializeField] int grenadeSpeed;
-    [SerializeField] GameObject grenade;    
-    [SerializeField] GameObject fireflies;    
+    [SerializeField] GameObject grenade;
+    [SerializeField] GameObject fireflies;
     [SerializeField] GameObject gravityBomb;
     [SerializeField] GameObject sentryGun;
     [SerializeField] string weaponName;
@@ -72,7 +72,7 @@ public class playerController : MonoBehaviour
 
     [SerializeField] AudioClip[] audDead;
     [Range(0, 1)] [SerializeField] float audDeadVol;
-    
+
     [SerializeField] public AudioClip lvlUp;
     [Range(0, 1)] [SerializeField] public float lvlUpVol;
 
@@ -159,7 +159,7 @@ public class playerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {        
+    {
         pushback = Vector3.Lerp(pushback, Vector3.zero, Time.deltaTime * pushbackResTime);
         movement();
         selectGun();
@@ -170,8 +170,10 @@ public class playerController : MonoBehaviour
 
         if (!isShooting && Input.GetButton("Shoot") && canShoot && gameManager.instance.activeMenu == null)
         {
+            Debug.Log("test1");
             if (weaponList.Count > 0)
             {
+                isShooting = true;
                 StartCoroutine(shoot());
             }
         }
@@ -193,7 +195,7 @@ public class playerController : MonoBehaviour
         if (Input.GetButton("Crouch"))
         {
             isCrouched = true;
-            
+
         }
         if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes)
         {
@@ -227,7 +229,7 @@ public class playerController : MonoBehaviour
             isCrouched = false;
             playerSpeed = speedOriginal;
             transform.localScale = new Vector3(transform.localScale.x, startY, transform.localScale.z);
-           
+
 
         }
         playerVelocity.y -= gravity * Time.deltaTime;
@@ -247,7 +249,7 @@ public class playerController : MonoBehaviour
     }
 
     public void updateGoals(string goal)
-    {        
+    {
         gameManager.instance.infoText.text = goal;
         if (goal == "")
         {
@@ -295,15 +297,59 @@ public class playerController : MonoBehaviour
 
     IEnumerator shoot()
     {
-        aud.PlayOneShot(weaponAudio[Random.Range(0, weaponAudio.Count)], weaponAudioVol);
-        isShooting = true;
-        StartCoroutine(gunShootFlash());
-        
+        Debug.Log("test2");
+        // Control for isShooting animation bool
+        if (gameManager.instance.activeMenu == null)
+        {
+            if (weaponName == "Pistol")
+            {
+                playeranim.SetBool("Pistol", true);
+                playeranim.SetBool("SMG", false);
+                playeranim.SetBool("MachineGun", false);
+                playeranim.SetBool("Rifle", false);
+                playeranim.SetBool("Sniper", false);
+            }
+            else if (weaponName == "SMG")
+            {
+                playeranim.SetBool("Pistol", false);
+                playeranim.SetBool("SMG", true);
+                playeranim.SetBool("MachineGun", false);
+                playeranim.SetBool("Rifle", false);
+                playeranim.SetBool("Sniper", false);
+            }
+            else if (weaponName == "MachineGun")
+            {
+                playeranim.SetBool("Pistol", false);
+                playeranim.SetBool("SMG", false);
+                playeranim.SetBool("MachineGun", true);
+                playeranim.SetBool("Rifle", false);
+                playeranim.SetBool("Sniper", false);
+            }
+            else if (weaponName == "Rifle")
+            {
+                playeranim.SetBool("Pistol", false);
+                playeranim.SetBool("SMG", false);
+                playeranim.SetBool("MachineGun", false);
+                playeranim.SetBool("Rifle", true);
+                playeranim.SetBool("Sniper", false);
+            }
+            else if (weaponName == "Sniper")
+            {
+                playeranim.SetBool("Pistol", false);
+                playeranim.SetBool("SMG", false);
+                playeranim.SetBool("MachineGun", false);
+                playeranim.SetBool("Rifle", false);
+                playeranim.SetBool("Sniper", true);
+            }
+            aud.PlayOneShot(weaponAudio[Random.Range(0, weaponAudio.Count)], weaponAudioVol);
+            StartCoroutine(gunShootFlash());
+        }
+
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, shootDist))
         {
             //Debug.Log(hit.collider.name);
-           
+
 
             // Deactivated temp
             // GameObject bulletClone = Instantiate(bullet, shootPositionPlayer.position, bullet.transform.rotation);
@@ -311,16 +357,14 @@ public class playerController : MonoBehaviour
 
             if (hit.collider.GetComponent<IDamage>() != null)
             {
-                gameObject.tag = "Player";                
+                gameObject.tag = "Player";
                 gameManager.instance.invisUI.SetActive(false);
                 weaponModel.GetComponent<MeshRenderer>().enabled = true;
                 hit.collider.GetComponent<IDamage>().takeDamage(shootDamage);
             }
         }
-
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
-        
     }
     public void throwGrenade()
     {
@@ -382,20 +426,20 @@ public class playerController : MonoBehaviour
         weaponModel.GetComponent<MeshRenderer>().enabled = false;
         gameManager.instance.invisUI.SetActive(true);
         StartCoroutine(abilityCoolInvisible(10));
-    }    
+    }
     IEnumerator gunShootFlash()
     {
         if (weaponList.Count > 0)
-        {            
+        {
             gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Play();
             yield return new WaitForSeconds(0.1f);
             gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Stop();
         }
     }
     IEnumerator flashDamage(int type = 0)
-        
+
     {
-        switch(type)
+        switch (type)
         {
             case 0:
                 if (!gameManager.instance.shieldOn)
@@ -408,9 +452,9 @@ public class playerController : MonoBehaviour
             default:
                 break;
         }
-        
-        
-        
+
+
+
     }
 
     public void giveHP(int amount)
@@ -423,7 +467,7 @@ public class playerController : MonoBehaviour
     }
 
     public void updatePlayerHPBar()
-    {        
+    {
         gameManager.instance.playerHPBar.fillAmount = (float)HP / (float)hpOriginal;
     }
     public void weaponPickup(weaponStats weaponStat)
@@ -438,7 +482,7 @@ public class playerController : MonoBehaviour
         }
         aud.PlayOneShot(weaponPickupSound, weaponPickupVol);
         weaponList.Add(weaponStat);
-        
+
         shootRate = weaponStat.shootRate;
         shootDist = weaponStat.shootDist;
         shootDamage = weaponStat.shootDamage * weaponDamageMulti;
@@ -455,7 +499,7 @@ public class playerController : MonoBehaviour
 
         weaponModel.GetComponent<MeshFilter>().sharedMesh = weaponStat.weaponModel.GetComponent<MeshFilter>().sharedMesh;
         weaponModel.GetComponent<MeshRenderer>().sharedMaterial = weaponStat.weaponModel.GetComponent<MeshRenderer>().sharedMaterial;
-        
+
 
     }
 
@@ -510,7 +554,7 @@ public class playerController : MonoBehaviour
         playerSpeed = speedOriginal;
         abilityOneActive = false;
     }
-    
+
     public IEnumerator abilityCoolInvisible(float cooldown)
     {
         abilityThreeActive = true;
@@ -522,15 +566,15 @@ public class playerController : MonoBehaviour
     }
 
     public IEnumerator abilityCoolDash(float cooldown)
-    {        
+    {
         abilityFourActive = true;
         controller.Move(Camera.main.transform.forward * 20);
         gameManager.instance.dashUI.SetActive(true);
         yield return new WaitForSeconds(.1f);
         gameManager.instance.dashUI.SetActive(false);
         yield return new WaitForSeconds(cooldown);
-        abilityFourActive = false;        
-    }    
+        abilityFourActive = false;
+    }
 
     public void pushbackDir(Vector3 dir)
     {
@@ -577,52 +621,6 @@ public class playerController : MonoBehaviour
             playeranim.SetBool("isRunning", false);
         }
 
-        // Control for isShooting animation bool
-        if (weaponList.Count > 0 && gameManager.instance.activeMenu == null)
-        {
-            if (weaponName == "Pistol")
-            {
-                playeranim.SetBool("Pistol", true);
-                playeranim.SetBool("SMG", false);
-                playeranim.SetBool("MachineGun", false);
-                playeranim.SetBool("Rifle", false);
-                playeranim.SetBool("Sniper", false);
-            }
-            if (weaponName == "SMG")
-            {
-                playeranim.SetBool("Pistol", false);
-                playeranim.SetBool("SMG", true);
-                playeranim.SetBool("MachineGun", false);
-                playeranim.SetBool("Rifle", false);
-                playeranim.SetBool("Sniper", false);
-            }
-            if (weaponName == "MachineGun")
-            {
-                playeranim.SetBool("Pistol", false);
-                playeranim.SetBool("SMG", false);
-                playeranim.SetBool("MachineGun", true);
-                playeranim.SetBool("Rifle", false);
-                playeranim.SetBool("Sniper", false);
-            }
-            if (weaponName == "Rifle")
-            {
-                playeranim.SetBool("Pistol", false);
-                playeranim.SetBool("SMG", false);
-                playeranim.SetBool("MachineGun", false);
-                playeranim.SetBool("Rifle", true);
-                playeranim.SetBool("Sniper", false);
-            }
-            if (weaponName == "Sniper")
-            {
-                playeranim.SetBool("Pistol", false);
-                playeranim.SetBool("SMG", false);
-                playeranim.SetBool("MachineGun", false);
-                playeranim.SetBool("Rifle", false);
-                playeranim.SetBool("Sniper", true);
-            }
-
-        }
-
         if (Input.GetKey("mouse 0"))
         {
             playeranim.SetBool("isShooting", true);
@@ -636,11 +634,11 @@ public class playerController : MonoBehaviour
 
         if (Input.GetKey("space") && jumpsCurrent < jumpTimes)
         {
-            playeranim.SetBool("isJummping", true);
+            playeranim.SetBool("isJumping", true);
         }
         if (controller.isGrounded)
         {
-            playeranim.SetBool("isJummping", false);
+            playeranim.SetBool("isJumping", false);
         }
 
     }
