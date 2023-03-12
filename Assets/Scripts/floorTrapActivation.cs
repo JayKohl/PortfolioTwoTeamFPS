@@ -13,6 +13,9 @@ public class floorTrapActivation : MonoBehaviour
 	public int effectTime;
 	public int damage;
 	public bool trapActive;
+	public GameObject triggerObject;
+	
+	
 	
 	//Effecrt Type
 	// 1 = poison
@@ -39,51 +42,21 @@ public class floorTrapActivation : MonoBehaviour
 			StartCoroutine(TrapCycle());
         }
 	}
-	private void OnTriggerEnter(Collider other)
-	{
 
-		if (other.CompareTag("Player") && trapActive)
-		{
-
-			switch (effectType)
-			{
-				case (1):
-					if(gameManager.instance.playerScript.poisoned == false)
-                    {
-						gameManager.instance.playerScript.poisoned = true;
-						StartCoroutine(gameManager.instance.playerScript.Poisoned(effectTime, damage, soundEffect));
-					}
-                    
-					break;
-				case (2):
-					gameManager.instance.playerScript.Electrecuted(effectTime, damage, soundEffect);
-					break;
-				case (3):
-					gameManager.instance.playerScript.Burning(effectTime, damage, soundEffect);
-					break;
-				case (4):
-					StartCoroutine(gameManager.instance.playerScript.Slowed(effectTime, damage));
-					break;
-				default:
-					break;
-			}
-
-
-		}
-
-	}
 	IEnumerator TrapCycle()
 	{
 		
 		yield return new WaitForSeconds(5);
 		trapActive = true;
         transform.GetComponent<Renderer>().material.color = Color.red;
+		triggerObject.transform.position = Vector3.Lerp(triggerObject.transform.position, triggerObject.transform.position + new Vector3(0, 1, 0), 1);
         Debug.Log("here");
         yield return new WaitForSeconds(5);
 		
 		Debug.Log("I'm here");
         transform.GetComponent<Renderer>().material.color = Color.blue;
-        trapActive = false;
+		triggerObject.transform.position = Vector3.Lerp(triggerObject.transform.position, triggerObject.transform.position + new Vector3(0, -1, 0), 1);
+		trapActive = false;
         
     }
 
