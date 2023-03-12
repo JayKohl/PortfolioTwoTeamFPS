@@ -64,7 +64,7 @@ public class gameManager : MonoBehaviour
     public GameObject firstTimeText;
     public LevelSystem lvlscript;
     public LVLButtons lvlbuttons;
-    //need to add each skilltext script so I can control it
+    public ModifyText modTextScript;
 
     public GameObject muzzleFlash;
     public GameObject quickTexts;
@@ -111,6 +111,7 @@ public class gameManager : MonoBehaviour
         playerScript = player.GetComponent<playerController>();
         lvlscript = player.GetComponent<LevelSystem>();
         lvlbuttons = player.GetComponent<LVLButtons>();
+        modTextScript = pauseMenu.GetComponent<ModifyText>();
         playerSpawnPosition = GameObject.FindGameObjectWithTag("Player Spawn Position");
         muzzleFlash = GameObject.FindGameObjectWithTag("MuzzleFlash");
         npcChat2 = GameObject.FindGameObjectWithTag("NPCChat").GetComponentInChildren<TextMeshProUGUI>();
@@ -162,6 +163,7 @@ public class gameManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
+        modTextScript.HintSelect();
     }
     public void unPause()
     {

@@ -29,15 +29,15 @@ public class ModifyText : MonoBehaviour
 
     void Update()
     {
-        if ((gameManager.instance.isPaused && gameManager.instance.activeMenu == gameManager.instance.pauseMenu) && !hintUp)
-        {
-            hintUp = true;
-            HintSelect();
-        }
-        else if ((!gameManager.instance.isPaused || gameManager.instance.activeMenu != gameManager.instance.pauseMenu) && hintUp == true)
-        {
-            hintUp = false;
-        }
+        //if ((gameManager.instance.isPaused && gameManager.instance.activeMenu == gameManager.instance.pauseMenu) && !hintUp)
+        //{
+        //    hintUp = true;
+        //    HintSelect();
+        //}
+        //else if ((!gameManager.instance.isPaused || gameManager.instance.activeMenu != gameManager.instance.pauseMenu) && hintUp == true)
+        //{
+        //    hintUp = false;
+        //}
         
     }
 
