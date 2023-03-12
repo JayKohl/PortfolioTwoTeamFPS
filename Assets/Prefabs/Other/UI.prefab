@@ -3725,7 +3725,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2038715808}
   - component: {fileID: 2038715811}
-  - component: {fileID: 2038715810}
+  - component: {fileID: 1370172647589027325}
   - component: {fileID: 2038715809}
   m_Layer: 5
   m_Name: hintText
@@ -3762,7 +3762,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2038715807}
   m_CullTransparentMesh: 1
---- !u!114 &2038715810
+--- !u!114 &1370172647589027325
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3775,11 +3775,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hintText: {fileID: 2038715809}
-  hint1: This is a hint.
-  hint2: This is a hint as well, how are you today?
-  hint3: What can you do?
-  hint4: Aliens wil try to kill you.
-  hint5: Trust some.
+  hint1: You can change out abilities through the inventory (I).
+  hint2: Spend tokens from leveling on the skill screen (Tab).
+  hint3: Some enemies have weak spots that must be hit to damage them.
+  hint4: Your grenade (Q,R,F,E) can damage multiple enemies at the sme time.
+  hint5: Look in every door to find extra pick-ups.
   allHints: []
   usedHints: []
   selectedHint: 
@@ -3813,8 +3813,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4283364607
-  m_fontColor: {r: 1, g: 0.9581687, b: 0.3066038, a: 1}
+    rgba: 4293195768
+  m_fontColor: {r: 0.9716981, g: 0.96685565, b: 0.8937789, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3831,8 +3831,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 26
+  m_fontSizeBase: 26
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -12361,7 +12361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6111150020681047308
 RectTransform:
   m_ObjectHideFlags: 0

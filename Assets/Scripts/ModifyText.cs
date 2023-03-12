@@ -7,11 +7,11 @@ public class ModifyText : MonoBehaviour
 {
 
     public TMP_Text hintText;
-    public string hint1 = "This is a hint.";
-    public string hint2 = "This is a hint as well, how are you today?";
-    public string hint3 = "What can you do?";
-    public string hint4 = "Aliens wil try to kill you.";
-    public string hint5 = "Trust some.";
+    public string hint1 = "You can change out abilities through the inventory (I).";
+    public string hint2 = "Spend tokens from leveling on the skill screen (Tab).";
+    public string hint3 = "Some enemies have weak spots that must be hit to damage them.";
+    public string hint4 = "Your grenade (Q,R,F,E) can damage multiple enemies at the sme time.";
+    public string hint5 = "Look in every door to find extra pick-ups.";
     public List<string> allHints;
     public List<string> usedHints;
     public string selectedHint;
