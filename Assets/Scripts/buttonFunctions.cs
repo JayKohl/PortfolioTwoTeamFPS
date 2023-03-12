@@ -32,6 +32,7 @@ public class buttonFunctions : MonoBehaviour
     
     public void restart()
     {
+        gameManager.instance.playerScript.poisoned = false;
         gameManager.instance.unPause();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

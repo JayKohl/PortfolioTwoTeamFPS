@@ -114,9 +114,14 @@ public class playerController : MonoBehaviour
     int currentLevel = 0;
 
 
+    public bool slowed;
+    public bool electrecuted;
+    public bool poisoned;
+    public bool burning;
     // Start is called before the first frame update
     void Start()
     {
+        poisoned = false;
         canShoot = true;
         if (SceneManager.GetActiveScene().name == "LvlOneArena" && currentLevel < 1)
         {
@@ -246,6 +251,7 @@ public class playerController : MonoBehaviour
                 StartCoroutine(playMetalSteps());
             }
         }
+        
     }
 
     public void updateGoals(string goal)
@@ -645,16 +651,19 @@ public class playerController : MonoBehaviour
 
 
     //Added code
-    public void Poisoned(int effectTime, int trapDamage, AudioClip effect)
+    public IEnumerator Poisoned(int effectTime, int trapDamage, AudioClip effect)
     {
+       
         while (effectTime > 0)
-        {
+        {     
             takeDamage(trapDamage);
-            new WaitForSeconds(1);
             StartCoroutine(flashDamage());
             aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
             effectTime--;
+         
+            yield return new WaitForSeconds(1.5f);
         }
+        poisoned = false;
     }
 
     public void Burning(int effectTime, int trapDamage, AudioClip effect)
@@ -685,6 +694,11 @@ public class playerController : MonoBehaviour
             StartCoroutine(flashDamage());
             aud.PlayOneShot(effect);
         }
+    }
+
+    IEnumerator waitSeconds()
+    {
+        yield return new WaitForSeconds(1.5f);
     }
 
 
