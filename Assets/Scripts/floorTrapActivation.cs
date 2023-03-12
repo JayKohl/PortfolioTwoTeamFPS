@@ -12,7 +12,7 @@ public class floorTrapActivation : MonoBehaviour
 	public int activeTime;
 	public int effectTime;
 	public int damage;
-	public bool trapActive = false;
+	public bool trapActive;
 
 	//Effecrt Type
 	// 1 = poison
@@ -23,7 +23,6 @@ public class floorTrapActivation : MonoBehaviour
 	float time;
     private void Start()
     {
-		time = 0;
 		trapVisual = trapsType.trapVisual;
 		soundEffect = trapsType.soundEffect;
 		activeTime = trapsType.activeTime;
@@ -35,40 +34,42 @@ public class floorTrapActivation : MonoBehaviour
 	}
     void Update()
 	{
-		if(time <= 0)
+		if(trapActive == false)
         {
-			trapActive = false;
-			time -= time * Time.deltaTime;
-        }
-		else
-        {
-			trapActive = true;
+			StartCoroutine(TrapCycle());
         }
 
 	}
     private void OnTriggerEnter(Collider other)
     {
 
-		if (other.CompareTag("Player") && trapActive)
+		if (other.CompareTag("Player"))
 		{
-
-			switch (effectType)
-			{
-				case (1):
-					gameManager.instance.playerScript.Poisoned(effectTime, damage, soundEffect);
-					break;
-				case (2):
-					gameManager.instance.playerScript.Electrecuted(effectTime, damage, soundEffect);
-					break;
-				case (3):
-					gameManager.instance.playerScript.Burning(effectTime, damage, soundEffect);
-					break;
-				case (4):
-					StartCoroutine(gameManager.instance.playerScript.Slowed(effectTime, damage));
-					break;
-				default:
-					break;
+			if(trapActive)
+            {
+				switch (effectType)
+				{
+					case (1):
+						gameManager.instance.playerScript.Poisoned(effectTime, damage, soundEffect);
+						break;
+					case (2):
+						gameManager.instance.playerScript.Electrecuted(effectTime, damage, soundEffect);
+						break;
+					case (3):
+						gameManager.instance.playerScript.Burning(effectTime, damage, soundEffect);
+						break;
+					case (4):
+						StartCoroutine(gameManager.instance.playerScript.Slowed(effectTime, damage));
+						break;
+					default:
+						break;
+				}
 			}
+            else
+            {
+				return;
+            }
+			
 
 		}
 		
@@ -76,15 +77,15 @@ public class floorTrapActivation : MonoBehaviour
 
 	IEnumerator TrapCycle()
 	{
-		//trapActive = true;
-		//transform.GetComponent<Renderer>().material.color = Color.red;
-		//Debug.Log("here");
 		yield return new WaitForSeconds(5);
-		//Debug.Log("I'm here");
-		//transform.GetComponent<Renderer>().material.color = Color.blue;
-		//trapActive = false;
-		//yield return new WaitForSeconds(5);
-		//Debug.Log("I'm Out");
-	}
+		trapActive = true;
+        transform.GetComponent<Renderer>().material.color = Color.red;
+        Debug.Log("here");
+        yield return new WaitForSeconds(5);
+        Debug.Log("I'm here");
+        transform.GetComponent<Renderer>().material.color = Color.blue;
+        trapActive = false;
+        
+    }
 
 }
