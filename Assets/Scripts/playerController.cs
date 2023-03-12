@@ -697,6 +697,7 @@ public class playerController : MonoBehaviour
             effectTime--;
             if(playerDied)
             {
+                poisoned = false;
                 yield break;
             }
          
@@ -744,6 +745,7 @@ public class playerController : MonoBehaviour
             effectTime--;
             if (playerDied)
             {
+                electrecuted = false;
                 yield break;
             }
 

@@ -28,7 +28,11 @@ public class floorTrigger : MonoBehaviour
 
 					break;
 				case (2):
-					gameManager.instance.playerScript.Electrecuted(trapParent.effectTime, trapParent.damage, trapParent.soundEffect);
+					if (gameManager.instance.playerScript.electrecuted == false)
+					{
+						gameManager.instance.playerScript.electrecuted = true;
+						StartCoroutine(gameManager.instance.playerScript.Electrecuted(trapParent.effectTime, trapParent.damage, trapParent.soundEffect));
+					}
 					break;
 				case (3):
 					gameManager.instance.playerScript.Burning(trapParent.effectTime, trapParent.damage, trapParent.soundEffect);
