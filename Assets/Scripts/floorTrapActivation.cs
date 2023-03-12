@@ -20,9 +20,10 @@ public class floorTrapActivation : MonoBehaviour
 	// 3 = burning
 	// 4 = slow
 	public int effectType;
+	float time;
     private void Start()
     {
-		
+		time = 0;
 		trapVisual = trapsType.trapVisual;
 		soundEffect = trapsType.soundEffect;
 		activeTime = trapsType.activeTime;
@@ -34,12 +35,16 @@ public class floorTrapActivation : MonoBehaviour
 	}
     void Update()
 	{
-		
-	    if (trapActive == false)
-		{
-			StartCoroutine(TrapCycle());
-		}
-		
+		if(time <= 0)
+        {
+			trapActive = false;
+			time -= time * Time.deltaTime;
+        }
+		else
+        {
+			trapActive = true;
+        }
+
 	}
     private void OnTriggerEnter(Collider other)
     {
@@ -66,23 +71,20 @@ public class floorTrapActivation : MonoBehaviour
 			}
 
 		}
-		else
-			if (trapActive == false)
-		{
-			StartCoroutine(TrapCycle());
-		}
+		
 	}
-
 
 	IEnumerator TrapCycle()
 	{
-		
-		transform.GetComponent<Renderer>().material.color = Color.red;
-        trapActive = true;
-        yield return new WaitForSeconds(2);
-		transform.GetComponent<Renderer>().material.color = Color.blue;
-		
-
+		//trapActive = true;
+		//transform.GetComponent<Renderer>().material.color = Color.red;
+		//Debug.Log("here");
+		yield return new WaitForSeconds(5);
+		//Debug.Log("I'm here");
+		//transform.GetComponent<Renderer>().material.color = Color.blue;
+		//trapActive = false;
+		//yield return new WaitForSeconds(5);
+		//Debug.Log("I'm Out");
 	}
 
 }
