@@ -9,6 +9,9 @@ public class ModifyText : MonoBehaviour
     public TMP_Text hintText;
     public string hint1 = "This is a hint.";
     public string hint2 = "This is a hint as well, how are you today?";
+    public string hint3 = "What can you do?";
+    public string hint4 = "Aliens wil try to kill you.";
+    public string hint5 = "Trust some.";
     public List<string> allHints;
     public List<string> usedHints;
     public string selectedHint;
@@ -18,27 +21,29 @@ public class ModifyText : MonoBehaviour
     {
         allHints.Add(hint1);
         allHints.Add(hint2);
+        allHints.Add(hint3);
+        allHints.Add(hint4);
+        allHints.Add(hint5);
     }
 
 
     void Update()
     {
-        if (gameManager.instance.isPaused)
+        if ((gameManager.instance.isPaused && gameManager.instance.activeMenu == gameManager.instance.pauseMenu) && !hintUp)
         {
-            if (!hintUp)
-            {
-                hintUp = true;
-                HintSelect();
-            }   
+            hintUp = true;
+            HintSelect();
         }
-        else
+        else if ((!gameManager.instance.isPaused || gameManager.instance.activeMenu != gameManager.instance.pauseMenu) && hintUp == true)
         {
             hintUp = false;
         }
+        
     }
 
     public void HintSelect()
     {
+        
         if (allHints.Count <= 0)
         {
             ResetHintLists();
@@ -50,7 +55,7 @@ public class ModifyText : MonoBehaviour
         hintText.text = selectedHint;
         allHints.RemoveAt(position);
         usedHints.Add(selectedHint);
-
+        
     }
 
     private void ResetHintLists()
