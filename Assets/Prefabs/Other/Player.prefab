@@ -515,9 +515,7 @@ MonoBehaviour:
   playeranim: {fileID: 6551918312896228886}
   aud: {fileID: -3982115937129956811}
   medPickupSound: {fileID: 8300000, guid: 5f561a885706e684a9c5e533424f7640, type: 3}
-  medPickupVol: 0.5
   weaponPickupSound: {fileID: 8300000, guid: e7632c6401c09437e83de45d33c5858e, type: 3}
-  weaponPickupVol: 0.5
   minimap: {fileID: 0}
   HP: 10
   playerSpeed: 8
@@ -550,7 +548,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  weaponAudioVol: 0.5
   visible: {fileID: 0}
   weaponDamageMulti: 1
   dmgDivide: 1
@@ -560,49 +557,41 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 87d51f07abec0584d805bbe3708a7c71, type: 3}
   - {fileID: 8300000, guid: 9f96c8d3fef6ab440bdc9bd4ad3d08fe, type: 3}
   - {fileID: 8300000, guid: 61abfb7bb17151f458862ef823ac0932, type: 3}
-  audGravelStepsVol: 0.5
   audGravelRun:
   - {fileID: 8300000, guid: 44737e645aa918043b3d8cab5d1511bc, type: 3}
   - {fileID: 8300000, guid: 302595b93370c52408825d7fb07d09be, type: 3}
   - {fileID: 8300000, guid: 2bb076cd89fe2a148a76da2a45c910e4, type: 3}
   - {fileID: 8300000, guid: 0b8aed54efbbfa946af2f31d3d92f9cd, type: 3}
   - {fileID: 8300000, guid: 16627ace4424d91498eb01bb4028a449, type: 3}
-  audGravelRunVol: 0.5
   audMetalSteps:
   - {fileID: 8300000, guid: 5e265270fb85126479eef52d8fce3b08, type: 3}
   - {fileID: 8300000, guid: 3701a5fdf99882f40bc00eb9053eec92, type: 3}
   - {fileID: 8300000, guid: 2f949b40b7283404099a802630fb2077, type: 3}
   - {fileID: 8300000, guid: dfff2b3c7dfb43c419592789f0a6ab81, type: 3}
   - {fileID: 8300000, guid: 812100e3982e56842adb6ba5be867b7a, type: 3}
-  audMetalStepsVol: 1
   audMetalRun:
   - {fileID: 8300000, guid: b25225c72201cd740b16b95b86d57940, type: 3}
   - {fileID: 8300000, guid: 5e8e6e435e65fe146b588b8a9d2df461, type: 3}
   - {fileID: 8300000, guid: 8900ae4b297a017448ddb78ea0c2d4da, type: 3}
   - {fileID: 8300000, guid: be6f9c5983062b9488c5423a7e1fd1e0, type: 3}
   - {fileID: 8300000, guid: 2244aa424da7d2f439f4c53fa73e8b53, type: 3}
-  audMetalRunVol: 1
   audJump:
   - {fileID: 8300000, guid: 80d4ea7778bc3d9459d9fcea672afcee, type: 3}
   - {fileID: 8300000, guid: 314755392aa072e4eb6fc3b02b791b72, type: 3}
   - {fileID: 8300000, guid: f7d6941d3b847874686c2b6a80ab8a1b, type: 3}
-  audJumpVol: 0.5
   audDamaged:
   - {fileID: 8300000, guid: 5583e9c9a0afdf0408f9d0946666f85a, type: 3}
   - {fileID: 8300000, guid: 88b91714a2e2cbb428f61e18ca4d39d8, type: 3}
   - {fileID: 8300000, guid: 132005c60d8148440b6f375a773d8f8e, type: 3}
   - {fileID: 8300000, guid: 36104c8b981b4a349a1948b61c9e8a20, type: 3}
   - {fileID: 8300000, guid: 9ef3f6cb1b48c67419812b50793d9da6, type: 3}
-  audDamagedVol: 0.5
   audDead:
   - {fileID: 8300000, guid: 37670623b2aa89a4589af3d795088c80, type: 3}
   - {fileID: 8300000, guid: 6857c17d0b39a594298d2c0ebc09f389, type: 3}
   - {fileID: 8300000, guid: 9ac9e455e130968459fc7ff35a33428c, type: 3}
   - {fileID: 8300000, guid: f325d26adff89d64cb93f78147635cf7, type: 3}
   - {fileID: 8300000, guid: 8f4f375ffa0090842aeb8c5e2df71b5f, type: 3}
-  audDeadVol: 0.5
   lvlUp: {fileID: 8300000, guid: 1f9a81d9d32ae01438f5a3adee4f5c6b, type: 3}
-  lvlUpVol: 0.27
   dirt: 0
   shootPositionPlayer: {fileID: 2929723904278214019}
   gunFlash: {fileID: 5501709145308778831, guid: d5b838e7e4f606a4ab356f28b4746021, type: 3}
@@ -620,6 +609,11 @@ MonoBehaviour:
   fireOn: 0
   iceOn: 0
   canShoot: 0
+  slowed: 0
+  electrecuted: 0
+  poisoned: 0
+  burning: 0
+  playerDied: 0
 --- !u!114 &7508967223444994235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -722,7 +716,7 @@ AudioSource:
   m_GameObject: {fileID: 524364267517112022}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3186180182146366106, guid: 22e76c55767e9e242a0aa6784cd36753, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
