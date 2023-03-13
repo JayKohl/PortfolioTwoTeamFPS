@@ -51,19 +51,18 @@ public class floorTrapActivation : MonoBehaviour
 
 	IEnumerator TrapCycle()
 	{
-		
 		yield return new WaitForSeconds(5);
 		trapActive = true;
         transform.GetComponent<Renderer>().material.color = Color.red;
 		triggerObject.transform.position = Vector3.Lerp(triggerObject.transform.position, triggerObject2.transform.position, 1);
-        Debug.Log("here");
+       
         yield return new WaitForSeconds(5);
 		
-		Debug.Log("I'm here");
         transform.GetComponent<Renderer>().material.color = Color.blue;
 		triggerObject.transform.position = Vector3.Lerp(triggerObject.transform.position, triggerObject1.transform.position, 1);
 		trapActive = false;
-        
-    }
+		
+
+	}
 
 }

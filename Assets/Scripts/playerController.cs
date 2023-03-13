@@ -121,7 +121,7 @@ public class playerController : MonoBehaviour
 
     Color poisonedColor = Color.green;
     Color electrecutedColor = Color.blue;
-    Color slowedColor = Color.yellow;
+    Color slowedColor = Color.gray;
     Color burningColor = Color.yellow;
     public bool playerDied;
     // Start is called before the first frame update
@@ -131,6 +131,7 @@ public class playerController : MonoBehaviour
         electrecutedColor.a = 0.20f;
         slowedColor.a = 0.20f;
         burningColor.a = 0.20f;
+        
         canShoot = true;
         if (SceneManager.GetActiveScene().name == "LvlOneArena" && currentLevel < 1)
         {
@@ -469,26 +470,26 @@ public class playerController : MonoBehaviour
             case 1:
                 gameManager.instance.playerDamageFlashScreen.GetComponent<Image>().color = poisonedColor;
                 gameManager.instance.playerDamageFlashScreen.SetActive(true);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.3f);
                 gameManager.instance.playerDamageFlashScreen.SetActive(false);
                 
                 break;
             case 2:
                 gameManager.instance.playerDamageFlashScreen.GetComponent<Image>().color = electrecutedColor;
                 gameManager.instance.playerDamageFlashScreen.SetActive(true);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.3f);
                 gameManager.instance.playerDamageFlashScreen.SetActive(false);
                 break;
             case 3:
                 gameManager.instance.playerDamageFlashScreen.GetComponent<Image>().color = burningColor;
                 gameManager.instance.playerDamageFlashScreen.SetActive(true);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.3f);
                 gameManager.instance.playerDamageFlashScreen.SetActive(false);
                 break;
             case 4:
                 gameManager.instance.playerDamageFlashScreen.GetComponent<Image>().color = slowedColor;
                 gameManager.instance.playerDamageFlashScreen.SetActive(true);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.3f);
                 gameManager.instance.playerDamageFlashScreen.SetActive(false);
                 break;
 
@@ -711,15 +712,16 @@ public class playerController : MonoBehaviour
 
     public IEnumerator Burning(int effectTime, int trapDamage, AudioClip effect)
     {
+
         while (effectTime > 0 && !playerDied)
-        {
+        {      
             takeDamage(trapDamage);
             StartCoroutine(flashDamage(3));
             aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], gameManager.instance.soundVol);
             effectTime--;
             if (playerDied)
             {
-                poisoned = false;
+                burning = false;
                 yield break;
             }
 
@@ -731,10 +733,15 @@ public class playerController : MonoBehaviour
 
     public IEnumerator Slowed(int effectTime, int trapDamage)
     {
-
+        if (playerDied)
+        {
+            slowed = false;
+            yield break;
+        }
         playerSpeed = trapDamage;
         yield return new WaitForSeconds(effectTime);
         playerSpeed = speedOriginal;
+        slowed = false;
     }
 
     public IEnumerator Electrecuted(int effectTime, int trapDamage, AudioClip effect)
