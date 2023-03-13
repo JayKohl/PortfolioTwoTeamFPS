@@ -22,7 +22,6 @@ public class scrollingText : MonoBehaviour
         {
             itemInfoText.text = itemInfo[i].ToString();
             yield return new WaitForSeconds(textSpeed);
-        }
-
-    }
+        }        
+    }    
 }
