@@ -26,6 +26,10 @@ public class spawner : MonoBehaviour
         {
             StartCoroutine(spawn());
         }
+        if(enemiesSpawned >= spawnMaxNum)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,7 +48,7 @@ public class spawner : MonoBehaviour
         //Instantiate(enemy, spawnPos[Random.Range(0, spawnPos.Length)].position, enemy.transform.rotation);
         enemiesSpawned++;
         yield return new WaitForSeconds(timer);
-        isSpawning = false;
+        isSpawning = false;        
     }
 }
 
