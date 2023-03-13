@@ -222,7 +222,7 @@ public class playerController : MonoBehaviour
             playerVelocity.y = jumpSpeed;
             aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], gameManager.instance.soundVol);
         }
-        if ((Input.GetButton("Run") && !isRunning) && !isCrouched) //run
+        if ((Input.GetButton("Run") && !isRunning) && !slowed && !isCrouched) //run
         {
             isRunning = true;
             playerSpeed = runSpeed;
