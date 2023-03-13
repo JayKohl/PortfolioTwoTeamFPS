@@ -60,7 +60,7 @@ public class enemyThirdBoss : enemyAI
         isReDrop = false;
         isDying = false;
         isGoingBackUp = false;
-
+        shootRateOrig = shootRate;
 
         isUpdateGameGoal = false;
         hitPointsOrig = hitPoints;
@@ -329,6 +329,7 @@ public class enemyThirdBoss : enemyAI
                 //}
                 if (!isShooting && !hacked) //&& angleToPlayer <= shootAngle)
                 {
+                    isShooting = true;
                     StartCoroutine(shoot());
                 }
                 return true;
@@ -339,7 +340,7 @@ public class enemyThirdBoss : enemyAI
     }    
     protected override IEnumerator shoot()
     {
-        isShooting = true;
+        //isShooting = true;
         if (waveCount == 1)
         {
             bullet = bulletSecond;
