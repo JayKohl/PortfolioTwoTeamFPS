@@ -33,7 +33,7 @@ public class enemyThirdBoss : enemyAI
     int fullReFlip;
     int fullDrop;
     int fullReDrop;
-    bool isUpdateGameGoal;
+    //bool isUpdateGameGoal;
     bool isGoingBackUp;    
 
     bool isDying;
@@ -62,7 +62,7 @@ public class enemyThirdBoss : enemyAI
         isGoingBackUp = false;
         shootRateOrig = shootRate;
 
-        isUpdateGameGoal = false;
+        //isUpdateGameGoal = false;
         hitPointsOrig = hitPoints;
         agentStop();
         isFlip = false;
@@ -119,7 +119,7 @@ public class enemyThirdBoss : enemyAI
                         spawnWave();
                         fullFlip = 0;
                         fullDrop = 0;
-                        isUpdateGameGoal = true;
+                        //isUpdateGameGoal = true;
                         isGoingBackUp = true;
                     }
                 }
@@ -147,7 +147,7 @@ public class enemyThirdBoss : enemyAI
                             isReDrop = false;
                             fullReFlip = 0;
                             isGoingBackUp = false;
-                            isUpdateGameGoal = false;
+                            //isUpdateGameGoal = false;
                             topPiece.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
                             GetComponent<BoxCollider>().enabled = true;
 
