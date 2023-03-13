@@ -9,6 +9,10 @@ public class enemyTreeAI : enemyAI
     bool isFirstTime;
     bool isSprouting;
 
+    bool setOnFire;
+    bool chilled;
+    bool chilledOnce;
+    bool isInCoolDown;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +31,10 @@ public class enemyTreeAI : enemyAI
     {
         if (anim.GetBool("Dead") == false)
         {
-
+            if (!chilled)
+            {
+                shootRate = shootRateOrig;
+            }
             if (isPlayerInRange == true && isFirstTime == true)
             {
                 isFirstTime = false;
