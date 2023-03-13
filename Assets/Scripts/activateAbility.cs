@@ -427,7 +427,7 @@ public class activateAbility : MonoBehaviour
         int layerMask = LayerMask.GetMask("Enemy");
         if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, 100, layerMask))
         {
-            if (hit.transform.gameObject.tag == "EnemyBoss" || hit.transform.gameObject.tag == "Turret")
+            if (hit.transform.gameObject.tag == "EnemyBoss" || hit.transform.gameObject.tag == "Turret" || hit.transform.gameObject.tag == "EnemyBoss3")
             {
                 aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
                 hackTarget = hit.collider.gameObject;

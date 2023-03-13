@@ -9,6 +9,10 @@ public class enemyTreeAI : enemyAI
     bool isFirstTime;
     bool isSprouting;
 
+    bool setOnFire;
+    bool chilled;
+    bool chilledOnce;
+    bool isInCoolDown;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +31,10 @@ public class enemyTreeAI : enemyAI
     {
         if (anim.GetBool("Dead") == false)
         {
-
+            if (!chilled)
+            {
+                shootRate = shootRateOrig;
+            }
             if (isPlayerInRange == true && isFirstTime == true)
             {
                 isFirstTime = false;
@@ -51,7 +58,7 @@ public class enemyTreeAI : enemyAI
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
-        Debug.Log(angleToPlayer);
+        //Debug.Log(angleToPlayer);
         Debug.DrawRay(headPos.position, playerDirection);
 
         RaycastHit hit;

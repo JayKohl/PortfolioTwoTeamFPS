@@ -34,7 +34,7 @@ public class enemyThirdBoss : enemyAI
     int fullDrop;
     int fullReDrop;
     bool isUpdateGameGoal;
-    bool isGoingBackUp;
+    bool isGoingBackUp;    
 
     bool isDying;
     bool waveOne;
@@ -43,6 +43,11 @@ public class enemyThirdBoss : enemyAI
     bool waveFourBoss;
     bool waveFive;
     int waveCount;
+
+    bool hacked;
+    bool setOnFire;
+    bool chilled;
+    bool chilledOnce;
 
     [SerializeField] int enemyAmountWaveRegular;
     [SerializeField] int enemyWaveRobot;
@@ -68,6 +73,10 @@ public class enemyThirdBoss : enemyAI
     // Update is called once per frame
     void Update()
     {
+        if (!chilled)
+        {
+            shootRate = shootRateOrig;
+        }
         if (isDying == false)
         {
 
@@ -200,13 +209,32 @@ public class enemyThirdBoss : enemyAI
     }
     public override void takeDamage(int dmg)
     {
-        hitPoints -= dmg;
+        if (gameManager.instance.playerScript.fireOn && !setOnFire)
+        {
+            setOnFire = true;
+            StartCoroutine(onFire());
+        }
+        else if (gameManager.instance.playerScript.iceOn && !chilled)
+        {
+            chilled = true;
+            chilledOnce = true;
+            StartCoroutine(iced());
+        }
+        if (dmg > 0)
+        {
+            hitPoints -= dmg;
+        }
+        if (chilled && chilledOnce)
+        {
+            chilledOnce = false;
+            shootRate = shootRate * 8;
+        }
         if (hitPoints <= 0)
         {
             gameManager.instance.lvlscript.GainExperiance(xp);
             GetComponent<BoxCollider>().enabled = false;
             //GetComponentInChildren<Canvas>().enabled = false;
-            //aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
+            //aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], gameManager.instance.soundVol);
             agent.enabled = false;
             deathFX.SetActive(true);
             StartCoroutine(deathDestroy());
@@ -216,7 +244,7 @@ public class enemyThirdBoss : enemyAI
             //anim.SetTrigger("Damage");
             if (dmg > 0)
             {
-                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
             }
             if (!isSpawnEvent && takeDamFXDelay == false)
             {
@@ -299,7 +327,7 @@ public class enemyThirdBoss : enemyAI
                 //{
                 //    //facePlayer();
                 //}
-                if (!isShooting) //&& angleToPlayer <= shootAngle)
+                if (!isShooting && !hacked) //&& angleToPlayer <= shootAngle)
                 {
                     StartCoroutine(shoot());
                 }
@@ -308,7 +336,7 @@ public class enemyThirdBoss : enemyAI
         }
         //agent.stoppingDistance = 0;
         return false;
-    }
+    }    
     protected override IEnumerator shoot()
     {
         isShooting = true;
@@ -351,7 +379,7 @@ public class enemyThirdBoss : enemyAI
             GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
             bulletClone.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(0, 0.5f), Random.Range(0, 0.5f), Random.Range(0, 0.5f)) * bulletSpeed;
         }
-        //aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
+        //aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], gameManager.instance.soundVol);
     }
     protected void spawnWave()
     {
@@ -397,5 +425,43 @@ public class enemyThirdBoss : enemyAI
             //Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[3].position, spawnPos[3].rotation);
             //Instantiate(mechanicalTypeEnemies[Random.Range(0, mechanicalTypeEnemies.Length)], spawnPos[4].position, spawnPos[4].rotation);
         }
+    }
+    public IEnumerator hacking(GameObject target)
+    {
+        if (target == gameObject)
+        {
+            hacked = true;
+            yield return new WaitForSeconds(10);
+            hacked = false;
+        }
+    }
+    IEnumerator onFire()
+    {
+        yield return new WaitForSeconds(.5f);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        if (gameManager.instance.lvlbuttons.abilityDamageUp)
+        {
+            takeDamage(3);
+        }
+        setOnFire = false;
+    }
+    IEnumerator iced()
+    {
+        yield return new WaitForSeconds(.5f);
+        //iceEffect.SetActive(true);
+        takeDamage(1);
+        yield return new WaitForSeconds(1);
+        takeDamage(1);
+        if (gameManager.instance.lvlbuttons.abilityDamageUp)
+        {
+            takeDamage(2);
+        }
+        yield return new WaitForSeconds(6);
+        //iceEffect.SetActive(false);
+        chilled = false;
     }
 }
