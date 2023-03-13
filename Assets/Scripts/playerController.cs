@@ -454,7 +454,7 @@ public class playerController : MonoBehaviour
             gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Play();            
         }
     }
-    IEnumerator flashDamage(int type = 0)
+    IEnumerator flashDamage(int type = 0, float slowTime = 0)
 
     {
         switch (type)
@@ -489,7 +489,7 @@ public class playerController : MonoBehaviour
             case 4:
                 gameManager.instance.playerDamageFlashScreen.GetComponent<Image>().color = slowedColor;
                 gameManager.instance.playerDamageFlashScreen.SetActive(true);
-                yield return new WaitForSeconds(0.3f);
+                yield return new WaitForSeconds(slowTime);
                 gameManager.instance.playerDamageFlashScreen.SetActive(false);
                 break;
 
@@ -739,6 +739,7 @@ public class playerController : MonoBehaviour
             yield break;
         }
         playerSpeed = trapDamage;
+        StartCoroutine(flashDamage(4));
         yield return new WaitForSeconds(effectTime);
         playerSpeed = speedOriginal;
         slowed = false;
