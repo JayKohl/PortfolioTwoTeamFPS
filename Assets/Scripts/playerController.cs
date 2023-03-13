@@ -191,6 +191,10 @@ public class playerController : MonoBehaviour
                 StartCoroutine(shoot());
             }
         }
+        if(Input.GetButtonUp("Shoot"))
+        {
+            gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Stop();
+        }
     }
 
     void movement()
@@ -215,7 +219,7 @@ public class playerController : MonoBehaviour
         {
             jumpsCurrent++;
             playerVelocity.y = jumpSpeed;
-            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
+            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], gameManager.instance.soundVol);
         }
         if ((Input.GetButton("Run") && !isRunning) && !isCrouched) //run
         {
@@ -278,7 +282,7 @@ public class playerController : MonoBehaviour
     IEnumerator playGravelSteps()
     {
         isPlayingSteps = true;
-        aud.PlayOneShot(audGravelSteps[Random.Range(0, audGravelSteps.Length)], audGravelStepsVol);
+        aud.PlayOneShot(audGravelSteps[Random.Range(0, audGravelSteps.Length)], gameManager.instance.soundVol);
         if (isSprinting)
         {
             yield return new WaitForSeconds(0.3f);
@@ -294,7 +298,7 @@ public class playerController : MonoBehaviour
     IEnumerator playMetalSteps()
     {
         isPlayingSteps = true;
-        aud.PlayOneShot(audMetalSteps[Random.Range(0, audMetalSteps.Length)], audMetalStepsVol);
+        aud.PlayOneShot(audMetalSteps[Random.Range(0, audMetalSteps.Length)], gameManager.instance.soundVol);
         if (isSprinting)
         {
             yield return new WaitForSeconds(0.3f);
@@ -356,8 +360,8 @@ public class playerController : MonoBehaviour
                 playeranim.SetBool("Rifle", false);
                 playeranim.SetBool("Sniper", true);
             }
-            aud.PlayOneShot(weaponAudio[Random.Range(0, weaponAudio.Count)], weaponAudioVol);
-            StartCoroutine(gunShootFlash());
+            aud.PlayOneShot(weaponAudio[Random.Range(0, weaponAudio.Count)], gameManager.instance.soundVol);
+            gunShootFlash();
         }
 
         RaycastHit hit;
@@ -426,12 +430,12 @@ public class playerController : MonoBehaviour
             if (HP <= 0)
             {
                 playerDied = true;
-                aud.PlayOneShot(audDead[Random.Range(0, audDead.Length)], audDeadVol);
+                aud.PlayOneShot(audDead[Random.Range(0, audDead.Length)], gameManager.instance.soundVol);
                 gameManager.instance.playerDead();
             }
             else
             {
-                aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
+                aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], gameManager.instance.soundVol);
             }
         }
     }
@@ -442,13 +446,11 @@ public class playerController : MonoBehaviour
         gameManager.instance.invisUI.SetActive(true);
         StartCoroutine(abilityCoolInvisible(10));
     }
-    IEnumerator gunShootFlash()
+    public void gunShootFlash()
     {
         if (weaponList.Count > 0)
         {
-            gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Play();
-            yield return new WaitForSeconds(0.1f);
-            gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Stop();
+            gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Play();            
         }
     }
     IEnumerator flashDamage(int type = 0)
@@ -500,7 +502,7 @@ public class playerController : MonoBehaviour
 
     public void giveHP(int amount)
     {
-        aud.PlayOneShot(medPickupSound, medPickupVol);
+        aud.PlayOneShot(medPickupSound, gameManager.instance.soundVol);
         HP += amount;
         if (HP > hpOriginal)
             HP = hpOriginal;
@@ -517,7 +519,7 @@ public class playerController : MonoBehaviour
         {
             if (weaponStat == weaponList[i])
             {
-                aud.PlayOneShot(weaponPickupSound, weaponPickupVol);
+                aud.PlayOneShot(weaponPickupSound, gameManager.instance.soundVol);
                 return;
             }
         }
@@ -693,7 +695,7 @@ public class playerController : MonoBehaviour
         {     
             takeDamage(trapDamage);
             StartCoroutine(flashDamage(1));
-            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
+            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], gameManager.instance.soundVol);
             effectTime--;
             if(playerDied)
             {
@@ -713,7 +715,7 @@ public class playerController : MonoBehaviour
         {
             takeDamage(trapDamage);
             StartCoroutine(flashDamage(3));
-            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
+            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], gameManager.instance.soundVol);
             effectTime--;
             if (playerDied)
             {
@@ -741,7 +743,7 @@ public class playerController : MonoBehaviour
         {
             takeDamage(trapDamage);
             StartCoroutine(flashDamage(2));
-            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], audDamagedVol);
+            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], gameManager.instance.soundVol);
             effectTime--;
             if (playerDied)
             {

@@ -10,6 +10,6 @@ public class musicMenu : MonoBehaviour
 
     void Start()
     {
-        aud.PlayOneShot(menuAud, menuVol);
+        aud.PlayOneShot(menuAud, gameManager.instance.musicVol);
     }
 }

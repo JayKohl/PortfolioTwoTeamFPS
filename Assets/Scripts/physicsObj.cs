@@ -24,6 +24,6 @@ public class physicsObj : MonoBehaviour
                 gameManager.instance.playerScript.pushbackDir((gameManager.instance.player.transform.position - transform.position).normalized * pushbackAmount);
         }
         //playerIn = true;
-        aud.PlayOneShot(audWindTunnel[Random.Range(0, audWindTunnel.Length)], audWindTunnelVol);
+        aud.PlayOneShot(audWindTunnel[Random.Range(0, audWindTunnel.Length)], gameManager.instance.soundVol);
     }
 }

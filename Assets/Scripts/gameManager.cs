@@ -100,7 +100,8 @@ public class gameManager : MonoBehaviour
 
     string goalsText;
     [SerializeField] public GameObject endGameTrigger;
-    
+    [SerializeField] public float soundVol = 0.2f;
+    [SerializeField] public float musicVol = 0.2f;
 
 
     void Awake()
@@ -145,6 +146,7 @@ public class gameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.X))
         {
+            aud.PlayOneShot(gameManager.instance.abilityHub.GetComponent<activateAbility>().inventoryOpen, soundVol);
             lvlMenu.SetActive(false);
             inventory.SetActive(false);
             inventoryMessageBox.SetActive(false);

@@ -7,6 +7,8 @@ using TMPro;
 public class activateAbility : MonoBehaviour
 {
     [SerializeField] public AudioSource aud;
+    [SerializeField] public AudioClip inventoryOpen;
+    [SerializeField][Range (0,1)] public float inventoryOpenVol = 0.2f;
     [SerializeField] public List<abilities> abilityBar = new List<abilities>();
     [SerializeField] List<Sprite> hackAnimation = new List<Sprite>();
     float cooldownTime;
@@ -195,6 +197,7 @@ public class activateAbility : MonoBehaviour
         {
             if(inventoryScreenOn)
             {
+                aud.PlayOneShot(inventoryOpen, gameManager.instance.soundVol);
                 gameManager.instance.playerScript.canShoot = true;
                 gameManager.instance.inventoryMessageBox.SetActive(false);
                 inventoryScreenOn = false;
@@ -205,6 +208,7 @@ public class activateAbility : MonoBehaviour
             }
             else
             {
+                aud.PlayOneShot(inventoryOpen, gameManager.instance.soundVol);
                 gameManager.instance.playerScript.canShoot = false;
                 inventoryScreenOn = true;
                 Time.timeScale = 0;
@@ -231,14 +235,14 @@ public class activateAbility : MonoBehaviour
                     cooldownTime = stats.cooldownTime;
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
-                    aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
                     StartCoroutine(abilityCoolShield(cooldownTime));
                 }
                 else if (stats.abilityName == "Fire")
                 {
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
-                    aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
                     gameManager.instance.playerScript.canShoot = false;
                     gameManager.instance.playerScript.weaponModel.GetComponent<MeshRenderer>().enabled = false;
                     StartCoroutine(abilityCoolFire(3));
@@ -247,7 +251,7 @@ public class activateAbility : MonoBehaviour
                 {
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
-                    aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
                     StartCoroutine(abilityCoolIce(3));
                 }
                 else if (stats.abilityName == "Swarm")
@@ -272,7 +276,7 @@ public class activateAbility : MonoBehaviour
                 {
                     abilityAudio = stats.abilityAudio;
                     abilityAudioVol = stats.abilityAudioVol;
-                    aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                    aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
                     gameManager.instance.playerScript.deploySentryGun();
                 }
             }
@@ -425,7 +429,7 @@ public class activateAbility : MonoBehaviour
         {
             if (hit.transform.gameObject.tag == "EnemyBoss" || hit.transform.gameObject.tag == "Turret")
             {
-                aud.PlayOneShot(abilityAudio, abilityAudioVol);
+                aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
                 hackTarget = hit.collider.gameObject;
                 gameManager.instance.hackUI.SetActive(true);
                 hackCounter = 0;
@@ -441,7 +445,7 @@ public class activateAbility : MonoBehaviour
     {
         if (i == 0)
         {
-            aud.PlayOneShot(abilityAudio, abilityAudioVol);
+            aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
             gameManager.instance.hackInterface.GetComponent<Image>().sprite = hackAnimation[0];
             gameManager.instance.hackInterface.GetComponent<Image>().color = Color.white;
             gameManager.instance.hackError.SetActive(false);
@@ -452,7 +456,7 @@ public class activateAbility : MonoBehaviour
             }
             if (!cancelHack)
             {
-                aud.PlayOneShot(gameManager.instance.notify, abilityAudioVol);
+                aud.PlayOneShot(gameManager.instance.notify, gameManager.instance.soundVol);
                 gameManager.instance.hackInterface.GetComponent<Image>().color = Color.green;
                 if (hackTarget.GetComponent<enemyBossAI>() != null)
                 {
@@ -474,7 +478,7 @@ public class activateAbility : MonoBehaviour
         {
             if (!cancelHack)
             {
-                aud.PlayOneShot(gameManager.instance.error, abilityAudioVol);
+                aud.PlayOneShot(gameManager.instance.error, gameManager.instance.soundVol);
                 cancelHack = true;
                 gameManager.instance.hackError.SetActive(true);
                 gameManager.instance.hackInterface.GetComponent<Image>().color = Color.red;

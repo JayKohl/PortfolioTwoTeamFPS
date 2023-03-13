@@ -20,7 +20,7 @@ public class ExplosionBarrel : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
-            //aud.PlayOneShot(audBarrelExplode[Random.Range(0, audBarrelExplode.Length)], audBarrelExplodeVol);
+            //aud.PlayOneShot(audBarrelExplode[Random.Range(0, audBarrelExplode.Length)], gameManager.instance.soundVol);
             Destroy(gameObject);
             Instantiate(BarrelExplosion, transform.position, BarrelExplosion.transform.rotation);
         }
