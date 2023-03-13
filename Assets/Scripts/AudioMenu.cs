@@ -12,6 +12,7 @@ public class AudioMenu : MonoBehaviour
     [SerializeField] AudioMixer _mixer;
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
+    [SerializeField] Slider masterSlider;
 
     // Start is called before the first frame update
     void Start()
