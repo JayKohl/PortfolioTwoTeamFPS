@@ -20,6 +20,7 @@ public class gameManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject winMenu;
     public GameObject loseMenu;
+    public GameObject optionMenu;
     public GameObject playerDamageFlashScreen;
     [SerializeField] public Image playerHPBar;
     [SerializeField] public Image playerXPBar;

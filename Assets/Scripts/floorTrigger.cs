@@ -15,16 +15,16 @@ public class floorTrigger : MonoBehaviour
 	{
 		if(!playerIn)
         {
-			if (other.CompareTag("Player") && trapParent.trapActive)
+			if (other.CompareTag("Player") && trapParent.trapsType.trapActive)
 			{
 
-				switch (trapParent.effectType)
+				switch (trapParent.trapsType.effectType)
 				{
 					case (1):
 						if (gameManager.instance.playerScript.poisoned == false)
 						{
 							gameManager.instance.playerScript.poisoned = true;
-							StartCoroutine(gameManager.instance.playerScript.Poisoned(trapParent.effectTime, trapParent.damage, trapParent.soundEffect));
+							StartCoroutine(gameManager.instance.playerScript.Poisoned(trapParent.trapsType.effectTime, trapParent.trapsType.damage, trapParent.trapsType.soundEffect));
 						}
 
 						break;
@@ -32,7 +32,7 @@ public class floorTrigger : MonoBehaviour
 						if (gameManager.instance.playerScript.electrecuted == false)
 						{
 							gameManager.instance.playerScript.electrecuted = true;
-							StartCoroutine(gameManager.instance.playerScript.Electrecuted(trapParent.effectTime, trapParent.damage, trapParent.soundEffect));
+							StartCoroutine(gameManager.instance.playerScript.Electrecuted(trapParent.trapsType.effectTime, trapParent.trapsType.damage, trapParent.trapsType.soundEffect));
 						}
 						break;
 					case (3):
@@ -40,7 +40,7 @@ public class floorTrigger : MonoBehaviour
 						if (gameManager.instance.playerScript.burning == false)
 						{
 							gameManager.instance.playerScript.burning = true;
-							StartCoroutine(gameManager.instance.playerScript.Burning(trapParent.effectTime, trapParent.damage, trapParent.soundEffect));
+							StartCoroutine(gameManager.instance.playerScript.Burning(trapParent.trapsType.effectTime, trapParent.trapsType.damage, trapParent.trapsType.soundEffect));
 						}
 	
 						break;
@@ -48,7 +48,7 @@ public class floorTrigger : MonoBehaviour
 						if (gameManager.instance.playerScript.slowed == false)
 						{
 							gameManager.instance.playerScript.slowed = true;
-							StartCoroutine(gameManager.instance.playerScript.Slowed(trapParent.effectTime, trapParent.damage));
+							StartCoroutine(gameManager.instance.playerScript.Slowed(trapParent.trapsType.effectTime, trapParent.trapsType.damage));
 						}
 						
 						break;

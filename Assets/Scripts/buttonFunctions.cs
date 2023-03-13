@@ -82,6 +82,21 @@ public class buttonFunctions : MonoBehaviour
         SceneManager.LoadScene("End Credits");
     }
 
+    public void Options()
+    {
+        gameManager.instance.activeMenu.SetActive(false);
+        gameManager.instance.activeMenu = gameManager.instance.optionMenu;
+        gameManager.instance.activeMenu.SetActive(true);
+
+    }
+
+    public void back()
+    {
+        gameManager.instance.activeMenu.SetActive(false);
+        gameManager.instance.activeMenu = gameManager.instance.pauseMenu;
+        gameManager.instance.activeMenu.SetActive(true);
+    }
+
     //public void closeQuestOne()
     //{
     //    StartCoroutine(gameManager.instance.deleteTextNpc(0.1f));
