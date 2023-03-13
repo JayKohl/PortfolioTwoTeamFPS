@@ -11,7 +11,7 @@ public class Teleporter : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            gameManager.instance.player.transform.position = TeleportTo.transform.position;
+            gameManager.instance.playerScript.teleport(TeleportTo.transform.position);
             
         }
     }
