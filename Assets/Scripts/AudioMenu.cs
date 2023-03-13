@@ -23,6 +23,13 @@ public class AudioMenu : MonoBehaviour
         masterSlider.onValueChanged.AddListener(HandleMasterSliderValueChanged);
     }
 
+    private void OnDisable()
+    {
+        PlayerPrefs.SetFloat(masterVolume, masterSlider.value);
+        PlayerPrefs.SetFloat(musicVolume, musicSlider.value);
+        PlayerPrefs.SetFloat(sfxVolume, sfxSlider.value);
+    }
+
     private void HandleMusicSliderValueChanged(float value)
     {
         _mixer.SetFloat(musicVolume, value: Mathf.Log10(value) * multiplier);
@@ -42,7 +49,9 @@ public class AudioMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        masterSlider.value = PlayerPrefs.GetFloat(masterVolume, masterSlider.value);
+        musicSlider.value = PlayerPrefs.GetFloat(musicVolume, musicSlider.value);
+        sfxSlider.value = PlayerPrefs.GetFloat(sfxVolume, sfxSlider.value);
     }
 
     // Update is called once per frame
