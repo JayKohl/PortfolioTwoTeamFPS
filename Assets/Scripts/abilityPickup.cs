@@ -7,7 +7,6 @@ public class abilityPickup : MonoBehaviour
     bool playerIn;
     [SerializeField] abilities stats;
     [SerializeField] AudioClip pickupSound;
-    [SerializeField][Range (0,1)] float pickupSoundVol = 0.2f;
     AudioSource aud;
 
     private void Start()

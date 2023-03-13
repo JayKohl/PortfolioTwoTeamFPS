@@ -41,11 +41,8 @@ public abstract class enemyAI : MonoBehaviour, IDamage
 
     [Header("----- Audio -----")]
     [SerializeField] protected AudioClip[] audTakeDamage;
-    [Range(0, 1)] [SerializeField] protected float audTakeDamageVol;
     [SerializeField] protected AudioClip[] audDeath;
-    [Range(0, 1)] [SerializeField] protected float audDeathVol;
     [SerializeField] protected AudioClip[] audBasicAttack;
-    [Range(0, 1)] [SerializeField] protected float audBasicAttackVol;
 
     protected Vector3 playerDirection;
     public bool isPlayerInRange;

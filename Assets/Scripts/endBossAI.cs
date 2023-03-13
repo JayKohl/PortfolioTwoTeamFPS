@@ -316,7 +316,7 @@ public class endBossAI : enemyAI
             GetComponent<Collider>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
             gameManager.instance.endGameTrigger.GetComponent<endGame>().endGameColliderOn();
-            aud.PlayOneShot(audDeath[UnityEngine.Random.Range(0, audDeath.Length)], audDeathVol);
+            aud.PlayOneShot(audDeath[UnityEngine.Random.Range(0, audDeath.Length)], gameManager.instance.soundVol);
             anim.SetBool("Dead", true);
             agent.enabled = false;
             gameManager.instance.boss2Dead = true;
@@ -328,7 +328,7 @@ public class endBossAI : enemyAI
             anim.SetTrigger("Damage");
             if (dmg > 0)
             {
-                aud.PlayOneShot(audTakeDamage[UnityEngine.Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+                aud.PlayOneShot(audTakeDamage[UnityEngine.Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
             }
             // melee add a function for turning off the weapon collider.
             agent.SetDestination(gameManager.instance.player.transform.position);

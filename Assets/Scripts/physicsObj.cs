@@ -12,7 +12,6 @@ public class physicsObj : MonoBehaviour
 
     [Header("----- Sound -----")]
     [SerializeField] AudioClip[] audWindTunnel;
-    [Range(0, 1)] [SerializeField] float audWindTunnelVol;
 
     private void OnTriggerEnter(Collider other)
     {

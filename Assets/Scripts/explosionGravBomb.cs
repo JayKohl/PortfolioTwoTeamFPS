@@ -10,7 +10,6 @@ public class explosionGravBomb : MonoBehaviour
     [SerializeField] AudioSource aud;
     [SerializeField] AudioClip explosion;
     [SerializeField] AudioClip gravityEffect;
-    [Range(0, 1)] [SerializeField] float explosionVol;
 
     GameObject target;
 

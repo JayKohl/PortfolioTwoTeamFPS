@@ -11,7 +11,6 @@ public class ExplosionBarrel : MonoBehaviour, IDamage
 
     [Header("----- Sound -----")]
     [SerializeField] AudioClip[] audBarrelExplode;
-    [Range(0, 1)] [SerializeField] float audBarrelExplodeVol;
 
 
     public void takeDamage(int dmg)

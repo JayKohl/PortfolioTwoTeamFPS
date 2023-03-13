@@ -8,15 +8,12 @@ public class activateAbility : MonoBehaviour
 {
     [SerializeField] public AudioSource aud;
     [SerializeField] public AudioClip inventoryOpen;
-    [SerializeField][Range (0,1)] public float inventoryOpenVol = 0.2f;
     [SerializeField] public List<abilities> abilityBar = new List<abilities>();
     [SerializeField] List<Sprite> hackAnimation = new List<Sprite>();
     float cooldownTime;
     Sprite abilityImage;
     AudioClip abilityAudio;
-    float abilityAudioVol;
-    Sprite abilityInfo;
-    string abilityName;    
+    Sprite abilityInfo;    
 
     GameObject abilityOne;
     GameObject abilityTwo;
@@ -234,14 +231,12 @@ public class activateAbility : MonoBehaviour
                 {
                     cooldownTime = stats.cooldownTime;
                     abilityAudio = stats.abilityAudio;
-                    abilityAudioVol = stats.abilityAudioVol;
                     aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
                     StartCoroutine(abilityCoolShield(cooldownTime));
                 }
                 else if (stats.abilityName == "Fire")
                 {
                     abilityAudio = stats.abilityAudio;
-                    abilityAudioVol = stats.abilityAudioVol;
                     aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
                     gameManager.instance.playerScript.canShoot = false;
                     gameManager.instance.playerScript.weaponModel.GetComponent<MeshRenderer>().enabled = false;
@@ -250,32 +245,27 @@ public class activateAbility : MonoBehaviour
                 else if (stats.abilityName == "Ice")
                 {
                     abilityAudio = stats.abilityAudio;
-                    abilityAudioVol = stats.abilityAudioVol;
                     aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
                     StartCoroutine(abilityCoolIce(3));
                 }
                 else if (stats.abilityName == "Swarm")
                 {
                     abilityAudio = stats.abilityAudio;
-                    abilityAudioVol = stats.abilityAudioVol;
                     gameManager.instance.playerScript.swarm();
                 }
                 else if (stats.abilityName == "Hack")
                 {
                     abilityAudio = stats.abilityAudio;
-                    abilityAudioVol = stats.abilityAudioVol;
                     hack();
                 }
                 else if (stats.abilityName == "Gravity Bomb")
                 {
                     abilityAudio = stats.abilityAudio;
-                    abilityAudioVol = stats.abilityAudioVol;
                     gameManager.instance.playerScript.gravBomb();
                 }
                 else if (stats.abilityName == "Sentry Gun")
                 {
                     abilityAudio = stats.abilityAudio;
-                    abilityAudioVol = stats.abilityAudioVol;
                     aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
                     gameManager.instance.playerScript.deploySentryGun();
                 }
@@ -287,9 +277,7 @@ public class activateAbility : MonoBehaviour
         cooldownTime = stats.cooldownTime;
         abilityImage = stats.abilityImage;
         abilityAudio = stats.abilityAudio;
-        abilityAudioVol = stats.abilityAudioVol;
         abilityInfo = stats.abilityInfo;
-        abilityName = stats.abilityName;
 
         if (abilityBar.Count < 4)
         {
