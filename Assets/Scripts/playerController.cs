@@ -191,6 +191,10 @@ public class playerController : MonoBehaviour
                 StartCoroutine(shoot());
             }
         }
+        if(Input.GetButtonUp("Shoot"))
+        {
+            gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Stop();
+        }
     }
 
     void movement()
@@ -357,7 +361,7 @@ public class playerController : MonoBehaviour
                 playeranim.SetBool("Sniper", true);
             }
             aud.PlayOneShot(weaponAudio[Random.Range(0, weaponAudio.Count)], weaponAudioVol);
-            StartCoroutine(gunShootFlash());
+            gunShootFlash();
         }
 
         RaycastHit hit;
@@ -442,13 +446,11 @@ public class playerController : MonoBehaviour
         gameManager.instance.invisUI.SetActive(true);
         StartCoroutine(abilityCoolInvisible(10));
     }
-    IEnumerator gunShootFlash()
+    public void gunShootFlash()
     {
         if (weaponList.Count > 0)
         {
-            gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Play();
-            yield return new WaitForSeconds(0.1f);
-            gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Stop();
+            gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Play();            
         }
     }
     IEnumerator flashDamage(int type = 0)
