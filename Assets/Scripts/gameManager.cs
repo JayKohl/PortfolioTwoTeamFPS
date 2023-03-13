@@ -213,17 +213,25 @@ public class gameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         pause();
-        SceneManager.LoadScene("Part3Scene");        
+        SceneManager.LoadScene("Part3Scene");
     }
     public void updateGameGoalLvl3(int amount)
     {
         enemiesRemaining += amount;
         if(boss3Dead)
         {
+            minimap.SetActive(false);
             pause();
             activeMenu = winMenu;
             activeMenu.SetActive(true);
+            StartCoroutine(endCredits());
         }
+    }
+    IEnumerator endCredits()
+    {
+        yield return new WaitForSeconds(3);
+        pause();
+        SceneManager.LoadScene("End Credits");
     }
     public void playerDead()
     {

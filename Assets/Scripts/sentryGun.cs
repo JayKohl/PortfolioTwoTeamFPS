@@ -76,7 +76,7 @@ public class sentryGun : MonoBehaviour
         enemyDirection = (target.transform.position - headPos.position).normalized;
         angleToEnemy = Vector3.Angle(new Vector3(enemyDirection.x, 0, enemyDirection.z), transform.forward);
 
-        Debug.DrawRay(headPos.position, enemyDirection);
+        //Debug.DrawRay(headPos.position, enemyDirection);
         if (isEnemyInRange)
         {
             faceEnemy();

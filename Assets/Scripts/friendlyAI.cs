@@ -160,8 +160,8 @@ public class friendlyAI : MonoBehaviour
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
 
-        Debug.Log(angleToPlayer);
-        Debug.DrawRay(headPos.position, playerDirection);
+        //Debug.Log(angleToPlayer);
+        //Debug.DrawRay(headPos.position, playerDirection);
 
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
