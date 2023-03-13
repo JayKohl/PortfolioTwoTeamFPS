@@ -18,10 +18,7 @@ public class buttonFunctions : MonoBehaviour
     //{
     //    friendNPC = GetComponent<friendlyAI>();
     //}
-    public void Start()
-    {
-        aud = gameObject.GetComponent<AudioSource>();
-    }
+    
     public void resume()
     {        
         gameManager.instance.unPause();
@@ -45,6 +42,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void quit()
     {
+        aud = gameObject.GetComponent<AudioSource>();
         aud.PlayOneShot(resumeButton, soundVol);
         Application.Quit();
     }
@@ -55,6 +53,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void start()
     {
+        aud = gameObject.GetComponent<AudioSource>();
         aud.PlayOneShot(resumeButton, soundVol);
         SceneManager.LoadScene("CrawlScene");
     }
@@ -69,12 +68,14 @@ public class buttonFunctions : MonoBehaviour
     }
     public void startLevel3()
     {
+        aud = gameObject.GetComponent<AudioSource>();
         aud.PlayOneShot(resumeButton, soundVol);
         SceneManager.LoadScene("LvlThreeTheWorld");
         resume();
     }
     public void credits()
     {
+        aud = gameObject.GetComponent<AudioSource>();
         aud.PlayOneShot(resumeButton, soundVol);
         SceneManager.LoadScene("End Credits");
     }
