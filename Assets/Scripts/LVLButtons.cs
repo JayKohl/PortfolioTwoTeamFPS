@@ -20,9 +20,21 @@ public class LVLButtons : MonoBehaviour
     [SerializeField] public int tokensum;
     [SerializeField] public bool coolDownReduced = false;
     [SerializeField] public bool abilityDamageUp = false;
-    
 
 
+    void Start()
+    {
+        Debug.Log("test4");
+        healthcover = GameObject.FindGameObjectWithTag("Health Cover");
+        speedcover = GameObject.FindGameObjectWithTag("Speed Cover");
+        damagecover = GameObject.FindGameObjectWithTag("Damage Cover");
+        jumpcover = GameObject.FindGameObjectWithTag("Jump Cover");
+        defensecover = GameObject.FindGameObjectWithTag("Defense Cover");
+        abilitycover = GameObject.FindGameObjectWithTag("Ability Cover");
+        XPcover = GameObject.FindGameObjectWithTag("XP Cover");
+        cooldowncover = GameObject.FindGameObjectWithTag("Cooldown Cover");
+        errorText = GameObject.FindGameObjectWithTag("You're Broke");
+    }
     void Update()
     {
         if (tokensum != gameManager.instance.lvlscript.GetTokens())
