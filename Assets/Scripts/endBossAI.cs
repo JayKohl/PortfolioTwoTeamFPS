@@ -69,7 +69,7 @@ public class endBossAI : enemyAI
     // Update is called once per frame
     void Update()
     {
-        if (agent.isActiveAndEnabled)
+        if (agent.isActiveAndEnabled && gameManager.instance.boss2Dead == false)
         {
             if (!chilled)
             {
