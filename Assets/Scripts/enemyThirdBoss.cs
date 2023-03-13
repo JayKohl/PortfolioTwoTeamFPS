@@ -140,7 +140,7 @@ public class enemyThirdBoss : enemyAI
                             isGoingBackUp = false;
                             isUpdateGameGoal = false;
                             topPiece.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
-                            GetComponent<Collider>().enabled = true;
+                            GetComponent<BoxCollider>().enabled = true;
 
                             //re set to normal non event behavior.
                             lockDownFX.SetActive(false);
@@ -204,7 +204,7 @@ public class enemyThirdBoss : enemyAI
         if (hitPoints <= 0)
         {
             gameManager.instance.lvlscript.GainExperiance(xp);
-            GetComponent<Collider>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;
             //GetComponentInChildren<Canvas>().enabled = false;
             //aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
             agent.enabled = false;
@@ -256,7 +256,7 @@ public class enemyThirdBoss : enemyAI
     private void startingEvent()
     {
         waveCount++;
-        GetComponent<Collider>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
         isSpawnEvent = true;
         isFlip = true;
         topPiece.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
@@ -264,8 +264,9 @@ public class enemyThirdBoss : enemyAI
     IEnumerator deathDestroy()
     {
         isDying = true;
+        GetComponent<MeshRenderer>().enabled = false;
         yield return new WaitForSeconds(10f);
-        Destroy(gameObject);
+        //Destroy(gameObject);
         gameManager.instance.boss3Dead = true;
         gameManager.instance.updateGameGoalLvl3(0);
     }
