@@ -158,6 +158,7 @@ public class gameManager : MonoBehaviour
 
     public void pause()
     {
+        gameManager.instance.playerScript.canShoot = false;
         abilityHub.GetComponent<activateAbility>().inventoryScreenOn = false;
         inventory.SetActive(false);
         inventoryMessageBox.SetActive(false);
