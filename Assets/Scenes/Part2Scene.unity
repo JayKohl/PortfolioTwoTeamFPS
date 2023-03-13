@@ -380,6 +380,10 @@ PrefabInstance:
       propertyPath: menuVol
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 3314782758611333876, guid: ba6e9246d9f564f42bc1ab22670317f3, type: 3}
+      propertyPath: menuAudVol
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8510531300670197975, guid: ba6e9246d9f564f42bc1ab22670317f3, type: 3}
       propertyPath: m_Name
       value: Part 2 Menu
@@ -500,9 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcfa746d1c6fa4c44966787177618dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aud: {fileID: 6585429808351678696}
   resumeButton: {fileID: 8300000, guid: fd55fca257ddd8d47b3c7eab59d0d535, type: 3}
-  buttonVol: 0.2
 --- !u!82 &6585429808351678696
 AudioSource:
   m_ObjectHideFlags: 0
