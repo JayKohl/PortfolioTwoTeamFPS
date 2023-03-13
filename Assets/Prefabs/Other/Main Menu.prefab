@@ -40,7 +40,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 748, y: -461}
+  m_AnchoredPosition: {x: 766, y: 116}
   m_SizeDelta: {x: 500, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9174326214382065140
@@ -149,7 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcfa746d1c6fa4c44966787177618dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aud: {fileID: 459012899115252224}
   resumeButton: {fileID: 8300000, guid: fd55fca257ddd8d47b3c7eab59d0d535, type: 3}
+  soundVol: 0.2
 --- !u!82 &459012899115252224
 AudioSource:
   m_ObjectHideFlags: 0
@@ -547,7 +549,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcfa746d1c6fa4c44966787177618dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aud: {fileID: 2635056033069722474}
   resumeButton: {fileID: 8300000, guid: fd55fca257ddd8d47b3c7eab59d0d535, type: 3}
+  soundVol: 0.2
 --- !u!82 &2635056033069722474
 AudioSource:
   m_ObjectHideFlags: 0
@@ -928,7 +932,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcfa746d1c6fa4c44966787177618dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aud: {fileID: 2635056033069722472}
   resumeButton: {fileID: 8300000, guid: fd55fca257ddd8d47b3c7eab59d0d535, type: 3}
+  soundVol: 0.2
 --- !u!82 &2635056033069722472
 AudioSource:
   m_ObjectHideFlags: 0

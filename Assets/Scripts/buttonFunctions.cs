@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class buttonFunctions : MonoBehaviour
 {
-    AudioSource aud;
+    [SerializeField] AudioSource aud;
     [SerializeField] AudioClip resumeButton;
     [SerializeField] float soundVol = 0.2f;
     //public bool click;
@@ -27,6 +27,8 @@ public class buttonFunctions : MonoBehaviour
 
     public void respawn()
     {
+        aud = gameObject.GetComponent<AudioSource>();
+        aud.PlayOneShot(resumeButton, soundVol);
         gameManager.instance.unPause();
         gameManager.instance.playerScript.playerRespawn();
         gameManager.instance.playerScript.playerDied = false;
@@ -34,6 +36,8 @@ public class buttonFunctions : MonoBehaviour
     
     public void restart()
     {
+        aud = gameObject.GetComponent<AudioSource>();
+        aud.PlayOneShot(resumeButton, soundVol);
         gameManager.instance.playerScript.poisoned = false;
         gameManager.instance.unPause();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -64,14 +68,12 @@ public class buttonFunctions : MonoBehaviour
     public void startLevel2()
     {
         SceneManager.LoadScene("LvlTwoTheArena");
-        resume();
     }
     public void startLevel3()
     {
         aud = gameObject.GetComponent<AudioSource>();
         aud.PlayOneShot(resumeButton, soundVol);
         SceneManager.LoadScene("LvlThreeTheWorld");
-        resume();
     }
     public void credits()
     {
