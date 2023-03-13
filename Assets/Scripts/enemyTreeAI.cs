@@ -13,7 +13,7 @@ public class enemyTreeAI : enemyAI
     // Start is called before the first frame update
     void Start()
     {
-        agentStop();
+        //agentStop();
         isSprouting = true;
         hitPointsOrig = hitPoints;
         isFirstTime = true;
