@@ -90,8 +90,8 @@ public class enemyThirdBoss : enemyAI
             else if (isFlip && isSpawnEvent)
             {
                 activeFX.SetActive(false);
-                topPiece.transform.Rotate(.5f, 0f, 0f);
-                fullFlip++;
+                topPiece.transform.Rotate(1f, 0f, 0f);
+                fullFlip += 2;
             }
             if (isSpawnEvent)
             {
@@ -99,8 +99,8 @@ public class enemyThirdBoss : enemyAI
                 // Full flip of object
                 if (fullFlip >= 360)
                 {
-                    topPiece.transform.Translate(0f, -.01f, 0f);
-                    fullDrop++;
+                    topPiece.transform.Translate(0f, -.02f, 0f);
+                    fullDrop += 2;
                     isFlip = false;
                     // Moved all the way down.
                     if (fullDrop >= 360)
@@ -119,8 +119,8 @@ public class enemyThirdBoss : enemyAI
                 {
                     if (gameManager.instance.enemiesRemaining <= 0 && isReDrop == false)
                     {
-                        topPiece.transform.Translate(0f, 0.01f, 0f);
-                        fullReDrop++;
+                        topPiece.transform.Translate(0f, 0.02f, 0f);
+                        fullReDrop += 2;
                         if (fullReDrop >= 350)
                         {
                             isReDrop = true;
@@ -130,8 +130,8 @@ public class enemyThirdBoss : enemyAI
                     }
                     else if (isReFlip == false && isReDrop == true)
                     {
-                        topPiece.transform.Rotate(-.5f, 0f, 0f);
-                        fullReFlip++;
+                        topPiece.transform.Rotate(-1f, 0f, 0f);
+                        fullReFlip += 2;
                         if (fullReFlip >= 350)
                         {
                             //isReFlip = true;
