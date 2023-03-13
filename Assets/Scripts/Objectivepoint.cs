@@ -10,7 +10,8 @@ public class Objectivepoint : MonoBehaviour
     GameObject nullLoc;
     public Transform objectiveOne;
     private void Start()
-    {
+    {        
+        locator = GameObject.FindGameObjectWithTag("Waypoint Image").GetComponent<Image>();
         locator.enabled = false;
         nullLoc = GameObject.FindGameObjectWithTag("NullObjective");
         location = nullLoc.transform;

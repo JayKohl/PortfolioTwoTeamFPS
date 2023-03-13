@@ -90,6 +90,13 @@ public class buttonFunctions : MonoBehaviour
 
     }
 
+    public void back()
+    {
+        gameManager.instance.activeMenu.SetActive(false);
+        gameManager.instance.activeMenu = gameManager.instance.pauseMenu;
+        gameManager.instance.activeMenu.SetActive(true);
+    }
+
     //public void closeQuestOne()
     //{
     //    StartCoroutine(gameManager.instance.deleteTextNpc(0.1f));

@@ -20,7 +20,6 @@ public class LVLButtons : MonoBehaviour
     [SerializeField] public int tokensum;
     [SerializeField] public bool coolDownReduced = false;
     [SerializeField] public bool abilityDamageUp = false;
-    
 
 
     void Update()
