@@ -15,7 +15,6 @@ public class sentryGun : MonoBehaviour
     [SerializeField] AudioSource aud;
     [SerializeField] AudioClip startUpSound;
     [SerializeField] AudioClip audBasicAttack;
-    [SerializeField] float audBasicAttackVol;
     float deleteTimer = 15;
     //int bulletSpeed = 25;
     float shootRate = .3f;

@@ -11,9 +11,7 @@ public class playerController : MonoBehaviour
     [SerializeField] Animator playeranim;
     [SerializeField] public AudioSource aud;
     [SerializeField] AudioClip medPickupSound;
-    [Range(0, 1)] [SerializeField] float medPickupVol;
     [SerializeField] AudioClip weaponPickupSound;
-    [Range(0, 1)] [SerializeField] float weaponPickupVol;
     [SerializeField] public GameObject minimap;
     [Header("----- Player Stats -----")]
     [Range(5, 30)] [SerializeField] public int HP;
@@ -48,33 +46,24 @@ public class playerController : MonoBehaviour
     [SerializeField] GameObject sentryGun;
     [SerializeField] string weaponName;
     [SerializeField] public List<AudioClip> weaponAudio = new List<AudioClip>();
-    [Range(0, 1)] [SerializeField] float weaponAudioVol;
     public MeshRenderer visible;
     public int weaponDamageMulti = 1;
     public int dmgDivide = 1;
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] audGravelSteps;
-    [Range(0, 1)] [SerializeField] float audGravelStepsVol;
     [SerializeField] AudioClip[] audGravelRun;
-    [Range(0, 1)] [SerializeField] float audGravelRunVol;
 
     [SerializeField] AudioClip[] audMetalSteps;
-    [Range(0, 1)] [SerializeField] float audMetalStepsVol;
     [SerializeField] AudioClip[] audMetalRun;
-    [Range(0, 1)] [SerializeField] float audMetalRunVol;
 
     [SerializeField] AudioClip[] audJump;
-    [Range(0, 1)] [SerializeField] float audJumpVol;
 
     [SerializeField] AudioClip[] audDamaged;
-    [Range(0, 1)] [SerializeField] float audDamagedVol;
 
     [SerializeField] AudioClip[] audDead;
-    [Range(0, 1)] [SerializeField] float audDeadVol;
 
     [SerializeField] public AudioClip lvlUp;
-    [Range(0, 1)] [SerializeField] public float lvlUpVol;
 
     public bool dirt;
 
@@ -524,7 +513,7 @@ public class playerController : MonoBehaviour
                 return;
             }
         }
-        aud.PlayOneShot(weaponPickupSound, weaponPickupVol);
+        aud.PlayOneShot(weaponPickupSound, gameManager.instance.soundVol);
         weaponList.Add(weaponStat);
 
         shootRate = weaponStat.shootRate;

@@ -24,7 +24,6 @@ public class townNPC : MonoBehaviour
     public Transform orgPos;
     bool isGivenQuest;
     bool isPlayerInRange;
-    bool isTalking;
     float angleToPlayer;
     Vector3 playerDirection;
     Vector3 startingPos;
@@ -143,7 +142,6 @@ public class townNPC : MonoBehaviour
 
                     if (!isGivenQuest)
                     {
-                        isTalking = true;
                         orgPos = transform;
                         anim.SetTrigger("Talk");
 
@@ -159,7 +157,6 @@ public class townNPC : MonoBehaviour
                     }
                     else if (questTwo)
                     {
-                        isTalking = true;
                         orgPos = transform;
                         anim.SetTrigger("Talk");
 
@@ -266,7 +263,6 @@ public class townNPC : MonoBehaviour
         gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().location = gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().objectiveOne;
         gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().locator.enabled = true;
         isGivenQuest = true;
-        isTalking = false;
     }
 
 }

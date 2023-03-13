@@ -28,9 +28,7 @@ public class enemyBossAI : enemyAI
 
     [Header("----- Audio Cont -----")]
     [SerializeField] protected AudioClip[] audMissile;
-    [Range(0, 1)] [SerializeField] protected float audMissileVol;
     [SerializeField] protected AudioClip[] audShield;
-    [Range(0, 1)] [SerializeField] protected float audShieldVol;
 
     [SerializeField] GameObject shield;
 

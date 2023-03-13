@@ -6,7 +6,6 @@ public class alarmOnTrigger : MonoBehaviour
 {
     [SerializeField] AudioSource aud;
     [SerializeField] AudioClip alarm;
-    [Range(0, 1)] [SerializeField] float alarmVol;
 
     [SerializeField] GameObject alarmLights;
 

@@ -9,7 +9,6 @@ public class explosionGrenade : MonoBehaviour
 
     [SerializeField] AudioSource aud;
     [SerializeField] AudioClip explosion;
-    [Range(0, 1)] [SerializeField] float explosionVol;
 
     void Start()
     {        

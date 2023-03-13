@@ -126,7 +126,7 @@ public class enemyShredder : enemyAI
             {
                 GetComponent<Collider>().enabled = false;
                 GetComponentInChildren<Canvas>().enabled = false;
-                aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
+                aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], gameManager.instance.soundVol);
                 anim.SetBool("Dead", true);
                 agent.enabled = false;
             }
@@ -137,7 +137,7 @@ public class enemyShredder : enemyAI
             anim.SetTrigger("Damage");
             if (dmg > 0)
             {
-                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
             }
             // melee add a function for turning off the weapon collider.
             agent.SetDestination(gameManager.instance.player.transform.position);
