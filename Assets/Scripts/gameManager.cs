@@ -155,13 +155,13 @@ public class gameManager : MonoBehaviour
         gameManager.instance.playerScript.canShoot = false;
         abilityHub.GetComponent<activateAbility>().inventoryScreenOn = false;
         inventory.SetActive(false);
-        inventoryMessageBox.SetActive(false);
-        lvlMenu.SetActive(false);
+        inventoryMessageBox.SetActive(false);        
         lvlscript.lvlScreenOn = false;
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         modTextScript.HintSelect();
+        lvlMenu.SetActive(false);
     }
     public void unPause()
     {
@@ -174,7 +174,6 @@ public class gameManager : MonoBehaviour
         }
         activeMenu = null;
         gameManager.instance.playerScript.canShoot = true;
-        lvlMenu.SetActive(false);
     }
     public void updateGameGoal(int amount)
     {
