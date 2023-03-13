@@ -224,13 +224,16 @@ public class gameManager : MonoBehaviour
             pause();
             activeMenu = winMenu;
             activeMenu.SetActive(true);
-            StartCoroutine(endCredits());
+            StartCoroutine(ending());
         }
     }
-    IEnumerator endCredits()
+    IEnumerator ending()
     {
-        yield return new WaitForSeconds(3);
-        pause();
+        Time.timeScale = 1;
+        Cursor.visible = false;
+        yield return new WaitForSeconds(3);        
+        Cursor.lockState = CursorLockMode.Locked;
+        gameManager.instance.playerScript.canShoot = false;
         SceneManager.LoadScene("End Credits");
     }
     public void playerDead()
