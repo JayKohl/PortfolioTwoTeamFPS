@@ -163,6 +163,7 @@ public class gameManager : MonoBehaviour
         inventory.SetActive(false);
         inventoryMessageBox.SetActive(false);
         lvlMenu.SetActive(false);
+        lvlscript.lvlScreenOn = false;
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
@@ -179,6 +180,7 @@ public class gameManager : MonoBehaviour
         }
         activeMenu = null;
         gameManager.instance.playerScript.canShoot = true;
+        lvlMenu.SetActive(false);
     }
     public void updateGameGoal(int amount)
     {
