@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.013328173, g: 0.012599277, b: 0.013689107, a: 1}
+  m_IndirectSpecularColor: {r: 0.013329624, g: 0.01260115, b: 0.013690464, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4410,11 +4410,23 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 238709717, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+    - target: {fileID: 35361686368261762, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3173593395911192685, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+    - target: {fileID: 1089129133147059815, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1194415877706785972, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5213295886796391822, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_TagString
+      value: You're Broke
+      objectReference: {fileID: 0}
+    - target: {fileID: 5523088783020018833, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -4510,6 +4522,26 @@ PrefabInstance:
       propertyPath: cam2
       value: 
       objectReference: {fileID: 901037857}
+    - target: {fileID: 6975415324511045283, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7596886350937759713, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8403079179604700273, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434222176652299838, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779614595772015543, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
 --- !u!114 &843643879 stripped
@@ -12460,17 +12492,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 519cee7d5a681ad4295999fe93639bc3, type: 3}
---- !u!114 &1844625862 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1468335049, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
-  m_PrefabInstance: {fileID: 843643878}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!21 &1859140648
 Material:
   serializedVersion: 8
@@ -15269,7 +15290,7 @@ PrefabInstance:
     - target: {fileID: 1224703376, guid: cf8e26f8d6541cf4aad916c160e25568, type: 3}
       propertyPath: locator
       value: 
-      objectReference: {fileID: 1844625862}
+      objectReference: {fileID: 0}
     - target: {fileID: 524364267517112022, guid: cf8e26f8d6541cf4aad916c160e25568, type: 3}
       propertyPath: m_Name
       value: Player
