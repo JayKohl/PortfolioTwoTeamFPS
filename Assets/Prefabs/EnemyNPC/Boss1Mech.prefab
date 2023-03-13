@@ -1768,15 +1768,12 @@ MonoBehaviour:
   meleeRate: 0
   audTakeDamage:
   - {fileID: 8300000, guid: 75adfe9a619833445a701305b983e548, type: 3}
-  audTakeDamageVol: 0.5
   audDeath:
   - {fileID: 8300000, guid: 75c4fd5d104284147b39dcad295f1761, type: 3}
-  audDeathVol: 0.5
   audBasicAttack:
   - {fileID: 8300000, guid: 18d6a007b013c9d4ebf7f7c44e1e5f06, type: 3}
   - {fileID: 8300000, guid: 380a61624a607f042ab5e96218f37633, type: 3}
   - {fileID: 8300000, guid: b103f9d4e304eeb4291787b9d002dc35, type: 3}
-  audBasicAttackVol: 0.5
   isPlayerInRange: 0
   shootPositionTwo: {fileID: 9149088867683809261}
   shootPositionThree: {fileID: 9149088867895572097}
@@ -1794,10 +1791,8 @@ MonoBehaviour:
   iceEffect: {fileID: 3047350315767383909}
   audMissile:
   - {fileID: 8300000, guid: b22bd28e0d69a2a4497b081d68ed1353, type: 3}
-  audMissileVol: 0.5
   audShield:
   - {fileID: 8300000, guid: 36d70a4207419e840bfd6a37880d86e7, type: 3}
-  audShieldVol: 0.5
   shield: {fileID: 696849869}
   fuelCap: {fileID: 2750060092662801339, guid: 025c722e7ad19244ab6ed6c5e7f732cf, type: 3}
 --- !u!95 &4872947410891552380
@@ -1877,7 +1872,7 @@ AudioSource:
   m_GameObject: {fileID: 4872947410898830802}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3186180182146366106, guid: 22e76c55767e9e242a0aa6784cd36753, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
