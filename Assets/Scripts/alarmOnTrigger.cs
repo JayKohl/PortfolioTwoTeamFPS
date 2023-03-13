@@ -26,7 +26,7 @@ public class alarmOnTrigger : MonoBehaviour
             {
                 counter = 0;
                 playerIn = true;
-                aud.PlayOneShot(alarm, alarmVol);
+                aud.PlayOneShot(alarm, gameManager.instance.soundVol);
             }
         }
     }

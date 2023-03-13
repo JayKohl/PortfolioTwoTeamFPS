@@ -86,23 +86,21 @@ public class enemyTurretAI : enemyAI
             isShooting = true;
 
             GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-            aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
+            aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], gameManager.instance.soundVol);
             Vector3 shootingVector = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
             bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
             if (shootPositionTwo != null)
             {
                 GameObject bulletCloneTwo = Instantiate(bullet, shootPositionTwo.position, bullet.transform.rotation);
-                aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
                 Vector3 shootingVectorTwo = (gameManager.instance.player.transform.position - shootPositionTwo.position).normalized;
                 bulletCloneTwo.GetComponent<Rigidbody>().velocity = shootingVectorTwo * bulletSpeed;
 
                 GameObject bulletCloneThree = Instantiate(bullet, shootPositionThree.position, bullet.transform.rotation);
-                aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
                 Vector3 shootingVectorThree = (gameManager.instance.player.transform.position - shootPositionThree.position).normalized;
                 bulletCloneThree.GetComponent<Rigidbody>().velocity = shootingVectorThree * bulletSpeed;
 
                 GameObject bulletCloneFour = Instantiate(bullet, shootPositionFour.position, bullet.transform.rotation);
-                aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], audBasicAttackVol);
+                aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], gameManager.instance.soundVol);
                 Vector3 shootingVectorFour = (gameManager.instance.player.transform.position - shootPositionFour.position).normalized;
                 bulletCloneFour.GetComponent<Rigidbody>().velocity = shootingVectorFour * bulletSpeed;
             }
@@ -145,7 +143,7 @@ public class enemyTurretAI : enemyAI
             GetComponentInChildren<Canvas>().enabled = false;
             if (!setOnFire)
             {
-                aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
+                aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], gameManager.instance.soundVol);
             }
             agent.enabled = false;
             alive = false;
@@ -155,7 +153,7 @@ public class enemyTurretAI : enemyAI
         {
             if (dmg > 0)
             {
-                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
             }
         }
     }

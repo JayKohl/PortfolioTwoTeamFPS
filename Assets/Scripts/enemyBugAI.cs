@@ -184,7 +184,7 @@ public class enemyBugAI : enemyAI
             {
                 GetComponent<Collider>().enabled = false;
                 GetComponentInChildren<Canvas>().enabled = false;
-                aud.PlayOneShot(audDeath[UnityEngine.Random.Range(0, audDeath.Length)], audDeathVol);
+                aud.PlayOneShot(audDeath[UnityEngine.Random.Range(0, audDeath.Length)], gameManager.instance.soundVol);
                 anim.SetBool("Dead", true);
                 agent.enabled = false;
             }
@@ -194,7 +194,7 @@ public class enemyBugAI : enemyAI
             anim.SetTrigger("Damage");
             if (dmg > 0)
             {
-                aud.PlayOneShot(audTakeDamage[UnityEngine.Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+                aud.PlayOneShot(audTakeDamage[UnityEngine.Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
             }
             // melee add a function for turning off the weapon collider.
             if (chilled && chilledOnce)

@@ -26,7 +26,7 @@ public class explosionGravBomb : MonoBehaviour
             target.GetComponent<enemyAI>().takeDamage(0);
             aud.PlayOneShot(explosion, 0.2f);
             StartCoroutine(other.gameObject.GetComponent<enemyOneAI>().pushedbackDir(transform.position));
-            aud.PlayOneShot(gravityEffect, explosionVol);
+            aud.PlayOneShot(gravityEffect, gameManager.instance.soundVol);
         }
     }
     IEnumerator timer(float time)

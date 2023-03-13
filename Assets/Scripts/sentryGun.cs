@@ -47,7 +47,7 @@ public class sentryGun : MonoBehaviour
     }
     IEnumerator coolDownStart()
     {
-        aud.PlayOneShot(startUpSound, audBasicAttackVol);
+        aud.PlayOneShot(startUpSound, gameManager.instance.soundVol);
         yield return new WaitForSeconds(2);
         alive = true;
     }
@@ -139,7 +139,7 @@ public class sentryGun : MonoBehaviour
                 target.GetComponent<enemyAI>().takeDamage(1);
             }
             //GameObject bulletClone = Instantiate(bullet, headPos.position, bullet.transform.rotation);
-            aud.PlayOneShot(audBasicAttack, audBasicAttackVol);
+            aud.PlayOneShot(audBasicAttack, gameManager.instance.soundVol);
             Vector3 shootingVector = (target.transform.position - headPos.position).normalized;
             //bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
 
@@ -180,7 +180,7 @@ public class sentryGun : MonoBehaviour
     //        GetComponentInChildren<Canvas>().enabled = false;
     //        if (!setOnFire)
     //        {
-    //            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], audDeathVol);
+    //            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], gameManager.instance.soundVol);
     //        }
     //        agent.enabled = false;
     //        alive = false;
@@ -190,7 +190,7 @@ public class sentryGun : MonoBehaviour
     //    {
     //        if (dmg > 0)
     //        {
-    //            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], audTakeDamageVol);
+    //            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
     //        }
     //    }
     //}

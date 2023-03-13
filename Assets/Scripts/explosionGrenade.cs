@@ -24,7 +24,7 @@ public class explosionGrenade : MonoBehaviour
         if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
         {
             other.gameObject.GetComponent<enemyAI>().takeDamage(grenadeDamage);
-            aud.PlayOneShot(explosion, explosionVol);
+            aud.PlayOneShot(explosion, gameManager.instance.soundVol);
         }
     }
     IEnumerator timer(float time)

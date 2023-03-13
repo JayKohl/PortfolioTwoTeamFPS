@@ -19,7 +19,8 @@ public class LevelSystem : MonoBehaviour
     //public Vector3 startPosition;
     //[SerializeField] public Vector3 endPosition;
     //[SerializeField] public float Timelength;
-    
+
+    AudioSource aud;
     [SerializeField] public TextMeshProUGUI tokentext;
     [Header("Calculations")]
     [Range(0.01f, 0.6f)] public float VarX;
@@ -31,6 +32,7 @@ public class LevelSystem : MonoBehaviour
 
     void Start()
     {
+        aud = gameManager.instance.aud;
         frontXPbar = gameManager.instance.playerXPBar;
         frontXPbar.fillAmount = currentXP / NeededXP;
         //startPosition = lvlUpText.transform.position;
@@ -50,6 +52,7 @@ public class LevelSystem : MonoBehaviour
         {
             if (lvlScreenOn)
             {
+                aud.PlayOneShot(gameManager.instance.abilityHub.GetComponent<activateAbility>().inventoryOpen, gameManager.instance.soundVol);
                 lvlScreenOn = false;
                 Time.timeScale = 1;
                 Cursor.visible = false;
@@ -60,10 +63,10 @@ public class LevelSystem : MonoBehaviour
             }
             else
             {
-                
+                aud.PlayOneShot(gameManager.instance.abilityHub.GetComponent<activateAbility>().inventoryOpen, gameManager.instance.soundVol);
                 lvlScreenOn = true;
                 if (firsttime)
-                {
+                {                    
                     StartCoroutine(firstTimeInfo());
                     firsttime = false;
                 }
@@ -115,7 +118,7 @@ public class LevelSystem : MonoBehaviour
         currentXP = Mathf.RoundToInt(currentXP - NeededXP);
         tokenAmount += playerLevel/2;
         //gameManager.instance.playerScript.giveHP(gameManager.instance.playerScript.hpOriginal);
-        gameManager.instance.playerScript.aud.PlayOneShot(gameManager.instance.playerScript.lvlUp, gameManager.instance.playerScript.lvlUpVol);
+        gameManager.instance.playerScript.aud.PlayOneShot(gameManager.instance.playerScript.lvlUp, gameManager.instance.soundVol);
         StartCoroutine(LevelText());
         NeededXP = CalculateXP();
     }
