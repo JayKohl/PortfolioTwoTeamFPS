@@ -8,6 +8,7 @@ public class buttonFunctions : MonoBehaviour
 {
     AudioSource aud;
     [SerializeField] AudioClip resumeButton;
+    [SerializeField] float soundVol = 0.2f;
     //public bool click;
     //public friendlyAI friendNPC;
     //[SerializeField] Button theButton;
@@ -17,9 +18,9 @@ public class buttonFunctions : MonoBehaviour
     //{
     //    friendNPC = GetComponent<friendlyAI>();
     //}
+    
     public void resume()
-    {
-        aud = gameManager.instance.aud;
+    {        
         gameManager.instance.unPause();
         gameManager.instance.isPaused = !gameManager.instance.isPaused;
     }
@@ -41,6 +42,8 @@ public class buttonFunctions : MonoBehaviour
 
     public void quit()
     {
+        aud = gameObject.GetComponent<AudioSource>();
+        aud.PlayOneShot(resumeButton, soundVol);
         Application.Quit();
     }
     public void menu()
@@ -50,6 +53,8 @@ public class buttonFunctions : MonoBehaviour
 
     public void start()
     {
+        aud = gameObject.GetComponent<AudioSource>();
+        aud.PlayOneShot(resumeButton, soundVol);
         SceneManager.LoadScene("CrawlScene");
     }
     public void startGame()
@@ -63,9 +68,16 @@ public class buttonFunctions : MonoBehaviour
     }
     public void startLevel3()
     {
-        aud.PlayOneShot(resumeButton, gameManager.instance.soundVol);
+        aud = gameObject.GetComponent<AudioSource>();
+        aud.PlayOneShot(resumeButton, soundVol);
         SceneManager.LoadScene("LvlThreeTheWorld");
         resume();
+    }
+    public void credits()
+    {
+        aud = gameObject.GetComponent<AudioSource>();
+        aud.PlayOneShot(resumeButton, soundVol);
+        SceneManager.LoadScene("End Credits");
     }
 
     //public void closeQuestOne()
