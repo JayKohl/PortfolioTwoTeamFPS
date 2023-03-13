@@ -6,9 +6,10 @@ public class musicMenu : MonoBehaviour
 {
     [SerializeField] AudioSource aud;
     [SerializeField] public AudioClip menuAud;
+    [SerializeField] public float menuAudVol;
 
     void Start()
     {
-        aud.PlayOneShot(menuAud, gameManager.instance.musicVol);
+        aud.PlayOneShot(menuAud, menuAudVol);
     }
 }
