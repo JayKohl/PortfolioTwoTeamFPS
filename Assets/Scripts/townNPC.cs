@@ -11,6 +11,8 @@ public class townNPC : MonoBehaviour
     [SerializeField] Animator anim;
     [SerializeField] Transform npcTransportPos;
     [SerializeField] bool hasQuestToGive;
+    [SerializeField] bool hasSomethingToSay;
+    [SerializeField] GameObject townPet;
 
     [Header("----- NPC Stats -----")]
     [SerializeField] Transform headPos;
@@ -22,6 +24,7 @@ public class townNPC : MonoBehaviour
 
 
     public Transform orgPos;
+    bool isPetDead;
     bool isGivenQuest;
     bool isPlayerInRange;
     float angleToPlayer;
@@ -42,6 +45,7 @@ public class townNPC : MonoBehaviour
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
+        isPetDead = false;
 
     }
 
@@ -129,6 +133,10 @@ public class townNPC : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
             {
+                if (townPet.GetComponent<NavMeshAgent>().isActiveAndEnabled == false)
+                {
+                    isPetDead = true;
+                }
                 agent.stoppingDistance = stoppingDistOrig;
                 agent.SetDestination(gameManager.instance.player.transform.position);
                 if (agent.remainingDistance < agent.stoppingDistance)
@@ -170,6 +178,19 @@ public class townNPC : MonoBehaviour
                         gameManager.instance.infoTextBackground.SetActive(true);
 
                         hasQuestToGive = false;
+                    }
+                }
+                else if (hasSomethingToSay)
+                {
+                    if (isPetDead == false)
+                    {
+                        gameManager.instance.displayNpcText("Have you seen out town pet Leroy? Keep your distance he can be very cranky.");
+                        StartCoroutine(gameManager.instance.deleteTextNpc(12f));
+                    }
+                    else
+                    {
+                        gameManager.instance.displayNpcText("You monster, stay away from me. You killed Leroy, we will never find another town pet like him.");
+                        StartCoroutine(gameManager.instance.deleteTextNpc(12f));
                     }
                 }
                 return true;
