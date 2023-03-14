@@ -21,7 +21,7 @@ public class buttonFunctions : MonoBehaviour
     
     public void resume()
     {
-        aud.PlayOneShot(resumeButton);
+        //aud.PlayOneShot(resumeButton);
         gameManager.instance.unPause();
         gameManager.instance.isPaused = !gameManager.instance.isPaused;
     }
