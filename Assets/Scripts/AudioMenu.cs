@@ -23,7 +23,6 @@ public class AudioMenu : MonoBehaviour
     [SerializeField] Button musicbutton;
     [SerializeField] Button sfxbutton;
     [SerializeField] float volumeHold; 
-    //[SerializeField] bool DisableToggle;
 
     private void Awake()
     {
@@ -37,7 +36,7 @@ public class AudioMenu : MonoBehaviour
 
     private void TestSFX()
     {
-        sfxTest.PlayOneShot(sfxClips[Random.Range(0, sfxClips.Count)]);
+        sfxTest.PlayOneShot(sfxClips[Random.Range(0, sfxClips.Count)], sfxSlider.value);
     }
 
     private void TestMusic()
@@ -110,9 +109,7 @@ public class AudioMenu : MonoBehaviour
         if (masterSlider.value != 0)
         {
             _mixer.SetFloat(masterVolume, value: Mathf.Log10(value) * multiplier);
-            //DisableToggle = true;
             mute.isOn = masterSlider.value > masterSlider.minValue;
-            //DisableToggle = false;
         }
         else
         {
@@ -121,7 +118,6 @@ public class AudioMenu : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
     void Start()
     {
         masterSlider.value = PlayerPrefs.GetFloat(masterVolume, masterSlider.value);
@@ -131,7 +127,7 @@ public class AudioMenu : MonoBehaviour
 
     IEnumerator PlayStop()
     {
-        musicTest.PlayOneShot(musicClips[Random.Range(0, musicClips.Count)]);
+        musicTest.PlayOneShot(musicClips[Random.Range(0, musicClips.Count)], musicSlider.value);
         yield return new WaitForSecondsRealtime(2);
         musicTest.Stop();
 
