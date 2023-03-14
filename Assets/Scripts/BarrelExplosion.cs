@@ -4,36 +4,29 @@ using UnityEngine;
 
 public class BarrelExplosion : MonoBehaviour
 {
+    
     bool playerIn;
-    [SerializeField] public int pushBackDamageEX;
+    int damage;
     private void Start()
     {
+        GetComponentInParent<Barrels>();
         StartCoroutine(disappear());
+        
     }
     IEnumerator disappear()
     {
-        yield return new WaitForSeconds(1);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(2);
+        Destroy(this, .1f);
     }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !playerIn)
+        if (other.GetComponent<IDamage>() != null)
         {
-            playerIn = true;
-            gameManager.instance.playerScript.takeDamage(25);
-            gameManager.instance.playerScript.pushbackDir((gameManager.instance.player.transform.position - transform.position).normalized * pushBackDamageEX);
+            other.GetComponent<IDamage>().takeDamage(damage);
         }
-        else if (other.CompareTag("EnemyAI"))
+        else if (other.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<enemyAI>().takeDamage(25);
-        }
-        else if (other.CompareTag("EnemyBoss"))
-        {
-            other.gameObject.GetComponent<enemyBossAI>().takeDamage(25);
-        }
-        else if (other.CompareTag("Turret"))
-        {
-            other.gameObject.GetComponent<enemyTurretAI>().takeDamage(25);
+            gameManager.instance.playerScript.takeDamage(damage);
         }
     }
 }
