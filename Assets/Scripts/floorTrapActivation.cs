@@ -7,7 +7,7 @@ public class floorTrapActivation : MonoBehaviour
 
 	[SerializeField] floorTrap trapsType;
 
-	[SerializeField]ParticleSystem trapVisual;
+	
 	public AudioClip soundEffect;
 	public int activeTime;
 	public int effectTime;
@@ -27,9 +27,11 @@ public class floorTrapActivation : MonoBehaviour
 	public GameObject triggerObject;
 	public GameObject triggerObject1;
 	public GameObject triggerObject2;
+	public GameObject particle;
 
     private void Start()
     {
+		particle.SetActive(false);
 		trapColor = Color.red;
 		trapColor.a = .5f;
 		soundEffect = trapsType.soundEffect;
@@ -54,10 +56,12 @@ public class floorTrapActivation : MonoBehaviour
 	{
 		yield return new WaitForSeconds(5);
 		//triggerObject.SetActive(true);
+		particle.SetActive(true);
 		trapMaterial.SetColor("_EmissionColor", Color.red * 1f);
 		trapActive = true;	
 		triggerObject.transform.position = Vector3.Lerp(triggerObject.transform.position, triggerObject2.transform.position, 1);     
         yield return new WaitForSeconds(5);
+		particle.SetActive(false);
 		//triggerObject.SetActive(false);
 		trapMaterial.SetColor("_EmissionColor", Color.black * 2);
 		triggerObject.transform.position = Vector3.Lerp(triggerObject.transform.position, triggerObject1.transform.position, 1);
