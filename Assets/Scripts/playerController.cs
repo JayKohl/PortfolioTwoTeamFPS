@@ -120,7 +120,7 @@ public class playerController : MonoBehaviour
         electrecutedColor.a = 0.20f;
         slowedColor.a = 0.20f;
         burningColor.a = 0.20f;
-        
+
         canShoot = true;
         if (SceneManager.GetActiveScene().name == "LvlOneArena" && currentLevel < 1)
         {
@@ -181,7 +181,7 @@ public class playerController : MonoBehaviour
                 StartCoroutine(shoot());
             }
         }
-        if(Input.GetButtonUp("Shoot"))
+        if (Input.GetButtonUp("Shoot"))
         {
             gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Stop();
         }
@@ -199,49 +199,53 @@ public class playerController : MonoBehaviour
 
         move = move.normalized;
 
-        controller.Move(move * Time.deltaTime * playerSpeed);
-        if (Input.GetButton("Crouch"))
+        if (controller.enabled == true)
         {
-            isCrouched = true;
+            controller.Move(move * Time.deltaTime * playerSpeed);
 
-        }
-        if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes)
-        {
-            jumpsCurrent++;
-            playerVelocity.y = jumpSpeed;
-            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)]);
-        }
-        if ((Input.GetButton("Run") && !isRunning) && !slowed && !isCrouched) //run
-        {
-            isRunning = true;
-            playerSpeed = runSpeed;
-            //aud.PlayOneShot(audGravelRun[Random.Range(0, audGravelRun.Length)], audGravelRunVol);
-        }
-        if (isRunning && Input.GetButtonUp("Run")) //walk
-        {
-            isRunning = false;
-            playerSpeed = speedOriginal;
-            //aud.PlayOneShot(audGravelSteps[Random.Range(0, audGravelSteps.Length)], audGravelStepsVol);
-        }
-        if (Input.GetButtonDown("Crouch") && !isCrouched)
-        {
-            isCrouched = true;
-            playerSpeed = crouchSpeed;
-            //transform.localScale = new Vector3(transform.localScale.x, crouchHeight, transform.localScale.z);
-            controller.height = crouchHeight;
-            //rig.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+            if (Input.GetButton("Crouch"))
+            {
+                isCrouched = true;
 
-        }
-        if (Input.GetButtonUp("Crouch") && isCrouched)
-        {
-            isCrouched = false;
-            playerSpeed = speedOriginal;
-            transform.localScale = new Vector3(transform.localScale.x, startY, transform.localScale.z);
+            }
+            if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes)
+            {
+                jumpsCurrent++;
+                playerVelocity.y = jumpSpeed;
+                aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)]);
+            }
+            if ((Input.GetButton("Run") && !isRunning) && !slowed && !isCrouched) //run
+            {
+                isRunning = true;
+                playerSpeed = runSpeed;
+                //aud.PlayOneShot(audGravelRun[Random.Range(0, audGravelRun.Length)], audGravelRunVol);
+            }
+            if (isRunning && Input.GetButtonUp("Run")) //walk
+            {
+                isRunning = false;
+                playerSpeed = speedOriginal;
+                //aud.PlayOneShot(audGravelSteps[Random.Range(0, audGravelSteps.Length)], audGravelStepsVol);
+            }
+            if (Input.GetButtonDown("Crouch") && !isCrouched)
+            {
+                isCrouched = true;
+                playerSpeed = crouchSpeed;
+                //transform.localScale = new Vector3(transform.localScale.x, crouchHeight, transform.localScale.z);
+                controller.height = crouchHeight;
+                //rig.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+
+            }
+            if (Input.GetButtonUp("Crouch") && isCrouched)
+            {
+                isCrouched = false;
+                playerSpeed = speedOriginal;
+                transform.localScale = new Vector3(transform.localScale.x, startY, transform.localScale.z);
 
 
+            }
+            playerVelocity.y -= gravity * Time.deltaTime;
+            controller.Move((playerVelocity + pushback) * Time.deltaTime);
         }
-        playerVelocity.y -= gravity * Time.deltaTime;
-        controller.Move((playerVelocity + pushback) * Time.deltaTime);
 
         if (controller.isGrounded && move.normalized.magnitude > 0.8f && !isPlayingSteps)
         {
@@ -254,7 +258,7 @@ public class playerController : MonoBehaviour
                 StartCoroutine(playMetalSteps());
             }
         }
-        
+
     }
 
     public void updateGoals(string goal)
@@ -440,7 +444,7 @@ public class playerController : MonoBehaviour
     {
         if (weaponList.Count > 0)
         {
-            gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Play();            
+            gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Play();
         }
     }
     IEnumerator flashDamage(int type = 0, float slowTime = 0)
@@ -461,7 +465,7 @@ public class playerController : MonoBehaviour
                 gameManager.instance.playerDamageFlashScreen.SetActive(true);
                 yield return new WaitForSeconds(0.3f);
                 gameManager.instance.playerDamageFlashScreen.SetActive(false);
-                
+
                 break;
             case 2:
                 gameManager.instance.playerDamageFlashScreen.GetComponent<Image>().color = electrecutedColor;
@@ -572,7 +576,7 @@ public class playerController : MonoBehaviour
 
     public void playerRespawn()
     {
-        
+
         controller.enabled = false;
         transform.position = gameManager.instance.playerSpawnPosition.transform.position;
         HP = hpOriginal;
@@ -688,22 +692,22 @@ public class playerController : MonoBehaviour
     //Added code
     public IEnumerator Poisoned(int effectTime, int trapDamage, AudioClip effect)
     {
-       
+
         while (effectTime > 0 && !playerDied)
-        {     
+        {
             takeDamage(trapDamage);
             StartCoroutine(flashDamage(1));
             aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)]);
             effectTime--;
-            if(playerDied)
+            if (playerDied)
             {
                 poisoned = false;
                 yield break;
             }
-         
+
             yield return new WaitForSeconds(1.5f);
         }
-        
+
         poisoned = false;
     }
 
@@ -711,7 +715,7 @@ public class playerController : MonoBehaviour
     {
 
         while (effectTime > 0 && !playerDied)
-        {      
+        {
             takeDamage(trapDamage);
             StartCoroutine(flashDamage(3));
             aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)]);
