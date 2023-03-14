@@ -20,6 +20,10 @@ public class AudioMenu : MonoBehaviour
     [SerializeField] List<AudioClip> musicClips;
     [SerializeField] AudioSource musicTest;
     [SerializeField] AudioSource sfxTest;
+    [SerializeField] Button musicbutton;
+    [SerializeField] Button sfxbutton;
+    [SerializeField] float volumeHold; 
+    //[SerializeField] bool DisableToggle;
 
     private void Awake()
     {
@@ -27,13 +31,29 @@ public class AudioMenu : MonoBehaviour
         sfxSlider.onValueChanged.AddListener(HandleSFXSliderValueChanged);
         masterSlider.onValueChanged.AddListener(HandleMasterSliderValueChanged);
         mute.onValueChanged.AddListener(HandleMuteChange);
+        musicbutton.onClick.AddListener(TestMusic);
+    }
+
+    private void TestMusic()
+    {
+        throw new NotImplementedException();
     }
 
     private void HandleMuteChange(bool soundOn)
     {
+        //if (DisableToggle)
+        //{
+        //    return;
+        //}
+        if (masterSlider.value > masterSlider.minValue)
+        {
+            volumeHold = masterSlider.value;
+        }
+        
+
         if (soundOn)
         {
-            masterSlider.value = masterSlider.maxValue;
+            masterSlider.value = volumeHold;
         }
         else
         {
@@ -75,9 +95,14 @@ public class AudioMenu : MonoBehaviour
 
     private void HandleMasterSliderValueChanged(float value)
     {
+        
+
         if (masterSlider.value != 0)
         {
             _mixer.SetFloat(masterVolume, value: Mathf.Log10(value) * multiplier);
+            //DisableToggle = true;
+            mute.isOn = masterSlider.value > masterSlider.minValue;
+            //DisableToggle = false;
         }
         else
         {
