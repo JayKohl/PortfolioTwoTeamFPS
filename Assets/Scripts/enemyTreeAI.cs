@@ -18,6 +18,7 @@ public class enemyTreeAI : enemyAI
     void Start()
     {
         //agentStop();
+        GetComponent<Collider>().enabled = false;
         isSprouting = true;
         hitPointsOrig = hitPoints;
         isFirstTime = true;
@@ -39,6 +40,7 @@ public class enemyTreeAI : enemyAI
             {
                 isFirstTime = false;
                 anim.SetTrigger("sprout");
+                GetComponent<Collider>().enabled = true;
                 StartCoroutine(sprout());
             }
             else if (isPlayerInRange == true && isFirstTime == false && isSprouting == false)
