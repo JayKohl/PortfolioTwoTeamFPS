@@ -27,11 +27,13 @@ public class buttonFunctions : MonoBehaviour
 
     public void respawn()
     {
+       
         aud = gameObject.GetComponent<AudioSource>();
         aud.PlayOneShot(resumeButton, soundVol);
         gameManager.instance.unPause();
         gameManager.instance.playerScript.playerRespawn();
         gameManager.instance.playerScript.playerDied = false;
+        
     }
     
     public void restart()

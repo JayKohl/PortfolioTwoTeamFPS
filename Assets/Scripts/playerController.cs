@@ -572,6 +572,7 @@ public class playerController : MonoBehaviour
 
     public void playerRespawn()
     {
+        
         controller.enabled = false;
         transform.position = gameManager.instance.playerSpawnPosition.transform.position;
         HP = hpOriginal;
@@ -745,6 +746,7 @@ public class playerController : MonoBehaviour
     {
         while (effectTime > 0 && !playerDied)
         {
+
             takeDamage(trapDamage);
             StartCoroutine(flashDamage(2));
             aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], gameManager.instance.soundVol);

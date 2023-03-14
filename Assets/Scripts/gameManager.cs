@@ -238,6 +238,7 @@ public class gameManager : MonoBehaviour
     }
     public void playerDead()
     {
+        playerScript.playerDied = true;
         minimap.SetActive(false);
         hackUI.SetActive(false);
         pause();

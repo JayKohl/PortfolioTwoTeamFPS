@@ -40,5 +40,5 @@ public class temporaryTexts : MonoBehaviour
         gameManager.instance.playerDamageFlashScreen.SetActive(false);
         gameManager.instance.playerDamageFlashScreen.GetComponent<Image>().color = originalColor;        
     }
- //Code ends
+    //Code ends
 }
