@@ -15,12 +15,50 @@ public class AudioMenu : MonoBehaviour
     [SerializeField] Slider sfxSlider;
     [SerializeField] Slider masterSlider;
     [SerializeField] float multiplier = 20.0f;
+    [SerializeField] Toggle mute;
+    [SerializeField] List<AudioClip> sfxClips;
+    [SerializeField] List<AudioClip> musicClips;
+    [SerializeField] AudioSource musicTest;
+    [SerializeField] AudioSource sfxTest;
+    [SerializeField] Button musicbutton;
+    [SerializeField] Button sfxbutton;
+    [SerializeField] float volumeHold; 
+    //[SerializeField] bool DisableToggle;
 
     private void Awake()
     {
         musicSlider.onValueChanged.AddListener(HandleMusicSliderValueChanged);
         sfxSlider.onValueChanged.AddListener(HandleSFXSliderValueChanged);
         masterSlider.onValueChanged.AddListener(HandleMasterSliderValueChanged);
+        mute.onValueChanged.AddListener(HandleMuteChange);
+        musicbutton.onClick.AddListener(TestMusic);
+    }
+
+    private void TestMusic()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void HandleMuteChange(bool soundOn)
+    {
+        //if (DisableToggle)
+        //{
+        //    return;
+        //}
+        if (masterSlider.value > masterSlider.minValue)
+        {
+            volumeHold = masterSlider.value;
+        }
+        
+
+        if (soundOn)
+        {
+            masterSlider.value = volumeHold;
+        }
+        else
+        {
+            masterSlider.value = masterSlider.minValue;
+        }
     }
 
     private void OnDisable()
@@ -32,17 +70,44 @@ public class AudioMenu : MonoBehaviour
 
     private void HandleMusicSliderValueChanged(float value)
     {
-        _mixer.SetFloat(musicVolume, value: Mathf.Log10(value) * multiplier);
+        if(musicSlider.value != 0)
+        {
+            _mixer.SetFloat(musicVolume, value: Mathf.Log10(value) * multiplier);
+        }
+        else
+        {
+            _mixer.SetFloat(musicVolume, -80);
+        }
     }
 
     private void HandleSFXSliderValueChanged(float value)
     {
-        throw new NotImplementedException();
+        if (sfxSlider.value != 0)
+        {
+            _mixer.SetFloat(sfxVolume, value: Mathf.Log10(value) * multiplier);
+        }
+        else
+        {
+            _mixer.SetFloat(sfxVolume, -80);
+        }
+        
     }
 
     private void HandleMasterSliderValueChanged(float value)
     {
-        throw new NotImplementedException();
+        
+
+        if (masterSlider.value != 0)
+        {
+            _mixer.SetFloat(masterVolume, value: Mathf.Log10(value) * multiplier);
+            //DisableToggle = true;
+            mute.isOn = masterSlider.value > masterSlider.minValue;
+            //DisableToggle = false;
+        }
+        else
+        {
+            _mixer.SetFloat(masterVolume, -80);
+        }
     }
 
 
