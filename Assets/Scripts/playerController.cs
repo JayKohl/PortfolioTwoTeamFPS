@@ -579,6 +579,13 @@ public class playerController : MonoBehaviour
         controller.enabled = true;
     }
 
+    public void teleport(Vector3 position)
+    {
+        controller.enabled = false;
+        transform.position = position;
+        controller.enabled = true;
+    }
+
     public IEnumerator abilityCoolSpeed(float cooldown)
     {
         abilityOneActive = true;
