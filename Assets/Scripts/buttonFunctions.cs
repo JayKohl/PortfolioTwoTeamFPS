@@ -20,7 +20,9 @@ public class buttonFunctions : MonoBehaviour
     //}
     
     public void resume()
-    {        
+    {
+        aud = gameManager.instance.aud;
+        aud.PlayOneShot(resumeButton);
         gameManager.instance.unPause();
         gameManager.instance.isPaused = !gameManager.instance.isPaused;
     }
@@ -28,7 +30,7 @@ public class buttonFunctions : MonoBehaviour
     public void respawn()
     {
        
-        aud = gameObject.GetComponent<AudioSource>();
+        aud = gameManager.instance.aud;
         aud.PlayOneShot(resumeButton);
         gameManager.instance.unPause();
         gameManager.instance.playerScript.playerRespawn();
@@ -38,7 +40,7 @@ public class buttonFunctions : MonoBehaviour
     
     public void restart()
     {
-        aud = gameObject.GetComponent<AudioSource>();
+        aud = gameManager.instance.aud;
         aud.PlayOneShot(resumeButton);
         gameManager.instance.playerScript.poisoned = false;
         gameManager.instance.unPause();
@@ -48,7 +50,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void quit()
     {
-        aud = gameObject.GetComponent<AudioSource>();
+        aud = gameManager.instance.aud;
         aud.PlayOneShot(resumeButton);
         Application.Quit();
     }
@@ -59,7 +61,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void start()
     {
-        aud = gameObject.GetComponent<AudioSource>();
+        aud = gameManager.instance.aud;
         aud.PlayOneShot(resumeButton);
         SceneManager.LoadScene("CrawlScene");
     }
@@ -73,20 +75,20 @@ public class buttonFunctions : MonoBehaviour
     }
     public void startLevel3()
     {
-        aud = gameObject.GetComponent<AudioSource>();
+        aud = gameManager.instance.aud;
         aud.PlayOneShot(resumeButton);
         SceneManager.LoadScene("LvlThreeTheWorld");
     }
     public void credits()
     {
-        aud = gameObject.GetComponent<AudioSource>();
+        aud = gameManager.instance.aud;
         aud.PlayOneShot(resumeButton);
         SceneManager.LoadScene("End Credits");
     }
 
     public void Options()
     {
-        aud = gameObject.GetComponent<AudioSource>();
+        aud = gameManager.instance.aud;
         aud.PlayOneShot(resumeButton);
         gameManager.instance.activeMenu.SetActive(false);
         gameManager.instance.activeMenu = gameManager.instance.optionMenu;
@@ -96,8 +98,6 @@ public class buttonFunctions : MonoBehaviour
 
     public void back()
     {
-        aud = gameObject.GetComponent<AudioSource>();
-        aud.PlayOneShot(resumeButton);
         gameManager.instance.activeMenu.SetActive(false);
         gameManager.instance.activeMenu = gameManager.instance.pauseMenu;
         gameManager.instance.activeMenu.SetActive(true);
