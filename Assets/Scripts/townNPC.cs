@@ -158,6 +158,7 @@ public class townNPC : MonoBehaviour
                     }
                     else if (questTwo)
                     {
+                        gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().SetWayPoint(gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().quest4);
                         orgPos = transform;
                         anim.SetTrigger("Talk");
 
