@@ -36,7 +36,7 @@ public class AudioMenu : MonoBehaviour
 
     private void TestSFX()
     {
-        sfxTest.PlayOneShot(sfxClips[Random.Range(0, sfxClips.Count)], sfxSlider.value);
+        sfxTest.PlayOneShot(sfxClips[Random.Range(0, sfxClips.Count)]);
     }
 
     private void TestMusic()
@@ -127,7 +127,7 @@ public class AudioMenu : MonoBehaviour
 
     IEnumerator PlayStop()
     {
-        musicTest.PlayOneShot(musicClips[Random.Range(0, musicClips.Count)], musicSlider.value);
+        musicTest.PlayOneShot(musicClips[Random.Range(0, musicClips.Count)]);
         yield return new WaitForSecondsRealtime(2);
         musicTest.Stop();
 
