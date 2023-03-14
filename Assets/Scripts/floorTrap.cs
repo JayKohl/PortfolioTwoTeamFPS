@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class floorTrap : ScriptableObject
 {
-	public ParticleSystem trapVisual;
 	public AudioClip soundEffect;
 	public int activeTime;
 	public int effectTime;
