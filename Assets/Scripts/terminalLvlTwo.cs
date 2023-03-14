@@ -42,6 +42,7 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
             gameManager.instance.enemiesRemainingText.enabled = false;
             gameManager.instance.crosshair.SetActive(false);            
             StartCoroutine(gameManager.instance.cam2.GetComponentInChildren<secondCamera>().openDoorThree());
+            gameManager.instance.playerScript.canShoot = false;
             gameManager.instance.cam2.SetActive(true);
             gameManager.instance.playerCamera.SetActive(false);            
 
@@ -95,7 +96,5 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
         laserSix.SetActive(false);
         laserSeven.SetActive(false);
         laserEight.SetActive(false);
-       
-
     }
 }
