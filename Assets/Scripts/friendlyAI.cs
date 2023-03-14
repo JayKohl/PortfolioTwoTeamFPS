@@ -69,6 +69,8 @@ public class friendlyAI : MonoBehaviour
             //Debug.Log(gameManager.instance.enemiesRemaining);
             if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == false)
             {
+                
+                
                 gameManager.instance.playerScript.canShoot = false;
                 gameManager.instance.cam2.transform.GetChild(1).gameObject.SetActive(true);
                 //anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
@@ -79,7 +81,8 @@ public class friendlyAI : MonoBehaviour
                 //agent.enabled = false;
                 //agent.enabled = false;
                 //agent.enabled = true;
-                StartCoroutine(doorTwo());              
+                StartCoroutine(doorTwo());
+                
                 isDoorOpen = true;
                 gameManager.instance.displayNpcText("Hurry to the flight deck to secure your ship... I will hold off the reinforcements.");
                 StartCoroutine(setGoal("Get to the flight deck"));
@@ -281,13 +284,15 @@ public class friendlyAI : MonoBehaviour
     {
         
         yield return new WaitForSecondsRealtime(1);
-        gameManager.instance.playerScript.minimap.SetActive(false);
+        gameManager.instance.cam2.SetActive(true);
+       
         gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(false);
         gameManager.instance.enemiesRemainingObject.SetActive(false);
         gameManager.instance.enemiesRemainingText.enabled = false;
         gameManager.instance.crosshair.SetActive(false);
-        gameManager.instance.cam2.SetActive(true);
-        gameManager.instance.playerCamera.SetActive(false);        
+        gameManager.instance.playerCamera.SetActive(false);
+        gameManager.instance.playerScript.minimap.SetActive(false);
+
         Time.timeScale = 0;
 
         gameManager.instance.cam2.GetComponentInChildren<secondCamera>().openDoorTwo();
