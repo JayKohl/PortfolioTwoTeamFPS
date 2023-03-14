@@ -194,7 +194,7 @@ public class activateAbility : MonoBehaviour
         {
             if(inventoryScreenOn)
             {
-                aud.PlayOneShot(inventoryOpen, gameManager.instance.soundVol);
+                aud.PlayOneShot(inventoryOpen);
                 gameManager.instance.playerScript.canShoot = true;
                 gameManager.instance.inventoryMessageBox.SetActive(false);
                 inventoryScreenOn = false;
@@ -205,7 +205,7 @@ public class activateAbility : MonoBehaviour
             }
             else
             {
-                aud.PlayOneShot(inventoryOpen, gameManager.instance.soundVol);
+                aud.PlayOneShot(inventoryOpen);
                 gameManager.instance.playerScript.canShoot = false;
                 inventoryScreenOn = true;
                 Time.timeScale = 0;
@@ -231,13 +231,13 @@ public class activateAbility : MonoBehaviour
                 {
                     cooldownTime = stats.cooldownTime;
                     abilityAudio = stats.abilityAudio;
-                    aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
+                    aud.PlayOneShot(abilityAudio);
                     StartCoroutine(abilityCoolShield(cooldownTime));
                 }
                 else if (stats.abilityName == "Fire")
                 {
                     abilityAudio = stats.abilityAudio;
-                    aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
+                    aud.PlayOneShot(abilityAudio);
                     gameManager.instance.playerScript.canShoot = false;
                     gameManager.instance.playerScript.weaponModel.GetComponent<MeshRenderer>().enabled = false;
                     StartCoroutine(abilityCoolFire(3));
@@ -245,7 +245,7 @@ public class activateAbility : MonoBehaviour
                 else if (stats.abilityName == "Ice")
                 {
                     abilityAudio = stats.abilityAudio;
-                    aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
+                    aud.PlayOneShot(abilityAudio);
                     StartCoroutine(abilityCoolIce(3));
                 }
                 else if (stats.abilityName == "Swarm")
@@ -266,7 +266,7 @@ public class activateAbility : MonoBehaviour
                 else if (stats.abilityName == "Sentry Gun")
                 {
                     abilityAudio = stats.abilityAudio;
-                    aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
+                    aud.PlayOneShot(abilityAudio);
                     gameManager.instance.playerScript.deploySentryGun();
                 }
             }
@@ -417,7 +417,7 @@ public class activateAbility : MonoBehaviour
         {
             if (hit.transform.gameObject.tag == "EnemyBoss" || hit.transform.gameObject.tag == "Turret" || hit.transform.gameObject.tag == "EnemyBoss3")
             {
-                aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
+                aud.PlayOneShot(abilityAudio);
                 hackTarget = hit.collider.gameObject;
                 gameManager.instance.hackUI.SetActive(true);
                 hackCounter = 0;
@@ -433,7 +433,7 @@ public class activateAbility : MonoBehaviour
     {
         if (i == 0)
         {
-            aud.PlayOneShot(abilityAudio, gameManager.instance.soundVol);
+            aud.PlayOneShot(abilityAudio);
             gameManager.instance.hackInterface.GetComponent<Image>().sprite = hackAnimation[0];
             gameManager.instance.hackInterface.GetComponent<Image>().color = Color.white;
             gameManager.instance.hackError.SetActive(false);
@@ -444,7 +444,7 @@ public class activateAbility : MonoBehaviour
             }
             if (!cancelHack)
             {
-                aud.PlayOneShot(gameManager.instance.notify, gameManager.instance.soundVol);
+                aud.PlayOneShot(gameManager.instance.notify);
                 gameManager.instance.hackInterface.GetComponent<Image>().color = Color.green;
                 if (hackTarget.GetComponent<enemyBossAI>() != null)
                 {
@@ -466,7 +466,7 @@ public class activateAbility : MonoBehaviour
         {
             if (!cancelHack)
             {
-                aud.PlayOneShot(gameManager.instance.error, gameManager.instance.soundVol);
+                aud.PlayOneShot(gameManager.instance.error);
                 cancelHack = true;
                 gameManager.instance.hackError.SetActive(true);
                 gameManager.instance.hackInterface.GetComponent<Image>().color = Color.red;

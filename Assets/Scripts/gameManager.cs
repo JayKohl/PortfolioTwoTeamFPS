@@ -139,15 +139,16 @@ public class gameManager : MonoBehaviour
                 unPause();
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && activeMenu != null)
         {
-            aud.PlayOneShot(gameManager.instance.abilityHub.GetComponent<activateAbility>().inventoryOpen, soundVol);
+            aud.PlayOneShot(gameManager.instance.abilityHub.GetComponent<activateAbility>().inventoryOpen);
             lvlMenu.SetActive(false);
             inventory.SetActive(false);
             inventoryMessageBox.SetActive(false);
             abilityDisplay.SetActive(false);
             crosshair.SetActive(true);
             unPause();
+            isPaused = false;
         }
     }
 
