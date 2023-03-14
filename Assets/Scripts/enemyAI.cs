@@ -54,8 +54,8 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     bool destinationChosen;
     protected float stoppingDistOrig;
     protected bool blind;
-    protected bool stopMove;    
-
+    protected bool stopMove;
+    Vector3 gravDirection;
 
     protected IEnumerator roam()
     {
@@ -250,6 +250,27 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         {
             isPlayerInRange = false;
             agent.stoppingDistance = 0;
+        }
+    }
+    public IEnumerator pushedbackDir(Vector3 dir)
+    {
+        Vector3 positionHere = transform.position;
+        gravDirection = dir;
+        stopMove = true;
+        for (int i = 0; i < 40; i++)
+        {
+            if (hitPoints > 0)
+            {
+                anim.SetTrigger("Damage");
+            }
+            else
+            {
+                anim.SetTrigger("Dead");
+                transform.position = new Vector3(gravDirection.x, positionHere.y, gravDirection.z);
+                i = 40;
+            }
+            yield return new WaitForSeconds(.2f);
+            transform.position = new Vector3(gravDirection.x, positionHere.y, gravDirection.z);
         }
     }
 }
