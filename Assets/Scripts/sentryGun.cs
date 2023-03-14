@@ -46,7 +46,7 @@ public class sentryGun : MonoBehaviour
     }
     IEnumerator coolDownStart()
     {
-        aud.PlayOneShot(startUpSound, gameManager.instance.soundVol);
+        aud.PlayOneShot(startUpSound);
         yield return new WaitForSeconds(2);
         alive = true;
     }
@@ -129,7 +129,7 @@ public class sentryGun : MonoBehaviour
             muzzleFlash.GetComponent<ParticleSystem>().Play();
             isShooting = true;
 
-            if (gameManager.instance.lvlMenu.GetComponent<LVLButtons>().abilityDamageUp)
+            if (gameManager.instance.lvlbuttons.abilityDamageUp)
             {
                 target.GetComponent<enemyAI>().takeDamage(4);
             }
@@ -138,7 +138,7 @@ public class sentryGun : MonoBehaviour
                 target.GetComponent<enemyAI>().takeDamage(1);
             }
             //GameObject bulletClone = Instantiate(bullet, headPos.position, bullet.transform.rotation);
-            aud.PlayOneShot(audBasicAttack, gameManager.instance.soundVol);
+            aud.PlayOneShot(audBasicAttack);
             Vector3 shootingVector = (target.transform.position - headPos.position).normalized;
             //bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
 
