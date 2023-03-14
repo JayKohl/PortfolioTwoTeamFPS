@@ -139,7 +139,7 @@ public class gameManager : MonoBehaviour
                 unPause();
         }
 
-        if (Input.GetKeyDown(KeyCode.X) && activeMenu != null)
+        if (Input.GetKeyDown(KeyCode.X))
         {
             aud.PlayOneShot(gameManager.instance.abilityHub.GetComponent<activateAbility>().inventoryOpen);
             lvlMenu.SetActive(false);
