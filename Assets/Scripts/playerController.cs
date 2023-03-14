@@ -209,7 +209,7 @@ public class playerController : MonoBehaviour
         {
             jumpsCurrent++;
             playerVelocity.y = jumpSpeed;
-            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], gameManager.instance.soundVol);
+            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)]);
         }
         if ((Input.GetButton("Run") && !isRunning) && !slowed && !isCrouched) //run
         {
@@ -272,7 +272,7 @@ public class playerController : MonoBehaviour
     IEnumerator playGravelSteps()
     {
         isPlayingSteps = true;
-        aud.PlayOneShot(audGravelSteps[Random.Range(0, audGravelSteps.Length)], gameManager.instance.soundVol);
+        aud.PlayOneShot(audGravelSteps[Random.Range(0, audGravelSteps.Length)]);
         if (isSprinting)
         {
             yield return new WaitForSeconds(0.3f);
@@ -288,7 +288,7 @@ public class playerController : MonoBehaviour
     IEnumerator playMetalSteps()
     {
         isPlayingSteps = true;
-        aud.PlayOneShot(audMetalSteps[Random.Range(0, audMetalSteps.Length)], gameManager.instance.soundVol);
+        aud.PlayOneShot(audMetalSteps[Random.Range(0, audMetalSteps.Length)]);
         if (isSprinting)
         {
             yield return new WaitForSeconds(0.3f);
@@ -350,7 +350,7 @@ public class playerController : MonoBehaviour
                 playeranim.SetBool("Rifle", false);
                 playeranim.SetBool("Sniper", true);
             }
-            aud.PlayOneShot(weaponAudio[Random.Range(0, weaponAudio.Count)], gameManager.instance.soundVol);
+            aud.PlayOneShot(weaponAudio[Random.Range(0, weaponAudio.Count)]);
             gunShootFlash();
         }
 
@@ -420,12 +420,12 @@ public class playerController : MonoBehaviour
             if (HP <= 0)
             {
                 playerDied = true;
-                aud.PlayOneShot(audDead[Random.Range(0, audDead.Length)], gameManager.instance.soundVol);
+                aud.PlayOneShot(audDead[Random.Range(0, audDead.Length)]);
                 gameManager.instance.playerDead();
             }
             else
             {
-                aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], gameManager.instance.soundVol);
+                aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)]);
             }
         }
     }
@@ -509,11 +509,11 @@ public class playerController : MonoBehaviour
         {
             if (weaponStat == weaponList[i])
             {
-                aud.PlayOneShot(weaponPickupSound, gameManager.instance.soundVol);
+                aud.PlayOneShot(weaponPickupSound);
                 return;
             }
         }
-        aud.PlayOneShot(weaponPickupSound, gameManager.instance.soundVol);
+        aud.PlayOneShot(weaponPickupSound);
         weaponList.Add(weaponStat);
 
         shootRate = weaponStat.shootRate;
@@ -693,7 +693,7 @@ public class playerController : MonoBehaviour
         {     
             takeDamage(trapDamage);
             StartCoroutine(flashDamage(1));
-            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], gameManager.instance.soundVol);
+            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)]);
             effectTime--;
             if(playerDied)
             {
@@ -714,7 +714,7 @@ public class playerController : MonoBehaviour
         {      
             takeDamage(trapDamage);
             StartCoroutine(flashDamage(3));
-            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], gameManager.instance.soundVol);
+            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)]);
             effectTime--;
             if (playerDied)
             {
@@ -749,7 +749,7 @@ public class playerController : MonoBehaviour
 
             takeDamage(trapDamage);
             StartCoroutine(flashDamage(2));
-            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)], gameManager.instance.soundVol);
+            aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)]);
             effectTime--;
             if (playerDied)
             {
