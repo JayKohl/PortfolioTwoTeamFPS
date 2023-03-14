@@ -81,7 +81,7 @@ public class endBossAI : enemyAI
             if (isPlayerInRange)
             {
                 isAgro = true;
-                if (!canSeePlayer())
+                if (!canSeePlayer() && agent.isActiveAndEnabled == true)
                 {
                     agent.destination = gameManager.instance.player.transform.position;
                 }
@@ -92,7 +92,10 @@ public class endBossAI : enemyAI
             }
             else if (agent.destination != gameManager.instance.player.transform.position && isAgro == true)
             {
-                agent.destination = gameManager.instance.player.transform.position;
+                if (agent.isActiveAndEnabled == true)
+                {
+                    agent.destination = gameManager.instance.player.transform.position;
+                }
             }
         }
     }
@@ -111,71 +114,75 @@ public class endBossAI : enemyAI
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, playerDirection, out hit))
         {
-            if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
+            if (agent.isActiveAndEnabled == true)
             {
-                int selectAttack = randomAttack.Next(1, 11);
 
-                agent.stoppingDistance = stoppingDistOrig;
-                agent.speed = speedChase;
-                agent.SetDestination(gameManager.instance.player.transform.position);
-                if (agent.remainingDistance < agent.stoppingDistance)
+                if (hit.collider.CompareTag("Player") && angleToPlayer <= viewAngle)
                 {
-                    facePlayer();
-                }
+                    int selectAttack = randomAttack.Next(1, 11);
 
-                if (isEventActive == false && isMinionSpawnOne == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .3)))
-                {
-                    agentStart();
-                    isEventActive = true;
-                    isMinionSpawnOne = true;
-                    StartCoroutine(spawnMinions());
-                }
-                else if (isEventActive == false && isPowerUp == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .5)))
-                {
-                    agentStop();
-                    isEventActive = true;
-                    isPowerUp = true;
-                    smokeOne.SetActive(true);
-                    smokeTwo.SetActive(true);
-                    StartCoroutine(powerUp());
-                }
-                else if (isEventActive == false && isMinionSpawnTwo == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
-                {
-                    agentStop();
-                    isEventActive = true;
-                    isMinionSpawnTwo = true;
-                    StartCoroutine(spawnMinions());
-                }
-                else if (isEventActive == false)
-                {
-                    // basic attacks
-                    if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack <= 4)
+                    agent.stoppingDistance = stoppingDistOrig;
+                    agent.speed = speedChase;
+                    agent.SetDestination(gameManager.instance.player.transform.position);
+                    if (agent.remainingDistance < agent.stoppingDistance)
                     {
-                        StartCoroutine(melee());
+                        facePlayer();
                     }
-                    else if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack > 4 && selectAttack <= 8)
+
+                    if (isEventActive == false && isMinionSpawnOne == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .3)))
                     {
-                        isMelee = true;
-                        StartCoroutine(meleeTwo());
+                        agentStart();
+                        isEventActive = true;
+                        isMinionSpawnOne = true;
+                        StartCoroutine(spawnMinions());
                     }
-                    else if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack > 8)
-                    {
-                        isMelee = true;
-                        StartCoroutine(meleeRam());
-                    }
-                    else if (!isMelee && !isShooting && angleToPlayer <= shootAngle && hitPoints <= (hitPointsOrig - (hitPointsOrig * .2)))
-                    {
-                        StartCoroutine(shoot());
-                    }
-                    else if (!isSpikeShoot && distanceToEnemy >= spikeRange && hitPoints <= (hitPointsOrig - (hitPointsOrig * .2)))
+                    else if (isEventActive == false && isPowerUp == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .5)))
                     {
                         agentStop();
-                        isShooting = true;
-                        isSpikeShoot = true;
-                        //agent.stoppingDistance = stoppingDistOrig *= 3;
-                        StartCoroutine(spikeShoot());
+                        isEventActive = true;
+                        isPowerUp = true;
+                        smokeOne.SetActive(true);
+                        smokeTwo.SetActive(true);
+                        StartCoroutine(powerUp());
                     }
-                    return true;
+                    else if (isEventActive == false && isMinionSpawnTwo == false && hitPoints <= (hitPointsOrig - (hitPointsOrig * .7)))
+                    {
+                        agentStop();
+                        isEventActive = true;
+                        isMinionSpawnTwo = true;
+                        StartCoroutine(spawnMinions());
+                    }
+                    else if (isEventActive == false)
+                    {
+                        // basic attacks
+                        if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack <= 4)
+                        {
+                            StartCoroutine(melee());
+                        }
+                        else if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack > 4 && selectAttack <= 8)
+                        {
+                            isMelee = true;
+                            StartCoroutine(meleeTwo());
+                        }
+                        else if (!isMelee && angleToPlayer <= shootAngle && distanceToEnemy <= 7 && selectAttack > 8)
+                        {
+                            isMelee = true;
+                            StartCoroutine(meleeRam());
+                        }
+                        else if (!isMelee && !isShooting && angleToPlayer <= shootAngle && hitPoints <= (hitPointsOrig - (hitPointsOrig * .2)))
+                        {
+                            StartCoroutine(shoot());
+                        }
+                        else if (!isSpikeShoot && distanceToEnemy >= spikeRange && hitPoints <= (hitPointsOrig - (hitPointsOrig * .2)))
+                        {
+                            agentStop();
+                            isShooting = true;
+                            isSpikeShoot = true;
+                            //agent.stoppingDistance = stoppingDistOrig *= 3;
+                            StartCoroutine(spikeShoot());
+                        }
+                        return true;
+                    }
                 }
             }
         }
@@ -330,8 +337,11 @@ public class endBossAI : enemyAI
             {
                 aud.PlayOneShot(audTakeDamage[UnityEngine.Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
             }
-            // melee add a function for turning off the weapon collider.
-            agent.SetDestination(gameManager.instance.player.transform.position);
+            if (agent.isActiveAndEnabled == true)
+            {
+                // melee add a function for turning off the weapon collider.
+                agent.SetDestination(gameManager.instance.player.transform.position);
+            }
             StartCoroutine(flashDamage());
         }
     }
@@ -354,7 +364,7 @@ public class endBossAI : enemyAI
         {
             takeDamage(3);
         }
-            fireEffect.SetActive(false);
+        fireEffect.SetActive(false);
         setOnFire = false;
     }
     IEnumerator iced()
@@ -369,7 +379,7 @@ public class endBossAI : enemyAI
         {
             takeDamage(2);
         }
-            iceEffect.SetActive(false);
+        iceEffect.SetActive(false);
         chilled = false;
     }
 }
