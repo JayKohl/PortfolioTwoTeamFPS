@@ -13,6 +13,8 @@ public class floorTrapActivation : MonoBehaviour
 	public int effectTime;
 	public int damage;
 	public bool trapActive;
+	public Material trapMaterial;
+	Color trapColor;
 
 
 	//Effecrt Type
@@ -28,17 +30,16 @@ public class floorTrapActivation : MonoBehaviour
 
     private void Start()
     {
-		
+		trapColor = Color.red;
+		trapColor.a = .5f;
 		soundEffect = trapsType.soundEffect;
 		activeTime = trapsType.activeTime;
 		effectTime = trapsType.effectTime;
 		damage = trapsType.damage;
 		trapActive = trapsType.trapActive;
 		effectType = trapsType.effectType;
-
-		
-		
-		
+		trapMaterial = trapsType.trapMaterial;
+		trapMaterial = transform.GetComponent<Renderer>().material;
 
 	}
     void Update()
@@ -52,19 +53,15 @@ public class floorTrapActivation : MonoBehaviour
 	IEnumerator TrapCycle()
 	{
 		yield return new WaitForSeconds(5);
-		
-		trapActive = true;
-		
-		transform.GetComponent<Renderer>().material.color = Color.red;
-		triggerObject.transform.position = Vector3.Lerp(triggerObject.transform.position, triggerObject2.transform.position, 1);
-       
-        yield return new WaitForSeconds(5);
-		
-        transform.GetComponent<Renderer>().material.color = Color.blue;
-		
+		trapMaterial.SetColor("_EmissionColor", Color.red * 1f);
+		trapActive = true;	
+		triggerObject.transform.position = Vector3.Lerp(triggerObject.transform.position, triggerObject2.transform.position, 1);     
+        yield return new WaitForSeconds(5);   
+		trapMaterial.SetColor("_EmissionColor", Color.black * 2);
 		triggerObject.transform.position = Vector3.Lerp(triggerObject.transform.position, triggerObject1.transform.position, 1);
 		trapActive = false;
 		
+
 
 	}
 

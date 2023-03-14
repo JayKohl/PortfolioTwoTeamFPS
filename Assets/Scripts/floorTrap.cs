@@ -12,6 +12,7 @@ public class floorTrap : ScriptableObject
 	public int effectTime;
 	public int damage;
 	public bool trapActive;
+	public Material trapMaterial;
 	
 
 	//Effecrt Type
