@@ -23,7 +23,7 @@ public class buttonFunctions : MonoBehaviour
     {
         //aud.PlayOneShot(resumeButton);
         gameManager.instance.unPause();
-        gameManager.instance.isPaused = !gameManager.instance.isPaused;
+        gameManager.instance.isPaused = false;
     }
 
     public void respawn()
@@ -61,19 +61,24 @@ public class buttonFunctions : MonoBehaviour
     }
     public void startGame()
     {
+        aud.PlayOneShot(resumeButton);
         SceneManager.LoadScene("LvlOneArena");
     }
     public void startLevel2()
     {
+        Time.timeScale = 1;
+        aud.PlayOneShot(resumeButton);
         SceneManager.LoadScene("LvlTwoTheArena");
     }
     public void startLevel3()
     {
+        Time.timeScale = 1;
         aud.PlayOneShot(resumeButton);
         SceneManager.LoadScene("LvlThreeTheWorld");
     }
     public void credits()
     {
+        Time.timeScale = 1;
         aud.PlayOneShot(resumeButton);
         SceneManager.LoadScene("End Credits");
     }
