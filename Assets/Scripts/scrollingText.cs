@@ -20,6 +20,10 @@ public class scrollingText : MonoBehaviour
     {
         for(int i = 0; i < itemInfo.Length; i++)
         {
+            if(i == 8)
+            {
+                itemInfoText.fontSize = 50;
+            }
             itemInfoText.text = itemInfo[i].ToString();
             yield return new WaitForSeconds(textSpeed);
         }        

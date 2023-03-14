@@ -10,20 +10,7 @@ public class musicCredits : MonoBehaviour
 
     void Start()
     {
-        aud.PlayOneShot(menuAud, menuAudVol);
-        StartCoroutine(fadeMusic());
-    }
-
-    // Update is called once per frame
-    IEnumerator fadeMusic()
-    {
-        float time = 0;
-        float start = menuAudVol;
-        while (time < 48)
-        {
-            time += Time.deltaTime;
-            aud.volume = Mathf.Lerp(start, 0, time / 48);
-            yield return null;
-        }
+        aud.loop = true;
+        aud.Play();        
     }
 }
