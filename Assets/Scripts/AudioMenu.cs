@@ -1,4 +1,4 @@
-using System;
+//using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,11 +32,20 @@ public class AudioMenu : MonoBehaviour
         masterSlider.onValueChanged.AddListener(HandleMasterSliderValueChanged);
         mute.onValueChanged.AddListener(HandleMuteChange);
         musicbutton.onClick.AddListener(TestMusic);
+        sfxbutton.onClick.AddListener(TestSFX);
+    }
+
+    private void TestSFX()
+    {
+        sfxTest.PlayOneShot(sfxClips[Random.Range(0, sfxClips.Count)]);
     }
 
     private void TestMusic()
     {
-        throw new NotImplementedException();
+        if (!musicTest.isPlaying)
+        {
+            StartCoroutine(PlayStop());
+        }
     }
 
     private void HandleMuteChange(bool soundOn)
@@ -66,6 +75,7 @@ public class AudioMenu : MonoBehaviour
         PlayerPrefs.SetFloat(masterVolume, masterSlider.value);
         PlayerPrefs.SetFloat(musicVolume, musicSlider.value);
         PlayerPrefs.SetFloat(sfxVolume, sfxSlider.value);
+       
     }
 
     private void HandleMusicSliderValueChanged(float value)
@@ -119,10 +129,12 @@ public class AudioMenu : MonoBehaviour
         sfxSlider.value = PlayerPrefs.GetFloat(sfxVolume, sfxSlider.value);
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator PlayStop()
     {
-        
+        musicTest.PlayOneShot(musicClips[Random.Range(0, musicClips.Count)]);
+        yield return new WaitForSecondsRealtime(2);
+        musicTest.Stop();
+
     }
 
 
