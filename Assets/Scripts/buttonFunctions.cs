@@ -8,7 +8,7 @@ public class buttonFunctions : MonoBehaviour
 {
     [SerializeField] AudioSource aud;
     [SerializeField] AudioClip resumeButton;
-    [SerializeField] float soundVol = 0.2f;
+    //[SerializeField] float soundVol = 0.2f;
     //public bool click;
     //public friendlyAI friendNPC;
     //[SerializeField] Button theButton;
