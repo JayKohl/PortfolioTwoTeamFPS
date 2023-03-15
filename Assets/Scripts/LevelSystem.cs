@@ -111,7 +111,7 @@ public class LevelSystem : MonoBehaviour
         {
             currentXP += gainedXP * XPMod;
 
-            if (!infoOn)
+            if (!infoOn && SceneManager.GetActiveScene().name == "LvlOneArena")
             {
                 StartCoroutine(LVLInfotext());
                 tokenAmount++;
