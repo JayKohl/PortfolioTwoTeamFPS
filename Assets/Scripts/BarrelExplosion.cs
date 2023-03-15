@@ -6,17 +6,18 @@ public class BarrelExplosion : MonoBehaviour
 {
     
     bool playerIn;
-    int damage;
+    [SerializeField] int damage;
+    //bool exploded;
     private void Start()
     {
-        GetComponentInParent<Barrels>();
-        StartCoroutine(disappear());
         
+        StartCoroutine(disappear());
     }
     IEnumerator disappear()
     {
-        yield return new WaitForSeconds(2);
-        Destroy(this, .1f);
+        //damage = GetComponentInParent<Barrels>().damage;
+        yield return new WaitForSeconds(.5f);
+        Destroy(gameObject);
     }
     public void OnTriggerEnter(Collider other)
     {

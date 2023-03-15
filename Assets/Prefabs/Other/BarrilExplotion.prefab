@@ -4936,11 +4936,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1246954608359597971}
-  - component: {fileID: 7244772283573131834}
   - component: {fileID: 1440950209330506323}
   - component: {fileID: 1405925820373284173}
   m_Layer: 0
-  m_Name: GrenadeExplosionEffect
+  m_Name: BarrelExplosionEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4954,7 +4953,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1244025802782963401}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.5346603, y: -6.970463, z: 1.289999}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4965,19 +4964,6 @@ Transform:
   m_Father: {fileID: 5774782793903460349}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7244772283573131834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1244025802782963401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4e55ddfa4ad1064290b4c487e042d38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  time: 1
 --- !u!198 &1440950209330506323
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -24363,7 +24349,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5774782793903460349}
-  - component: {fileID: 3440691858593692625}
   - component: {fileID: 1403630065866529357}
   - component: {fileID: 9014505882866400365}
   - component: {fileID: 2435346102151030448}
@@ -24382,7 +24367,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5776321888720702179}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -7.15, y: 1.15, z: 2.384066}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
@@ -24391,22 +24376,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!114 &3440691858593692625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5776321888720702179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 595b241d0433d43469631e2ec48a8149, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grenadeDamage: 0
-  time: 0
-  aud: {fileID: 0}
-  explosion: {fileID: 0}
 --- !u!135 &1403630065866529357
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -24544,3 +24513,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eff140b25d64601aabc6ba32245d099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
