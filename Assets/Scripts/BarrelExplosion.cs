@@ -6,27 +6,34 @@ public class BarrelExplosion : MonoBehaviour
 {
     
     bool playerIn;
-    int damage;
+    [SerializeField]  int range;
+    [SerializeField] int damage;
+    //bool exploded;
     private void Start()
     {
-        GetComponentInParent<Barrels>();
-        StartCoroutine(disappear());
         
+        StartCoroutine(disappear());
     }
     IEnumerator disappear()
     {
-        yield return new WaitForSeconds(2);
-        Destroy(this, .1f);
+        //damage = GetComponentInParent<Barrels>().damage;
+        yield return new WaitForSeconds(.5f);
+        Destroy(gameObject);
     }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<IDamage>() != null)
+        float distance = Vector3.Distance(other.transform.position, transform.position);
+        if (distance <= range)
         {
-            other.GetComponent<IDamage>().takeDamage(damage);
-        }
-        else if (other.CompareTag("Player"))
-        {
-            gameManager.instance.playerScript.takeDamage(damage);
+
+            if (other.GetComponent<IDamage>() != null)
+            {
+                other.GetComponent<IDamage>().takeDamage(damage);
+            }
+            else if (other.CompareTag("Player"))
+            {
+                gameManager.instance.playerScript.takeDamage(damage);
+            }
         }
     }
 }

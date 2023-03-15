@@ -6,11 +6,12 @@ public class Barrels : MonoBehaviour, IDamage
 {
     [SerializeField] int barrilHP;
     [SerializeField] GameObject explotion;
-    [SerializeField] int damage;
+
     // Start is called before the first frame update
 
     private void Start()
     {
+     
         barrilHP = 20;
     }
     public virtual void takeDamage(int damage)
@@ -20,7 +21,9 @@ public class Barrels : MonoBehaviour, IDamage
         if(barrilHP <= 0)
         {
             Instantiate(explotion, transform.position, transform.rotation);
-            Destroy(transform.gameObject, 1.1f);
+          
+            Destroy(gameObject);
+
         }
     }
     
