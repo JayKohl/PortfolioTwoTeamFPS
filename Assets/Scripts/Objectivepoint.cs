@@ -15,15 +15,12 @@ public class Objectivepoint : MonoBehaviour
     [SerializeField] public Transform quest3;
     [SerializeField] public Transform quest4;
     [SerializeField] public Transform quest5;
-    
+
 
     private void Start()
     {
-         
-        
-        
-        locator = GameObject.FindGameObjectWithTag("Waypoint Image").GetComponent<Image>();
-        
+        //locator = GameObject.FindGameObjectWithTag("Waypoint Image").GetComponent<Image>();
+
         nullLoc = GameObject.FindGameObjectWithTag("NullObjective");
         location = nullLoc.transform;
         if (SceneManager.GetActiveScene().name == "LvlOneArena")
@@ -50,13 +47,13 @@ public class Objectivepoint : MonoBehaviour
             quest4 = nullLoc.transform;
             quest5 = nullLoc.transform;
         }
-        
+
     }
     void Update()
     {
-        
-        
-            
+
+
+
         if (locator.enabled == true)
         {
             float distance = Vector3.Distance(location.position, transform.position);
@@ -78,7 +75,7 @@ public class Objectivepoint : MonoBehaviour
                 locator.color = new Color(0.16f, 1f, 0, .6f);
             }
         }
-        
+
 
         float minX = locator.GetPixelAdjustedRect().width / 2;
         float manX = Screen.width - minX;
@@ -99,7 +96,7 @@ public class Objectivepoint : MonoBehaviour
                 pos.x = minX;
             }
         }
-           
+
         pos.x = Mathf.Clamp(pos.x, minX, manX);
         pos.y = Mathf.Clamp(pos.y, minX, manX);
         locator.transform.position = pos;
@@ -109,7 +106,7 @@ public class Objectivepoint : MonoBehaviour
     {
         locator.enabled = true;
         location = locationObj;
-        
+
     }
     public void TurnOffQuest()
     {
