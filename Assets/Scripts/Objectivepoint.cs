@@ -15,20 +15,20 @@ public class Objectivepoint : MonoBehaviour
     [SerializeField] public Transform quest3;
     [SerializeField] public Transform quest4;
     [SerializeField] public Transform quest5;
-    Color locatorColor;
+    
 
     private void Start()
     {
          
-        locatorColor = new Color(0.16f, 0.70f, 0, 1);
-        locator.color = locatorColor;
+        
+        
         locator = GameObject.FindGameObjectWithTag("Waypoint Image").GetComponent<Image>();
-        locator.enabled = false;
         
         nullLoc = GameObject.FindGameObjectWithTag("NullObjective");
         location = nullLoc.transform;
-        if (SceneManager.GetActiveScene().name == "LvloneArena")
+        if (SceneManager.GetActiveScene().name == "LvlOneArena")
         {
+            location = nullLoc.transform;
             objectiveOne = nullLoc.transform;
             TurnOffQuest();
             townNpc = nullLoc.transform;
@@ -56,8 +56,11 @@ public class Objectivepoint : MonoBehaviour
     {
         
         
+            
+        if (locator.enabled == true)
+        {
             float distance = Vector3.Distance(location.position, transform.position);
-           
+
             if (distance >= 400)
             {
                 locator.color = new Color(0.16f, 0.40f, 0, 1);
@@ -74,6 +77,7 @@ public class Objectivepoint : MonoBehaviour
             {
                 locator.color = new Color(0.16f, 1f, 0, .6f);
             }
+        }
         
 
         float minX = locator.GetPixelAdjustedRect().width / 2;
