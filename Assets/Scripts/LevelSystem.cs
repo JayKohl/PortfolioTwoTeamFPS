@@ -157,7 +157,7 @@ public class LevelSystem : MonoBehaviour
         lvlMenuInformation.SetActive(true);
         gameManager.instance.pause();
         infoOn = true;
-        yield return new WaitForSecondsRealtime(6);
+        yield return new WaitForSecondsRealtime(3);
         lvlMenuInformation.SetActive(false);
         gameManager.instance.unPause();
 

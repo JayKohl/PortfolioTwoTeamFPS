@@ -92,6 +92,7 @@ public class gameManager : MonoBehaviour
     public bool boss2Dead = false;    
     public bool flightDeck = false;
     public bool boss3Dead = false;
+    public bool gameEnded;
 
     string goalsText;
     [SerializeField] public GameObject endGameTrigger;
@@ -228,12 +229,14 @@ public class gameManager : MonoBehaviour
             pause();
             activeMenu = winMenu;
             activeMenu.SetActive(true);
+            gameEnded = true;
             StartCoroutine(ending());
         }
     }
     IEnumerator ending()
     {
         Time.timeScale = 1;
+        gameManager.instance.player.GetComponent<Collider>().enabled = false;
         Cursor.visible = false;
         yield return new WaitForSeconds(3);
         Cursor.lockState = CursorLockMode.Confined;
@@ -243,12 +246,15 @@ public class gameManager : MonoBehaviour
     }
     public void playerDead()
     {
-        playerScript.playerDied = true;
-        minimap.SetActive(false);
-        hackUI.SetActive(false);
-        pause();
-        activeMenu = loseMenu;
-        activeMenu.SetActive(true);
+        if (gameEnded == false)
+        {
+            playerScript.playerDied = true;
+            minimap.SetActive(false);
+            hackUI.SetActive(false);
+            pause();
+            activeMenu = loseMenu;
+            activeMenu.SetActive(true);
+        }
     }
     public IEnumerator notificationDisplay(notifications textureDisp)
     {
