@@ -147,7 +147,7 @@ public class enemyShredder : enemyAI
     IEnumerator onFire()
     {
         yield return new WaitForSeconds(.5f);
-        fireEffect.SetActive(true);
+        //fireEffect.SetActive(true);
         takeDamage(1);
         yield return new WaitForSeconds(1);
         takeDamage(1);
@@ -158,13 +158,13 @@ public class enemyShredder : enemyAI
         {
             takeDamage(3);
         }
-        fireEffect.SetActive(false);
+        //fireEffect.SetActive(false);
         setOnFire = false;
     }
     IEnumerator iced()
     {
         yield return new WaitForSeconds(.5f);
-        iceEffect.SetActive(true);
+        //iceEffect.SetActive(true);
         takeDamage(1);
         yield return new WaitForSeconds(1);
         takeDamage(1);
@@ -173,7 +173,7 @@ public class enemyShredder : enemyAI
         {
             takeDamage(2);
         }
-        iceEffect.SetActive(false);
+        //iceEffect.SetActive(false);
         chilled = false;
     }
 }
