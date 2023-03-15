@@ -184,7 +184,7 @@ public class townNPC : MonoBehaviour
                 {
                     if (isPetDead == false)
                     {
-                        gameManager.instance.displayNpcText("Have you seen out town pet Leroy? Keep your distance he can be very cranky.");
+                        gameManager.instance.displayNpcText("Have you seen our town pet Leroy? Keep your distance he can be very cranky.");
                         StartCoroutine(gameManager.instance.deleteTextNpc(12f));
                     }
                     else

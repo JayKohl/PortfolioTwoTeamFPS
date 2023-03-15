@@ -235,8 +235,9 @@ public class gameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         Cursor.visible = false;
-        yield return new WaitForSeconds(3);        
-        Cursor.lockState = CursorLockMode.Locked;
+        yield return new WaitForSeconds(3);
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         gameManager.instance.playerScript.canShoot = false;
         SceneManager.LoadScene("End Credits");
     }

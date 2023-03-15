@@ -21,17 +21,23 @@ public class explosionGravBomb : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
         {
-            target = other.gameObject;
-            target.GetComponent<enemyAI>().takeDamage(0);
-            aud.PlayOneShot(explosion, 0.2f);
-            StartCoroutine(other.gameObject.GetComponent<enemyOneAI>().pushedbackDir(transform.position));
-            aud.PlayOneShot(gravityEffect, gameManager.instance.soundVol);
+            if (other.GetComponent<IDamage>() != null)
+            {
+                target = other.gameObject;
+                target.GetComponent<enemyAI>().takeDamage(0);
+                aud.PlayOneShot(explosion);
+                StartCoroutine(other.gameObject.GetComponent<enemyAI>().pushedbackDir(transform.position));
+                aud.PlayOneShot(gravityEffect, gameManager.instance.soundVol);
+            }
         }
     }
     IEnumerator timer(float time)
     {
         yield return new WaitForSeconds(time);
-        target.GetComponent<enemyAI>().gravBombEnd();
+        if (target != null)
+        {
+            target.GetComponent<enemyAI>().gravBombEnd();
+        }
         Destroy(gameObject);
     }
 }

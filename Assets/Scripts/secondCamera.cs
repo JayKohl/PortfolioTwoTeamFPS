@@ -41,9 +41,10 @@ public class secondCamera : MonoBehaviour
     
     public IEnumerator doorThreeStop()
     {
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(3);        
         gameManager.instance.playerScript.controller.enabled = true;
         gameManager.instance.playerCamera.SetActive(true);
+        gameManager.instance.playerScript.canShoot = true;
         gameManager.instance.cam2.SetActive(false);
         gameManager.instance.playerScript.minimap.SetActive(true);
         gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(true);
