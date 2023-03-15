@@ -16,6 +16,8 @@ public class LevelSystem : MonoBehaviour
     public bool lvlScreenOn;
     public GameObject lvlUpText;
     public float XPMod = 1;
+    public GameObject lvlMenuInformation;
+    public bool infoOn = false;
     //public Vector3 startPosition;
     //[SerializeField] public Vector3 endPosition;
     //[SerializeField] public float Timelength;
@@ -108,6 +110,12 @@ public class LevelSystem : MonoBehaviour
         if (playerLevel < 10)
         {
             currentXP += gainedXP * XPMod;
+
+            if (!infoOn)
+            {
+                StartCoroutine(LVLInfotext());
+                tokenAmount++;
+            }
         }
     }
 
@@ -117,7 +125,6 @@ public class LevelSystem : MonoBehaviour
         frontXPbar.fillAmount = 0f;
         currentXP = Mathf.RoundToInt(currentXP - NeededXP);
         tokenAmount += playerLevel/2;
-        //gameManager.instance.playerScript.giveHP(gameManager.instance.playerScript.hpOriginal);
         gameManager.instance.playerScript.aud.PlayOneShot(gameManager.instance.playerScript.lvlUp, gameManager.instance.soundVol);
         StartCoroutine(LevelText());
         NeededXP = CalculateXP();
@@ -143,6 +150,17 @@ public class LevelSystem : MonoBehaviour
         lvlUpText.SetActive(true);
         yield return new WaitForSeconds(1.5f);
         lvlUpText.SetActive(false);
+    }
+
+    IEnumerator LVLInfotext()
+    {
+        lvlMenuInformation.SetActive(true);
+        gameManager.instance.pause();
+        infoOn = true;
+        yield return new WaitForSecondsRealtime(6);
+        lvlMenuInformation.SetActive(false);
+        gameManager.instance.unPause();
+
     }
 
     //IEnumerator TextMoveInFrame()
