@@ -16,14 +16,18 @@ public class explosionGrenade : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (gameManager.instance.lvlbuttons.abilityDamageUp)
+        float distance = Vector3.Distance(other.transform.position, transform.position);
+        if(distance <= 15)
         {
-            grenadeDamage += 3;
-        }
-        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
-        {
-            other.gameObject.GetComponent<enemyAI>().takeDamage(grenadeDamage);
-            aud.PlayOneShot(explosion, gameManager.instance.soundVol);
+            if (gameManager.instance.lvlbuttons.abilityDamageUp)
+            {
+                grenadeDamage += 3;
+            }
+            if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss") || other.CompareTag("Turret"))
+            {
+                other.gameObject.GetComponent<enemyAI>().takeDamage(grenadeDamage);
+                aud.PlayOneShot(explosion, gameManager.instance.soundVol);
+            }
         }
     }
     IEnumerator timer(float time)
