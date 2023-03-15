@@ -24,9 +24,20 @@ public class Objectivepoint : MonoBehaviour
         locator.color = locatorColor;
         locator = GameObject.FindGameObjectWithTag("Waypoint Image").GetComponent<Image>();
         locator.enabled = false;
+        
         nullLoc = GameObject.FindGameObjectWithTag("NullObjective");
         location = nullLoc.transform;
-        if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
+        if (SceneManager.GetActiveScene().name == "LvloneArena")
+        {
+            objectiveOne = nullLoc.transform;
+            TurnOffQuest();
+            townNpc = nullLoc.transform;
+            quest2 = nullLoc.transform;
+            quest3 = nullLoc.transform;
+            quest4 = nullLoc.transform;
+            quest5 = nullLoc.transform;
+        }
+        else if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
         {
             SetWayPoint(townNpc);
         }
