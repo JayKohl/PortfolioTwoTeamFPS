@@ -77,10 +77,10 @@ public class enemyBossAI : enemyAI
             agent.speed = speedOrig;
         }
         if (agent.isActiveAndEnabled && isInCoolDown == false)
-        {            
+        {
             anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
             if (isPlayerInRange)
-            {                
+            {
                 if (!canSeePlayer())
                 {
                     agent.destination = gameManager.instance.player.transform.position;
@@ -94,7 +94,6 @@ public class enemyBossAI : enemyAI
     }
     public override void takeDamage(int dmg)
     {
-        //Angel Added this
         updateEnemyHPBar();
         if (gameManager.instance.playerScript.fireOn && !setOnFire)
         {
@@ -143,17 +142,19 @@ public class enemyBossAI : enemyAI
             {
                 aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
             }
-            // meleeColliderOff();
-            agent.SetDestination(gameManager.instance.player.transform.position);
+            if (agent.enabled == true)
+            {
+                agent.SetDestination(gameManager.instance.player.transform.position);
+            }
             StartCoroutine(flashDamage());
         }
     }
     public IEnumerator hacking(GameObject target)
     {
-        if(target == gameObject)
+        if (target == gameObject)
         {
             isInCoolDown = true;
-            anim.SetTrigger("CoolDown");            
+            anim.SetTrigger("CoolDown");
             shield.SetActive(false);
             yield return new WaitForSeconds(10);
             agentStart();
@@ -197,7 +198,7 @@ public class enemyBossAI : enemyAI
         yield return new WaitForSeconds(2.5f);
         explosion.SetActive(false);
         plasmaExplosion.SetActive(false);
-        deathFlames.SetActive(true);        
+        deathFlames.SetActive(true);
     }
     protected override IEnumerator shoot()
     {
@@ -346,7 +347,7 @@ public class enemyBossAI : enemyAI
 
         int saveStartHealth = hitPoints;
         aud.PlayOneShot(audShield[Random.Range(0, audShield.Length)], gameManager.instance.soundVol);
-        shield.SetActive(true);        
+        shield.SetActive(true);
         anim.SetTrigger("CoolDown");
         plasmaExplosion.SetActive(false);
         yield return new WaitForSeconds(10);
