@@ -208,7 +208,7 @@ public class playerController : MonoBehaviour
                 isCrouched = true;
 
             }
-            if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes)
+            if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes && !slowed)
             {
                 jumpsCurrent++;
                 playerVelocity.y = jumpSpeed;
