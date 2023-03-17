@@ -10,6 +10,7 @@ public class musicMenu : MonoBehaviour
 
     void Start()
     {
-        aud.PlayOneShot(menuAud, menuAudVol);
+        aud.loop = true;
+        aud.Play();
     }
 }
