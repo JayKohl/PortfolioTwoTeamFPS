@@ -36,6 +36,7 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
         {
             terminalDead();
 
+            gameManager.instance.inCutscene = true;
             gameManager.instance.playerScript.minimap.SetActive(false);
             gameManager.instance.playerHPBar.transform.parent.gameObject.SetActive(false);
             gameManager.instance.enemiesRemainingObject.SetActive(false);

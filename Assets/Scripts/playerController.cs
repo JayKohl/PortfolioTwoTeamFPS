@@ -401,6 +401,10 @@ public class playerController : MonoBehaviour
     }
     public void takeDamage(int dmg)
     {
+        if(gameManager.instance.inCutscene)
+        {
+            return;
+        }
         if (gameManager.instance.shieldOn)
         {
             shieldOnPlayer.GetComponent<shield>().shieldTakeDamage(dmg);

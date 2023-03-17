@@ -92,7 +92,7 @@ public class gameManager : MonoBehaviour
     public bool boss2Dead = false;    
     public bool flightDeck = false;
     public bool boss3Dead = false;
-    public bool gameEnded;
+    public bool inCutscene;
 
     string goalsText;
     [SerializeField] public GameObject endGameTrigger;
@@ -229,7 +229,7 @@ public class gameManager : MonoBehaviour
             pause();
             activeMenu = winMenu;
             activeMenu.SetActive(true);
-            gameEnded = true;
+            inCutscene = true;
             StartCoroutine(ending());
         }
     }
@@ -246,7 +246,7 @@ public class gameManager : MonoBehaviour
     }
     public void playerDead()
     {
-        if (gameEnded == false)
+        if (inCutscene == false)
         {
             playerScript.playerDied = true;
             minimap.SetActive(false);

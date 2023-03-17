@@ -68,9 +68,7 @@ public class friendlyAI : MonoBehaviour
         {
             //Debug.Log(gameManager.instance.enemiesRemaining);
             if (gameManager.instance.enemiesRemaining <= 0 && isGivenQuest && isDoorOpen == false)
-            {
-                
-                
+            {   
                 gameManager.instance.playerScript.canShoot = false;
                 gameManager.instance.cam2.transform.GetChild(1).gameObject.SetActive(true);
                 //anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
@@ -179,6 +177,7 @@ public class friendlyAI : MonoBehaviour
                 }
                 if (!isGivenQuest)
                 {
+                    gameManager.instance.inCutscene = true;
                     isTalking = true;
                     orgPos = transform;
                     Cursor.visible = false;
@@ -245,6 +244,7 @@ public class friendlyAI : MonoBehaviour
 
     IEnumerator doorOne()
     {
+        gameManager.instance.inCutscene = true;
         gameManager.instance.crosshair.SetActive(false);
         gameManager.instance.cam2.GetComponentInChildren<secondCamera>().openDoorOne();
         yield return new WaitForSecondsRealtime(1.5f);
@@ -269,7 +269,8 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.AbilityThree.SetActive(true);
         gameManager.instance.AbilityFour.SetActive(true);
         gameManager.instance.AbilitiesBackground.SetActive(true);
-        gameManager.instance.unPause();        
+        gameManager.instance.unPause();
+        gameManager.instance.inCutscene = false;
         gameManager.instance.playerScript.canShoot = true;
         gameManager.instance.playerXPBar.enabled = true;
 
@@ -282,7 +283,7 @@ public class friendlyAI : MonoBehaviour
 
     IEnumerator doorTwo()
     {
-        
+        gameManager.instance.inCutscene = true;
         yield return new WaitForSecondsRealtime(1);
         gameManager.instance.cam2.SetActive(true);
        
@@ -309,6 +310,7 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.crosshair.SetActive(true);
         gameManager.instance.unPause();
         gameManager.instance.playerScript.canShoot = true;
+        gameManager.instance.inCutscene = false;
 
         gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().location = gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().objectiveOne;
         gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().locator.enabled = true;

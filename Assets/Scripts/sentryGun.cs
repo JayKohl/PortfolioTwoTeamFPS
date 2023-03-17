@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class sentryGun : MonoBehaviour
 {
     //int viewAngle = 90;
-    int shootAngle = 90;
+    int shootAngle = 180;
     int enemyFaceSpeed = 60;
     [SerializeField] GameObject bullet;
     [SerializeField] Transform headPos;
@@ -33,7 +33,7 @@ public class sentryGun : MonoBehaviour
     {
         StartCoroutine(coolDownStart());
         muzzleFlash.GetComponent<ParticleSystem>().Stop();
-        StartCoroutine(deathTimer());
+        //StartCoroutine(deathTimer());
     }
 
     //// Update is called once per frame
