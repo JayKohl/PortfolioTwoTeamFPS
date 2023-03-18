@@ -73,6 +73,8 @@ public class gameManager : MonoBehaviour
     public Sprite crosshairTexture;
     public bool shieldOn;
     [SerializeField] public GameObject shieldUI;
+    [SerializeField] public GameObject shieldHP;
+    public int shieldHPNum;
     [SerializeField] public GameObject invisUI;
     [SerializeField] public GameObject dashUI;
     [SerializeField] public GameObject hackUI;

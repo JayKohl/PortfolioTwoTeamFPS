@@ -722,6 +722,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf2bb4d6bea14a14fa404578a93444c2, type: 3}
+--- !u!1 &492208244 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2076748248810994918, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+  m_PrefabInstance: {fileID: 2131254347045424268}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &525334211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4490,12 +4495,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1291700156}
     - target: {fileID: 6111150021040916087, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: shieldHP
+      value: 
+      objectReference: {fileID: 492208244}
+    - target: {fileID: 6111150021040916087, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 1181827056}
+    - target: {fileID: 6644864350683901228, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6975415324511045283, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7182724089058966685, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
+      propertyPath: m_Name
+      value: HealthBarPlayer
       objectReference: {fileID: 0}
     - target: {fileID: 7596886350937759713, guid: 97e3931cea22eac49a4128f5441e95fd, type: 3}
       propertyPath: m_IsActive
@@ -5382,7 +5399,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5194682028931140042, guid: 8a0bb10e4dbee144c85d1d4b1af56020, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.2
+      value: 0.85
       objectReference: {fileID: 0}
     - target: {fileID: 5194682028931140042, guid: 8a0bb10e4dbee144c85d1d4b1af56020, type: 3}
       propertyPath: m_LocalPosition.z

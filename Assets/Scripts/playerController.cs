@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class playerController : MonoBehaviour
 {
@@ -425,6 +426,8 @@ public class playerController : MonoBehaviour
         if (gameManager.instance.shieldOn)
         {
             shieldOnPlayer.GetComponent<shield>().shieldTakeDamage(dmg);
+            gameManager.instance.shieldHPNum -= dmg;
+            gameManager.instance.shieldHP.GetComponent<TextMeshProUGUI>().text = gameManager.instance.shieldHPNum.ToString();
         }
         else
         {

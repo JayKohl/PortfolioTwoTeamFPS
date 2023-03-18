@@ -229,6 +229,8 @@ public class activateAbility : MonoBehaviour
                 }
                 else if (stats.abilityName == "Shield")
                 {
+                    gameManager.instance.shieldHP.GetComponent<TextMeshProUGUI>().text = "10";
+                    gameManager.instance.shieldHPNum = 10;
                     cooldownTime = stats.cooldownTime;
                     abilityAudio = stats.abilityAudio;
                     aud.PlayOneShot(abilityAudio);
