@@ -673,7 +673,7 @@ public class playerController : MonoBehaviour
                 {
                     Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * 3);
                 }
-                else if (Camera.main.fieldOfView <= baseFOV)
+                else if (Camera.main.fieldOfView <= baseFOV && !gameManager.instance.cam2.activeSelf)
                 {
                     Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, baseFOV, Time.deltaTime * 6);
                 }
