@@ -33,7 +33,7 @@ public class sentryGun : MonoBehaviour
     {
         StartCoroutine(coolDownStart());
         muzzleFlash.GetComponent<ParticleSystem>().Stop();
-        //StartCoroutine(deathTimer());
+        StartCoroutine(deathTimer());
     }
 
     //// Update is called once per frame
@@ -46,9 +46,13 @@ public class sentryGun : MonoBehaviour
     }
     IEnumerator coolDownStart()
     {
+        GetComponent<Rigidbody>().useGravity = true;
+        GetComponent<Rigidbody>().isKinematic = false;
         aud.PlayOneShot(startUpSound);
         yield return new WaitForSeconds(2);
         alive = true;
+        GetComponent<Rigidbody>().useGravity = false;
+        GetComponent<Rigidbody>().isKinematic = true;
     }
     IEnumerator deathTimer()
     {
