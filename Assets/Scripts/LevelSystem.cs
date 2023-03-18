@@ -50,7 +50,7 @@ public class LevelSystem : MonoBehaviour
         //    GainExperiance(120);
         if (currentXP > NeededXP)
             LevelUp();
-        if (Input.GetKeyDown("tab"))
+        if (Input.GetKeyDown("tab") && !gameManager.instance.isPaused)
         {
             if (lvlScreenOn)
             {
