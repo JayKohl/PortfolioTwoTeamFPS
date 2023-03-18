@@ -243,8 +243,25 @@ public class playerController : MonoBehaviour
 
 
             }
+          
+            
             playerVelocity.y -= gravity * Time.deltaTime;
             controller.Move((playerVelocity + pushback) * Time.deltaTime);
+
+            if ((controller.collisionFlags & CollisionFlags.Above) != 0)
+            {
+                if (playerVelocity.y > 0)
+                {
+                    playerVelocity.y = 0;
+                    
+                }
+            }
+
+            //if (playerVelocity.y > 0)
+            //{
+
+            //    Debug.Log("is jumping");
+            //}
         }
 
         if (controller.isGrounded && move.normalized.magnitude > 0.8f && !isPlayingSteps)
