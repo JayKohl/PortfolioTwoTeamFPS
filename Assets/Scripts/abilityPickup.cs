@@ -29,16 +29,18 @@ public class abilityPickup : MonoBehaviour
     {
         if (other.CompareTag("Player") && !playerIn)
         {
+            gameManager.instance.playerScript.canShoot = false;
             aud.PlayOneShot(pickupSound, gameManager.instance.soundVol);
             playerIn = true;
             gameManager.instance.abilityHub.GetComponent<activateAbility>().abilityPickup(stats);
+            Time.timeScale = 0;
             Cursor.visible = false;
             StartCoroutine(delete());
         }
     }
     IEnumerator delete()
-    {
-        yield return new WaitForSeconds(1f);
+    {        
+        yield return new WaitForSeconds(.2f);
         Destroy(gameObject);
     }
 }

@@ -229,6 +229,8 @@ public class activateAbility : MonoBehaviour
                 }
                 else if (stats.abilityName == "Shield")
                 {
+                    gameManager.instance.shieldHP.GetComponent<TextMeshProUGUI>().text = "10";
+                    gameManager.instance.shieldHPNum = 10;
                     cooldownTime = stats.cooldownTime;
                     abilityAudio = stats.abilityAudio;
                     aud.PlayOneShot(abilityAudio);
@@ -384,6 +386,7 @@ public class activateAbility : MonoBehaviour
     }
     public IEnumerator abilityCoolShield(float cooldown)
     {
+        gameManager.instance.shieldUI.GetComponentInChildren<Image>().color = new Color(.567f, .509f, .977f, .10f);
         gameManager.instance.playerScript.shieldOnPlayer.GetComponent<shield>().shieldStart();
         yield return new WaitForSeconds(cooldown);
         if (gameManager.instance.shieldOn)

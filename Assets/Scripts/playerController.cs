@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class playerController : MonoBehaviour
 {
@@ -176,8 +177,7 @@ public class playerController : MonoBehaviour
         {
             //Debug.Log("test1");
             if (weaponList.Count > 0)
-            {
-                isShooting = true;
+            {                
                 StartCoroutine(shoot());
             }
         }
@@ -329,7 +329,7 @@ public class playerController : MonoBehaviour
     {
         //Debug.Log("test2");
         // Control for isShooting animation bool
-        if (gameManager.instance.activeMenu == null)
+        if (gameManager.instance.activeMenu == null && !isShooting)
         {
             if (weaponName == "Pistol")
             {
@@ -371,8 +371,15 @@ public class playerController : MonoBehaviour
                 playeranim.SetBool("Rifle", false);
                 playeranim.SetBool("Sniper", true);
             }
+            if (Input.GetKey("mouse 0"))
+            {
+                playeranim.SetBool("isShooting", true);
+            }
+            isShooting = true;
             aud.PlayOneShot(weaponAudio[Random.Range(0, weaponAudio.Count)]);
-            gunShootFlash();
+            gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Play();
+            yield return new WaitForSeconds(.01f);
+            gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Stop();
         }
 
         RaycastHit hit;
@@ -392,7 +399,7 @@ public class playerController : MonoBehaviour
                 weaponModel.GetComponent<MeshRenderer>().enabled = true;
                 hit.collider.GetComponent<IDamage>().takeDamage(shootDamage);
             }
-        }
+        }        
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
@@ -424,7 +431,7 @@ public class playerController : MonoBehaviour
         }
         if (gameManager.instance.shieldOn)
         {
-            shieldOnPlayer.GetComponent<shield>().shieldTakeDamage(dmg);
+            StartCoroutine(shieldTakeDamage(dmg));
         }
         else
         {
@@ -453,6 +460,15 @@ public class playerController : MonoBehaviour
                 aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)]);
             }
         }
+    }
+    IEnumerator shieldTakeDamage(int dmg)
+    {
+        gameManager.instance.shieldUI.GetComponentInChildren<Image>().color = new Color(.567f, .509f, .977f, .35f);
+        shieldOnPlayer.GetComponent<shield>().shieldTakeDamage(dmg);
+        gameManager.instance.shieldHPNum -= dmg;
+        gameManager.instance.shieldHP.GetComponent<TextMeshProUGUI>().text = gameManager.instance.shieldHPNum.ToString();
+        yield return new WaitForSeconds(.1f);
+        gameManager.instance.shieldUI.GetComponentInChildren<Image>().color = new Color(.567f, .509f, .977f, .10f);
     }
     public void invisibility()
     {
@@ -686,13 +702,7 @@ public class playerController : MonoBehaviour
         {
             playeranim.SetBool("isRunning", false);
         }
-
-        if (Input.GetKey("mouse 0"))
-        {
-            playeranim.SetBool("isShooting", true);
-
-
-        }
+        
         if (!Input.GetKey("mouse 0"))
         {
             playeranim.SetBool("isShooting", false);
