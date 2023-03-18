@@ -15,7 +15,7 @@ public class grenade : MonoBehaviour
         {
             transform.Rotate(2f, 2f, 0f, Space.Self);
             yield return new WaitForSeconds(.01f);
-            time-=.01f;            
+            time-=.03f;            
         }
         if (explosionEffect)
         {
