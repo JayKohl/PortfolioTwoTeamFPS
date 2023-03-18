@@ -425,9 +425,7 @@ public class playerController : MonoBehaviour
         }
         if (gameManager.instance.shieldOn)
         {
-            shieldOnPlayer.GetComponent<shield>().shieldTakeDamage(dmg);
-            gameManager.instance.shieldHPNum -= dmg;
-            gameManager.instance.shieldHP.GetComponent<TextMeshProUGUI>().text = gameManager.instance.shieldHPNum.ToString();
+            StartCoroutine(shieldTakeDamage(dmg));
         }
         else
         {
@@ -456,6 +454,15 @@ public class playerController : MonoBehaviour
                 aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)]);
             }
         }
+    }
+    IEnumerator shieldTakeDamage(int dmg)
+    {
+        gameManager.instance.shieldUI.GetComponentInChildren<Image>().color = new Color(.567f, .509f, .977f, .35f);
+        shieldOnPlayer.GetComponent<shield>().shieldTakeDamage(dmg);
+        gameManager.instance.shieldHPNum -= dmg;
+        gameManager.instance.shieldHP.GetComponent<TextMeshProUGUI>().text = gameManager.instance.shieldHPNum.ToString();
+        yield return new WaitForSeconds(.1f);
+        gameManager.instance.shieldUI.GetComponentInChildren<Image>().color = new Color(.567f, .509f, .977f, .10f);
     }
     public void invisibility()
     {
