@@ -76,7 +76,7 @@ public class playerController : MonoBehaviour
     // [SerializeField] GameObject bullet;
     [SerializeField] GameObject gunFlash;
 
-    int jumpsCurrent;
+    public int jumpsCurrent;
     Vector3 move;
     public Vector3 playerVelocity;
     bool isShooting;
