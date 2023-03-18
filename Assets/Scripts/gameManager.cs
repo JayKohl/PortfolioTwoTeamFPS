@@ -155,6 +155,7 @@ public class gameManager : MonoBehaviour
             crosshair.SetActive(true);
             unPause();
             isPaused = false;
+            gameManager.instance.playerScript.canShoot = true;
         }
     }
 
