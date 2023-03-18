@@ -33,6 +33,8 @@ public class townNPC : MonoBehaviour
     bool destinationChosen;
     float stoppingDistOrig;
     float speedOrig;
+    int followTime;
+    int reFollow;
 
     [SerializeField] bool questOne;
     [SerializeField] bool questTwo;
@@ -60,11 +62,20 @@ public class townNPC : MonoBehaviour
             //    StartCoroutine(roam());
             //}
             anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
-            if (isPlayerInRange)
+            if (isPlayerInRange && followTime <= 240)
             {
                 if (!canSeePlayer())
                 {
                     StartCoroutine(roam());
+                }
+                else
+                {
+                    followTime++;
+                    //if (followTime >= 240)
+                    //{
+                    //    reFollow++;
+                    //    StartCoroutine(roam());
+                    //}
                 }
                 //else if (!isGivenQuest)
                 //{
@@ -76,7 +87,13 @@ public class townNPC : MonoBehaviour
             }
             else if (agent.destination != gameManager.instance.player.transform.position)
             {
+                reFollow++;
                 StartCoroutine(roam());
+                if (reFollow >= 960)
+                {
+                    reFollow = 0;
+                    followTime = 0;
+                }
             }
             //else
             //{
