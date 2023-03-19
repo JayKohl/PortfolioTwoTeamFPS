@@ -89,7 +89,7 @@ public class enemyOneAI : enemyAI
             }
             if (shootPosition.parent.GetComponentInChildren<Renderer>() != null)
             {
-                shootPosition.parent.GetComponentInChildren<Renderer>().enabled = false;
+                shootPosition.parent.gameObject.SetActive(false);
             }
             fracturedEffect.SetActive(true);
             fracturedSource.PlayOneShot(iceBreak, gameManager.instance.soundVol);
