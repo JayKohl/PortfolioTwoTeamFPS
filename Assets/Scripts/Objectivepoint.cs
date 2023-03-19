@@ -21,7 +21,9 @@ public class Objectivepoint : MonoBehaviour
     {
         locator = GameObject.FindGameObjectWithTag("Waypoint Image").GetComponentInChildren<Image>();
         nullLoc = GameObject.FindGameObjectWithTag("NullObjective");
-        location = nullLoc.transform;        
+        location = nullLoc.transform;
+        objectiveOne = GameObject.FindGameObjectWithTag("Objective One").transform;
+
         if (SceneManager.GetActiveScene().name == "LvlOneArena")
         {
             location = nullLoc.transform;
