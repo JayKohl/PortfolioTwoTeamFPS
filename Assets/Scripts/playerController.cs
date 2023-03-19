@@ -82,6 +82,7 @@ public class playerController : MonoBehaviour
     public Vector3 playerVelocity;
     bool isShooting;
     bool isRunning;
+    bool isJumping;
     public int hpOriginal;
     public float speedOriginal;
     public int gunSelection;
@@ -175,7 +176,6 @@ public class playerController : MonoBehaviour
 
         if (!isShooting && Input.GetButton("Shoot") && canShoot && gameManager.instance.activeMenu == null)
         {
-            //Debug.Log("test1");
             if (weaponList.Count > 0)
             {                
                 StartCoroutine(shoot());
@@ -713,7 +713,7 @@ public class playerController : MonoBehaviour
             playeranim.SetBool("isShooting", false);
         }
 
-        if (Input.GetKey("space") && jumpsCurrent < jumpTimes)
+        if (Input.GetKey("space") && jumpsCurrent <= jumpTimes)
         {
             playeranim.SetBool("isJumping", true);
         }
