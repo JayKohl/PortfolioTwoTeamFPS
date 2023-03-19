@@ -14,6 +14,10 @@ public class enemyBugAI : enemyAI
     bool chilledOnce;
     [SerializeField] protected Collider meleeColliderTwo;
     [SerializeField] Collider meleeColliderRam;
+    bool chillDeath;
+    [SerializeField] GameObject fracturedEffect;
+    [SerializeField] AudioSource fracturedSource;
+    [SerializeField] AudioClip iceBreak;
 
     int hitPointsOrig;
     bool isAgro;
@@ -22,6 +26,7 @@ public class enemyBugAI : enemyAI
 
     void Start()
     {
+        fracturedSource = fracturedEffect.GetComponent<AudioSource>();
         hitPointsOrig = hitPoints;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
@@ -161,6 +166,19 @@ public class enemyBugAI : enemyAI
         {
             hitPoints -= dmg;
         }
+        if (chillDeath && anim.enabled == false && hitPoints < -3)
+        {
+            GetComponent<Collider>().enabled = false;
+            model.GetComponentInChildren<Renderer>().enabled = false;
+            //headPos.GetComponentInChildren<Renderer>().enabled = false;
+            //shootPosition.parent.GetComponent<Renderer>().enabled = false;
+            fracturedEffect.SetActive(true);
+            fracturedSource.PlayOneShot(iceBreak, gameManager.instance.soundVol);
+            fracturedEffect.GetComponentInChildren<ParticleSystem>().Play();
+            GetComponent<Collider>().enabled = false;
+            iceEffect.SetActive(false);
+            StartCoroutine(death());
+        }
         if (hitPoints <= 0)
         {
             gameManager.instance.lvlscript.GainExperiance(xp);
@@ -175,10 +193,10 @@ public class enemyBugAI : enemyAI
             if (chilled)
             {
                 model.material.color = new Color(0, 0.5509f, 1);
-                agent.enabled = false;
-                GetComponent<Collider>().enabled = false;
+                agent.enabled = false;                
                 GetComponentInChildren<Canvas>().enabled = false;
                 anim.enabled = false;
+                chillDeath = true;
             }
             else
             {
@@ -239,5 +257,10 @@ public class enemyBugAI : enemyAI
         }
         iceEffect.SetActive(false);
         chilled = false;
+    }
+    IEnumerator death()
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(gameObject);
     }
 }

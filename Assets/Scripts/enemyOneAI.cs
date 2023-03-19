@@ -5,15 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class enemyOneAI : enemyAI
 {
+    [Header("----- Effects -----")]
     [SerializeField] GameObject fireEffect;
     bool setOnFire;
     [SerializeField] GameObject iceEffect;
     bool chilled;
-    bool chilledOnce;    
+    bool chilledOnce;
+    bool chillDeath;
+    [SerializeField] GameObject fracturedEffect;
+    [SerializeField] AudioSource fracturedSource;
+    [SerializeField] AudioClip iceBreak;
 
     // Start is called before the first frame update
     void Start()
     {
+        fracturedSource = fracturedEffect.GetComponent<AudioSource>();
         speedChaseOrig = speedChase;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
@@ -70,6 +76,18 @@ public class enemyOneAI : enemyAI
         {
             hitPoints -= dmg;
         }
+        if (chillDeath && anim.enabled == false && hitPoints < -3)
+        {            
+            model.GetComponentInChildren<Renderer>().enabled = false;
+            headPos.GetComponentInChildren<Renderer>().enabled = false;
+            shootPosition.parent.GetComponent<Renderer>().enabled = false;
+            fracturedEffect.SetActive(true);
+            fracturedSource.PlayOneShot(iceBreak, gameManager.instance.soundVol);
+            fracturedEffect.GetComponentInChildren<ParticleSystem>().Play();            
+            GetComponent<Collider>().enabled = false;
+            iceEffect.SetActive(false);
+            StartCoroutine(death());
+        }
         if (hitPoints <= 0)
         {
             if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
@@ -88,10 +106,10 @@ public class enemyOneAI : enemyAI
             if (chilled)
             {
                 model.material.color = new Color(0, 0.5509f, 1);
-                agent.enabled = false;
-                GetComponent<Collider>().enabled = false;
                 GetComponentInChildren<Canvas>().enabled = false;
                 anim.enabled = false;
+                agent.enabled = false;
+                chillDeath = true;
             }
             else
             {
@@ -158,7 +176,11 @@ public class enemyOneAI : enemyAI
         {
             takeDamage(2);
         }
-        iceEffect.SetActive(false);
         chilled = false;
-    }    
+    }
+    IEnumerator death()
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(gameObject);
+    }
 }
