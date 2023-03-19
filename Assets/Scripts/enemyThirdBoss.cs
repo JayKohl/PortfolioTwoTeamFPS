@@ -244,7 +244,7 @@ public class enemyThirdBoss : enemyAI
             //anim.SetTrigger("Damage");
             if (dmg > 0)
             {
-                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)]);
             }
             if (!isSpawnEvent && takeDamFXDelay == false)
             {
