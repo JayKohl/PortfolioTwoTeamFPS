@@ -83,6 +83,7 @@ public class playerController : MonoBehaviour
     public Vector3 playerVelocity;
     bool isShooting;
     bool isRunning;
+    bool isJumping;
     public int hpOriginal;
     public float speedOriginal;
     public int gunSelection;
@@ -100,9 +101,9 @@ public class playerController : MonoBehaviour
     Rigidbody rig;
     public bool fireOn;
     public bool iceOn;
-    public bool canShoot = true;
+    public bool canShoot;
   
-    int currentLevel = 0;
+    public int currentLevel = 0;
 
 
     public bool slowed;
@@ -124,10 +125,12 @@ public class playerController : MonoBehaviour
         burningColor.a = 0.20f;
 
         canShoot = true;
+
         if (SceneManager.GetActiveScene().name == "LvlOneArena" && currentLevel < 1)
         {
             dirt = true;
             currentLevel = 1;
+            gameManager.instance.fullXPbar.SetActive(false);
             gameManager.instance.fuelCellsRemainingObject.SetActive(true);
             gameManager.instance.enemiesRemainingObject.SetActive(false);
             gameManager.instance.infoTextBackground.SetActive(false);
@@ -137,6 +140,7 @@ public class playerController : MonoBehaviour
         {
             dirt = false;
             currentLevel = 2;
+            gameManager.instance.fullXPbar.SetActive(false);
             gameManager.instance.enemiesRemainingObject.SetActive(true);
             gameManager.instance.fuelCellsRemainingObject.SetActive(false);
             gameManager.instance.infoTextBackground.SetActive(false);
@@ -146,6 +150,7 @@ public class playerController : MonoBehaviour
         {
             dirt = true;
             currentLevel = 3;
+            gameManager.instance.fullXPbar.SetActive(true);
             gameManager.instance.enemiesRemainingObject.SetActive(false);
             gameManager.instance.fuelCellsRemainingObject.SetActive(false);
             gameManager.instance.infoText.text = "Investigate the town to find the source of the distress signal.";
@@ -176,7 +181,6 @@ public class playerController : MonoBehaviour
 
         if (!isShooting && Input.GetButton("Shoot") && canShoot && gameManager.instance.activeMenu == null)
         {
-            //Debug.Log("test1");
             if (weaponList.Count > 0)
             {                
                 StartCoroutine(shoot());
@@ -539,7 +543,7 @@ public class playerController : MonoBehaviour
 
     public void giveHP(int amount)
     {
-        aud.PlayOneShot(medPickupSound, gameManager.instance.soundVol);
+        aud.PlayOneShot(medPickupSound);
         HP += amount;
         if (HP > hpOriginal)
             HP = hpOriginal;
@@ -714,7 +718,7 @@ public class playerController : MonoBehaviour
             playeranim.SetBool("isShooting", false);
         }
 
-        if (Input.GetKey("space") && jumpsCurrent < jumpTimes)
+        if (Input.GetButtonDown("Jump") && jumpsCurrent <= jumpTimes)
         {
             playeranim.SetBool("isJumping", true);
         }

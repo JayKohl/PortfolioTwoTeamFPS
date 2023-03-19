@@ -132,7 +132,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
             GetComponentInChildren<Canvas>().enabled = false;
             if(agent.enabled == true)
             {
-                aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], gameManager.instance.soundVol);
+                aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)]);
                 anim.SetBool("Dead", true);
                 agent.enabled = false;
             }            
@@ -143,7 +143,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
             anim.SetTrigger("Damage");
             if (dmg > 0)
             {
-                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)]);
             }
             // melee add a function for turning off the weapon collider.
             if (agent.isActiveAndEnabled)
@@ -195,7 +195,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
         {
             GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
             bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
-            aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], gameManager.instance.soundVol);
+            aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
         }
         else
         {
@@ -203,7 +203,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
             {
                 GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
                 bulletClone.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(0, 0.5f), Random.Range(0, 0.5f), Random.Range(0, 0.5f)) * bulletSpeed;
-                aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], gameManager.instance.soundVol);
+                aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
             }
         }
     }

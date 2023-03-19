@@ -92,7 +92,7 @@ public class enemyOneAI : enemyAI
                 shootPosition.parent.gameObject.SetActive(false);
             }
             fracturedEffect.SetActive(true);
-            fracturedSource.PlayOneShot(iceBreak, gameManager.instance.soundVol);
+            fracturedSource.PlayOneShot(iceBreak);
             fracturedEffect.GetComponentInChildren<ParticleSystem>().Play();            
             GetComponent<Collider>().enabled = false;
             iceEffect.SetActive(false);
@@ -100,6 +100,14 @@ public class enemyOneAI : enemyAI
         }
         if (hitPoints <= 0)
         {
+            if(!chilled)
+            {
+                iceEffect.SetActive(false);
+            }
+            else
+            {
+                iceEffect.SetActive(true);
+            }
             if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
             {
                 gameManager.instance.updateGameGoalLvl2(-1);
@@ -131,7 +139,7 @@ public class enemyOneAI : enemyAI
                 GetComponentInChildren<Canvas>().enabled = false;
                 if (agent.enabled == true)
                 {
-                    aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], gameManager.instance.soundVol);
+                    aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)]);
                     anim.SetBool("Dead", true);
                     agent.enabled = false;
                 }
@@ -143,7 +151,7 @@ public class enemyOneAI : enemyAI
             anim.SetTrigger("Damage");
             if (dmg > 0)
             {
-                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)]);
             }
             // melee add a function for turning off the weapon collider.
             if (chilled && chilledOnce)
@@ -186,6 +194,7 @@ public class enemyOneAI : enemyAI
         {
             takeDamage(2);
         }
+        iceEffect.SetActive(false);
         chilled = false;
     }
     IEnumerator death()

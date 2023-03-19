@@ -127,7 +127,7 @@ public class enemyBossAI : enemyAI
             GameObject fuel = Instantiate(fuelCap, gameObject.transform.position + new Vector3(0, 5, 0), fuelCap.transform.rotation);
             anim.SetBool("Dead", true);
             agent.enabled = false;
-            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], gameManager.instance.soundVol);
+            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)]);
             StartCoroutine(explosionTimer());
             // Destroy(gameObject);
         }
@@ -140,7 +140,7 @@ public class enemyBossAI : enemyAI
             anim.SetTrigger("Damage");
             if (!setOnFire && !chilled)
             {
-                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)]);
             }
             if (agent.enabled == true)
             {
@@ -219,12 +219,12 @@ public class enemyBossAI : enemyAI
     public override void createBullet()
     {
         GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], gameManager.instance.soundVol);
+        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
         Vector3 shootingVector = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
         bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
 
         GameObject bulletCloneTwo = Instantiate(bullet, shootPositionTwo.position, bullet.transform.rotation);
-        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], gameManager.instance.soundVol);
+        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
         Vector3 shootingVectorTwo = (gameManager.instance.player.transform.position - shootPositionTwo.position).normalized;
         bulletCloneTwo.GetComponent<Rigidbody>().velocity = shootingVectorTwo * bulletSpeed;
 
@@ -232,12 +232,12 @@ public class enemyBossAI : enemyAI
     public void createBulletTwo()
     {
         GameObject bulletCloneThree = Instantiate(bullet, shootPositionThree.position, bullet.transform.rotation);
-        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], gameManager.instance.soundVol);
+        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
         Vector3 shootingVectorThree = (gameManager.instance.player.transform.position - shootPositionThree.position).normalized;
         bulletCloneThree.GetComponent<Rigidbody>().velocity = shootingVectorThree * bulletSpeed;
 
         GameObject bulletCloneFour = Instantiate(bullet, shootPositionFour.position, bullet.transform.rotation);
-        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], gameManager.instance.soundVol);
+        aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
         Vector3 shootingVectorFour = (gameManager.instance.player.transform.position - shootPositionFour.position).normalized;
         bulletCloneFour.GetComponent<Rigidbody>().velocity = shootingVectorFour * bulletSpeed;
     }
@@ -255,7 +255,7 @@ public class enemyBossAI : enemyAI
         playerDirection = (gameManager.instance.player.transform.position - transform.position).normalized;
         angleToPlayer = Vector3.Angle(new Vector3(playerDirection.x, 0, playerDirection.z), transform.forward);
         GameObject missileClone = Instantiate(missile, shootPositionMissile.position, missile.transform.rotation);
-        aud.PlayOneShot(audMissile[Random.Range(0, audMissile.Length)], gameManager.instance.soundVol);
+        aud.PlayOneShot(audMissile[Random.Range(0, audMissile.Length)]);
         Vector3 missileVector = (gameManager.instance.player.transform.position - shootPositionMissile.position).normalized;
         missileClone.GetComponent<Rigidbody>().velocity = (missileVector + new Vector3(0, missileYVelocity, 0)) * missileSpeed;
     }
@@ -346,7 +346,7 @@ public class enemyBossAI : enemyAI
         isInCoolDown = true;
 
         int saveStartHealth = hitPoints;
-        aud.PlayOneShot(audShield[Random.Range(0, audShield.Length)], gameManager.instance.soundVol);
+        aud.PlayOneShot(audShield[Random.Range(0, audShield.Length)]);
         shield.SetActive(true);
         anim.SetTrigger("CoolDown");
         plasmaExplosion.SetActive(false);

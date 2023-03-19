@@ -61,6 +61,7 @@ public class gameManager : MonoBehaviour
     public GameObject inventorySlot5;
     public GameObject inventorySlot6;
 
+    public GameObject fullXPbar;
     public GameObject lvlMenu;
     public GameObject firstTimeText;
     public LevelSystem lvlscript;
@@ -98,8 +99,7 @@ public class gameManager : MonoBehaviour
 
     string goalsText;
     [SerializeField] public GameObject endGameTrigger;
-    [SerializeField] public float soundVol = 0.2f;
-    [SerializeField] public float musicVol = 0.2f;
+   
 
 
     void Awake()
