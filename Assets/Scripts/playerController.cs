@@ -130,6 +130,7 @@ public class playerController : MonoBehaviour
         {
             dirt = true;
             currentLevel = 1;
+            gameManager.instance.fullXPbar.SetActive(false);
             gameManager.instance.fuelCellsRemainingObject.SetActive(true);
             gameManager.instance.enemiesRemainingObject.SetActive(false);
             gameManager.instance.infoTextBackground.SetActive(false);
@@ -139,6 +140,7 @@ public class playerController : MonoBehaviour
         {
             dirt = false;
             currentLevel = 2;
+            gameManager.instance.fullXPbar.SetActive(false);
             gameManager.instance.enemiesRemainingObject.SetActive(true);
             gameManager.instance.fuelCellsRemainingObject.SetActive(false);
             gameManager.instance.infoTextBackground.SetActive(false);
@@ -148,6 +150,7 @@ public class playerController : MonoBehaviour
         {
             dirt = true;
             currentLevel = 3;
+            gameManager.instance.fullXPbar.SetActive(true);
             gameManager.instance.enemiesRemainingObject.SetActive(false);
             gameManager.instance.fuelCellsRemainingObject.SetActive(false);
             gameManager.instance.infoText.text = "Investigate the town to find the source of the distress signal.";
