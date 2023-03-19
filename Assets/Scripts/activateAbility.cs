@@ -38,6 +38,7 @@ public class activateAbility : MonoBehaviour
     int hackCounter;
     private GameObject hackTarget;
     bool cancelHack;
+    bool isHacking;
 
     private void Start()
     {
@@ -436,6 +437,7 @@ public class activateAbility : MonoBehaviour
     {
         if (i == 0)
         {
+            isHacking = true;
             aud.PlayOneShot(abilityAudio);
             gameManager.instance.hackInterface.GetComponent<Image>().sprite = hackAnimation[0];
             gameManager.instance.hackInterface.GetComponent<Image>().color = Color.white;
@@ -469,7 +471,11 @@ public class activateAbility : MonoBehaviour
         {
             if (!cancelHack)
             {
-                aud.PlayOneShot(gameManager.instance.error);
+                if (isHacking)
+                {
+                    aud.PlayOneShot(gameManager.instance.error);
+                    isHacking = false;
+                }
                 cancelHack = true;
                 gameManager.instance.hackError.SetActive(true);
                 gameManager.instance.hackInterface.GetComponent<Image>().color = Color.red;
