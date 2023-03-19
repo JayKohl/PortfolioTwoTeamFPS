@@ -41,7 +41,12 @@ public class sentryGun : MonoBehaviour
     {
         if (isEnemyInRange && alive)
         {
-            canSeeEnemy();
+            float distance = Vector3.Distance(target.transform.position, transform.position);
+
+            if (distance > .05f)
+            {
+                canSeeEnemy();
+            }
         }
     }
     IEnumerator coolDownStart()
@@ -61,7 +66,8 @@ public class sentryGun : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
+
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss") || other.CompareTag("Turret"))
         {
             target = other.gameObject;
             isEnemyInRange = true;
@@ -69,7 +75,7 @@ public class sentryGun : MonoBehaviour
     }
     public void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss") || other.CompareTag("Turret"))
         {
             target = other.gameObject;
             isEnemyInRange = true;
