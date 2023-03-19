@@ -23,12 +23,6 @@ public class Objectivepoint : MonoBehaviour
         nullLoc = GameObject.FindGameObjectWithTag("NullObjective");
         objectiveOne = GameObject.FindGameObjectWithTag("Objective One").transform;
         location = nullLoc.transform;
-        townNpc = nullLoc.transform;
-        quest2 = nullLoc.transform;
-        quest3 = nullLoc.transform;
-        quest4 = nullLoc.transform;
-        quest5 = nullLoc.transform;
-        
 
         if (SceneManager.GetActiveScene().name == "LvlOneArena")
         {
@@ -43,6 +37,11 @@ public class Objectivepoint : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
         {
+            townNpc = GameObject.FindGameObjectWithTag("Town NPC").transform;
+            quest2 = GameObject.FindGameObjectWithTag("Quest 2").transform;
+            quest3 = GameObject.FindGameObjectWithTag("Quest 3").transform;
+            quest4 = GameObject.FindGameObjectWithTag("Quest 4").transform;
+            quest5 = nullLoc.transform;
             SetWayPoint(townNpc);
         }
         else
