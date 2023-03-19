@@ -714,7 +714,7 @@ public class playerController : MonoBehaviour
             playeranim.SetBool("isShooting", false);
         }
 
-        if (Input.GetKey("space") && jumpsCurrent <= jumpTimes)
+        if (Input.GetButtonDown("Jump") && jumpsCurrent <= jumpTimes)
         {
             playeranim.SetBool("isJumping", true);
         }
