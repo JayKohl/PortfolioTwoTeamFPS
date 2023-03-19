@@ -167,8 +167,7 @@ public class enemyBugAI : enemyAI
             hitPoints -= dmg;
         }
         if (chillDeath && anim.enabled == false && hitPoints < -3)
-        {
-            GetComponent<Collider>().enabled = false;
+        {            
             model.GetComponentInChildren<Renderer>().enabled = false;
             //headPos.GetComponentInChildren<Renderer>().enabled = false;
             //shootPosition.parent.GetComponent<Renderer>().enabled = false;

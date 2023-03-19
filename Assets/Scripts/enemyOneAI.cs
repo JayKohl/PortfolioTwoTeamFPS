@@ -79,8 +79,18 @@ public class enemyOneAI : enemyAI
         if (chillDeath && anim.enabled == false && hitPoints < -3)
         {            
             model.GetComponentInChildren<Renderer>().enabled = false;
-            headPos.GetComponentInChildren<Renderer>().enabled = false;
-            shootPosition.parent.GetComponent<Renderer>().enabled = false;
+            if (headPos.GetComponentInChildren<Renderer>() != null)
+            {
+                headPos.GetComponentInChildren<Renderer>().enabled = false;
+            }
+            if (shootPosition.parent.GetComponent<Renderer>() != null)
+            {
+                shootPosition.parent.GetComponent<Renderer>().enabled = false;
+            }
+            if (shootPosition.parent.GetComponentInChildren<Renderer>() != null)
+            {
+                shootPosition.parent.GetComponentInChildren<Renderer>().enabled = false;
+            }
             fracturedEffect.SetActive(true);
             fracturedSource.PlayOneShot(iceBreak, gameManager.instance.soundVol);
             fracturedEffect.GetComponentInChildren<ParticleSystem>().Play();            
