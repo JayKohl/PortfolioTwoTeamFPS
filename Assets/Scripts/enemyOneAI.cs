@@ -100,6 +100,14 @@ public class enemyOneAI : enemyAI
         }
         if (hitPoints <= 0)
         {
+            if(!chilled)
+            {
+                iceEffect.SetActive(false);
+            }
+            else
+            {
+                iceEffect.SetActive(true);
+            }
             if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
             {
                 gameManager.instance.updateGameGoalLvl2(-1);
@@ -186,6 +194,7 @@ public class enemyOneAI : enemyAI
         {
             takeDamage(2);
         }
+        iceEffect.SetActive(false);
         chilled = false;
     }
     IEnumerator death()

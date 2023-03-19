@@ -180,6 +180,14 @@ public class enemyBugAI : enemyAI
         }
         if (hitPoints <= 0)
         {
+            if (!chilled)
+            {
+                iceEffect.SetActive(false);
+            }
+            else
+            {
+                iceEffect.SetActive(true);
+            }
             gameManager.instance.lvlscript.GainExperiance(xp);
             if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
             {
