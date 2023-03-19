@@ -44,43 +44,50 @@ public class LevelSystem : MonoBehaviour
     
     void Update()
     {
-        UpdateXPBar();
-        tokentext.text = tokenAmount.ToString("F0");
-        //if (Input.GetKeyDown(KeyCode.Equals))
-        //    GainExperiance(120);
-        if (currentXP > NeededXP)
-            LevelUp();
-        if (Input.GetKeyDown("tab") && !gameManager.instance.isPaused)
+        if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
         {
-            if (lvlScreenOn)
+
+
+            UpdateXPBar();
+            tokentext.text = tokenAmount.ToString("F0");
+            //if (Input.GetKeyDown(KeyCode.Equals))
+            //    GainExperiance(120);
+            if (currentXP > NeededXP)
+                LevelUp();
+            if (Input.GetKeyDown("tab") && !gameManager.instance.isPaused)
             {
-                aud.PlayOneShot(gameManager.instance.playerScript.lvlUp);
-                lvlScreenOn = false;
-                Time.timeScale = 1;
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-                gameManager.instance.lvlMenu.SetActive(false);
-                
-                
-            }
-            else
-            {
-                aud.PlayOneShot(gameManager.instance.playerScript.lvlUp);
-                lvlScreenOn = true;
-                if (firsttime)
-                {                    
-                    StartCoroutine(firstTimeInfo());
-                    firsttime = false;
+                if (lvlScreenOn)
+                {
+                    aud.PlayOneShot(gameManager.instance.playerScript.lvlUp);
+                    lvlScreenOn = false;
+                    Time.timeScale = 1;
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
+                    gameManager.instance.playerScript.canShoot = true;
+                    gameManager.instance.lvlMenu.SetActive(false);
+
+
                 }
-                Time.timeScale = 0;
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.Confined;
-                gameManager.instance.lvlMenu.SetActive(true);
+                else
+                {
+                    aud.PlayOneShot(gameManager.instance.playerScript.lvlUp);
+                    lvlScreenOn = true;
+                    if (firsttime)
+                    {
+                        StartCoroutine(firstTimeInfo());
+                        firsttime = false;
+                    }
+                    Time.timeScale = 0;
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.Confined;
+                    gameManager.instance.playerScript.canShoot = false;
+                    gameManager.instance.lvlMenu.SetActive(true);
 
-               
+
+                }
+
+
             }
-
-            
         }
     }
 
@@ -111,7 +118,7 @@ public class LevelSystem : MonoBehaviour
         {
             currentXP += gainedXP * XPMod;
 
-            if (!infoOn && SceneManager.GetActiveScene().name == "LvlOneArena")
+            if (!infoOn && SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
             {
                 StartCoroutine(LVLInfotext());
                 tokenAmount++;

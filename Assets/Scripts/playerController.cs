@@ -101,9 +101,9 @@ public class playerController : MonoBehaviour
     Rigidbody rig;
     public bool fireOn;
     public bool iceOn;
-    public bool canShoot = true;
+    public bool canShoot;
   
-    int currentLevel = 0;
+    public int currentLevel = 0;
 
 
     public bool slowed;
@@ -125,6 +125,7 @@ public class playerController : MonoBehaviour
         burningColor.a = 0.20f;
 
         canShoot = true;
+
         if (SceneManager.GetActiveScene().name == "LvlOneArena" && currentLevel < 1)
         {
             dirt = true;
