@@ -101,9 +101,9 @@ public class playerController : MonoBehaviour
     Rigidbody rig;
     public bool fireOn;
     public bool iceOn;
-    public bool canShoot = true;
+    public bool canShoot;
   
-    int currentLevel = 0;
+    public int currentLevel = 0;
 
 
     public bool slowed;
@@ -125,10 +125,12 @@ public class playerController : MonoBehaviour
         burningColor.a = 0.20f;
 
         canShoot = true;
+
         if (SceneManager.GetActiveScene().name == "LvlOneArena" && currentLevel < 1)
         {
             dirt = true;
             currentLevel = 1;
+            gameManager.instance.fullXPbar.SetActive(false);
             gameManager.instance.fuelCellsRemainingObject.SetActive(true);
             gameManager.instance.enemiesRemainingObject.SetActive(false);
             gameManager.instance.infoTextBackground.SetActive(false);
@@ -138,6 +140,7 @@ public class playerController : MonoBehaviour
         {
             dirt = false;
             currentLevel = 2;
+            gameManager.instance.fullXPbar.SetActive(false);
             gameManager.instance.enemiesRemainingObject.SetActive(true);
             gameManager.instance.fuelCellsRemainingObject.SetActive(false);
             gameManager.instance.infoTextBackground.SetActive(false);
@@ -147,6 +150,7 @@ public class playerController : MonoBehaviour
         {
             dirt = true;
             currentLevel = 3;
+            gameManager.instance.fullXPbar.SetActive(true);
             gameManager.instance.enemiesRemainingObject.SetActive(false);
             gameManager.instance.fuelCellsRemainingObject.SetActive(false);
             gameManager.instance.infoText.text = "Investigate the town to find the source of the distress signal.";

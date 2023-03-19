@@ -61,6 +61,7 @@ public class gameManager : MonoBehaviour
     public GameObject inventorySlot5;
     public GameObject inventorySlot6;
 
+    public GameObject fullXPbar;
     public GameObject lvlMenu;
     public GameObject firstTimeText;
     public LevelSystem lvlscript;
