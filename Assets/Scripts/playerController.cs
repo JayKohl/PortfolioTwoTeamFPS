@@ -24,6 +24,7 @@ public class playerController : MonoBehaviour
     [SerializeField] float pushbackResTime;
     [SerializeField] int crouchSpeed;
     [SerializeField] float crouchHeight;
+    [SerializeField] public GameObject playerEffect;
 
     [Header("----- Weapon Stats -----")]
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
@@ -728,7 +729,7 @@ public class playerController : MonoBehaviour
     //Added code
     public IEnumerator Poisoned(int effectTime, int trapDamage, AudioClip effect)
     {
-
+        playerEffect.gameObject.transform.GetChild(1).gameObject.SetActive(true);
         while (effectTime > 0 && !playerDied)
         {
             takeDamage(trapDamage);
@@ -737,21 +738,23 @@ public class playerController : MonoBehaviour
             effectTime--;
             if (playerDied)
             {
+                playerEffect.gameObject.transform.GetChild(1).gameObject.SetActive(false);
                 poisoned = false;
                 yield break;
             }
 
             yield return new WaitForSeconds(1.5f);
         }
-
+        playerEffect.gameObject.transform.GetChild(1).gameObject.SetActive(false);
         poisoned = false;
     }
 
     public IEnumerator Burning(int effectTime, int trapDamage, AudioClip effect)
     {
-
+        playerEffect.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         while (effectTime > 0 && !playerDied)
         {
+
             takeDamage(trapDamage);
             StartCoroutine(flashDamage(3));
             aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)]);
@@ -759,19 +762,23 @@ public class playerController : MonoBehaviour
             if (playerDied)
             {
                 burning = false;
+                playerEffect.gameObject.transform.GetChild(0).gameObject.SetActive(false);
                 yield break;
+
             }
 
             yield return new WaitForSeconds(1.5f);
         }
-
+        playerEffect.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         burning = false;
     }
 
     public IEnumerator Slowed(int effectTime, int trapDamage)
     {
+     
         if (playerDied)
         {
+            
             slowed = false;
             yield break;
         }
@@ -779,6 +786,7 @@ public class playerController : MonoBehaviour
         StartCoroutine(flashDamage(4));
         yield return new WaitForSeconds(effectTime);
         playerSpeed = speedOriginal;
+       
         slowed = false;
     }
 
