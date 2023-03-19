@@ -11,9 +11,14 @@ public class enemyShredder : enemyAI
     [SerializeField] float distanceToHit;
     bool chilled;
     bool chilledOnce;
+    bool chillDeath;
+    [SerializeField] GameObject fracturedEffect;
+    [SerializeField] AudioSource fracturedSource;
+    [SerializeField] AudioClip iceBreak;
     // Start is called before the first frame update
     void Start()
     {
+        fracturedSource = fracturedEffect.GetComponent<AudioSource>();
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
@@ -96,6 +101,16 @@ public class enemyShredder : enemyAI
         {
             hitPoints -= dmg;
         }
+        if (chillDeath && anim.enabled == false && hitPoints < -3)
+        {
+            model.GetComponentInChildren<Renderer>().enabled = false;            
+            fracturedEffect.SetActive(true);
+            fracturedSource.PlayOneShot(iceBreak, gameManager.instance.soundVol);
+            fracturedEffect.GetComponentInChildren<ParticleSystem>().Play();
+            GetComponent<Collider>().enabled = false;
+            iceEffect.SetActive(false);
+            StartCoroutine(death());
+        }
         if (chilled && chilledOnce)
         {
             chilledOnce = false;
@@ -117,10 +132,10 @@ public class enemyShredder : enemyAI
             if (chilled)
             {
                 model.material.color = new Color(0, 0.5509f, 1);
-                agent.enabled = false;
-                GetComponent<Collider>().enabled = false;
+                agent.enabled = false;                
                 GetComponentInChildren<Canvas>().enabled = false;
                 anim.enabled = false;
+                chillDeath = true;
             }
             else
             {
@@ -175,5 +190,10 @@ public class enemyShredder : enemyAI
         }
         //iceEffect.SetActive(false);
         chilled = false;
+    }
+    IEnumerator death()
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(gameObject);
     }
 }
