@@ -38,6 +38,7 @@ public class townNPC : MonoBehaviour
 
     [SerializeField] bool questOne;
     [SerializeField] bool questTwo;
+    [SerializeField] bool isBathroom;
 
 
     // Start is called before the first frame update
@@ -165,21 +166,21 @@ public class townNPC : MonoBehaviour
                     if (questOne)
                     {
 
-                    if (!isGivenQuest)
-                    {
-                        gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().SetWayPoint(gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().quest2);
-                        orgPos = transform;
-                        anim.SetTrigger("Talk");
+                        if (!isGivenQuest)
+                        {
+                            gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().SetWayPoint(gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().quest2);
+                            orgPos = transform;
+                            anim.SetTrigger("Talk");
 
-                        gameManager.instance.displayNpcText("Our patrol was expected back in town three hours ago... I fear what may have happened. " +
-                            "We know of an encampment just past Crab Wood Forest. Please see if you can find them, there are not many of us remaining."); 
-                        StartCoroutine(gameManager.instance.deleteTextNpc(12f));
+                            gameManager.instance.displayNpcText("Our patrol was expected back in town three hours ago... I fear what may have happened. " +
+                                "We know of an encampment just past Crab Wood Forest. Please see if you can find them, there are not many of us remaining.");
+                            StartCoroutine(gameManager.instance.deleteTextNpc(12f));
 
-                        gameManager.instance.infoText.text = "Find Missing Patrol";
-                        gameManager.instance.infoTextBackground.SetActive(true);
+                            gameManager.instance.infoText.text = "Find Missing Patrol";
+                            gameManager.instance.infoTextBackground.SetActive(true);
 
-                        hasQuestToGive = false;
-                    }
+                            hasQuestToGive = false;
+                        }
                     }
                     else if (questTwo)
                     {
@@ -201,14 +202,22 @@ public class townNPC : MonoBehaviour
                 {
                     if (isPetDead == false)
                     {
+                        anim.SetTrigger("Talk");
                         gameManager.instance.displayNpcText("Have you seen our town pet Leroy? Keep your distance he can be very cranky.");
                         StartCoroutine(gameManager.instance.deleteTextNpc(12f));
                     }
                     else
                     {
+                        anim.SetTrigger("Talk");
                         gameManager.instance.displayNpcText("You monster, stay away from me. You killed Leroy, we will never find another town pet like him.");
                         StartCoroutine(gameManager.instance.deleteTextNpc(12f));
                     }
+                }
+                else if (isBathroom)
+                {
+                    anim.SetTrigger("Talk");
+                    gameManager.instance.displayNpcText("Can I get you a towel sir?");
+                    StartCoroutine(gameManager.instance.deleteTextNpc(12f));
                 }
                 return true;
             }
