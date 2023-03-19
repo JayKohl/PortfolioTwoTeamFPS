@@ -189,7 +189,7 @@ public class sentryGun : MonoBehaviour
     //        GetComponentInChildren<Canvas>().enabled = false;
     //        if (!setOnFire)
     //        {
-    //            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], gameManager.instance.soundVol);
+    //            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)]);
     //        }
     //        agent.enabled = false;
     //        alive = false;
@@ -199,7 +199,7 @@ public class sentryGun : MonoBehaviour
     //    {
     //        if (dmg > 0)
     //        {
-    //            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
+    //            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)]);
     //        }
     //    }
     //}

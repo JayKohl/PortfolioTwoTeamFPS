@@ -92,7 +92,7 @@ public class enemyTreeAI : enemyAI
     {
         isMelee = true;
         anim.SetTrigger("MultiMelee");
-        //aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], gameManager.instance.soundVol);
+        //aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
         yield return new WaitForSeconds(meleeRate);
         isMelee = false;
     }
@@ -100,7 +100,7 @@ public class enemyTreeAI : enemyAI
     {
         isMelee = true;
         anim.SetTrigger("SpinMelee");
-        //aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], gameManager.instance.soundVol);
+        //aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
         yield return new WaitForSeconds(meleeRate);
         isMelee = false;
     }

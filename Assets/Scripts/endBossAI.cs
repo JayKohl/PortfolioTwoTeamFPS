@@ -323,7 +323,7 @@ public class endBossAI : enemyAI
             GetComponent<Collider>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
             gameManager.instance.endGameTrigger.GetComponent<endGame>().endGameColliderOn();
-            aud.PlayOneShot(audDeath[UnityEngine.Random.Range(0, audDeath.Length)], gameManager.instance.soundVol);
+            aud.PlayOneShot(audDeath[UnityEngine.Random.Range(0, audDeath.Length)]);
             anim.SetBool("Dead", true);
             agent.enabled = false;
             gameManager.instance.boss2Dead = true;
@@ -335,7 +335,7 @@ public class endBossAI : enemyAI
             anim.SetTrigger("Damage");
             if (dmg > 0)
             {
-                aud.PlayOneShot(audTakeDamage[UnityEngine.Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
+                aud.PlayOneShot(audTakeDamage[UnityEngine.Random.Range(0, audTakeDamage.Length)]);
             }
             if (agent.isActiveAndEnabled == true)
             {
