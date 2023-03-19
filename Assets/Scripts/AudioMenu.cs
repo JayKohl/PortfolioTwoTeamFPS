@@ -61,11 +61,11 @@ public class AudioMenu : MonoBehaviour
 
         if (soundOn)
         {
-            masterSlider.value = volumeHold;
+            masterSlider.value = masterSlider.minValue;
         }
         else
         {
-            masterSlider.value = masterSlider.minValue;
+            masterSlider.value = volumeHold;
         }
     }
 
@@ -109,10 +109,12 @@ public class AudioMenu : MonoBehaviour
         if (masterSlider.value != 0)
         {
             _mixer.SetFloat(masterVolume, value: Mathf.Log10(value) * multiplier);
-            mute.isOn = masterSlider.value > masterSlider.minValue;
+            mute.isOn = false;
+            
         }
         else
         {
+            mute.isOn = masterSlider.value == masterSlider.minValue;
             _mixer.SetFloat(masterVolume, -80);
         }
     }
