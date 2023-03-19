@@ -543,7 +543,7 @@ public class playerController : MonoBehaviour
 
     public void giveHP(int amount)
     {
-        aud.PlayOneShot(medPickupSound, gameManager.instance.soundVol);
+        aud.PlayOneShot(medPickupSound);
         HP += amount;
         if (HP > hpOriginal)
             HP = hpOriginal;

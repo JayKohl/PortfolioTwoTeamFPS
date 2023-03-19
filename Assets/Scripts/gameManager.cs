@@ -99,8 +99,7 @@ public class gameManager : MonoBehaviour
 
     string goalsText;
     [SerializeField] public GameObject endGameTrigger;
-    [SerializeField] public float soundVol = 0.2f;
-    [SerializeField] public float musicVol = 0.2f;
+   
 
 
     void Awake()
