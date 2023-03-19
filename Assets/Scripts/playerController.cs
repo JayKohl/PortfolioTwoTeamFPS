@@ -100,7 +100,7 @@ public class playerController : MonoBehaviour
     public bool fireOn;
     public bool iceOn;
     public bool canShoot = true;
-
+  
     int currentLevel = 0;
 
 
@@ -202,7 +202,7 @@ public class playerController : MonoBehaviour
         if (controller.enabled == true)
         {
             controller.Move(move * Time.deltaTime * playerSpeed);
-
+           
             if (Input.GetButton("Crouch"))
             {
                 isCrouched = true;
@@ -210,9 +210,18 @@ public class playerController : MonoBehaviour
             }
             if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes && !slowed)
             {
-                jumpsCurrent++;
-                playerVelocity.y = jumpSpeed;
-                aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)]);
+                if (Physics.Raycast(transform.position, Vector3.down, 1.1f))
+                {
+                    jumpsCurrent++;
+                    playerVelocity.y = jumpSpeed;
+                    aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)]);
+                }
+                else
+                {
+                    jumpsCurrent++;
+                }
+
+
             }
             if ((Input.GetButton("Run") && !isRunning) && !slowed && !isCrouched) //run
             {
@@ -256,12 +265,7 @@ public class playerController : MonoBehaviour
                     
                 }
             }
-
-            //if (playerVelocity.y > 0)
-            //{
-
-            //    Debug.Log("is jumping");
-            //}
+            
         }
 
         if (controller.isGrounded && move.normalized.magnitude > 0.8f && !isPlayingSteps)
@@ -275,6 +279,7 @@ public class playerController : MonoBehaviour
                 StartCoroutine(playMetalSteps());
             }
         }
+       
 
     }
 
