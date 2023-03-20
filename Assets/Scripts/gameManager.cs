@@ -48,7 +48,7 @@ public class gameManager : MonoBehaviour
     public AbilitiesColdown AbilityOneS;
     public AbilitiesColdown AbilityTwoS;
     public AbilitiesColdown AbilityThreeS;
-    public AbilitiesColdown AbilityFourS;    
+    public AbilitiesColdown AbilityFourS;
     public bool ability;
 
     public GameObject inventory;
@@ -92,19 +92,19 @@ public class gameManager : MonoBehaviour
 
     public bool isPaused;
     public bool bossDead;
-    public bool boss2Dead = false;    
+    public bool boss2Dead = false;
     public bool flightDeck = false;
     public bool boss3Dead = false;
     public bool inCutscene;
 
     string goalsText;
     [SerializeField] public GameObject endGameTrigger;
-   
+
 
 
     void Awake()
     {
-        
+
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
@@ -132,14 +132,14 @@ public class gameManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Cancel") && activeMenu == null)
         {
-            isPaused = !isPaused;
             activeMenu = pauseMenu;
-            pauseMenu.SetActive(isPaused);
+            pauseMenu.SetActive(true);
+            pause();
+        }
 
-            if (isPaused)
-                pause();
-            else
-                unPause();
+        else if (Input.GetButtonDown("Cancel") && activeMenu != null)
+        {
+            pauseMenu.GetComponentInChildren<buttonFunctions>().resume();
         }
 
         if (Input.GetKeyDown(KeyCode.X))
@@ -160,11 +160,12 @@ public class gameManager : MonoBehaviour
     }
 
     public void pause()
-    {
+    {        
+        isPaused = true;
         gameManager.instance.playerScript.canShoot = false;
         abilityHub.GetComponent<activateAbility>().inventoryScreenOn = false;
         inventory.SetActive(false);
-        inventoryMessageBox.SetActive(false);        
+        inventoryMessageBox.SetActive(false);
         lvlscript.lvlScreenOn = false;
         Time.timeScale = 0;
         Cursor.visible = true;
@@ -173,9 +174,9 @@ public class gameManager : MonoBehaviour
         lvlMenu.SetActive(false);
     }
     public void unPause()
-    {
-        Time.timeScale = 1;
-        Cursor.visible = false;
+    {        
+        isPaused = false;
+        Time.timeScale = 1;        
         Cursor.lockState = CursorLockMode.Locked;
         if (activeMenu != null)
         {
@@ -183,6 +184,8 @@ public class gameManager : MonoBehaviour
         }
         activeMenu = null;
         gameManager.instance.playerScript.canShoot = true;
+        Cursor.visible = false;
+        pauseMenu.SetActive(false);
     }
     public void updateGameGoal(int amount)
     {
@@ -203,19 +206,19 @@ public class gameManager : MonoBehaviour
         SceneManager.LoadScene("Part2Scene");
     }
     public void updateGameGoalLvl2(int amount)
-    {        
+    {
         enemiesRemaining += amount;
         enemiesRemainingText.text = enemiesRemaining.ToString("F0");
-        if(enemiesRemaining <= 0)
+        if (enemiesRemaining <= 0)
         {
             enemiesRemainingObject.SetActive(false);
         }
 
-        if(boss2Dead && flightDeck && enemiesRemaining <= 0)
+        if (boss2Dead && flightDeck && enemiesRemaining <= 0)
         {
-            gameManager.instance.infoText.text = "<s>Get to the flight deck</s>" + "\n<s>Kill the radiated bug</s>"+"\nEscape!";
+            gameManager.instance.infoText.text = "<s>Get to the flight deck</s>" + "\n<s>Kill the radiated bug</s>" + "\nEscape!";
             gameManager.instance.infoTextBackground.SetActive(true);
-        }        
+        }
     }
     public IEnumerator endLevel2()
     {
@@ -226,7 +229,7 @@ public class gameManager : MonoBehaviour
     public void updateGameGoalLvl3(int amount)
     {
         enemiesRemaining += amount;
-        if(boss3Dead)
+        if (boss3Dead)
         {
             minimap.SetActive(false);
             pause();
