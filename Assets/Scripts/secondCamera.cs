@@ -40,7 +40,7 @@ public class secondCamera : MonoBehaviour
   
     
     public IEnumerator doorThreeStop()
-    {
+    {        
         yield return new WaitForSecondsRealtime(3);        
         gameManager.instance.playerScript.controller.enabled = true;
         gameManager.instance.playerCamera.SetActive(true);
@@ -52,6 +52,8 @@ public class secondCamera : MonoBehaviour
         gameManager.instance.enemiesRemainingText.enabled = true;
         gameManager.instance.crosshair.SetActive(true);
         gameManager.instance.unPause();
-       
+        yield return new WaitForSecondsRealtime(2);
+        gameManager.instance.inCutscene = false;
+
     }
 }

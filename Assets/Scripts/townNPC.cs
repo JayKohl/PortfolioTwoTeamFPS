@@ -33,9 +33,12 @@ public class townNPC : MonoBehaviour
     bool destinationChosen;
     float stoppingDistOrig;
     float speedOrig;
+    int followTime;
+    int reFollow;
 
     [SerializeField] bool questOne;
     [SerializeField] bool questTwo;
+    [SerializeField] bool isBathroom;
 
 
     // Start is called before the first frame update
@@ -60,11 +63,20 @@ public class townNPC : MonoBehaviour
             //    StartCoroutine(roam());
             //}
             anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
-            if (isPlayerInRange)
+            if (isPlayerInRange && followTime <= 240)
             {
                 if (!canSeePlayer())
                 {
                     StartCoroutine(roam());
+                }
+                else
+                {
+                    followTime++;
+                    //if (followTime >= 240)
+                    //{
+                    //    reFollow++;
+                    //    StartCoroutine(roam());
+                    //}
                 }
                 //else if (!isGivenQuest)
                 //{
@@ -76,7 +88,13 @@ public class townNPC : MonoBehaviour
             }
             else if (agent.destination != gameManager.instance.player.transform.position)
             {
+                reFollow++;
                 StartCoroutine(roam());
+                if (reFollow >= 960)
+                {
+                    reFollow = 0;
+                    followTime = 0;
+                }
             }
             //else
             //{
@@ -148,21 +166,21 @@ public class townNPC : MonoBehaviour
                     if (questOne)
                     {
 
-                    if (!isGivenQuest)
-                    {
-                        gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().SetWayPoint(gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().quest2);
-                        orgPos = transform;
-                        anim.SetTrigger("Talk");
+                        if (!isGivenQuest)
+                        {
+                            gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().SetWayPoint(gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().quest2);
+                            orgPos = transform;
+                            anim.SetTrigger("Talk");
 
-                        gameManager.instance.displayNpcText("Our patrol was expected back in town three hours ago... I fear what may have happened. " +
-                            "We know of an encampment just past Crab Wood Forest. Please see if you can find them, there are not many of us remaining."); 
-                        StartCoroutine(gameManager.instance.deleteTextNpc(12f));
+                            gameManager.instance.displayNpcText("Our patrol was expected back in town three hours ago... I fear what may have happened. " +
+                                "We know of an encampment just past Crab Wood Forest. Please see if you can find them, there are not many of us remaining.");
+                            StartCoroutine(gameManager.instance.deleteTextNpc(12f));
 
-                        gameManager.instance.infoText.text = "Find Missing Patrol";
-                        gameManager.instance.infoTextBackground.SetActive(true);
+                            gameManager.instance.infoText.text = "Find Missing Patrol";
+                            gameManager.instance.infoTextBackground.SetActive(true);
 
-                        hasQuestToGive = false;
-                    }
+                            hasQuestToGive = false;
+                        }
                     }
                     else if (questTwo)
                     {
@@ -184,14 +202,22 @@ public class townNPC : MonoBehaviour
                 {
                     if (isPetDead == false)
                     {
+                        anim.SetTrigger("Talk");
                         gameManager.instance.displayNpcText("Have you seen our town pet Leroy? Keep your distance he can be very cranky.");
                         StartCoroutine(gameManager.instance.deleteTextNpc(12f));
                     }
                     else
                     {
+                        anim.SetTrigger("Talk");
                         gameManager.instance.displayNpcText("You monster, stay away from me. You killed Leroy, we will never find another town pet like him.");
                         StartCoroutine(gameManager.instance.deleteTextNpc(12f));
                     }
+                }
+                else if (isBathroom)
+                {
+                    anim.SetTrigger("Talk");
+                    gameManager.instance.displayNpcText("Can I get you a towel sir?");
+                    StartCoroutine(gameManager.instance.deleteTextNpc(12f));
                 }
                 return true;
             }

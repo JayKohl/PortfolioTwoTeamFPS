@@ -149,7 +149,7 @@ public class LVLButtons : MonoBehaviour
     IEnumerator ErrorText()
     {
         errorText.SetActive(true);
-        yield return new WaitForSecondsRealtime(1.6f);
+        yield return new WaitForSecondsRealtime(1.0f);
         errorText.SetActive(false);
     }
 }

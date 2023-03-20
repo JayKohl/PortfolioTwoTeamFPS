@@ -11,9 +11,14 @@ public class enemyShredder : enemyAI
     [SerializeField] float distanceToHit;
     bool chilled;
     bool chilledOnce;
+    bool chillDeath;
+    [SerializeField] GameObject fracturedEffect;
+    [SerializeField] AudioSource fracturedSource;
+    [SerializeField] AudioClip iceBreak;
     // Start is called before the first frame update
     void Start()
     {
+        fracturedSource = fracturedEffect.GetComponent<AudioSource>();
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
         speedOrig = agent.speed;
@@ -96,6 +101,20 @@ public class enemyShredder : enemyAI
         {
             hitPoints -= dmg;
         }
+        if (chillDeath && anim.enabled == false && hitPoints < -3)
+        {
+            model.GetComponentInChildren<Renderer>().enabled = false;
+            if (shootPosition.parent.GetComponentInChildren<Renderer>() != null)
+            {
+                shootPosition.parent.gameObject.SetActive(false);
+            }
+            fracturedEffect.SetActive(true);
+            fracturedSource.PlayOneShot(iceBreak);
+            fracturedEffect.GetComponentInChildren<ParticleSystem>().Play();
+            GetComponent<Collider>().enabled = false;
+            iceEffect.SetActive(false);
+            StartCoroutine(death());
+        }
         if (chilled && chilledOnce)
         {
             chilledOnce = false;
@@ -105,6 +124,14 @@ public class enemyShredder : enemyAI
         }
         if (hitPoints <= 0)
         {
+            if (!chilled)
+            {
+                iceEffect.SetActive(false);
+            }
+            else
+            {
+                iceEffect.SetActive(true);
+            }
             gameManager.instance.lvlscript.GainExperiance(xp);
             if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
             {
@@ -117,16 +144,16 @@ public class enemyShredder : enemyAI
             if (chilled)
             {
                 model.material.color = new Color(0, 0.5509f, 1);
-                agent.enabled = false;
-                GetComponent<Collider>().enabled = false;
+                agent.enabled = false;                
                 GetComponentInChildren<Canvas>().enabled = false;
                 anim.enabled = false;
+                chillDeath = true;
             }
             else
             {
                 GetComponent<Collider>().enabled = false;
                 GetComponentInChildren<Canvas>().enabled = false;
-                aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], gameManager.instance.soundVol);
+                aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)]);
                 anim.SetBool("Dead", true);
                 agent.enabled = false;
             }
@@ -137,7 +164,7 @@ public class enemyShredder : enemyAI
             anim.SetTrigger("Damage");
             if (dmg > 0)
             {
-                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)]);
             }
             // melee add a function for turning off the weapon collider.
             agent.SetDestination(gameManager.instance.player.transform.position);
@@ -147,7 +174,7 @@ public class enemyShredder : enemyAI
     IEnumerator onFire()
     {
         yield return new WaitForSeconds(.5f);
-        //fireEffect.SetActive(true);
+        fireEffect.SetActive(true);
         takeDamage(1);
         yield return new WaitForSeconds(1);
         takeDamage(1);
@@ -158,13 +185,13 @@ public class enemyShredder : enemyAI
         {
             takeDamage(3);
         }
-        //fireEffect.SetActive(false);
+        fireEffect.SetActive(false);
         setOnFire = false;
     }
     IEnumerator iced()
     {
         yield return new WaitForSeconds(.5f);
-        //iceEffect.SetActive(true);
+        iceEffect.SetActive(true);
         takeDamage(1);
         yield return new WaitForSeconds(1);
         takeDamage(1);
@@ -173,7 +200,12 @@ public class enemyShredder : enemyAI
         {
             takeDamage(2);
         }
-        //iceEffect.SetActive(false);
+        iceEffect.SetActive(false);
         chilled = false;
+    }
+    IEnumerator death()
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(gameObject);
     }
 }

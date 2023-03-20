@@ -16,6 +16,7 @@ public class JumpPad : MonoBehaviour
         if (other.CompareTag("Player") && !playerIn)
         {
             playerIn = true;
+            gameManager.instance.playerScript.jumpsCurrent++; 
             gameManager.instance.playerScript.playerVelocity.y = jumpPadHeight;
             gameManager.instance.playerScript.controller.Move((velocity) * Time.deltaTime);
             //playerVelocity.y = jumpPadHeight;

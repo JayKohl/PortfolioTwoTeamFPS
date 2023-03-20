@@ -5,15 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class enemyOneAI : enemyAI
 {
+    [Header("----- Effects -----")]
     [SerializeField] GameObject fireEffect;
     bool setOnFire;
     [SerializeField] GameObject iceEffect;
     bool chilled;
-    bool chilledOnce;    
+    bool chilledOnce;
+    bool chillDeath;
+    [SerializeField] GameObject fracturedEffect;
+    [SerializeField] AudioSource fracturedSource;
+    [SerializeField] AudioClip iceBreak;
 
     // Start is called before the first frame update
     void Start()
     {
+        fracturedSource = fracturedEffect.GetComponent<AudioSource>();
         speedChaseOrig = speedChase;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
@@ -70,8 +76,38 @@ public class enemyOneAI : enemyAI
         {
             hitPoints -= dmg;
         }
+        if (chillDeath && anim.enabled == false && hitPoints < -3)
+        {            
+            model.GetComponentInChildren<Renderer>().enabled = false;
+            if (headPos.GetComponentInChildren<Renderer>() != null)
+            {
+                headPos.GetComponentInChildren<Renderer>().enabled = false;
+            }
+            if (shootPosition.parent.GetComponent<Renderer>() != null)
+            {
+                shootPosition.parent.GetComponent<Renderer>().enabled = false;
+            }
+            if (shootPosition.parent.GetComponentInChildren<Renderer>() != null)
+            {
+                shootPosition.parent.gameObject.SetActive(false);
+            }
+            fracturedEffect.SetActive(true);
+            fracturedSource.PlayOneShot(iceBreak);
+            fracturedEffect.GetComponentInChildren<ParticleSystem>().Play();            
+            GetComponent<Collider>().enabled = false;
+            iceEffect.SetActive(false);
+            StartCoroutine(death());
+        }
         if (hitPoints <= 0)
         {
+            if(!chilled)
+            {
+                iceEffect.SetActive(false);
+            }
+            else
+            {
+                iceEffect.SetActive(true);
+            }
             if (SceneManager.GetActiveScene().name == "LvlTwoTheArena")
             {
                 gameManager.instance.updateGameGoalLvl2(-1);
@@ -88,10 +124,10 @@ public class enemyOneAI : enemyAI
             if (chilled)
             {
                 model.material.color = new Color(0, 0.5509f, 1);
-                agent.enabled = false;
-                GetComponent<Collider>().enabled = false;
                 GetComponentInChildren<Canvas>().enabled = false;
                 anim.enabled = false;
+                agent.enabled = false;
+                chillDeath = true;
             }
             else
             {
@@ -103,7 +139,7 @@ public class enemyOneAI : enemyAI
                 GetComponentInChildren<Canvas>().enabled = false;
                 if (agent.enabled == true)
                 {
-                    aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], gameManager.instance.soundVol);
+                    aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)]);
                     anim.SetBool("Dead", true);
                     agent.enabled = false;
                 }
@@ -115,7 +151,7 @@ public class enemyOneAI : enemyAI
             anim.SetTrigger("Damage");
             if (dmg > 0)
             {
-                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)]);
             }
             // melee add a function for turning off the weapon collider.
             if (chilled && chilledOnce)
@@ -160,5 +196,10 @@ public class enemyOneAI : enemyAI
         }
         iceEffect.SetActive(false);
         chilled = false;
-    }    
+    }
+    IEnumerator death()
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(gameObject);
+    }
 }

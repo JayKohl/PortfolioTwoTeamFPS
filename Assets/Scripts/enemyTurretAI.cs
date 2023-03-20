@@ -86,7 +86,7 @@ public class enemyTurretAI : enemyAI
             isShooting = true;
 
             GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-            aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], gameManager.instance.soundVol);
+            aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
             Vector3 shootingVector = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
             bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
             if (shootPositionTwo != null)
@@ -100,7 +100,7 @@ public class enemyTurretAI : enemyAI
                 bulletCloneThree.GetComponent<Rigidbody>().velocity = shootingVectorThree * bulletSpeed;
 
                 GameObject bulletCloneFour = Instantiate(bullet, shootPositionFour.position, bullet.transform.rotation);
-                aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], gameManager.instance.soundVol);
+                aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
                 Vector3 shootingVectorFour = (gameManager.instance.player.transform.position - shootPositionFour.position).normalized;
                 bulletCloneFour.GetComponent<Rigidbody>().velocity = shootingVectorFour * bulletSpeed;
             }
@@ -143,7 +143,7 @@ public class enemyTurretAI : enemyAI
             GetComponentInChildren<Canvas>().enabled = false;
             if (!setOnFire)
             {
-                aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], gameManager.instance.soundVol);
+                aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)]);
             }
             agent.enabled = false;
             alive = false;
@@ -153,7 +153,7 @@ public class enemyTurretAI : enemyAI
         {
             if (dmg > 0)
             {
-                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)]);
             }
         }
     }

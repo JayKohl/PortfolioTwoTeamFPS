@@ -234,7 +234,7 @@ public class enemyThirdBoss : enemyAI
             gameManager.instance.lvlscript.GainExperiance(xp);
             GetComponent<BoxCollider>().enabled = false;
             //GetComponentInChildren<Canvas>().enabled = false;
-            //aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], gameManager.instance.soundVol);
+            //aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)]);
             agent.enabled = false;
             deathFX.SetActive(true);
             StartCoroutine(deathDestroy());
@@ -244,7 +244,7 @@ public class enemyThirdBoss : enemyAI
             //anim.SetTrigger("Damage");
             if (dmg > 0)
             {
-                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
+                aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)]);
             }
             if (!isSpawnEvent && takeDamFXDelay == false)
             {
@@ -380,7 +380,7 @@ public class enemyThirdBoss : enemyAI
             GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
             bulletClone.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(0, 0.5f), Random.Range(0, 0.5f), Random.Range(0, 0.5f)) * bulletSpeed;
         }
-        //aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)], gameManager.instance.soundVol);
+        //aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
     }
     protected void spawnWave()
     {

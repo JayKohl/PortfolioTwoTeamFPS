@@ -48,7 +48,7 @@ public class gameManager : MonoBehaviour
     public AbilitiesColdown AbilityOneS;
     public AbilitiesColdown AbilityTwoS;
     public AbilitiesColdown AbilityThreeS;
-    public AbilitiesColdown AbilityFourS;    
+    public AbilitiesColdown AbilityFourS;
     public bool ability;
 
     public GameObject inventory;
@@ -61,6 +61,7 @@ public class gameManager : MonoBehaviour
     public GameObject inventorySlot5;
     public GameObject inventorySlot6;
 
+    public GameObject fullXPbar;
     public GameObject lvlMenu;
     public GameObject firstTimeText;
     public LevelSystem lvlscript;
@@ -73,6 +74,8 @@ public class gameManager : MonoBehaviour
     public Sprite crosshairTexture;
     public bool shieldOn;
     [SerializeField] public GameObject shieldUI;
+    [SerializeField] public GameObject shieldHP;
+    public int shieldHPNum;
     [SerializeField] public GameObject invisUI;
     [SerializeField] public GameObject dashUI;
     [SerializeField] public GameObject hackUI;
@@ -89,20 +92,19 @@ public class gameManager : MonoBehaviour
 
     public bool isPaused;
     public bool bossDead;
-    public bool boss2Dead = false;    
+    public bool boss2Dead = false;
     public bool flightDeck = false;
     public bool boss3Dead = false;
-    public bool gameEnded;
+    public bool inCutscene;
 
     string goalsText;
     [SerializeField] public GameObject endGameTrigger;
-    [SerializeField] public float soundVol = 0.2f;
-    [SerializeField] public float musicVol = 0.2f;
+
 
 
     void Awake()
     {
-        
+
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<playerController>();
@@ -130,14 +132,14 @@ public class gameManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Cancel") && activeMenu == null)
         {
-            isPaused = !isPaused;
             activeMenu = pauseMenu;
-            pauseMenu.SetActive(isPaused);
+            pauseMenu.SetActive(true);
+            pause();
+        }
 
-            if (isPaused)
-                pause();
-            else
-                unPause();
+        else if (Input.GetButtonDown("Cancel") && activeMenu != null)
+        {
+            pauseMenu.GetComponentInChildren<buttonFunctions>().resume();
         }
 
         if (Input.GetKeyDown(KeyCode.X))
@@ -153,15 +155,17 @@ public class gameManager : MonoBehaviour
             crosshair.SetActive(true);
             unPause();
             isPaused = false;
+            gameManager.instance.playerScript.canShoot = true;
         }
     }
 
     public void pause()
-    {
+    {        
+        isPaused = true;
         gameManager.instance.playerScript.canShoot = false;
         abilityHub.GetComponent<activateAbility>().inventoryScreenOn = false;
         inventory.SetActive(false);
-        inventoryMessageBox.SetActive(false);        
+        inventoryMessageBox.SetActive(false);
         lvlscript.lvlScreenOn = false;
         Time.timeScale = 0;
         Cursor.visible = true;
@@ -170,9 +174,9 @@ public class gameManager : MonoBehaviour
         lvlMenu.SetActive(false);
     }
     public void unPause()
-    {
-        Time.timeScale = 1;
-        Cursor.visible = false;
+    {        
+        isPaused = false;
+        Time.timeScale = 1;        
         Cursor.lockState = CursorLockMode.Locked;
         if (activeMenu != null)
         {
@@ -180,6 +184,8 @@ public class gameManager : MonoBehaviour
         }
         activeMenu = null;
         gameManager.instance.playerScript.canShoot = true;
+        Cursor.visible = false;
+        pauseMenu.SetActive(false);
     }
     public void updateGameGoal(int amount)
     {
@@ -200,19 +206,19 @@ public class gameManager : MonoBehaviour
         SceneManager.LoadScene("Part2Scene");
     }
     public void updateGameGoalLvl2(int amount)
-    {        
+    {
         enemiesRemaining += amount;
         enemiesRemainingText.text = enemiesRemaining.ToString("F0");
-        if(enemiesRemaining <= 0)
+        if (enemiesRemaining <= 0)
         {
             enemiesRemainingObject.SetActive(false);
         }
 
-        if(boss2Dead && flightDeck && enemiesRemaining <= 0)
+        if (boss2Dead && flightDeck && enemiesRemaining <= 0)
         {
-            gameManager.instance.infoText.text = "<s>Get to the flight deck</s>" + "\n<s>Kill the radiated bug</s>"+"\nEscape!";
+            gameManager.instance.infoText.text = "<s>Get to the flight deck</s>" + "\n<s>Kill the radiated bug</s>" + "\nEscape!";
             gameManager.instance.infoTextBackground.SetActive(true);
-        }        
+        }
     }
     public IEnumerator endLevel2()
     {
@@ -223,13 +229,13 @@ public class gameManager : MonoBehaviour
     public void updateGameGoalLvl3(int amount)
     {
         enemiesRemaining += amount;
-        if(boss3Dead)
+        if (boss3Dead)
         {
             minimap.SetActive(false);
             pause();
             activeMenu = winMenu;
             activeMenu.SetActive(true);
-            gameEnded = true;
+            inCutscene = true;
             StartCoroutine(ending());
         }
     }
@@ -246,7 +252,7 @@ public class gameManager : MonoBehaviour
     }
     public void playerDead()
     {
-        if (gameEnded == false)
+        if (inCutscene == false)
         {
             playerScript.playerDied = true;
             minimap.SetActive(false);

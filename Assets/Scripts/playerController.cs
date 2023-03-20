@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class playerController : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class playerController : MonoBehaviour
     [SerializeField] float pushbackResTime;
     [SerializeField] int crouchSpeed;
     [SerializeField] float crouchHeight;
+    [SerializeField] public GameObject playerEffect;
 
     [Header("----- Weapon Stats -----")]
     [SerializeField] List<weaponStats> weaponList = new List<weaponStats>();
@@ -76,11 +78,12 @@ public class playerController : MonoBehaviour
     // [SerializeField] GameObject bullet;
     [SerializeField] GameObject gunFlash;
 
-    int jumpsCurrent;
+    public int jumpsCurrent;
     Vector3 move;
     public Vector3 playerVelocity;
     bool isShooting;
     bool isRunning;
+    bool isJumping;
     public int hpOriginal;
     public float speedOriginal;
     public int gunSelection;
@@ -98,9 +101,9 @@ public class playerController : MonoBehaviour
     Rigidbody rig;
     public bool fireOn;
     public bool iceOn;
-    public bool canShoot = true;
-
-    int currentLevel = 0;
+    public bool canShoot;
+  
+    public int currentLevel = 0;
 
 
     public bool slowed;
@@ -122,10 +125,12 @@ public class playerController : MonoBehaviour
         burningColor.a = 0.20f;
 
         canShoot = true;
+
         if (SceneManager.GetActiveScene().name == "LvlOneArena" && currentLevel < 1)
         {
             dirt = true;
             currentLevel = 1;
+            gameManager.instance.fullXPbar.SetActive(false);
             gameManager.instance.fuelCellsRemainingObject.SetActive(true);
             gameManager.instance.enemiesRemainingObject.SetActive(false);
             gameManager.instance.infoTextBackground.SetActive(false);
@@ -135,6 +140,7 @@ public class playerController : MonoBehaviour
         {
             dirt = false;
             currentLevel = 2;
+            gameManager.instance.fullXPbar.SetActive(false);
             gameManager.instance.enemiesRemainingObject.SetActive(true);
             gameManager.instance.fuelCellsRemainingObject.SetActive(false);
             gameManager.instance.infoTextBackground.SetActive(false);
@@ -144,6 +150,7 @@ public class playerController : MonoBehaviour
         {
             dirt = true;
             currentLevel = 3;
+            gameManager.instance.fullXPbar.SetActive(true);
             gameManager.instance.enemiesRemainingObject.SetActive(false);
             gameManager.instance.fuelCellsRemainingObject.SetActive(false);
             gameManager.instance.infoText.text = "Investigate the town to find the source of the distress signal.";
@@ -174,10 +181,8 @@ public class playerController : MonoBehaviour
 
         if (!isShooting && Input.GetButton("Shoot") && canShoot && gameManager.instance.activeMenu == null)
         {
-            //Debug.Log("test1");
             if (weaponList.Count > 0)
-            {
-                isShooting = true;
+            {                
                 StartCoroutine(shoot());
             }
         }
@@ -202,7 +207,7 @@ public class playerController : MonoBehaviour
         if (controller.enabled == true)
         {
             controller.Move(move * Time.deltaTime * playerSpeed);
-
+           
             if (Input.GetButton("Crouch"))
             {
                 isCrouched = true;
@@ -210,9 +215,18 @@ public class playerController : MonoBehaviour
             }
             if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes && !slowed)
             {
-                jumpsCurrent++;
-                playerVelocity.y = jumpSpeed;
-                aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)]);
+                if (Physics.Raycast(transform.position, Vector3.down, 1.1f))
+                {
+                    jumpsCurrent++;
+                    playerVelocity.y = jumpSpeed;
+                    aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)]);
+                }
+                else
+                {
+                    jumpsCurrent++;
+                }
+
+
             }
             if ((Input.GetButton("Run") && !isRunning) && !slowed && !isCrouched) //run
             {
@@ -243,8 +257,20 @@ public class playerController : MonoBehaviour
 
 
             }
+          
+            
             playerVelocity.y -= gravity * Time.deltaTime;
             controller.Move((playerVelocity + pushback) * Time.deltaTime);
+
+            if ((controller.collisionFlags & CollisionFlags.Above) != 0)
+            {
+                if (playerVelocity.y > 0)
+                {
+                    playerVelocity.y = 0;
+                    
+                }
+            }
+            
         }
 
         if (controller.isGrounded && move.normalized.magnitude > 0.8f && !isPlayingSteps)
@@ -258,6 +284,7 @@ public class playerController : MonoBehaviour
                 StartCoroutine(playMetalSteps());
             }
         }
+       
 
     }
 
@@ -312,7 +339,7 @@ public class playerController : MonoBehaviour
     {
         //Debug.Log("test2");
         // Control for isShooting animation bool
-        if (gameManager.instance.activeMenu == null)
+        if (gameManager.instance.activeMenu == null && !isShooting)
         {
             if (weaponName == "Pistol")
             {
@@ -354,8 +381,15 @@ public class playerController : MonoBehaviour
                 playeranim.SetBool("Rifle", false);
                 playeranim.SetBool("Sniper", true);
             }
+            if (Input.GetKey("mouse 0"))
+            {
+                playeranim.SetBool("isShooting", true);
+            }
+            isShooting = true;
             aud.PlayOneShot(weaponAudio[Random.Range(0, weaponAudio.Count)]);
-            gunShootFlash();
+            gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Play();
+            yield return new WaitForSeconds(.01f);
+            gameManager.instance.muzzleFlash.GetComponent<ParticleSystem>().Stop();
         }
 
         RaycastHit hit;
@@ -375,7 +409,7 @@ public class playerController : MonoBehaviour
                 weaponModel.GetComponent<MeshRenderer>().enabled = true;
                 hit.collider.GetComponent<IDamage>().takeDamage(shootDamage);
             }
-        }
+        }        
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
@@ -401,9 +435,13 @@ public class playerController : MonoBehaviour
     }
     public void takeDamage(int dmg)
     {
+        if(gameManager.instance.inCutscene)
+        {
+            return;
+        }
         if (gameManager.instance.shieldOn)
         {
-            shieldOnPlayer.GetComponent<shield>().shieldTakeDamage(dmg);
+            StartCoroutine(shieldTakeDamage(dmg));
         }
         else
         {
@@ -432,6 +470,15 @@ public class playerController : MonoBehaviour
                 aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)]);
             }
         }
+    }
+    IEnumerator shieldTakeDamage(int dmg)
+    {
+        gameManager.instance.shieldUI.GetComponentInChildren<Image>().color = new Color(.567f, .509f, .977f, .35f);
+        shieldOnPlayer.GetComponent<shield>().shieldTakeDamage(dmg);
+        gameManager.instance.shieldHPNum -= dmg;
+        gameManager.instance.shieldHP.GetComponent<TextMeshProUGUI>().text = gameManager.instance.shieldHPNum.ToString();
+        yield return new WaitForSeconds(.1f);
+        gameManager.instance.shieldUI.GetComponentInChildren<Image>().color = new Color(.567f, .509f, .977f, .10f);
     }
     public void invisibility()
     {
@@ -496,7 +543,7 @@ public class playerController : MonoBehaviour
 
     public void giveHP(int amount)
     {
-        aud.PlayOneShot(medPickupSound, gameManager.instance.soundVol);
+        aud.PlayOneShot(medPickupSound);
         HP += amount;
         if (HP > hpOriginal)
             HP = hpOriginal;
@@ -636,7 +683,7 @@ public class playerController : MonoBehaviour
                 {
                     Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, zoomMax, Time.deltaTime * 3);
                 }
-                else if (Camera.main.fieldOfView <= baseFOV)
+                else if (Camera.main.fieldOfView <= baseFOV && !gameManager.instance.cam2.activeSelf)
                 {
                     Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, baseFOV, Time.deltaTime * 6);
                 }
@@ -665,19 +712,13 @@ public class playerController : MonoBehaviour
         {
             playeranim.SetBool("isRunning", false);
         }
-
-        if (Input.GetKey("mouse 0"))
-        {
-            playeranim.SetBool("isShooting", true);
-
-
-        }
+        
         if (!Input.GetKey("mouse 0"))
         {
             playeranim.SetBool("isShooting", false);
         }
 
-        if (Input.GetKey("space") && jumpsCurrent < jumpTimes)
+        if (Input.GetButtonDown("Jump") && jumpsCurrent <= jumpTimes)
         {
             playeranim.SetBool("isJumping", true);
         }
@@ -692,7 +733,7 @@ public class playerController : MonoBehaviour
     //Added code
     public IEnumerator Poisoned(int effectTime, int trapDamage, AudioClip effect)
     {
-
+        playerEffect.gameObject.transform.GetChild(1).gameObject.SetActive(true);
         while (effectTime > 0 && !playerDied)
         {
             takeDamage(trapDamage);
@@ -701,21 +742,23 @@ public class playerController : MonoBehaviour
             effectTime--;
             if (playerDied)
             {
+                playerEffect.gameObject.transform.GetChild(1).gameObject.SetActive(false);
                 poisoned = false;
                 yield break;
             }
 
             yield return new WaitForSeconds(1.5f);
         }
-
+        playerEffect.gameObject.transform.GetChild(1).gameObject.SetActive(false);
         poisoned = false;
     }
 
     public IEnumerator Burning(int effectTime, int trapDamage, AudioClip effect)
     {
-
+        playerEffect.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         while (effectTime > 0 && !playerDied)
         {
+
             takeDamage(trapDamage);
             StartCoroutine(flashDamage(3));
             aud.PlayOneShot(audDamaged[Random.Range(0, audDamaged.Length)]);
@@ -723,19 +766,23 @@ public class playerController : MonoBehaviour
             if (playerDied)
             {
                 burning = false;
+                playerEffect.gameObject.transform.GetChild(0).gameObject.SetActive(false);
                 yield break;
+
             }
 
             yield return new WaitForSeconds(1.5f);
         }
-
+        playerEffect.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         burning = false;
     }
 
     public IEnumerator Slowed(int effectTime, int trapDamage)
     {
+     
         if (playerDied)
         {
+            
             slowed = false;
             yield break;
         }
@@ -743,6 +790,7 @@ public class playerController : MonoBehaviour
         StartCoroutine(flashDamage(4));
         yield return new WaitForSeconds(effectTime);
         playerSpeed = speedOriginal;
+       
         slowed = false;
     }
 

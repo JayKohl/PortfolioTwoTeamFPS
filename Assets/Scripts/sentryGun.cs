@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class sentryGun : MonoBehaviour
 {
     //int viewAngle = 90;
-    int shootAngle = 90;
+    int shootAngle = 180;
     int enemyFaceSpeed = 60;
     [SerializeField] GameObject bullet;
     [SerializeField] Transform headPos;
@@ -41,14 +41,23 @@ public class sentryGun : MonoBehaviour
     {
         if (isEnemyInRange && alive)
         {
-            canSeeEnemy();
+            float distance = Vector3.Distance(target.transform.position, transform.position);
+
+            if (distance > .05f)
+            {
+                canSeeEnemy();
+            }
         }
     }
     IEnumerator coolDownStart()
     {
+        GetComponent<Rigidbody>().useGravity = true;
+        GetComponent<Rigidbody>().isKinematic = false;
         aud.PlayOneShot(startUpSound);
         yield return new WaitForSeconds(2);
         alive = true;
+        GetComponent<Rigidbody>().useGravity = false;
+        GetComponent<Rigidbody>().isKinematic = true;
     }
     IEnumerator deathTimer()
     {
@@ -57,7 +66,8 @@ public class sentryGun : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
+
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss") || other.CompareTag("Turret"))
         {
             target = other.gameObject;
             isEnemyInRange = true;
@@ -65,7 +75,7 @@ public class sentryGun : MonoBehaviour
     }
     public void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss"))
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss") || other.CompareTag("Turret"))
         {
             target = other.gameObject;
             isEnemyInRange = true;
@@ -179,7 +189,7 @@ public class sentryGun : MonoBehaviour
     //        GetComponentInChildren<Canvas>().enabled = false;
     //        if (!setOnFire)
     //        {
-    //            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], gameManager.instance.soundVol);
+    //            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)]);
     //        }
     //        agent.enabled = false;
     //        alive = false;
@@ -189,7 +199,7 @@ public class sentryGun : MonoBehaviour
     //    {
     //        if (dmg > 0)
     //        {
-    //            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)], gameManager.instance.soundVol);
+    //            aud.PlayOneShot(audTakeDamage[Random.Range(0, audTakeDamage.Length)]);
     //        }
     //    }
     //}

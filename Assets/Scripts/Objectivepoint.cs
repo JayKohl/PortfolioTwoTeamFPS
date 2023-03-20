@@ -19,10 +19,11 @@ public class Objectivepoint : MonoBehaviour
 
     private void Start()
     {
-        //locator = GameObject.FindGameObjectWithTag("Waypoint Image").GetComponent<Image>();
-
+        locator = GameObject.FindGameObjectWithTag("Waypoint Image").GetComponentInChildren<Image>();
         nullLoc = GameObject.FindGameObjectWithTag("NullObjective");
+        objectiveOne = GameObject.FindGameObjectWithTag("Objective One").transform;
         location = nullLoc.transform;
+
         if (SceneManager.GetActiveScene().name == "LvlOneArena")
         {
             location = nullLoc.transform;
@@ -36,6 +37,11 @@ public class Objectivepoint : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
         {
+            townNpc = GameObject.FindGameObjectWithTag("Town NPC").transform;
+            quest2 = GameObject.FindGameObjectWithTag("Quest 2").transform;
+            quest3 = GameObject.FindGameObjectWithTag("Quest 3").transform;
+            quest4 = GameObject.FindGameObjectWithTag("Quest 4").transform;
+            quest5 = nullLoc.transform;
             SetWayPoint(townNpc);
         }
         else

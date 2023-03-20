@@ -26,7 +26,7 @@ public class explosionGrenade : MonoBehaviour
             if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss") || other.CompareTag("Turret"))
             {
                 other.gameObject.GetComponent<enemyAI>().takeDamage(grenadeDamage);
-                aud.PlayOneShot(explosion, gameManager.instance.soundVol);
+                aud.PlayOneShot(explosion);
             }
         }
     }
