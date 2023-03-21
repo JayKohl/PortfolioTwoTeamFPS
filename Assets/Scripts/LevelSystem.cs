@@ -58,7 +58,7 @@ public class LevelSystem : MonoBehaviour
             {
                 if (lvlScreenOn)
                 {
-                    aud.PlayOneShot(gameManager.instance.playerScript.lvlUp);
+                    aud.PlayOneShot(gameManager.instance.abilityHub.GetComponent<activateAbility>().inventoryOpen);
                     lvlScreenOn = false;
                     Time.timeScale = 1;
                     Cursor.visible = false;
@@ -74,7 +74,7 @@ public class LevelSystem : MonoBehaviour
                     {
                         return;
                     }
-                    aud.PlayOneShot(gameManager.instance.playerScript.lvlUp);
+                    aud.PlayOneShot(gameManager.instance.abilityHub.GetComponent<activateAbility>().inventoryOpen);
                     lvlScreenOn = true;
                     if (firsttime)
                     {

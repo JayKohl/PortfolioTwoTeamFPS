@@ -37,6 +37,7 @@ public class friendlyAI : MonoBehaviour
     bool destinationChosen;
     float stoppingDistOrig;
     float speedOrig;
+    int cutsceneNum = 1;
     
 
     // Start is called before the first frame update
@@ -56,8 +57,9 @@ public class friendlyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.X) && isTalking)
+        if(Input.GetKeyDown(KeyCode.X) && isTalking && cutsceneNum == 1)
         {
+            cutsceneNum = 2;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             gameManager.instance.cam2.transform.GetChild(1).gameObject.SetActive(true);

@@ -144,16 +144,18 @@ public class gameManager : MonoBehaviour
             pauseMenu.GetComponentInChildren<buttonFunctions>().resume();
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && (abilityDisplay.activeSelf || lvlMenu.activeSelf || inventory.activeSelf))
         {
             if (inventory.activeSelf || lvlMenu.activeSelf)
             {
                 aud.PlayOneShot(gameManager.instance.abilityHub.GetComponent<activateAbility>().inventoryOpen);
             }
             lvlMenu.SetActive(false);
+            gameManager.instance.player.GetComponent<LevelSystem>().lvlScreenOn = false;
             inventory.SetActive(false);
+            gameManager.instance.abilityHub.GetComponent<activateAbility>().inventoryScreenOn = false;
             inventoryMessageBox.SetActive(false);
-            abilityDisplay.SetActive(false);
+            abilityDisplay.SetActive(false);            
             crosshair.SetActive(true);
             unPause();
             isPaused = false;
