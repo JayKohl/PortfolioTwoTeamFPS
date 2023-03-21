@@ -30,7 +30,7 @@ public class sentryGun : MonoBehaviour
     int next;
 
     // Make sure the NavMesh stopping distance is the same as the sphere collider trigger radius. 
-    void Awake()
+    void Start()
     {
         next = 0;
         StartCoroutine(coolDownStart());
@@ -123,7 +123,7 @@ public class sentryGun : MonoBehaviour
                     }
                     else
                     {
-                        if (next < enemiesNearby.Count && target.GetComponent<NavMeshAgent>().isActiveAndEnabled == false)
+                        if (next < enemiesNearby.Count)
                         {
                             next++;
                             if (next >= enemiesNearby.Count)
@@ -132,7 +132,7 @@ public class sentryGun : MonoBehaviour
                             }
                             target = enemiesNearby[next];
                             isEnemyInRange = true;
-                            Debug.Log("Next: "+next+", Total:"+enemiesNearby.Count);
+                            //Debug.Log("Next: "+next+", Total:"+enemiesNearby.Count);
                         }
                         else
                         {
