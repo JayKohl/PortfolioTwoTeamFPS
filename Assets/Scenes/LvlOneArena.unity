@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.005534304, g: 0.0042951335, b: 0.003594367, a: 1}
+  m_IndirectSpecularColor: {r: 0.0067227026, g: 0.0050520045, b: 0.004148843, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -33604,7 +33604,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1185652119}
   - component: {fileID: 1185652118}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: EndOfTheWorldBarier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33638,6 +33638,7 @@ Transform:
   m_Children:
   - {fileID: 1204005699}
   - {fileID: 1508820117}
+  - {fileID: 1869708343}
   - {fileID: 1811807038}
   m_Father: {fileID: 0}
   m_RootOrder: 32
@@ -34326,7 +34327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1204005699}
   - component: {fileID: 1204005700}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: EndOfTheWorldBarier (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42657,7 +42658,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1508820117}
   - component: {fileID: 1508820118}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: EndOfTheWorldBarier (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51748,7 +51749,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1811807038}
   - component: {fileID: 1811807039}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: EndOfTheWorldBarier (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51768,7 +51769,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1185652119}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1811807039
 BoxCollider:
@@ -53870,6 +53871,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 402450, guid: 9cd85089066bbb2409c61d1af35f4ea7, type: 3}
   m_PrefabInstance: {fileID: 1866499967}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1869708339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1869708343}
+  - component: {fileID: 1869708340}
+  m_Layer: 4
+  m_Name: End of the world top
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1869708340
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869708339}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1869708343
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869708339}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0023387952, y: 0.053375483, z: 459}
+  m_LocalScale: {x: 0.82352936, y: 0.0009999999, z: 1400}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1185652119}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1869898756
 PrefabInstance:
   m_ObjectHideFlags: 0
