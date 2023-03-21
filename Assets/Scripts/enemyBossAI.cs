@@ -353,7 +353,7 @@ public class enemyBossAI : enemyAI
         yield return new WaitForSeconds(10);
         if (saveStartHealth == hitPoints)
         {
-            hitPoints += 10;
+            hitPoints += 200;
             updateEnemyHPBar();
         }
         else
