@@ -70,6 +70,10 @@ public class LevelSystem : MonoBehaviour
                 }
                 else
                 {
+                    if (gameManager.instance.abilityHub.GetComponent<activateAbility>().inventoryScreenOn)
+                    {
+                        return;
+                    }
                     aud.PlayOneShot(gameManager.instance.playerScript.lvlUp);
                     lvlScreenOn = true;
                     if (firsttime)

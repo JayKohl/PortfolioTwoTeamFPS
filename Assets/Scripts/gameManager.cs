@@ -132,6 +132,7 @@ public class gameManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Cancel") && activeMenu == null && activeMenu != loseMenu && activeMenu != winMenu)
         {
+            if (abilityDisplay.activeSelf) { return; }
             activeMenu = pauseMenu;
             pauseMenu.SetActive(true);
             pause();
@@ -139,6 +140,7 @@ public class gameManager : MonoBehaviour
 
         else if (Input.GetButtonDown("Cancel") && activeMenu != null && activeMenu != loseMenu && activeMenu != winMenu)
         {
+            if (abilityDisplay.activeSelf) { return; }
             pauseMenu.GetComponentInChildren<buttonFunctions>().resume();
         }
 
