@@ -18,8 +18,8 @@ public class LVLButtons : MonoBehaviour
 
     [SerializeField] public GameObject errorText;
     [SerializeField] public int tokensum;
-    [SerializeField] public bool coolDownReduced = false;
-    [SerializeField] public bool abilityDamageUp = false;
+    [SerializeField] public bool coolDownReduced;
+    [SerializeField] public bool abilityDamageUp;
 
 
     void Update()
