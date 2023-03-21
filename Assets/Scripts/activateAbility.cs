@@ -222,6 +222,10 @@ public class activateAbility : MonoBehaviour
             }
             else
             {
+                if (gameManager.instance.player.GetComponent<LevelSystem>().lvlScreenOn)
+                {
+                    return;
+                }
                 aud.PlayOneShot(inventoryOpen);
                 gameManager.instance.playerScript.canShoot = false;
                 inventoryScreenOn = true;
