@@ -16,8 +16,7 @@ public class sentryGun : MonoBehaviour
     [SerializeField] AudioClip startUpSound;
     [SerializeField] AudioClip audBasicAttack;
     float deleteTimer = 15;
-    //int bulletSpeed = 25;
-    float shootRate = .2f;
+    float shootRate = .1f;
 
     Vector3 enemyDirection;
     float angleToEnemy;
@@ -45,11 +44,7 @@ public class sentryGun : MonoBehaviour
         if (isEnemyInRange && alive)
         {
             float distance = Vector3.Distance(target.transform.position, transform.position);
-
-            if (distance > .05f)
-            {
-                canSeeEnemy();
-            }
+            canSeeEnemy();
         }
     }
     IEnumerator coolDownStart()
@@ -128,12 +123,16 @@ public class sentryGun : MonoBehaviour
                     }
                     else
                     {
-                        if (next < enemiesNearby.Count)
+                        if (next < enemiesNearby.Count && target.GetComponent<NavMeshAgent>().isActiveAndEnabled == false)
                         {
                             next++;
+                            if (next >= enemiesNearby.Count)
+                            {
+                                next = enemiesNearby.Count-1;                                
+                            }
                             target = enemiesNearby[next];
                             isEnemyInRange = true;
-                            //Debug.Log("Next: "+next+", Total:"+enemiesNearby.Count);
+                            Debug.Log("Next: "+next+", Total:"+enemiesNearby.Count);
                         }
                         else
                         {
