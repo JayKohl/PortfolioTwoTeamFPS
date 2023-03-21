@@ -284,6 +284,7 @@ public class friendlyAI : MonoBehaviour
     IEnumerator doorTwo()
     {
         gameManager.instance.inCutscene = true;
+        gameManager.instance.playerScript.controller.enabled = false;
         yield return new WaitForSecondsRealtime(1);
         gameManager.instance.cam2.SetActive(true);
        
@@ -309,8 +310,9 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.enemiesRemainingText.enabled = true;
         gameManager.instance.crosshair.SetActive(true);
         gameManager.instance.unPause();
-        gameManager.instance.playerScript.canShoot = true;
         gameManager.instance.inCutscene = false;
+        gameManager.instance.playerScript.controller.enabled = true;
+        gameManager.instance.playerScript.canShoot = true;
 
         gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().location = gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().objectiveOne;
         gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().locator.enabled = true;
