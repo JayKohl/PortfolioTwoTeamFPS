@@ -76,7 +76,30 @@ public class sentryGun : MonoBehaviour
                 enemiesNearby.Add(other.gameObject);
                 target = enemiesNearby[next];
                 isEnemyInRange = true;
-                //Debug.Log("Add: " + enemiesNearby.Count);
+            }
+        }
+    }
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss") || other.CompareTag("Turret"))
+        {
+            if (!enemiesNearby.Contains(other.gameObject))
+            {
+                enemiesNearby.Add(other.gameObject);
+                target = enemiesNearby[next];
+                isEnemyInRange = true;
+            }
+        }
+    }
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBoss") || other.CompareTag("Turret"))
+        {
+            if (!enemiesNearby.Contains(other.gameObject))
+            {
+                enemiesNearby.Add(other.gameObject);
+                target = enemiesNearby[next];
+                isEnemyInRange = true;
             }
         }
     }
