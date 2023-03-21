@@ -221,10 +221,7 @@ public class playerController : MonoBehaviour
                     playerVelocity.y = jumpSpeed;
                     aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)]);
                 }
-                else
-                {
-                    jumpsCurrent++;
-                }
+                
 
 
             }
@@ -718,7 +715,7 @@ public class playerController : MonoBehaviour
             playeranim.SetBool("isShooting", false);
         }
 
-        if (Input.GetButtonDown("Jump") && jumpsCurrent <= jumpTimes)
+        if (Input.GetButtonDown("Jump"))
         {
             playeranim.SetBool("isJumping", true);
         }
