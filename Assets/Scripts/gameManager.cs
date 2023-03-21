@@ -130,28 +130,32 @@ public class gameManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetButtonDown("Cancel") && activeMenu == null)
+        if (Input.GetButtonDown("Cancel") && activeMenu == null && activeMenu != loseMenu && activeMenu != winMenu)
         {
+            if (abilityDisplay.activeSelf) { return; }
             activeMenu = pauseMenu;
             pauseMenu.SetActive(true);
             pause();
         }
 
-        else if (Input.GetButtonDown("Cancel") && activeMenu != null)
+        else if (Input.GetButtonDown("Cancel") && activeMenu != null && activeMenu != loseMenu && activeMenu != winMenu)
         {
+            if (abilityDisplay.activeSelf) { return; }
             pauseMenu.GetComponentInChildren<buttonFunctions>().resume();
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && (abilityDisplay.activeSelf || lvlMenu.activeSelf || inventory.activeSelf))
         {
             if (inventory.activeSelf || lvlMenu.activeSelf)
             {
                 aud.PlayOneShot(gameManager.instance.abilityHub.GetComponent<activateAbility>().inventoryOpen);
             }
             lvlMenu.SetActive(false);
+            gameManager.instance.player.GetComponent<LevelSystem>().lvlScreenOn = false;
             inventory.SetActive(false);
+            gameManager.instance.abilityHub.GetComponent<activateAbility>().inventoryScreenOn = false;
             inventoryMessageBox.SetActive(false);
-            abilityDisplay.SetActive(false);
+            abilityDisplay.SetActive(false);            
             crosshair.SetActive(true);
             unPause();
             isPaused = false;

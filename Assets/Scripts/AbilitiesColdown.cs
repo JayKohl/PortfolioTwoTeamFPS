@@ -29,10 +29,10 @@ public class AbilitiesColdown : MonoBehaviour
         }
             
     }
-    public void turnOffCooldown()
-    {
-        cooldownTimer = 0;
-    }
+    //public void turnOffCooldown()
+    //{
+    //    cooldownTimer = 0;
+    //}
     
     public void coolDownStart(float cdTime)
     {

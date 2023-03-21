@@ -37,6 +37,7 @@ public class friendlyAI : MonoBehaviour
     bool destinationChosen;
     float stoppingDistOrig;
     float speedOrig;
+    int cutsceneNum = 1;
     
 
     // Start is called before the first frame update
@@ -56,8 +57,9 @@ public class friendlyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.X) && isTalking)
+        if(Input.GetKeyDown(KeyCode.X) && isTalking && cutsceneNum == 1)
         {
+            cutsceneNum = 2;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             gameManager.instance.cam2.transform.GetChild(1).gameObject.SetActive(true);
@@ -284,6 +286,7 @@ public class friendlyAI : MonoBehaviour
     IEnumerator doorTwo()
     {
         gameManager.instance.inCutscene = true;
+        gameManager.instance.playerScript.controller.enabled = false;
         yield return new WaitForSecondsRealtime(1);
         gameManager.instance.cam2.SetActive(true);
        
@@ -309,8 +312,9 @@ public class friendlyAI : MonoBehaviour
         gameManager.instance.enemiesRemainingText.enabled = true;
         gameManager.instance.crosshair.SetActive(true);
         gameManager.instance.unPause();
-        gameManager.instance.playerScript.canShoot = true;
         gameManager.instance.inCutscene = false;
+        gameManager.instance.playerScript.controller.enabled = true;
+        gameManager.instance.playerScript.canShoot = true;
 
         gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().location = gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().objectiveOne;
         gameManager.instance.playerCamera.GetComponentInChildren<Objectivepoint>().locator.enabled = true;

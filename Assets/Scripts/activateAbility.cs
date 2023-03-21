@@ -38,7 +38,7 @@ public class activateAbility : MonoBehaviour
     int hackCounter;
     private GameObject hackTarget;
     bool cancelHack;
-    bool isHacking;
+    public bool isHacking;
 
     private void Start()
     {
@@ -71,8 +71,16 @@ public class activateAbility : MonoBehaviour
                 }
             }
         }
+        if (gameManager.instance.player.GetComponent<LevelSystem>().lvlScreenOn)
+        {
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            if(gameManager.instance.isPaused)
+            {
+                return;
+            }
             if (abilityBar.Count < 1) { return; }
             abilityTexture = abilityOne.GetComponent<Image>().sprite;
             RaycastHit hit;
@@ -103,6 +111,10 @@ public class activateAbility : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
+            if (gameManager.instance.isPaused)
+            {
+                return;
+            }
             if (abilityBar.Count < 2) { return; }
             abilityTexture = abilityTwo.GetComponent<Image>().sprite;
             RaycastHit hit;
@@ -133,6 +145,10 @@ public class activateAbility : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
+            if (gameManager.instance.isPaused)
+            {
+                return;
+            }
             if (abilityBar.Count < 3) { return; }
             abilityTexture = abilityThree.GetComponent<Image>().sprite;
             RaycastHit hit;
@@ -163,6 +179,10 @@ public class activateAbility : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
+            if (gameManager.instance.isPaused)
+            {
+                return;
+            }
             if (abilityBar.Count < 4) { return; }
             abilityTexture = abilityFour.GetComponent<Image>().sprite;
             RaycastHit hit;
@@ -205,7 +225,7 @@ public class activateAbility : MonoBehaviour
                 gameManager.instance.inventory.SetActive(false);
             }
             else
-            {
+            {                
                 aud.PlayOneShot(inventoryOpen);
                 gameManager.instance.playerScript.canShoot = false;
                 inventoryScreenOn = true;
