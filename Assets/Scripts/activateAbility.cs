@@ -38,7 +38,7 @@ public class activateAbility : MonoBehaviour
     int hackCounter;
     private GameObject hackTarget;
     bool cancelHack;
-    bool isHacking;
+    public bool isHacking;
 
     private void Start()
     {

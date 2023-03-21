@@ -24,9 +24,7 @@ public class shield : MonoBehaviour
     {
         shieldHP -= dmg;
         if (shieldHP <= 0)
-        {
-            gameManager.instance.AbilityTwoS.used = false;
-            //gameManager.instance.AbilityTwoS.cooldownTimer = 0;
+        {            
             timeOver();
         }
     }
