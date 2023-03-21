@@ -71,6 +71,10 @@ public class activateAbility : MonoBehaviour
                 }
             }
         }
+        if (gameManager.instance.player.GetComponent<LevelSystem>().lvlScreenOn)
+        {
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if(gameManager.instance.isPaused)
@@ -221,11 +225,7 @@ public class activateAbility : MonoBehaviour
                 gameManager.instance.inventory.SetActive(false);
             }
             else
-            {
-                if (gameManager.instance.player.GetComponent<LevelSystem>().lvlScreenOn)
-                {
-                    return;
-                }
+            {                
                 aud.PlayOneShot(inventoryOpen);
                 gameManager.instance.playerScript.canShoot = false;
                 inventoryScreenOn = true;
