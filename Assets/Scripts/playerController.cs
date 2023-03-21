@@ -50,7 +50,7 @@ public class playerController : MonoBehaviour
     [SerializeField] public List<AudioClip> weaponAudio = new List<AudioClip>();
     public MeshRenderer visible;
     public int weaponDamageMulti = 1;
-    public int dmgDivide = 1;
+    public int dmgDivide = 2;
 
     [Header("----- Audio -----")]
     [SerializeField] AudioClip[] audGravelSteps;
@@ -445,15 +445,22 @@ public class playerController : MonoBehaviour
         }
         else
         {
-            if (dmg / dmgDivide > 0)
+            if (dmg - dmgDivide > 0)
             {
-                StartCoroutine(gameManager.instance.abilityHub.GetComponent<activateAbility>().beginHack(5));
-                HP -= (dmg / dmgDivide);
+                if (gameManager.instance.abilityHub.GetComponent<activateAbility>().isHacking)
+                {
+                    StartCoroutine(gameManager.instance.abilityHub.GetComponent<activateAbility>().beginHack(5));
+                }
+                HP -= (dmg - dmgDivide);
                 updatePlayerHPBar();
                 StartCoroutine(flashDamage());
             }
             else
             {
+                if (gameManager.instance.abilityHub.GetComponent<activateAbility>().isHacking)
+                {
+                    StartCoroutine(gameManager.instance.abilityHub.GetComponent<activateAbility>().beginHack(5));
+                }
                 HP -= 1;
                 updatePlayerHPBar();
                 StartCoroutine(flashDamage());
@@ -499,14 +506,14 @@ public class playerController : MonoBehaviour
     {
         switch (type)
         {
-            case 0:
-                if (!gameManager.instance.shieldOn)
-                {
-                    gameManager.instance.playerDamageFlashScreen.SetActive(true);
-                    yield return new WaitForSeconds(0.1f);
-                    gameManager.instance.playerDamageFlashScreen.SetActive(false);
-                }
-                break;
+            //case 0:
+            //    if (!gameManager.instance.shieldOn)
+            //    {
+            //        gameManager.instance.playerDamageFlashScreen.SetActive(true);
+            //        yield return new WaitForSeconds(0.1f);
+            //        gameManager.instance.playerDamageFlashScreen.SetActive(false);
+            //    }
+            //    break;
             case 1:
                 gameManager.instance.playerDamageFlashScreen.GetComponent<Image>().color = poisonedColor;
                 gameManager.instance.playerDamageFlashScreen.SetActive(true);

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class sentryGun : MonoBehaviour
 {
-    //int viewAngle = 90;
+    int viewAngle = 180;
     int shootAngle = 180;
     int enemyFaceSpeed = 60;
     [SerializeField] GameObject bullet;
@@ -105,22 +105,22 @@ public class sentryGun : MonoBehaviour
             }
         }
 
-        //RaycastHit hit;
-        //if (Physics.Raycast(transform.position, enemyDirection, out hit))
-        //{
-        //    if (hit.collider.CompareTag("Enemy") && angleToEnemy <= viewAngle)
-        //    {
-        //        if (isEnemyInRange)
-        //        {
-        //            faceEnemy();
-        //        }
-        //        if (!isShooting && angleToEnemy <= shootAngle)
-        //        {
-        //            StartCoroutine(shoot());
-        //        }
-        //        return true;
-        //    }
-        //}
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, enemyDirection, out hit))
+        {
+            if ((hit.collider.CompareTag("Enemy") || hit.collider.CompareTag("EnemyBoss") || hit.collider.CompareTag("Turret")) && angleToEnemy <= viewAngle)
+            {
+                if (isEnemyInRange)
+                {
+                    faceEnemy();
+                }
+                if (!isShooting && angleToEnemy <= shootAngle)
+                {
+                    StartCoroutine(shoot());
+                }
+                return true;
+            }
+        }
         return false;
     }
 
