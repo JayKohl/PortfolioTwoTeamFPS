@@ -61,6 +61,7 @@ public class buttonFunctions : MonoBehaviour
     }
     public void startGame()
     {
+        Time.timeScale = 1;
         aud.PlayOneShot(resumeButton);
         SceneManager.LoadScene("LvlOneArena");
     }
