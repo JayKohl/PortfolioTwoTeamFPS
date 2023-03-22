@@ -52,6 +52,11 @@ public class endBossAI : enemyAI
 
     System.Random randomAttack;
 
+    int airTime;
+    Vector3 one;
+    Vector3 two;
+    float distanceToBoss;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -89,9 +94,24 @@ public class endBossAI : enemyAI
                     StartCoroutine(spikeShootHigh());
                 }
                 isAgro = true;
-                if (!canSeePlayer() && agent.isActiveAndEnabled == true)
+
+                two = agent.transform.position;
+                one = gameManager.instance.player.transform.position;
+                distanceToBoss = Mathf.Sqrt(Mathf.Pow((two.x - one.x), 2) + Mathf.Pow((two.y - one.y), 2) + Mathf.Pow((two.z - one.z), 2));
+                if (agent.transform.position.y < gameManager.instance.player.transform.position.y)
                 {
-                    agent.destination = gameManager.instance.player.transform.position;
+                    airTime++;
+                }
+                else
+                {
+                    airTime = 0;
+                }
+                if (airTime < 180 || distanceToBoss > 8)
+                {
+                    if (!canSeePlayer() && agent.isActiveAndEnabled == true)
+                    {
+                        agent.destination = gameManager.instance.player.transform.position;
+                    }
                 }
             }
             else if (agent.destination != gameManager.instance.player.transform.position && isAgro == false)
@@ -103,6 +123,11 @@ public class endBossAI : enemyAI
                 if (agent.isActiveAndEnabled == true)
                 {
                     agent.destination = gameManager.instance.player.transform.position;
+                }
+                if (agent.transform.position.y < gameManager.instance.player.transform.position.y && !isShootHigh)
+                {
+                    isShootHigh = true;
+                    StartCoroutine(spikeShootHigh());
                 }
             }
         }
