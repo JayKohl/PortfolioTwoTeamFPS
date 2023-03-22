@@ -19,7 +19,7 @@ public class enemyTreeAI : enemyAI
     // Start is called before the first frame update
     void Start()
     {
-        trunkHit.enabled = false;
+        //trunkHit.enabled = false;
         //agentStop();
         GetComponent<Collider>().enabled = false;
         isSprouting = true;
