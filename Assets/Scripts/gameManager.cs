@@ -193,9 +193,9 @@ public class gameManager : MonoBehaviour
     }
     public void updateGameGoal(int amount)
     {
-        fuelCellsRemaining += amount;
+        fuelCellsRemaining += amount;        
+        fuelCellsRemainingText.text = fuelCellsRemaining.ToString("F0");
         fuelCellsRemainingObject.SetActive(true);
-        fuelCellsRemainingText.text = fuelCellsRemaining.ToString("F0");        
 
         if (fuelCellsRemaining <= 0)
         {
