@@ -193,14 +193,19 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     {
         if (!blind)
         {
-            //GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-            //bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
-            //aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
-
-            GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-            aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
-            Vector3 shootingVector = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
-            bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
+            if (agent.transform.position.y < gameManager.instance.player.transform.position.y)
+            {
+                GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
+                aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
+                Vector3 shootingVector = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
+                bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
+            }
+            else
+            {
+                GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
+                bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
+                aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
+            }
         }
         else
         {
