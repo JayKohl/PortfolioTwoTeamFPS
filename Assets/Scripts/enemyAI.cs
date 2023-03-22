@@ -98,7 +98,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
                 agent.SetDestination(gameManager.instance.player.transform.position);
                 if (agent.remainingDistance < agent.stoppingDistance)
                 {
-                    if(hit.collider.CompareTag("Player"))
+                    if (hit.collider.CompareTag("Player"))
                     {
                         facePlayer();
                     }
@@ -130,12 +130,12 @@ public abstract class enemyAI : MonoBehaviour, IDamage
             }
             GetComponent<Collider>().enabled = false;
             GetComponentInChildren<Canvas>().enabled = false;
-            if(agent.enabled == true)
+            if (agent.enabled == true)
             {
                 aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)]);
                 anim.SetBool("Dead", true);
                 agent.enabled = false;
-            }            
+            }
             //Destroy(gameObject); Create a IEnumerator for destroyObject
         }
         else
@@ -193,9 +193,14 @@ public abstract class enemyAI : MonoBehaviour, IDamage
     {
         if (!blind)
         {
+            //GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
+            //bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
+            //aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
+
             GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
-            bulletClone.GetComponent<Rigidbody>().velocity = playerDirection * bulletSpeed;
             aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
+            Vector3 shootingVector = (gameManager.instance.player.transform.position - shootPosition.position).normalized;
+            bulletClone.GetComponent<Rigidbody>().velocity = shootingVector * bulletSpeed;
         }
         else
         {
@@ -204,6 +209,7 @@ public abstract class enemyAI : MonoBehaviour, IDamage
                 GameObject bulletClone = Instantiate(bullet, shootPosition.position, bullet.transform.rotation);
                 bulletClone.GetComponent<Rigidbody>().velocity = new Vector3(Random.Range(0, 0.5f), Random.Range(0, 0.5f), Random.Range(0, 0.5f)) * bulletSpeed;
                 aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
+
             }
         }
     }
