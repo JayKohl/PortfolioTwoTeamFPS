@@ -28,6 +28,9 @@ public class endBossAI : enemyAI
     [SerializeField] Transform shootPositionSpikeNine;
     [SerializeField] Transform shootPositionSpikeTen;
 
+    [SerializeField] float newSpikeShootRate;
+    bool isShootHigh;
+
     [SerializeField] GameObject spawnEnemyType;
     [SerializeField] Transform[] spawnPos;
 
@@ -80,6 +83,11 @@ public class endBossAI : enemyAI
             anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
             if (isPlayerInRange)
             {
+                if (agent.transform.position.y < gameManager.instance.player.transform.position.y && !isShootHigh)
+                {
+                    isShootHigh = true;
+                    StartCoroutine(spikeShootHigh());
+                }
                 isAgro = true;
                 if (!canSeePlayer() && agent.isActiveAndEnabled == true)
                 {
@@ -290,6 +298,26 @@ public class endBossAI : enemyAI
 
         GameObject spikeCloneTen = Instantiate(spike, shootPositionSpikeTen.position, spike.transform.rotation);
         spikeCloneTen.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+    }
+    protected IEnumerator spikeShootHigh()
+    {
+        shootHigh();
+        yield return new WaitForSeconds(newSpikeShootRate);
+        isShootHigh = false;
+    }
+    public void shootHigh()
+    {
+        GameObject spikeClone = Instantiate(spike, shootPositionSpike.position, spike.transform.rotation);
+        Vector3 shootingVecOne = (gameManager.instance.player.transform.position - shootPositionSpike.position).normalized;
+        spikeClone.GetComponent<Rigidbody>().velocity = shootingVecOne * bulletSpeed;
+
+        GameObject spikeCloneTwo = Instantiate(spike, shootPositionSpikeTwo.position, spike.transform.rotation);
+        Vector3 shootingVecTwo = (gameManager.instance.player.transform.position - shootPositionSpikeTwo.position).normalized;
+        spikeCloneTwo.GetComponent<Rigidbody>().velocity = shootingVecTwo * bulletSpeed;
+
+        GameObject spikeCloneThree = Instantiate(spike, shootPositionSpikeThree.position, spike.transform.rotation);
+        Vector3 shootingVecThree = (gameManager.instance.player.transform.position - shootPositionSpikeThree.position).normalized;
+        spikeCloneThree.GetComponent<Rigidbody>().velocity = shootingVecThree * bulletSpeed;
     }
     public override void takeDamage(int dmg)
     {
