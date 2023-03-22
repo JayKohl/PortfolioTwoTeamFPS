@@ -9,6 +9,8 @@ public class enemyTreeAI : enemyAI
     bool isFirstTime;
     bool isSprouting;
 
+    [SerializeField] SphereCollider trunkHit;
+
     bool setOnFire;
     bool chilled;
     bool chilledOnce;
@@ -17,6 +19,7 @@ public class enemyTreeAI : enemyAI
     // Start is called before the first frame update
     void Start()
     {
+        trunkHit.enabled = false;
         //agentStop();
         GetComponent<Collider>().enabled = false;
         isSprouting = true;
@@ -103,5 +106,13 @@ public class enemyTreeAI : enemyAI
         //aud.PlayOneShot(audBasicAttack[Random.Range(0, audBasicAttack.Length)]);
         yield return new WaitForSeconds(meleeRate);
         isMelee = false;
+    }
+    public void meleeTrunkColliderOn()
+    {
+        trunkHit.enabled = true;
+    }
+    public void meleeTrunkColliderOff()
+    {
+        trunkHit.enabled = false;
     }
 }
