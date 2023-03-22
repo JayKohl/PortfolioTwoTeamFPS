@@ -15,6 +15,7 @@ public class mechHead : MonoBehaviour
     bool isMissileShoot;
     [SerializeField] GameObject parentBody;
     bool isOnHead;
+    [SerializeField] GameObject shield;
 
     protected Vector3 playerDirection;
     protected float angleToPlayer;
@@ -28,11 +29,19 @@ public class mechHead : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (shield.activeInHierarchy == true)
+        {
+            gameObject.GetComponent<SphereCollider>().enabled = false;
+        }
+        else
+        {
+            gameObject.GetComponent<SphereCollider>().enabled = true;
+        }
         if (parentBody.GetComponentInParent<BoxCollider>().enabled == false)
         {
             GetComponent<mechHead>().enabled = false;
         }
-        else if (!isMissileShoot && isOnHead == true)
+        else if (!isMissileShoot && isOnHead == true && gameObject.GetComponent<SphereCollider>().enabled == true)
         {
             StartCoroutine(missileShoot());
         }
