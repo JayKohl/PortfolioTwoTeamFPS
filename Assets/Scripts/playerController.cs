@@ -88,7 +88,7 @@ public class playerController : MonoBehaviour
     public float speedOriginal;
     public int gunSelection;
     public float baseFOV;
-    Vector3 pushback;
+    public Vector3 pushback;
     bool isPlayingSteps;
     bool isSprinting;
     public bool isCrouched;
