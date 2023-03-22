@@ -12,11 +12,8 @@ public class mechHead : MonoBehaviour
     [SerializeField] float missileRange;
 
 
-    //[Header("----- Audio Cont -----")]
-    //[SerializeField] protected AudioClip[] audMissile;
-
     bool isMissileShoot;
-
+    [SerializeField] GameObject parentBody;
     bool isOnHead;
 
     protected Vector3 playerDirection;
@@ -31,7 +28,11 @@ public class mechHead : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isMissileShoot && isOnHead == true)
+        if (parentBody.GetComponentInParent<BoxCollider>().enabled == false)
+        {
+            GetComponent<mechHead>().enabled = false;
+        }
+        else if (!isMissileShoot && isOnHead == true)
         {
             StartCoroutine(missileShoot());
         }
