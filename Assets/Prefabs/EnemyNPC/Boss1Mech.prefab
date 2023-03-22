@@ -1552,7 +1552,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4872947410899261874}
+  - component: {fileID: 8728834429441027481}
   - component: {fileID: 4872947410887264444}
+  - component: {fileID: 6084540243177332382}
+  - component: {fileID: 3850208424090718441}
   m_Layer: 0
   m_Name: mech
   m_TagString: Untagged
@@ -1576,6 +1579,26 @@ Transform:
   m_Father: {fileID: 4872947410899261872}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8728834429441027481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4872947410898830800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179275d771cadfe49bbe589f584eea8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootPositionMissile: {fileID: 1970186759}
+  missile: {fileID: 6734592902102622452, guid: 39a3b4a1ed55115449c53051dea3f6d5, type: 3}
+  missileSpeed: 15
+  missileShootRate: 1.5
+  missileYVelocity: 0.75
+  missileRange: 12
+  parentBody: {fileID: 4872947410898830802}
+  shield: {fileID: 696849869}
 --- !u!137 &4872947410887264444
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -1680,6 +1703,32 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.016049234, y: -0.000000013038516, z: -0.029454453}
     m_Extent: {x: 0.02531513, y: 0.01991124, z: 0.030598456}
   m_DirtyAABB: 0
+--- !u!65 &6084540243177332382
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4872947410898830800}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 3, z: 3}
+  m_Center: {x: -0.00000080641473, y: 1, z: -1.5}
+--- !u!135 &3850208424090718441
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4872947410898830800}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: -0.00000080641473, y: 1, z: -7}
 --- !u!1 &4872947410898830802
 GameObject:
   m_ObjectHideFlags: 0

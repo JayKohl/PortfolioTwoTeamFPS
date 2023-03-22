@@ -47,6 +47,11 @@ public class enemyBossAI : enemyAI
     bool chilled;
     bool chilledOnce;
 
+    int airTime;
+    Vector3 one;
+    Vector3 two;
+    float distanceToBoss;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,9 +86,23 @@ public class enemyBossAI : enemyAI
             anim.SetFloat("Speed", agent.velocity.normalized.magnitude);
             if (isPlayerInRange)
             {
-                if (!canSeePlayer())
+                two = agent.transform.position;
+                one = gameManager.instance.player.transform.position;
+                distanceToBoss = Mathf.Sqrt(Mathf.Pow((two.x - one.x), 2) + Mathf.Pow((two.y - one.y), 2) + Mathf.Pow((two.z - one.z), 2));
+                if (agent.transform.position.y < gameManager.instance.player.transform.position.y)
                 {
-                    agent.destination = gameManager.instance.player.transform.position;
+                    airTime++;
+                }
+                else
+                {
+                    airTime = 0;
+                }
+                if (airTime < 180 || distanceToBoss > 8)
+                {
+                    if (!canSeePlayer())
+                    {
+                        agent.destination = gameManager.instance.player.transform.position;
+                    }
                 }
             }
             else if (agent.destination != gameManager.instance.player.transform.position)
@@ -261,9 +280,9 @@ public class enemyBossAI : enemyAI
     }
     protected override bool canSeePlayer()
     {
-        Vector3 two = agent.transform.position;
-        Vector3 one = gameManager.instance.player.transform.position;
-        float distanceToBoss = Mathf.Sqrt(Mathf.Pow((two.x - one.x), 2) + Mathf.Pow((two.y - one.y), 2) + Mathf.Pow((two.z - one.z), 2));
+        //Vector3 two = agent.transform.position;
+        //Vector3 one = gameManager.instance.player.transform.position;
+        //float distanceToBoss = Mathf.Sqrt(Mathf.Pow((two.x - one.x), 2) + Mathf.Pow((two.y - one.y), 2) + Mathf.Pow((two.z - one.z), 2));
 
         playerDirection = (gameManager.instance.player.transform.position - headPos.position).normalized;
         // playerDirection.y += 1;

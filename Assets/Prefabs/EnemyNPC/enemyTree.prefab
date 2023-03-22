@@ -394,6 +394,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1963154466549954363}
+  - component: {fileID: 4296446249651271176}
+  - component: {fileID: 1975644742}
   m_Layer: 0
   m_Name: Serpmare_ WeakPoint
   m_TagString: Untagged
@@ -416,6 +418,32 @@ Transform:
   m_Father: {fileID: 4568907479261472633}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4296446249651271176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478793125198167361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d242d51f827cd004da3e25a74f839ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeDamage: 2
+--- !u!135 &1975644742
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478793125198167361}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: -1, y: 0, z: 0}
 --- !u!1 &1588452485920860851
 GameObject:
   m_ObjectHideFlags: 0
@@ -2073,6 +2101,7 @@ GameObject:
   - component: {fileID: 550125287032875118}
   - component: {fileID: 550125287032875121}
   - component: {fileID: 550125287032875115}
+  - component: {fileID: 19557730}
   m_Layer: 0
   m_Name: enemyTree
   m_TagString: Enemy
@@ -2144,6 +2173,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 45b61947bdd5d584786950bd123c7032, type: 3}
   isPlayerInRange: 0
   modelNoHit: {fileID: 1798861676597925799}
+  trunkHit: {fileID: 1975644742}
 --- !u!135 &550125287032875112
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2308,6 +2338,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!64 &19557730
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6487871153892255920}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &6910196105619788479
 GameObject:
   m_ObjectHideFlags: 0

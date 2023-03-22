@@ -88,7 +88,7 @@ public class playerController : MonoBehaviour
     public float speedOriginal;
     public int gunSelection;
     public float baseFOV;
-    Vector3 pushback;
+    public Vector3 pushback;
     bool isPlayingSteps;
     bool isSprinting;
     public bool isCrouched;
@@ -221,10 +221,7 @@ public class playerController : MonoBehaviour
                     playerVelocity.y = jumpSpeed;
                     aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)]);
                 }
-                else
-                {
-                    jumpsCurrent++;
-                }
+                
 
 
             }
@@ -725,7 +722,7 @@ public class playerController : MonoBehaviour
             playeranim.SetBool("isShooting", false);
         }
 
-        if (Input.GetButtonDown("Jump") && jumpsCurrent <= jumpTimes)
+        if (Input.GetButtonDown("Jump"))
         {
             playeranim.SetBool("isJumping", true);
         }
@@ -794,7 +791,7 @@ public class playerController : MonoBehaviour
             yield break;
         }
         playerSpeed = trapDamage;
-        StartCoroutine(flashDamage(4));
+        StartCoroutine(flashDamage(4, effectTime));
         yield return new WaitForSeconds(effectTime);
         playerSpeed = speedOriginal;
        

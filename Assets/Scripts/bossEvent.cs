@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bossEvent : MonoBehaviour
+public class bossEvent : MonoBehaviour, IDamage
 {
     public bool bossKill;
     [SerializeField] GameObject bossAreaEntrance;
@@ -13,6 +13,9 @@ public class bossEvent : MonoBehaviour
     [SerializeField] Renderer setLazerColorThree;
     [SerializeField] Renderer setLazerColorFour;
     [SerializeField] GameObject preventRunning;
+
+    [SerializeField] BoxCollider noShootBoss;
+    bool isPlayerIn;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +45,22 @@ public class bossEvent : MonoBehaviour
         toggleMesh.enabled = true;//toggleMesh;
         gameManager.instance.playerScript.controller.enabled = true;
     }
+    public virtual void takeDamage(int dmg)
+    {
+        if (!isPlayerIn)
+        {
+            gameManager.instance.playerScript.controller.enabled = false;
+            gameManager.instance.player.transform.position = preventRunning.transform.position;
+            StartCoroutine(toggleDoorLock());
+
+            setLazerColor.material.color = Color.white;
+            setLazerColorTwo.material.color = Color.white;
+            setLazerColorThree.material.color = Color.white;
+            setLazerColorFour.material.color = Color.white;
+            noShootBoss.enabled = false;
+            isPlayerIn = true;
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (!bossKill)
@@ -54,6 +73,8 @@ public class bossEvent : MonoBehaviour
             setLazerColorTwo.material.color = Color.white;
             setLazerColorThree.material.color = Color.white;
             setLazerColorFour.material.color = Color.white;
+            noShootBoss.enabled = false;
+            isPlayerIn = true;
         }
     }
 }

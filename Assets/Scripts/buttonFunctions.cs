@@ -32,7 +32,8 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.unPause();
         gameManager.instance.playerScript.playerRespawn();
         gameManager.instance.playerScript.playerDied = false;
-        
+        gameManager.instance.playerScript.pushback = new Vector3(0,0,0);
+        gameManager.instance.playerScript.playerVelocity = new Vector3(0, 0, 0);
     }
     
     public void restart()
@@ -41,6 +42,7 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.playerScript.poisoned = false;
         gameManager.instance.unPause();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
         
     }
 
@@ -100,6 +102,7 @@ public class buttonFunctions : MonoBehaviour
         gameManager.instance.activeMenu.SetActive(true);
     }
 
+ 
     //public void closeQuestOne()
     //{
     //    StartCoroutine(gameManager.instance.deleteTextNpc(0.1f));
