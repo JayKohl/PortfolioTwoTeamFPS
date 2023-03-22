@@ -194,10 +194,12 @@ public class gameManager : MonoBehaviour
     public void updateGameGoal(int amount)
     {
         fuelCellsRemaining += amount;
-        fuelCellsRemainingText.text = fuelCellsRemaining.ToString("F0");
+        fuelCellsRemainingObject.SetActive(true);
+        fuelCellsRemainingText.text = fuelCellsRemaining.ToString("F0");        
 
         if (fuelCellsRemaining <= 0)
         {
+            fuelCellsRemainingObject.SetActive(false);
             //send message to player to head to arena or something
             if (bossDead)
                 StartCoroutine(endLevel1());
