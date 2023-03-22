@@ -47,6 +47,11 @@ public class enemyBossAI : enemyAI
     bool chilled;
     bool chilledOnce;
 
+    int airTime;
+    Vector3 one;
+    Vector3 two;
+    float distanceToBoss;
+
     // Start is called before the first frame update
     void Start()
     {
