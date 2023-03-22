@@ -18,8 +18,8 @@ public class LVLButtons : MonoBehaviour
 
     [SerializeField] public GameObject errorText;
     [SerializeField] public int tokensum;
-     public bool coolDownReduced;
-     public bool abilityDamageUp;
+    public bool coolDownReduced;
+    public bool abilityDamageUp;
 
 
     void Update()
@@ -27,6 +27,16 @@ public class LVLButtons : MonoBehaviour
         if (tokensum != gameManager.instance.lvlscript.GetTokens())
         {
             tokensum = gameManager.instance.lvlscript.GetTokens();
+        }
+
+        if(cooldowncover.activeSelf)
+        {
+            coolDownReduced = true;
+        }
+
+        if (abilitycover.activeSelf)
+        {
+            abilityDamageUp = true;
         }
     }
 
@@ -136,9 +146,9 @@ public class LVLButtons : MonoBehaviour
     {
         if ((tokensum - 3) >= 0)
         {
+            coolDownReduced = true;
             cooldowncover.SetActive(true);
             gameManager.instance.lvlscript.DecrementTokens(3);
-            coolDownReduced = true;
         }
         else
         {
