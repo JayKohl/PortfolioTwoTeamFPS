@@ -791,7 +791,7 @@ public class playerController : MonoBehaviour
             yield break;
         }
         playerSpeed = trapDamage;
-        StartCoroutine(flashDamage(4));
+        StartCoroutine(flashDamage(4, effectTime));
         yield return new WaitForSeconds(effectTime);
         playerSpeed = speedOriginal;
        
