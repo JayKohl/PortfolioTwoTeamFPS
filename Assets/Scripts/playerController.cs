@@ -35,6 +35,7 @@ public class playerController : MonoBehaviour
     [SerializeField] float zoomMax;
     Vector3 muzzleFlashPosition;
     [SerializeField] public GameObject shieldOnPlayer;
+    [SerializeField] public AudioClip shieldHitSound;
     [SerializeField] public GameObject fireOnPlayer;
     [SerializeField] public GameObject iceOnPlayer;
     [SerializeField] GameObject crosshair;
@@ -477,6 +478,7 @@ public class playerController : MonoBehaviour
     }
     IEnumerator shieldTakeDamage(int dmg)
     {
+        aud.PlayOneShot(shieldHitSound);
         gameManager.instance.shieldUI.GetComponentInChildren<Image>().color = new Color(.567f, .509f, .977f, .35f);
         shieldOnPlayer.GetComponent<shield>().shieldTakeDamage(dmg);
         gameManager.instance.shieldHPNum -= dmg;
