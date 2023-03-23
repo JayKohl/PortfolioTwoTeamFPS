@@ -213,7 +213,7 @@ public class playerController : MonoBehaviour
                 isCrouched = true;
 
             }
-            if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes && !slowed)
+            if (Input.GetButtonDown("Jump") && jumpsCurrent < jumpTimes && !slowed && !gameManager.instance.isPaused)
             {
                 if (Physics.Raycast(transform.position, Vector3.down, 1.1f))
                 {
@@ -698,7 +698,7 @@ public class playerController : MonoBehaviour
     public void animatePlayer()
     {
         // Control for isWalking animation bool
-        if (Input.GetKey("w") || Input.GetKey("s"))
+        if ((Input.GetKey("w") || Input.GetKey("s")) && !gameManager.instance.isPaused)
         {
             playeranim.SetBool("isWalking", true);
         }
@@ -708,7 +708,7 @@ public class playerController : MonoBehaviour
         }
 
         // Control for isRunning animation bool
-        if (((Input.GetKey("w") || Input.GetKey("s")) && Input.GetKey("left shift")) && !isCrouched)
+        if (((Input.GetKey("w") || Input.GetKey("s")) && Input.GetKey("left shift")) && !gameManager.instance.isPaused)
         {
             playeranim.SetBool("isRunning", true);
         }
@@ -722,7 +722,7 @@ public class playerController : MonoBehaviour
             playeranim.SetBool("isShooting", false);
         }
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && !gameManager.instance.isPaused)
         {
             playeranim.SetBool("isJumping", true);
         }

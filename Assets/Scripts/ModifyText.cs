@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ModifyText : MonoBehaviour
 {
@@ -21,10 +22,13 @@ public class ModifyText : MonoBehaviour
     void Start()
     {
         allHints.Add(hint1);
-        allHints.Add(hint2);
         allHints.Add(hint3);
         allHints.Add(hint4);
         allHints.Add(hint5);
+        if (SceneManager.GetActiveScene().name == "LvlThreeTheWorld")
+        {
+            allHints.Add(hint2);
+        }
         HintSelect();
     }
 
