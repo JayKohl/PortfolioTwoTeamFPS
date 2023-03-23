@@ -89,6 +89,7 @@ public class terminalLvlTwo : MonoBehaviour, IDamage
     IEnumerator turnOffLasers()
     {
         yield return new WaitForSeconds(1);
+        alarmTrigger.GetComponent<alarmOnTrigger>().alarmOff();
         laserOne.SetActive(false);
         laserTwo.SetActive(false);
         laserThree.SetActive(false);
